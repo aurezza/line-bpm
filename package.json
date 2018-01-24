@@ -1,0 +1,45 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^5.2.0",
+    "append-query": "^2.0.1",
+    "axios": "^0.17.1",
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "^4.16.2",
+    "express-winston": "^2.4.0",
+    "heroku": "^0.2.0",
+    "mongo": "^0.1.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^3.0.1",
+    "mongoose": "^4.13.9",
+    "morgan": "~1.9.0",
+    "node-env-file": "^0.1.8",
+    "node-line-bot-api": "^0.1.4",
+    "qs": "^6.5.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "serve-favicon": "~2.4.5",
+    "winston": "^2.4.0"
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingleuther/quesline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kingleuther/quesline/issues"
+  },
+  "homepage": "https://github.com/kingleuther/quesline#readme",
+  "description": ""
+}

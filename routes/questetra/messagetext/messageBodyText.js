@@ -1,4 +1,4 @@
-var localechecker = require('../locale/localechecker');
+var localechecker = require('../../locale/localechecker');
 function messageBodyText(body) 
 {
     var localeText = localechecker('jp');
@@ -9,4 +9,4 @@ function messageBodyText(body)
     localeText.text.OverTimeReason +" : " + req.body.overtime_reason + "\n";
 }
 
-module.exports = messageText;
+module.exports = messageBodyText;

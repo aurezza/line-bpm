@@ -1,4 +1,4 @@
-var localechecker = require('../locale/localechecker');
+var localechecker = require('../../locale/localechecker');
 function labelText() 
 {
     var localeText = localechecker('jp');
@@ -7,4 +7,4 @@ function labelText()
         Decline:localeText.label.Decline};
          }
 
-module.exports = messageText;
+module.exports = labelText;

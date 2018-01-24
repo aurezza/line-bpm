@@ -3,7 +3,7 @@ var localechecker = require('../locale/localechecker');
 function receiver(router, client){
   router.post('/receiveFromQuest', function(req, res) {
     console.log("req.body",req.body);
-    var localeText = localechecker();
+    var localeText = localechecker('jp');
     console.log(localeText);
     var lineId = 'U34f149724f23c004673a3e11409ed3c0';
     const message = {

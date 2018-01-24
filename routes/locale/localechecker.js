@@ -1,5 +1,5 @@
-function localechecker(){  
-    var japanese = require('../locale/jp/receiverJp');    
+function localechecker(locale){  
+    var japanese = require('../locale/'+locale+'/receiver');    
     var localetext = {text:japanese.text,label:japanese.label};
     return localetext;
 }

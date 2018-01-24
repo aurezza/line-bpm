@@ -1,7 +1,7 @@
 'use strict';
-var messageText = require('../messageText/messageBodyText');
-var labelText = require('../messageText/labelBody');
-var messageStatus = require('../messageText/messageStatus');
+var messageText = require('./messagetext/messageBodyText');
+var labelText = require('./messagetext/labelBody');
+var messageStatus = require('./messagetext/messageStatus');
 function receiver(router, client){
   router.post('/receiveFromQuest', function(req, res) {
     var messageText = messageBodyText(req.body);

@@ -8,6 +8,8 @@ const config = {
 const client = new line.Client(config);
 var axios = require('axios');
 var querystring = require('querystring');
+var receiver = require('./questetra/receiver');
+var callback = require('./line/callback');
 
 receiver(router, client);
 callback(router, axios, querystring);

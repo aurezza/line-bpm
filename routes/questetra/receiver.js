@@ -1,39 +1,32 @@
 'use strict';
-var localechecker = require('../locale/localechecker');
+var messageText = require('../questetra/messageText/messageBodyText');
+var labelText = require('../questetra/messageText/labelBody');
+var messageStatus = require('../questetra/messageText/messageStatus');
 function receiver(router, client){
   router.post('/receiveFromQuest', function(req, res) {
-    console.log("req.body",req.body);
-    var localeText = localechecker('jp');
-    console.log(localeText);
+    var messageText = messageBodyText(req.body);
+    var labelText = labelText();
+    var messageStatus = messageStatus();
     var lineId = 'U34f149724f23c004673a3e11409ed3c0';
     const message = {
       "type": "template",
       "altText": "this is a confirm template",
       "template": {
           "type": "confirm",
-          "text":  localeText.text.Name +" : " + req.body.user_name + "\n"+
-                   localeText.text.OvertimeDate +" : " + req.body.overtime_date + "\n"+
-                   localeText.text.OvertimeTime +" : " + req.body.overtime_time + "\n"+
-                   localeText.text.OverTimeReason +" : " + req.body.overtime_reason,
+          "text":  messageText,
           "actions": [
               {
                 "type": "postback",
-                "label": localeText.label.Approve,
-                "text":  localeText.text.Name +" : " + req.body.user_name + "\n"+
-                         localeText.text.OvertimeDate +" : " + req.body.overtime_date + "\n"+
-                         localeText.text.OvertimeTime +" : " + req.body.overtime_time + "\n"+
-                         localeText.text.OverTimeReason +" : " + req.body.overtime_reason + "\n"+
-                         localeText.text.Status +" : " +localeText.text.Approved,
+                "label": labelText.Approve,
+                "text":  messageText+
+                         messageStatus.Approved,
                 "data": "processInstanceId="+req.body.process_id+"&key=NKOmgMAo36gnNvVnQwyKNojRwKh4gte0&q_replymessage=yes"
               },
               {
                 "type": "postback",
-                "label": localeText.label.Decline,
-                "text":  localeText.text.Name +" : " + req.body.user_name + "\n"+
-                         localeText.text.OvertimeDate +" : " + req.body.overtime_date + "\n"+
-                         localeText.text.OvertimeTime +" : " + req.body.overtime_time + "\n"+
-                         localeText.text.OverTimeReason +" : " + req.body.overtime_reason + "\n"+
-                         localeText.text.Status +" : " +localeText.text.Declined,
+                "label": labelText.Decline,
+                "text":  messageText+
+                         messageStatus.Declined,
                 "data": "processInstanceId="+req.body.process_id+"&key=NKOmgMAo36gnNvVnQwyKNojRwKh4gte0&q_replymessage=no"
                 
               }

@@ -40,13 +40,9 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 
 // begin using node line bot - need raw buffer for signature validation
-app.use(bodyParser.json({
-    verify (req, res, buf){
-        req.rawBody = buf
-    }
-}));
+app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -70,21 +66,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// event handler
-function handleEvent(event) {
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    // ignore non-text-message event
-    return Promise.resolve(null);
-  }
-
-  // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
-
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
-}
-
 // listen on port
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

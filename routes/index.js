@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var verify = require('./line/verify');
+var success = require('./line/success');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// verify page
+verify(router);
+success(router);
 
 module.exports = router;

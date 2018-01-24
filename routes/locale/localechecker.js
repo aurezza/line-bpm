@@ -1,7 +1,10 @@
 function localechecker(locale){  
-    var japanese = require('../locale/'+locale+'/receiver');    
-    var localetext = {text:japanese.text,label:japanese.label};
-    return localetext;
+    var translations = require('../locale/'+locale+'/receiver');    
+    var localetext = {
+        text:translations.text,
+        label:translations.label
+    };
+    return translations;
 }
 
 module.exports = localechecker;

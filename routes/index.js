@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const line = require('@line/bot-sdk');
 const config = {
   channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
   channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,

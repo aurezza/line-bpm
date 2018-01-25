@@ -6,8 +6,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var env = require('node-env-file');
-
+// create Express app
+// about Express itself: https://expressjs.com/
+const app = express();
 env(__dirname + '/.env');
+const port = process.env.PORT || 4000;
 // require node line bot
 // const line = require('node-line-bot-api');
 
@@ -27,9 +30,7 @@ const config = {
 // create LINE SDK client
 const client = new line.Client(config);
 
-// create Express app
-// about Express itself: https://expressjs.com/
-const app = express();
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -66,7 +67,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 // listen on port
-const port = process.env.PORT || 4000;
+
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });

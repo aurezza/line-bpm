@@ -9,7 +9,9 @@ var env = require('node-env-file');
 // create Express app
 // about Express itself: https://expressjs.com/
 const app = express();
+
 env(__dirname + '/.env');
+
 const port = process.env.PORT || 4000;
 // require node line bot
 // const line = require('node-line-bot-api');

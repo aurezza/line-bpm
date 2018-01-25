@@ -1,8 +1,122 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@font-face {
+  font-family:'Glyphicons Halflings';
+    src:url(.././fonts/glyphicons-halflings-regular.woff2);
 }
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+ }
 
 a {
-  color: #00B7FF;
+  color: #fff;
 }
+
+.default-page{
+  margin-top: 60px;
+  padding:0 20px;
+}
+
+.default-page .container {
+  text-align: left;
+  padding-top: 0;
+  max-width: none !important;  
+}
+
+.container {
+  width: 100%;
+  max-width: 500px !important;
+  text-align: center;
+  height: 100vh;
+  display: table;
+  margin: 0 auto;
+}
+
+.container-wrapper {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.panel {
+  width:100%;
+}
+
+.panel-info {
+  border: 1px solid #cdcdcd;
+  border-radius: 4px;
+  padding: 20px 24px 14px;
+  background: #fff;
+  box-shadow: #cecece 0px 2px 10px 2px;
+}
+
+.panel-heading {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.panel-title {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 14px;    
+}
+
+.form-horizontal {
+   width:100%;
+}
+
+.form-horizontal-input-group {
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.form-horizontal-input-group.input-group{
+  margin-bottom:10px;
+}
+
+.icon {
+  padding: 14px;
+  background: #cdcdcd;
+}  
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font: normal normal 16px/1 'Glyphicons Halflings';
+  font-family: 'Glyphicons Halflings', sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+.glyphicon-user:before {
+  content:"\e008";
+}
+
+.glyphicon-lock:before {
+  content:"\e033";
+}
+
+.form-group{
+  margin-top:10px;
+}
+
+.form-group .col-sm-12.controls {
+  padding: 0;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+}
+
+.green {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.light-gray {
+  background-color: #f9f6f6 !important;
+}
+        
+
+

@@ -13,7 +13,10 @@ function scanQrCode(object)
             .catch((err) => {
                 console.log(err)
             });
-
+    return var sampleText = {
+        eventType: object.eventType,
+        client : object.client
+        };         
     }      
 }
 

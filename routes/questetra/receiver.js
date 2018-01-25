@@ -1,5 +1,5 @@
 'use strict';
-var messageContent = require('./messagetext/messageContent');
+var messageContent = require('./message-text/message-content');
 function receiver(object){
   object.router.post('/receiveFromQuest', function(req, res) {
     var textContent = messageContent(req.body);

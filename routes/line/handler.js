@@ -1,4 +1,4 @@
-var scanQrCode = require('./scanQrCode');
+var scanQrCode = require('./scan-qr-code');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
        

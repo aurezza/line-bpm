@@ -1,6 +1,6 @@
-var scanQrCode = require('./receiver/scanQrCode');
-function lineReceiver(router, axios, querystring, client){
-    router.post('/lineReceiver', function(req, res) {
+var scanQrCode = require('./scanQrCode');
+function handler(router, axios, querystring, client){
+    router.post('/handler', function(req, res) {
        
         var eventType = req.body.events[0].type;
         var line_userId = req.body.events[0].source.userId;
@@ -10,4 +10,4 @@ function lineReceiver(router, axios, querystring, client){
     });
 }
 
-module.exports = lineReceiver;
+module.exports = handler;

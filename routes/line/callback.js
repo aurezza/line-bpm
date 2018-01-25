@@ -5,8 +5,8 @@ function callback(router, axios, querystring, client){
         var eventType = req.body.events[0].type
         var line_userId = req.body.events[0].source.userId
         
-        scanQrCode(eventType,client,line_userId);
-        
+        if(eventType == "follow") scanQrCode(eventType,client,line_userId);
+
     	if(req.body.events[0].postback != null && req.body.events[0].message == null){
             var parsedData = querystring.parse(req.body.events[0].postback.data);
             var repeatCounter = 0;

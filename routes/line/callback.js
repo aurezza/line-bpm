@@ -1,10 +1,11 @@
 var scanQrCode = require('./callback-functions/scanQrCode');
-function callback(router, axios, querystring){
+function callback(router, axios, querystring, client){
     router.post('/callback', function(req, res) {
 
         var eventType = req.body.events[0].type
         var line_userId = req.body.events[0].source.userId
-
+        console.log("eventType",eventType);
+        console.log("line_userId",line_userId);
         scanQrCode({eventType,client,line_userId});
           
     	if(req.body.events[0].postback != null && req.body.events[0].message == null){

@@ -1,14 +1,11 @@
 function scanQrCode(client,line_userId)
 {
-    console.log("fire");
-    console.log("client in scanQRCODE",client);
-    console.log("line_userId",line_userId);
+    var translation = localechecker('jp',this.toString());
+    console.log("this",this)
     const message = {
         type: 'text',
-        text: 'Hello! \n Thanks for adding BPMS-Messaging Bot \n'+ 
-              'To proceed please login to https://bpms-messaging.com/'+line_userId,
+        text: translation.text+line_userId,
         };
-    console.log('after message');
     client.pushMessage(line_userId, message)
         .then(() => {
             console.log("message sent to "+ line_userId);    
@@ -16,7 +13,7 @@ function scanQrCode(client,line_userId)
         .catch((err) => {
             console.log(err)
         });         
-    console.log('after pushMessage');      
+  
 }
 
 module.exports = scanQrCode;

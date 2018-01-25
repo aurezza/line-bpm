@@ -3,6 +3,7 @@ var messageContent = require('./messagetext/messageContent');
 function receiver(object){
   object.router.post('/receiveFromQuest', function(req, res) {
     var textContent = messageContent(req.body);
+    console.log(textContent);
     var lineId = 'U34f149724f23c004673a3e11409ed3c0';
     const message = {
       "type": "template",

@@ -11,7 +11,7 @@ var querystring = require('querystring');
 var receiver = require('./questetra/receiver');
 var callback = require('./line/callback');
 
-receiver(router, client);
+receiver({router, client});
 callback(router, axios, querystring);
 /* GET home page. */
 router.get('/', function(req, res, next) {

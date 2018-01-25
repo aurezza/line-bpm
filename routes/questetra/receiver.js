@@ -1,7 +1,7 @@
 'use strict';
 var messageContent = require('./messagetext/messageContent');
-function receiver(router, client){
-  router.post('/receiveFromQuest', function(req, res) {
+function receiver(object){
+  object.router.post('/receiveFromQuest', function(req, res) {
     var textContent = messageContent(req.body);
     var lineId = 'U34f149724f23c004673a3e11409ed3c0';
     const message = {
@@ -30,7 +30,7 @@ function receiver(router, client){
       }
     
     }
-    client.pushMessage(lineId, message)
+    object.client.pushMessage(lineId, message)
         .then(() => {
           console.log('message sent'); 
         })

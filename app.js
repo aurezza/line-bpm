@@ -11,7 +11,7 @@ var env = require('node-env-file');
 const app = express();
 
 // listen on port
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 env(__dirname + '/.env');
 // require node line bot

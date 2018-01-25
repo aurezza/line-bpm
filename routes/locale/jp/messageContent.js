@@ -1,16 +1,16 @@
 var japanese = {
                 text:{ 
-                    Name: "名",
-                    OvertimeDate: "残業日",
-                    OvertimeTime: "残業の時間",
-                    OverTimeReason: "残業理由",
-                    Approved:"承認された",
-                    Declined:"拒否した",
-                    Status:"状態" 
+                    name: "名",
+                    overtimeDate: "残業日",
+                    overtimeTime: "残業の時間",
+                    overTimeReason: "残業理由",
+                    approved:"承認された",
+                    declined:"拒否した",
+                    status:"状態" 
                 },
                 label:{    
-                    Approve: "承認する",
-                    Decline: "低下"
+                    approve: "承認する",
+                    decline: "低下"
                  }
    
 }

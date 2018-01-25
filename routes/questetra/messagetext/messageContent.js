@@ -4,17 +4,17 @@ function messageContent(body)
     var localeText = localechecker('jp','messageContent');
 
     var messageTemplate = {
-            text :  localeText.text.Name +" : " + body.user_name + "\n"+
-                    localeText.text.OvertimeDate +" : " + body.overtime_date + "\n"+
-                    localeText.text.OvertimeTime +" : " + body.overtime_time + "\n"+
-                    localeText.text.OverTimeReason +" : " + body.overtime_reason + "\n",
+            text :  localeText.text.name +" : " + body.user_name + "\n"+
+                    localeText.text.overtimeDate +" : " + body.overtime_date + "\n"+
+                    localeText.text.overtimeTime +" : " + body.overtime_time + "\n"+
+                    localeText.text.overTimeReason +" : " + body.overtime_reason + "\n",
             status : {
-                Approved:localeText.text.Status +" : " +localeText.text.Approved,
-                Declined:localeText.text.Status +" : " +localeText.text.Declined
+                approved:localeText.text.status +" : " +localeText.text.approved,
+                declined:localeText.text.status +" : " +localeText.text.declined
                 },
             label : {
-                Approve:localeText.label.Approve,
-                Decline:localeText.label.Decline
+                approve:localeText.label.approve,
+                decline:localeText.label.decline
                 }
             }
 

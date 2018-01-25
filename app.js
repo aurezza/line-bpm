@@ -6,16 +6,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var env = require('node-env-file');
-// create Express app
-// about Express itself: https://expressjs.com/
-const app = express();
-
-// listen on port
-const port = process.env.PORT;
 
 env(__dirname + '/.env');
 // require node line bot
 // const line = require('node-line-bot-api');
+
 var index = require('./routes/index');
 
 // require line bot dep
@@ -31,6 +26,10 @@ const config = {
 
 // create LINE SDK client
 const client = new line.Client(config);
+
+// create Express app
+// about Express itself: https://expressjs.com/
+const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -61,11 +60,13 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   
+
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
-
+// listen on port
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });

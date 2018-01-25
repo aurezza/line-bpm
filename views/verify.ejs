@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+  </head>
+  <body class="light-gray">
+    <div class="container">    `
+        <div class="container-wrapper mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+                <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            BPMS VERIFICATION
+                        </div>
+                </div>     
+                            
+                <form class="form-horizontal" role="form" method="post" action="./routes/verifyUsers/">
+                                    
+                            <div class="form-horizontal-input-group input-group">
+                                <span class="icon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="login-username" typeu="text" class="form-control" name="username" value="" placeholder="username or email">                                        
+                            </div>
+                                
+                            <div class="form-horizontal-input-group input-group">
+                                <span class="icon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+                                </div>
+                                                               
+                            <div class="input-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <!-- Button -->
+
+                                    <div class="col-sm-12 controls">
+                                      <a href="#" class="btn btn-success green">Login  </a>
+                                    </div>
+                            </div>  
+                    </form>     
+                </div>                     
+            </div>       
+        </div> 
+    </div>
+    
+</body>
+</html>

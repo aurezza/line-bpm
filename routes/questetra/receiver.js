@@ -10,12 +10,12 @@ function receiver(router, client){
     //   "altText": "this is a confirm template",
     //   "template": {
     //       "type": "confirm",
-    //       "text":  messageContent,
+    //       "text":  messageContent.text,
     //       "actions": [
     //           {
     //             "type": "postback",
     //             "label": labelText.Approve,
-    //             "text":  messageContent+
+    //             "text":  messageContent.text+
     //                      messageStatus.Approved,
     //             "data": "processInstanceId="+req.body.process_id+"&key=NKOmgMAo36gnNvVnQwyKNojRwKh4gte0&q_replymessage=yes"
     //           },

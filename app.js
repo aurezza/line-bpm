@@ -59,14 +59,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-// listen on port
-
-app.listen(port, () => {
-  console.log(`listening on ${port}`);
-});
 
 // listen on port
-const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });

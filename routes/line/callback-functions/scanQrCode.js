@@ -1,5 +1,6 @@
 function scanQrCode(client,line_userId)
 {
+    console.log("fire");
     const message = {
         type: 'text',
         text: 'Hello! \n Thanks for adding BPMS-Messaging Bot \n To proceed please login to https://bpms-messaging.com/'+req.body.events[0].source.userId,

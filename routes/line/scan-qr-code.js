@@ -1,7 +1,7 @@
-var localechecker = require('../locale/localechecker');
+var localechecker = require('../locale/locale-checker');
 function scanQrCode(client,line_userId)
 {
-    var localeText = localechecker('jp','scanQrCode');
+    var localeText = localechecker('jp','scan-qr-code');
     const message = {
         type: 'text',
         text: localeText.text+line_userId,

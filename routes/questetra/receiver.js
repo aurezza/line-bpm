@@ -3,11 +3,6 @@ var messageContent = require('./messagetext/messageContent');
 function receiver(router, client){
   router.post('/receiveFromQuest', function(req, res) {
     var textContent = messageContent(req.body);
-
-    console.log("textContent.text",textContent.text);
-    console.log("textContent.label.Approve",textContent.label.Approve);
-    console.log("textContent.status.Approved",textContent.status.Approved);
-
     var lineId = 'U34f149724f23c004673a3e11409ed3c0';
     const message = {
       "type": "template",
@@ -37,9 +32,7 @@ function receiver(router, client){
     }
     client.pushMessage(lineId, message)
         .then(() => {
-          // getting the message recieved from questetra and passing to line API 
-          console.log('The message: ', req.body.overtime_reason, 'message has ben sent'); 
-          // test save data
+          console.log('message sent'); 
         })
         .catch((err) => {
           console.log("error",err);

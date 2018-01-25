@@ -5,9 +5,9 @@ function callback(router, axios, querystring, client){
         var eventType = req.body.events[0].type
         var line_userId = req.body.events[0].source.userId
         
-        scanQrCode({eventType,client,line_userId});
-        console.log(scanQrCode);
-          
+        var a = scanQrCode({eventType,client,line_userId});
+        console.log(a);
+
     	if(req.body.events[0].postback != null && req.body.events[0].message == null){
             var parsedData = querystring.parse(req.body.events[0].postback.data);
             var repeatCounter = 0;

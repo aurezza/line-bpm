@@ -8,15 +8,16 @@ function scanQrCode(object)
           
         object.client.pushMessage(object.line_userId, message)
             .then(() => {
-                console.log("message sent to "+ object.line_userId);    
+                console.losg("message sent to "+ object.line_userId);    
             })
             .catch((err) => {
                 console.log(err)
             });
-    return var sampleText = {
-        eventType: object.eventType,
-        client : object.client
-        };         
+            var sampleText = {
+                eventType: object.eventType,
+                client : object.client
+                }
+    return sampleText;         
     }      
 }
 

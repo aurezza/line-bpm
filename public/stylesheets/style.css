@@ -18,11 +18,14 @@ a {
 
 .default-page{
   margin-top: 60px;
-  padding:0 20px;}
-  .default-page .container {
-    text-align: left;
-    padding-top: 0;
-    max-width: none !important;}
+  padding:0 20px;
+}
+
+.default-page .container {
+  text-align: left;
+  padding-top: 0;
+  max-width: none !important;  
+}
 
 .container {
   width: 100%;

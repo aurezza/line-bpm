@@ -13,16 +13,16 @@ function receiver(object){
           "actions": [
               {
                 "type": "postback",
-                "label": textContent.label.Approve,
+                "label": textContent.label.approve,
                 "text":  textContent.text +
-                         textContent.status.Approved,
+                         textContent.status.approved,
                 "data": "processInstanceId="+req.body.process_id+"&key=NKOmgMAo36gnNvVnQwyKNojRwKh4gte0&q_replymessage=yes"
               },
               {
                 "type": "postback",
-                "label": textContent.label.Decline,
+                "label": textContent.label.decline,
                 "text":  textContent.text +
-                         textContent.status.Declined,
+                         textContent.status.declined,
                 "data": "processInstanceId="+req.body.process_id+"&key=NKOmgMAo36gnNvVnQwyKNojRwKh4gte0&q_replymessage=no"
                 
               }

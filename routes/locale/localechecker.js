@@ -1,5 +1,5 @@
-function localechecker(locale){  
-    var translations = require('../locale/'+locale+'/receiver');    
+function localechecker(locale,filename){  
+    var translations = require('../locale/'+locale+'/'+filename);    
     return translations;
 }
 

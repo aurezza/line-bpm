@@ -11,14 +11,16 @@ const client = new line.Client(config);
 var axios = require('axios');
 var querystring = require('querystring');
 var receiver = require('./questetra/receiver');
-var callback = require('./line/callback');
+var handler = require('./line/handler');
 
 // verify page
 verify(router);
 success(router);
 
 receiver({router, client});
-callback(router, axios, querystring);
+handler(router, axios, querystring, client);
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var verify = require('./line/verify');
-var success = require('./line/success');
+var verify = require('./verify');
+var success = require('./success');
 
 // verify page
 verify(router);

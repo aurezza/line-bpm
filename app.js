@@ -11,7 +11,7 @@ const line = require('@line/bot-sdk');
 // env files
 env(__dirname + '/.env');
 
-var index = require('./routes/index');
+var handler = require('./routes/handler');
 
 // console.log("config", process.env);
 const config = {
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/', handler);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

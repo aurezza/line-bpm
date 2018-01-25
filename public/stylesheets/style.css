@@ -10,12 +10,19 @@
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #f9f6f6 !important;
  }
 
 a {
-  color: #00B7FF;
+  color: #fff;
 }
+
+.default-page{
+  margin-top: 60px;
+  padding:0 20px;}
+  .default-page .container {
+    text-align: left;
+    padding-top: 0;
+    max-width: none !important;}
 
 .container {
   width: 100%;
@@ -26,16 +33,53 @@ a {
   margin: 0 auto;
 }
 
-div#loginbox {
+.container-wrapper {
   position: relative;
   display: table-cell;
   vertical-align: middle;
 }
 
-#loginform .input-group {
+.panel {
+  width:100%;
+}
+
+.panel-info {
+  border: 1px solid #cdcdcd;
+  border-radius: 4px;
+  padding: 20px 24px 14px;
+  background: #fff;
+  box-shadow: #cecece 0px 2px 10px 2px;
+}
+
+.panel-heading {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.panel-title {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 14px;    
+}
+
+.form-horizontal {
+   width:100%;
+}
+
+.form-horizontal-input-group {
   border-radius: 3px;
   overflow: hidden;
 }
+
+.form-horizontal-input-group.input-group{
+  margin-bottom:10px;
+}
+
+.icon {
+  padding: 14px;
+  background: #cdcdcd;
+}  
 
 .glyphicon {
   position: relative;
@@ -49,50 +93,32 @@ div#loginbox {
 .glyphicon-user:before {
   content:"\e008";
 }
+
 .glyphicon-lock:before {
   content:"\e033";
 }
 
-.panel-heading {
-  text-align: center;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.panel-title {
-  font-weight: 600;
-  font-size: 20px;
-}
-
-.panel.panel-info {
-  border: 1px solid #cdcdcd;
-  border-radius: 4px;
-  padding: 20px 24px 14px;
-  background: #fff;
-  box-shadow: #cecece 0px 2px 10px 2px;
-}
-
-span.input-group-addon {
-  padding: 14px;
-  background: #cdcdcd;
+.form-group{
+  margin-top:10px;
 }
 
 .form-group .col-sm-12.controls {
   padding: 0;
 }
 
-a#btn-login {
+.btn {
   display: block;
+  width: 100%;
 }
 
-.default-page{
-  margin-top: 60px;
-  padding:0 20px;
+.green {
+  background-color: #28a745;
+  border-color: #28a745;
 }
 
-.default-page .container {
-  text-align: left;
-  padding-top: 0;
-  max-width: none !important;
+.light-gray {
+  background-color: #f9f6f6 !important;
 }
+        
+
 

@@ -5,27 +5,25 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
   </head>
-  <body class="">
+  <body class="light-gray">
     <div class="container">    `
-        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
-            <div class="panel panel-info" >
-                <div class="panel-heading">
-                    <div class="panel-title">BPMS LOGIN</div>
+        <div class="container-wrapper mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+                <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            BPMS VERFICATION
+                        </div>
                 </div>     
-
-                <div style="padding-top:30px" class="panel-body" >
-
-                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                             
-                    <form id="loginform" class="form-horizontal" role="form" method="post" action="">
+                <form class="form-horizontal" role="form" method="post" action="">
                                     
-                            <div style="margin-bottom: 25px" class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <div class="form-horizontal-input-group input-group">
+                                <span class="icon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input id="login-username" typeu="text" class="form-control" name="username" value="" placeholder="username or email">                                        
                             </div>
                                 
-                            <div style="margin-bottom: 25px" class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <div class="form-horizontal-input-group input-group">
+                                <span class="icon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
                                 </div>
                                                                
@@ -37,11 +35,11 @@
                                 </div>
                             </div>
 
-                            <div style="margin-top:10px" class="form-group">
+                            <div class="form-group">
                                     <!-- Button -->
 
                                     <div class="col-sm-12 controls">
-                                      <a id="btn-login" href="#" class="btn btn-success">Login  </a>
+                                      <a href="#" class="btn btn-success green">Login  </a>
                                     </div>
                             </div>  
                     </form>     

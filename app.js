@@ -11,6 +11,7 @@ const line = require('@line/bot-sdk');
 const app = express();
 // env files
 env(__dirname + '/.env');
+
 const port = process.env.PORT || 4000;
 
 var handler = require('./routes/handler');

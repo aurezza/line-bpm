@@ -1,4 +1,4 @@
-var scanQrCode = require('./line-receiver-functions/scanQrCode');
+var scanQrCode = require('./receiver/scanQrCode');
 function lineReceiver(router, axios, querystring, client){
     router.post('/lineReceiver', function(req, res) {
        

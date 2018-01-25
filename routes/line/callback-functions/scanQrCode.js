@@ -1,10 +1,9 @@
 function scanQrCode(client,line_userId)
 {
-    var translation = localechecker('jp',this.toString());
-    console.log("this",this)
+    var localeText = localechecker('jp','scanQrCode');
     const message = {
         type: 'text',
-        text: translation.text+line_userId,
+        text: localeText.text+line_userId,
         };
     client.pushMessage(line_userId, message)
         .then(() => {

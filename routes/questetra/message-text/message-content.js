@@ -1,7 +1,7 @@
-var localechecker = require('../../locale/locale-checker');
+var localeChecker = require('../../locale/locale-checker');
 function messageContent(body) 
 {
-    var localeText = localechecker('jp','message-content');
+    var localeText = localeChecker('jp','message-content');
 
     var messageTemplate = {
             text :  localeText.text.name +" : " + body.user_name + "\n"+

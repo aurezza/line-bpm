@@ -7,8 +7,7 @@ function callback(router, axios, querystring, client){
         console.log("eventType",eventType);
         console.log("line_userId",line_userId);
 
-        if (eventType)
-        scanQrCode({eventType,client,line_userId});
+        if (!null(eventType)) return scanQrCode({eventType,client,line_userId});
           
     	if(req.body.events[0].postback != null && req.body.events[0].message == null){
             var parsedData = querystring.parse(req.body.events[0].postback.data);

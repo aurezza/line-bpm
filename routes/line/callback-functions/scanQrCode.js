@@ -18,7 +18,7 @@ function scanQrCode(eventType,client,line_userId)
                 client : client
                 }
     return sampleText;         
-    }      
+          
 }
 
 module.exports = scanQrCode;

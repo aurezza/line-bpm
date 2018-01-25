@@ -9,10 +9,10 @@ const client = new line.Client(config);
 var axios = require('axios');
 var querystring = require('querystring');
 var receiver = require('./questetra/receiver');
-var callback = require('./line/callback');
+var lineReceiver = require('./line/line-receiver');
 
 receiver({router, client});
-callback(router, axios, querystring, client);
+lineReceiver(router, axios, querystring, client);
 
 
 /* GET home page. */

@@ -7,11 +7,12 @@ function handler(router, axios, querystring, client){
         var line_userId = req.body.events[0].source.userId;
 
         if(eventType == "follow") scanQrCode(client,line_userId);
-        res.send(true)
+        
 
         if(req.body.events[0].postback != null && req.body.events[0].message == null){
             replyToQuestetra(querystring, axios);
         }
+        res.send(true)
     });
 }
 

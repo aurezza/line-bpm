@@ -1,5 +1,5 @@
 var scanQrCode = require('./scan-qr-code');
-var replyToQuestetra = require('./repy-to-questetra');
+var replyToQuestetra = require('./reply-to-questetra');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
        

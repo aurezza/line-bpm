@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var passport = require('passport');
+var TMJStrategy = require ('tmj-passport');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var env = require('node-env-file');
 const line = require('@line/bot-sdk');
@@ -19,7 +22,14 @@ var handler = require('./routes/handler');
 // create LINE SDK config from env variables
 const config = {
   channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-  channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+  channelSecret: process.env.LINE_BOT_CHANNEL_SECRET
+};
+
+const userConfig = {
+  apiToken: process.env.TMJ_PASSPORT_API_TOKEN,
+  url: process.env.TMJ_PASSPORT_URL_TOKEN,
+  usernameField: 'username',
+  passwordField: 'password'
 };
 
 // create LINE SDK client
@@ -39,6 +49,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  cookieSession({
+    name: "Test",
+    keys: "fjakdljfaklljdflksj"
+  }),
+);
+
+// passport
+passport.use(new TMJStrategy(userConfig));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 app.use('/', handler);
 

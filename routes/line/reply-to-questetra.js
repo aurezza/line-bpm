@@ -1,11 +1,12 @@
 function replyToQuestetra(querystring, axios, postBack, message) {
     var parsedData = querystring.parse(postBack.data);
-    var repeatCounter = 0;
-    (function resend(){
-        setTimeout(callAxios,6000,resend);
+    var throttleCounter = 0;
+
+    (function resendReplyToQuestetra(){
+        setTimeout(postReplyToQuestetra,6000,resendReplyToQuestetra);
     })();
 
-    function callAxios(resend){
+    function postReplyToQuestetra(resendReplyToQuestetra){
         axios.post(process.env.REPLYURL_TO_QUESTETRA,
             querystring.stringify({
                 processInstanceId:parsedData.processInstanceId,
@@ -18,10 +19,9 @@ function replyToQuestetra(querystring, axios, postBack, message) {
             .catch(function(error){
                     // console error here
                     console.log('failed');
-                    if(repeatCounter >= 10) return;
-                    repeatCounter++;
-                    console.log(repeatCounter);
-                    resend();
+                    if(throttleCounter >= 10) return;
+                    throttleCounter++;
+                    resendReplyToQuestetra();
             }); 
     }
 }

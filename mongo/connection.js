@@ -1,6 +1,5 @@
 function connection(mongoose, connectionURL){
 	// remove deprecationWarning error
-	console.log('connectionURL', connectionURL);
 	mongoose.connect(connectionURL, {
 		useMongoClient: true
 	});

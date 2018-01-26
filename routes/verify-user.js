@@ -1,4 +1,5 @@
 var retrieveUsers = require('./retrieve-users'); 
+var localeChecker = require('./locale/localechecker');
 
 function verifyUser(router, passport, userConfig, lineID){
     // check if line id exists in db
@@ -9,11 +10,16 @@ function verifyUser(router, passport, userConfig, lineID){
         var password = req.body.password;
 
         var users = retrieveUsers(lineID);
-        
+
+        // locale checker
+        var localeText= localeChecker('jp','verify-content');
+
         users.then(function(users){
             if (users){
-                // logger.info("User already exists in db");
-                res.send("You're already registerd in BPMS db");
+                // logger.info("You're already verified");
+                // add error handler on form
+                res.send(localeText.errorMessageLineIdExists); 
+                // res.redirect('/verify/'+ lineID); 
             }
             else {
                 passport.authenticate('tmj',

@@ -1,4 +1,5 @@
 var scanQrCode = require('./scan-qr-code');
+var replyToQuestetra = require('./repy-to-questetra');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
        
@@ -9,31 +10,7 @@ function handler(router, axios, querystring, client){
         res.send(true)
 
         if(req.body.events[0].postback != null && req.body.events[0].message == null){
-            var parsedData = querystring.parse(req.body.events[0].postback.data);
-            var repeatCounter = 0;
-            (function resend(){
-                setTimeout(callAxios,6000,resend);
-            })();
-
-            function callAxios(resend){
-                axios.post(process.env.REPLYURL_TO_QUESTETRA,
-                    querystring.stringify({
-                        processInstanceId:parsedData.processInstanceId,
-                        key:process.env.KEY_TO_QUESTETRA,
-                        q_replymessage:parsedData.q_replymessage
-                    }))
-                    .then(function(response){
-                            console.log('success');                
-                    })            
-                    .catch(function(error){
-                            // console error here
-                            console.log('failed');
-                            if(repeatCounter >= 10) return;
-                            repeatCounter++;
-                            console.log(repeatCounter);
-                            resend();
-                    }); 
-            }
+            replyToQuestetra(querystring, axios);
         }
     });
 }

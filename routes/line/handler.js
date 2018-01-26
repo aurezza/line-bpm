@@ -8,9 +8,11 @@ function handler(router, axios, querystring, client){
 
         if(eventType == "follow") scanQrCode(client,line_userId);
         
-
-        if(req.body.events[0].postback != null && req.body.events[0].message == null){
-            replyToQuestetra(querystring, axios);
+        var postBack = req.body.events[0].postback;
+        var message = req.body.events[0].message ;
+        console.log("postBack.data",postBack.data)
+        if(postBack != null && message == null){
+            replyToQuestetra(querystring, axios, postBack, message);
         }
         res.send(true)
     });

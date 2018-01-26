@@ -1,5 +1,5 @@
-function replyToQuestetra(querystring, axios) {
-    var parsedData = querystring.parse(req.body.events[0].postback.data);
+function replyToQuestetra(querystring, axios, postBack, message) {
+    var parsedData = querystring.parse(postBack.data);
     var repeatCounter = 0;
     (function resend(){
         setTimeout(callAxios,6000,resend);

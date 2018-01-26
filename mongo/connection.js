@@ -1,6 +1,7 @@
-function connection(mongoose){
+function connection(mongoose, connectionURL){
 	// remove deprecationWarning error
-	mongoose.connect('mongodb://localhost/testdb', {
+	console.log('connectionURL', connectionURL);
+	mongoose.connect(connectionURL, {
 		useMongoClient: true
 	});
 	// get the default connection//localhost

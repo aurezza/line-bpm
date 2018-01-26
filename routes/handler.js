@@ -14,14 +14,17 @@ const config = {
 };
 const client = new line.Client(config);
 
+var mongoDbURL = process.env.MONGODB_URL;
+var mongoDbName = process.env.MONGODB_NAME;
+const connectionURL = mongoDbURL + mongoDbName;
+
 var axios = require('axios');
 var querystring = require('querystring');
 var receiver = require('./questetra/receiver');
 var handler = require('./line/handler');
 
-
 // db connection
-connection(mongoose);
+connection(mongoose, connectionURL);
 
 // verify page
 verify(router);

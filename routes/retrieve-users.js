@@ -1,15 +1,12 @@
 var userModel = require('../models/user-model');
 function retrieveUsers(receivedLineID){
         // convert save code above to promise
-        console.log(receivedLineID);
 		var users = userModel.findOne({lineID: receivedLineID});
 		
 		users
 		.exec(function(res, err){
 			// logger.info("test");
             // logger.error("retrieveUsers error: ", err);
-            console.log(receivedLineID);
-            console.log("retrieveUsers error: ", err);
 		});
 		
     return users;

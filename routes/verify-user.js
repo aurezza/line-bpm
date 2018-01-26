@@ -7,14 +7,12 @@ function verifyUser(router, passport, userConfig, lineID){
         // vars for checking with k server
         var username = req.body.username;
         var password = req.body.password;
-        console.log('username: ' + username);
-        console.log('password: ' + password);
-        console.log(lineID + ' line ID has been passed to verifyUser');
+
         var users = retrieveUsers(lineID);
+        
         users.then(function(users){
             if (users){
                 // logger.info("User already exists in db");
-                console.log("User already exists in db");
                 res.send("You're already registerd in BPMS db");
             }
             else {
@@ -30,10 +28,8 @@ function verifyUser(router, passport, userConfig, lineID){
             
                     req.logIn(user, function(err) {
                         if (err) {
-                            console.log('login status 400', err);
                             return res.status(400).send(err);                           
                         }
-                        console.log(user);
                         return res.json(user);                       
                     });
                     
@@ -42,7 +38,6 @@ function verifyUser(router, passport, userConfig, lineID){
         })
         .catch(function(err){
             // logger.erro(err);
-            console.log(err);
         });
     });
 }

@@ -1,9 +1,11 @@
 function replyToQuestetra(querystring, axios, postBack, message) {
     var parsedData = querystring.parse(postBack.data);
     var throttleCounter = 0;
+    //1000 = 1sec
+    var replyDelayTime = 6000;
 
     (function resendReplyToQuestetra(){
-        setTimeout(postReplyToQuestetra,6000,resendReplyToQuestetra);
+        setTimeout(postReplyToQuestetra,replyDelayTime,resendReplyToQuestetra);
     })();
 
     function postReplyToQuestetra(resendReplyToQuestetra){
@@ -11,6 +13,7 @@ function replyToQuestetra(querystring, axios, postBack, message) {
             querystring.stringify({
                 processInstanceId:parsedData.processInstanceId,
                 key:process.env.KEY_TO_QUESTETRA,
+                //q_replymessage from questetra also be used as query params
                 q_replymessage:parsedData.q_replymessage
             }))
             .then(function(response){

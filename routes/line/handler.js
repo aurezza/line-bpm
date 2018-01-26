@@ -7,12 +7,14 @@ function handler(router, axios, querystring, client){
         var line_userId = req.body.events[0].source.userId;
 
         if(eventType == "follow") scanQrCode(client,line_userId);
-        
-        if(req.body.events[0].postback != null && req.body.events[0].message == null){
-            var postBack = req.body.events[0].postback;
-            var message = req.body.events[0].message ;
-            replyToQuestetra(querystring, axios, postBack, message);
+        if(eventType == "postback"){
+            if(req.body.events[0].postback != null && req.body.events[0].message == null){
+                var postBack = req.body.events[0].postback;
+                var message = req.body.events[0].message ;
+                replyToQuestetra(querystring, axios, postBack, message);
+            }
         }
+
         res.send(true)
     });
 }

@@ -36,7 +36,7 @@ function receiver(object){
               }
           ]
       }    
-    }
+    };
     object.client.pushMessage(managerData.line_id, message)
         .then(() => {
           console.log('message sent'); 

@@ -2,7 +2,7 @@ var scanQrCode = require('./scan-qr-code');
 var replyToQuestetra = require('./reply-to-questetra');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
-       
+        console.log(req.body);
         var eventType = req.body.events[0].type;
         var line_userId = req.body.events[0].source.userId;
 

@@ -3,8 +3,7 @@ var messageContent = require('./message-text/message-content');
 function receiver(object){
   object.router.post('/receiveFromQuest', function(req, res) {
     var messageText = messageContent(req.body);
-    console.log("body",req.body);
-    //Change this to the value/object retieved from database
+    //Change this to the object retrieved from database
     //<-------------------------------------------->
     var managerData = {
         name: "Aurezza Lyn Dunque",
@@ -13,9 +12,6 @@ function receiver(object){
         line_id:"U309ccccafe5e38419bcc10c23b117620"
     }
     //<-------------------------------------------->
-
-    if(req.body.manager_email == managerData.email)
-    var line_ID = managerData.line_id;
     const message = {
       "type": "template",
       "altText": "this is a confirm template",
@@ -41,7 +37,7 @@ function receiver(object){
           ]
       }    
     }
-    object.client.pushMessage(line_ID, message)
+    object.client.pushMessage(managerData.line_id, message)
         .then(() => {
           console.log('message sent'); 
         })

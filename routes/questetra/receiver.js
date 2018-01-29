@@ -13,6 +13,9 @@ function receiver(object){
         line_id:"U309ccccafe5e38419bcc10c23b117620"
     }
     //<-------------------------------------------->
+
+    if(req.body.manager_email == managerData.email)
+    var line_ID = managerData.line_id;
     const message = {
       "type": "template",
       "altText": "this is a confirm template",
@@ -38,7 +41,7 @@ function receiver(object){
           ]
       }    
     }
-    object.client.pushMessage(managerData.line_id, message)
+    object.client.pushMessage(line_ID, message)
         .then(() => {
           console.log('message sent'); 
         })

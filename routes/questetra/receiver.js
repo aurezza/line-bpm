@@ -2,35 +2,42 @@
 var messageContent = require('./message-text/message-content');
 function receiver(object){
   object.router.post('/receiveFromQuest', function(req, res) {
-    var textContent = messageContent(req.body);
-    var lineId = 'U34f149724f23c004673a3e11409ed3c0';
+    var messageText = messageContent(req.body);
+    //Change this to the object retrieved from database
+    //<-------------------------------------------->
+    var managerData = {
+        name: "Aurezza Lyn Dunque",
+        email : "aldunque@tmj.ph",
+        employee_id : "6",
+        line_id:"U309ccccafe5e38419bcc10c23b117620"
+    };
+    //<-------------------------------------------->
     const message = {
       "type": "template",
       "altText": "this is a confirm template",
       "template": {
           "type": "confirm",
-          "text":  textContent.text,
+          "text":  messageText.text,
           "actions": [
               {
                 "type": "postback",
-                "label": textContent.label.approve,
-                "text":  textContent.text +
-                         textContent.status.approved,
-                "data": "processInstanceId="+req.body.process_id+"&key=NKOmgMAo36gnNvVnQwyKNojRwKh4gte0&q_replymessage=yes"
+                "label": messageText.label.approve,
+                "text":  messageText.text +
+                         messageText.status.approved,
+                "data": "processInstanceId="+req.body.process_id+"&q_replymessage=yes"
               },
               {
                 "type": "postback",
-                "label": textContent.label.decline,
-                "text":  textContent.text +
-                         textContent.status.declined,
-                "data": "processInstanceId="+req.body.process_id+"&key=NKOmgMAo36gnNvVnQwyKNojRwKh4gte0&q_replymessage=no"
+                "label": messageText.label.decline,
+                "text":  messageText.text +
+                         messageText.status.declined,
+                "data": "processInstanceId="+req.body.process_id+"&q_replymessage=no"
                 
               }
           ]
-      }
-    
-    }
-    object.client.pushMessage(lineId, message)
+      }    
+    };
+    object.client.pushMessage(managerData.line_id, message)
         .then(() => {
           console.log('message sent'); 
         })

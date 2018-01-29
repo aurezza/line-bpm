@@ -10,7 +10,7 @@ function receiver(object){
         email : "aldunque@tmj.ph",
         employee_id : "6",
         line_id:"U309ccccafe5e38419bcc10c23b117620"
-    }
+    };
     //<-------------------------------------------->
     const message = {
       "type": "template",

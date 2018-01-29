@@ -1,4 +1,4 @@
-function replyToQuestetra(querystring, axios, postBack, message) {
+function replyToQuestetra(querystring, axios, postBack) {
     var parsedData = querystring.parse(postBack.data);
     var throttleCounter = 0;
     //1000 = 1sec

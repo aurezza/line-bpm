@@ -32,7 +32,7 @@ function receiver(object){
                 "text":  messageText.text +
                          messageText.status.declined,
                 "data": "processInstanceId="+req.body.process_id+"&q_replymessage=no"
-                
+
               }
           ]
       }    

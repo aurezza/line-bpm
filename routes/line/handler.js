@@ -11,8 +11,7 @@ function handler(router, axios, querystring, client){
             if(req.body.events[0].postback != null && req.body.events[0].message == null){
                 //postBack is data query params depending on manager reply
                 var postBack = req.body.events[0].postback;
-                var message = req.body.events[0].message ;
-                replyToQuestetra(querystring, axios, postBack, message);
+                replyToQuestetra(querystring, axios, postBack);
             }
         }
 

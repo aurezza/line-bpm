@@ -1,8 +1,10 @@
+var localeChecker = require('./locale/localechecker');
 function success(router) {
     router.get('/success', function(req, res) {
+        var localeText = localeChecker('jp','success-message');
         res.render('success', {
-            title: 'Success!', 
-            description: 'You are now registered'
+            title: localeText.successTextTitle, 
+            description: localeText.successTextMessage
         });
    });
 }

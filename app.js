@@ -4,7 +4,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var passport = require('passport');
-var TMJStrategy = require ('tmj-passport');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
@@ -50,6 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// start passport init
 app.use(
   cookieSession({
     name: "Test",
@@ -57,19 +57,8 @@ app.use(
   }),
 );
 
-// passport
-passport.use(new TMJStrategy(userConfig));
-
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
 
 app.use('/', handler);
 

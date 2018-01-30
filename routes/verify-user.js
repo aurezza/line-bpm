@@ -1,7 +1,7 @@
 var retrieveUsers = require('./retrieve-users'); 
 var localeChecker = require('./locale/localechecker');
 
-function verifyUser(router, passport, userConfig, lineID){
+function verifyUser(router, passport, lineID){
     // check if line id exists in db
     router.post('/verifyUser/:lineID', function(req, res){
         var lineID = req.params.lineID;

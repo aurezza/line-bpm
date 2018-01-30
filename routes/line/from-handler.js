@@ -1,12 +1,9 @@
 var replyToQuestetra = require('./reply-to-questetra');
 function fromHandler(querystring, axios, postBack){
     var parsedData = (querystring.parse(postBack.data));
-
-    var replyUrl = {
-        replyOfManager: process.env.REPLYURL_TO_QUESTETRA
-    };
     var axiosParameters = {
-        replyOfManager : {
+        url: process.env.REPLYURL_TO_QUESTETRA,
+        content : {
             processInstanceId:parsedData.processInstanceId,
             key:process.env.KEY_TO_QUESTETRA,
             //q_replymessage from questetra also be used as query params

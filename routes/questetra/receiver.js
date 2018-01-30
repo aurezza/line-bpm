@@ -70,9 +70,7 @@ function receiver(object){
 
     function postReplyToQuestetra(resendReplyToQuestetra){
       object.axios.post(process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
-        object.querystring.stringify({
-
-        }))
+        object.querystring.stringify(qstringContent.yes))
         .then(function(response){
               console.log('success sending reply status');                
           })            

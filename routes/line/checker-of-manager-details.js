@@ -3,7 +3,6 @@ var querystring = require('querystring');
 var replyToQuestetra = require('./reply-to-questetra');
 
 function checkManagerDetails(managerData, instanceId){
-    
     if (!Object.keys(managerData).length){
         var axiosParameters = {
             url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,

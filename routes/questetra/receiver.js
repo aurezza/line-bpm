@@ -1,7 +1,8 @@
 'use strict';
 var messageContent = require('./message-text/message-content');
-function receiver(object){
-  object.router.post('/receiveFromQuest', function(req, res) {
+var fromReceiver = require('../line/from-receiver');
+function receiver(router, client, axios, querystring){
+  router.post('/receiveFromQuest', function(req, res) {
     var messageText = messageContent(req.body);
     //Change this to the object retrieved from database
     //<-------------------------------------------->
@@ -36,14 +37,15 @@ function receiver(object){
           ]
       }    
     };
-    object.client.pushMessage(managerData.line_id, message)
-        .then(() => {
-          console.log('message sent'); 
-        })
-        .catch((err) => {
-          console.log("error",err);
-        });
-      res.send(true);
+    
+    client.pushMessage(managerData.line_id, message)
+    .then(() => { 
+        fromReceiver(querystring, axios, req.body.process_id, 'yes'); 
+    })
+    .catch((err) => { 
+        fromReceiver(querystring, axios, req.body.process_id, 'no');         
+    });
+    res.send(true);
 
   });
 }

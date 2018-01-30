@@ -17,7 +17,7 @@ var handler = require('./line/handler');
 verify(router);
 success(router);
 
-receiver({router, client, axios, querystring,});
+receiver(router, client, axios, querystring);
 handler(router, axios, querystring, client);
 
 

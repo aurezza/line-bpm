@@ -1,7 +1,8 @@
 'use strict';
 var messageContent = require('./message-text/message-content');
-function receiver(object){
-  object.router.post('/receiveFromQuest', function(req, res) {
+var replyToQuestetra = require('../line/reply-to-questetra');
+function receiver(router, client, axios, querystring){
+  router.post('/receiveFromQuest', function(req, res) {
     var messageText = messageContent(req.body);
     //Change this to the object retrieved from database
     //<-------------------------------------------->
@@ -38,51 +39,16 @@ function receiver(object){
       }    
     };
     
-    var qstringContent = {
-      yes:{
-      processInstanceId:req.body.process_id,
-      key:process.env.KEY_TO_QUESTETRA_REQUEST_STATUS,
-      q_sendingstatus:'yes'
-      },
-      no:{
-        processInstanceId:req.body.process_id,
-        key:process.env.KEY_TO_QUESTETRA_REQUEST_STATUS,
-        q_sendingstatus:'yes'        
-      }
-    }
-
-    var throttleCounter = 0;
-    //1000 = 1sec
-    var replyDelayTime = 6000;
-
-
-    object.client.pushMessage(managerData.line_id, message)
+    client.pushMessage(managerData.line_id, message)
     .then(() => {
-      (function resendReplyToQuestetra(){
-        setTimeout(postReplyToQuestetra,replyDelayTime,resendReplyToQuestetra);
-      })();
+      replyToQuestetra(querystring, axios, false, instanceId, 'yes');
+      console.log('message sent, isMessageSent : yes')
     })
     .catch((err) => {
-      console.log("error","error sending to client");
+      replyToQuestetra(querystring, axios, false, instanceId, 'no');
+      console.log('message not sent, isMessageSent : no')
     });
-
-
-
-    function postReplyToQuestetra(resendReplyToQuestetra){
-      object.axios.post(process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
-        object.querystring.stringify(qstringContent.yes))
-        .then(function(response){
-              console.log('success sending reply status');                
-          })            
-        .catch(function(error){
-              console.log('failed');
-              if(throttleCounter >= 10) return;
-              throttleCounter++;
-              resendReplyToQuestetra();
-        });   
-    }    
-
-      res.send(true);
+    res.send(true);
 
   });
 }

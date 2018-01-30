@@ -22,13 +22,11 @@ function verifyUser(router, passport, lineID){
                 // res.redirect('/verify/'+ lineID); 
             }
             else {
+                // authenticate start
                 passport.authenticate('tmj',
                 function(err, user, info) {
-                    console.log('authenticate start');
-                    console.log('user',  user);
                     var throwErr = err || info;         
                     if (throwErr) {
-                        console.log('status 400', throwErr);
                         return res.status(400).send(throwErr);        
                     }
             

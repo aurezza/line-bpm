@@ -41,7 +41,7 @@ function verifyUser(router, passport, lineID){
             }
         })
         .catch(function(err){
-            // logger.erro(err);
+            // logger.error(err);
         });
     });
 }

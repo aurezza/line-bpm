@@ -24,6 +24,8 @@ const config = {
   channelSecret: process.env.LINE_BOT_CHANNEL_SECRET
 };
 
+
+
 // create LINE SDK client
 const client = new line.Client(config);
 
@@ -42,12 +44,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // start passport init
-app.use(
-  cookieSession({
-    name: "Test",
-    keys: "fjakdljfaklljdflksj"
-  }),
-);
+app.use(cookieSession({
+    name: process.env.COOKIE_SESSION_NAME,
+    keys: process.env.COOKIE_SESSION_KEY
+  }));
 
 app.use(passport.initialize());
 app.use(passport.session());

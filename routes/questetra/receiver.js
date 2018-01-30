@@ -47,7 +47,7 @@ function receiver(object){
     })();
 
     function postReplyToQuestetra(resendReplyToQuestetra){
-      object.axios.post(process.env.REPLYURL_TO_QUESTETRA,
+      object.axios.post(process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
         object.querystring.stringify({
             processInstanceId:req.body.process_id,
             key:process.env.KEY_TO_QUESTETRA_REQUEST_STATUS

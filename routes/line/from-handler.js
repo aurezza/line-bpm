@@ -15,3 +15,5 @@ function fromHandler(querystring, axios, postBack){
     };
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }
+
+module.exports = fromHandler;

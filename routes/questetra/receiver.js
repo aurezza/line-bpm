@@ -40,13 +40,14 @@ function receiver(object){
     };
     object.client.pushMessage(managerData.line_id, message)
     .then(() => {
-      replyToQuestetra(object.querystring, object.axios, false);
+      // replyToQuestetra(object.querystring, object.axios, false);
+      console.log('message sent');
     })
     .catch((err) => {
-      console.log("error","error sending to client");
+      console.log("error","error sending to manager");
     });  
 
-      res.send(true);
+    res.send(true);
 
   });
 }

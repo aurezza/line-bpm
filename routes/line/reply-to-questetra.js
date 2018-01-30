@@ -2,7 +2,8 @@ function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSen
     var parsedData = {};
     var queryStringContent = {};
     var url;
-    if(postBack != null ) parsedData = (querystring.parse(postBack.data));
+    console.log('postBack',postBack);
+    if(postBack != 'empty' ) parsedData = (querystring.parse(postBack.data));
 
     var replyUrl = {
         replyOfManager: process.env.REPLYURL_TO_QUESTETRA,
@@ -21,7 +22,7 @@ function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSen
             q_replymessage:parsedData.q_replymessage
         }
       }
-    if (postBack != false){
+    if (postBack != 'empty'){
         queryStringContent = qstringContent.replyOfManager;
         url = replyUrl.replyOfManager;
     } else {
@@ -39,6 +40,7 @@ function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSen
     })();
 
     function postReplyToQuestetra(resendReplyToQuestetra){
+        console.log('fire axios');
         axios.post(url,
             querystring.stringify(queryStringContent))
             .then(function(response){

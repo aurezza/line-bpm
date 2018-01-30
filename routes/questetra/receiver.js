@@ -41,11 +41,11 @@ function receiver(router, client, axios, querystring){
     
     client.pushMessage(managerData.line_id, message)
     .then(() => {
-      replyToQuestetra(querystring, axios, false, instanceId, 'yes');
+      replyToQuestetra(querystring, axios, 'empty', instanceId, 'yes');
       console.log('message sent, isMessageSent : yes')
     })
     .catch((err) => {
-      replyToQuestetra(querystring, axios, false, instanceId, 'no');
+      replyToQuestetra(querystring, axios, 'empty', instanceId, 'no');
       console.log('message not sent, isMessageSent : no')
     });
     res.send(true);

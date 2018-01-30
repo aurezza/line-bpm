@@ -20,8 +20,8 @@ function replyToQuestetra(querystring, axios, postBack) {
         }
     }
     var replyURL = {
-        replyOfManager = process.env.REPLYURL_TO_QUESTETRA,
-        statusOfSendingToLineOfManager = process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS
+        replyOfManager:process.env.REPLYURL_TO_QUESTETRA,
+        statusOfSendingToLineOfManager:process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS
     }
     
     if (postBack == false) { 

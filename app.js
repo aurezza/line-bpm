@@ -24,16 +24,8 @@ const config = {
   channelSecret: process.env.LINE_BOT_CHANNEL_SECRET
 };
 
-const userConfig = {
-  apiToken: process.env.TMJ_PASSPORT_API_TOKEN,
-  url: process.env.TMJ_PASSPORT_URL_TOKEN,
-  usernameField: 'username',
-  passwordField: 'password'
-};
-
 // create LINE SDK client
 const client = new line.Client(config);
-
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

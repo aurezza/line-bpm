@@ -8,10 +8,10 @@ function receiver(router, client, axios, querystring){
     //Change this to the object retrieved from database
     //<-------------------------------------------->
     var managerData = {
-        name: "Aurezza Lyn Dunque",
-        email : "aldunque@tmj.ph",
-        employee_id : "6",
-        line_id:"U309ccccafe5e38419bcc10c23b117620"
+        // name: "Aurezza Lyn Dunque",
+        // email : "aldunque@tmj.ph",
+        // employee_id : "6",
+        // line_id:"U309ccccafe5e38419bcc10c23b117620"
     };
     //<-------------------------------------------->
     if(checkManagerDetails(managerData, req.body.process_id)){

@@ -1,6 +1,5 @@
 'use strict';
 var messageContent = require('./message-text/message-content');
-var replyToQuestetra = require('../line/reply-to-questetra');
 function receiver(object){
   object.router.post('/receiveFromQuest', function(req, res) {
     var messageText = messageContent(req.body);
@@ -38,16 +37,54 @@ function receiver(object){
           ]
       }    
     };
+    
+    var qstringContent = {
+      yes:{
+      processInstanceId:req.body.process_id,
+      key:process.env.KEY_TO_QUESTETRA_REQUEST_STATUS,
+      q_sendingstatus:'yes'
+      },
+      no:{
+        processInstanceId:req.body.process_id,
+        key:process.env.KEY_TO_QUESTETRA_REQUEST_STATUS,
+        q_sendingstatus:'yes'        
+      }
+    }
+
+    var throttleCounter = 0;
+    //1000 = 1sec
+    var replyDelayTime = 6000;
+
+
     object.client.pushMessage(managerData.line_id, message)
     .then(() => {
-      // replyToQuestetra(object.querystring, object.axios, false);
-      console.log('message sent');
+      (function resendReplyToQuestetra(){
+        setTimeout(postReplyToQuestetra,replyDelayTime,resendReplyToQuestetra);
+      })();
     })
     .catch((err) => {
-      console.log("error","error sending to manager");
-    });  
+      console.log("error","error sending to client");
+    });
 
-    res.send(true);
+
+
+    function postReplyToQuestetra(resendReplyToQuestetra){
+      object.axios.post(process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
+        object.querystring.stringify({
+
+        }))
+        .then(function(response){
+              console.log('success sending reply status');                
+          })            
+        .catch(function(error){
+              console.log('failed');
+              if(throttleCounter >= 10) return;
+              throttleCounter++;
+              resendReplyToQuestetra();
+        });   
+    }    
+
+      res.send(true);
 
   });
 }

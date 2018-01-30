@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var logger = require('../logger');
 var mongoose = require('mongoose');
 var connection = require('../mongo/connection');
 var passport = require('passport');
@@ -32,7 +33,7 @@ passportTmj();
 
 // verify page
 verify(router);
-verifyUser(router, passport);
+verifyUser(router, passport, logger);
 success(router);
 retrieveUsers();
 

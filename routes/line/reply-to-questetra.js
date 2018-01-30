@@ -1,9 +1,7 @@
 function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSent) {
-    console.log('fire reply');
     var parsedData = {};
     var queryStringContent = {};
     var url;
-    console.log('postBack',postBack);
     if(postBack != 'empty' ) parsedData = (querystring.parse(postBack.data));
 
     var replyUrl = {
@@ -44,15 +42,11 @@ function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSen
     })();
 
     function postReplyToQuestetra(resendReplyToQuestetra){
-        console.log('fire axios');
         axios.post(url,
             querystring.stringify(queryStringContent))
-            .then(function(response){
-                    console.log('success');                
+            .then(function(response){             
             })            
             .catch(function(error){
-                    // console error here
-                    console.log('failed');
                     if(throttleCounter >= 10) return;
                     throttleCounter++;
                     resendReplyToQuestetra();

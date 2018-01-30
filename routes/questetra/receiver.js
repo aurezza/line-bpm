@@ -42,11 +42,12 @@ function receiver(router, client, axios, querystring){
     client.pushMessage(managerData.line_id, message)
     .then(() => {
         console.log('message sent, isMessageSent : yes');      
-        replyToQuestetra(querystring, axios, 'empty', instanceId, 'yes');
+        replyToQuestetra(querystring, axios, 'empty', req.body.process_id, 'yes');
     })
     .catch((err) => {
-      replyToQuestetra(querystring, axios, 'empty', instanceId, 'no');
-      console.log('message not sent, isMessageSent : no');
+        console.log('message not sent, isMessageSent : no');
+        replyToQuestetra(querystring, axios, 'empty', req.body.process_id, 'no');
+        
     });
     res.send(true);
 

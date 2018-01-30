@@ -1,4 +1,5 @@
 function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSent) {
+    console.log('fire reply');
     var parsedData = {};
     var queryStringContent = {};
     var url;
@@ -8,11 +9,13 @@ function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSen
     var replyUrl = {
         replyOfManager: process.env.REPLYURL_TO_QUESTETRA,
         statusOfRequest: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS
-    }
+    };
+
     var qstringContent = {
         statusOfRequest:{
             processInstanceId:instanceId,
             key:process.env.KEY_TO_QUESTETRA_REQUEST_STATUS,
+            //q_sendingstatus from questetra also be used as query params
             q_sendingstatus:isMessageSent
         },
         replyOfManager : {
@@ -21,7 +24,8 @@ function replyToQuestetra(querystring, axios, postBack, instanceId, isMessageSen
             //q_replymessage from questetra also be used as query params
             q_replymessage:parsedData.q_replymessage
         }
-      }
+    };
+
     if (postBack != 'empty'){
         queryStringContent = qstringContent.replyOfManager;
         url = replyUrl.replyOfManager;

@@ -1,4 +1,4 @@
-var localeChecker = require('./locale/localechecker');
+var localeChecker = require('./locale/locale-checker');
 function verify(router, lineID) {
     // use passport authentication module 
     // http://www.passportjs.org/

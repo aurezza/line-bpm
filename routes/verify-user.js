@@ -1,7 +1,10 @@
 var retrieveUsers = require('./retrieve-users'); 
-var localeChecker = require('./locale/localechecker');
+var saveUser = require('./save-user');
+var localeChecker = require('./locale/locale-checker');
 
-function verifyUser(router, passport, lineID){
+var employeeDetails = {};
+
+function verifyUser(router, passport, logger){
     // check if line id exists in db
     router.post('/verifyUser/:lineID', function(req, res){
         var lineID = req.params.lineID;
@@ -16,7 +19,7 @@ function verifyUser(router, passport, lineID){
 
         users.then(function(users){
             if (users){
-                // logger.info("You're already verified");
+                logger.info("You're already verified");
                 // add error handler on form
                 res.send(localeText.errorMessageLineIdExists); 
                 // res.redirect('/verify/'+ lineID); 
@@ -34,6 +37,14 @@ function verifyUser(router, passport, lineID){
                         if (err) {
                             return res.status(400).send(err);                           
                         }
+                        employeeDetails = {
+                            lineID: lineID,
+                            name: user.name,
+                            employee_id: user.employee_id,
+                            email: user.email
+                        };
+
+                        saveUser(employeeDetails, logger);
                         return res.json(user);                       
                     });
                     

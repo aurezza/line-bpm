@@ -11,7 +11,7 @@
                 <div class="panel panel-info" >
                     <div class="panel-heading">
                         <div class="panel-title">
-                            BPMS VERIFICATION
+                            <%= panelTitle %>
                         </div>
                     </div>                                 
                     <form class="form-horizontal" role="form" method="post" action="/verifyUser/<%= lineID %>">
@@ -19,20 +19,20 @@
                             <span class="icon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </span>
-                            <input id="login-username" typeu="text" class="form-control" name="username" value="username" placeholder="username or email">
+                            <input id="login-username" type="text" class="form-control" name="username" placeholder=<%= usernamePlaceholder %>>
                         </div>
                             
                         <div class="form-horizontal-input-group input-group">
                             <span class="icon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input id="login-password" type="password" class="form-control" name="password" value="password" placeholder="password">
+                            <input id="login-password" type="password" class="form-control" name="password" placeholder=<%= passwordPlaceholder %>>
                         </div>
                                                         
                         <div class="input-group">
                             <div class="checkbox">
                                 <label>
-                                    <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                                    <input id="login-remember" type="checkbox" name="remember" value="1"> <%= rememberMeText %> 
                                 </label>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <!-- Button -->
                             <div class="col-sm-12 controls">
-                                <input class="btn btn-success green" type="submit" value="Verify" >
+                                <input class="btn btn-success green" type="submit" value=<%= verifyButtonText %> >
                             </div>   
                         </div>                                                 
                     </form>     

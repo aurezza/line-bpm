@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var winLogger = require('winston');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
@@ -23,8 +24,6 @@ const config = {
   channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
   channelSecret: process.env.LINE_BOT_CHANNEL_SECRET
 };
-
-
 
 // create LINE SDK client
 const client = new line.Client(config);
@@ -67,6 +66,9 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   
+  // winston logger for separate logs
+  winLogger.error(err);
+  winLogger.log(err);
 
   // render the error page
   res.status(err.status || 500);

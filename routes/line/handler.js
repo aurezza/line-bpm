@@ -1,5 +1,5 @@
 var scanQrCode = require('./scan-qr-code');
-var fromHandler = require('./from-handler');
+var toNode = require('./to-node');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
@@ -10,7 +10,7 @@ function handler(router, axios, querystring, client){
             if(req.body.events[0].postback != null && req.body.events[0].message == null){
                 //postBack is data query params depending on manager reply
                 var postBack = req.body.events[0].postback;
-                fromHandler(querystring, axios, postBack);
+                toNode(querystring, axios, postBack);
             }
         }
 

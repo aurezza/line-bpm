@@ -1,5 +1,5 @@
 var replyToQuestetra = require('./reply-to-questetra');
-function fromReceiver(querystring, axios, instanceId, isMessageSent){
+function fromNode(querystring, axios, instanceId, isMessageSent){
 
     var axiosParameters = {
         url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
@@ -14,4 +14,4 @@ function fromReceiver(querystring, axios, instanceId, isMessageSent){
     replyToQuestetra(querystring, axios, 'emptyPostBack', axiosParameters);
 
 }
-module.exports = fromReceiver;
+module.exports = fromNode;

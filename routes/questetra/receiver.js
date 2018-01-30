@@ -1,6 +1,6 @@
 'use strict';
 var messageContent = require('./message-text/message-content');
-var fromReceiver = require('../line/from-receiver');
+var fromNode = require('../line/from-node');
 function receiver(router, client, axios, querystring){
   router.post('/receiveFromQuest', function(req, res) {
     var messageText = messageContent(req.body);
@@ -40,10 +40,10 @@ function receiver(router, client, axios, querystring){
     
     client.pushMessage(managerData.line_id, message)
     .then(() => { 
-        fromReceiver(querystring, axios, req.body.process_id, 'yes'); 
+        fromNode(querystring, axios, req.body.process_id, 'yes'); 
     })
     .catch((err) => { 
-        fromReceiver(querystring, axios, req.body.process_id, 'no');         
+        fromNode(querystring, axios, req.body.process_id, 'no');         
     });
     res.send(true);
 

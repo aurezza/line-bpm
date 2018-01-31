@@ -37,14 +37,8 @@ verifyUser(router, passport, logger);
 success(router);
 retrieveUsers();
 
-receiver(router, client, axios, querystring);
+receiver(router, client);
 handler(router, axios, querystring, client);
-
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
 module.exports = router;
 

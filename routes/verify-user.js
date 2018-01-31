@@ -12,13 +12,16 @@ var notEmpty = localeText.error.mustNotBeEmpty;
 
 function verifyUser(router, passport, logger){
     // needs additional validation for schema and dynamic messages for locale
-    router.post('/verifyUser/:lineID', [check('username', notEmpty)
-    .isLength({ min: 1})
-    .trim()
-    .withMessage(notEmpty),
-    check('password')
-    .isLength({ min: 1})
-    .trim().withMessage(notEmpty)], 
+    router.post('/verify/:lineID', [
+        check('username', notEmpty)
+        .isLength({ min: 1})
+        .trim()
+        .withMessage(notEmpty),
+
+        check('password')
+        .isLength({ min: 1})
+        .trim().withMessage(notEmpty),
+    ], 
     function(req, res){
         var lineID = req.params.lineID;
 
@@ -81,8 +84,7 @@ function verifyUser(router, passport, logger){
                             };
     
                             saveUser(employeeDetails, logger);
-                            res.redirect('/success'); 
-                            // return res.json(user);                       
+                            res.redirect('/success');                      
                         });
                         
                     })(req,res);

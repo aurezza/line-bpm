@@ -25,11 +25,6 @@ function verifyUser(router, passport, logger){
     function(req, res){
         var lineID = req.params.lineID;
 
-        // assign to verifyUserData the fields data
-        const verifyUserData = {
-            username: req.body.username,
-            password: req.body.password
-        };
         // check if user is in local db
         var users = retrieveUsers(lineID);
 
@@ -55,7 +50,6 @@ function verifyUser(router, passport, logger){
         }
         
         if (validatedUserData) {
-            console.log('validatedUserData: ', validatedUserData);
             users.then(function(users){
                 if (users){
                     logger.info("The line ID:", lineID, "is already verified");
@@ -91,7 +85,7 @@ function verifyUser(router, passport, logger){
                 }
             })
             .catch(function(err){
-                // logger.error(err);
+                logger.error(err);
             });
         }      
     });

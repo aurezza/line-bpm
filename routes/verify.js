@@ -4,7 +4,6 @@ var logger = require('../logger');
 function verify(router, lineID) {
     router.get('/verify/:line_id', function(req, res) {
         var lineID = req.params.line_id;
-        console.log("lineId is", lineID);
         var localeText= localeChecker('jp','verify-content');
          
         // redirect user immediately if line_id exists in db
@@ -12,7 +11,6 @@ function verify(router, lineID) {
         users.then(function(users){
             if (users){
                 logger.info("The line ID:", lineID, "is already verified");
-                // add error handler on form
                 res.send(localeText.errorMessageLineIdExists); 
             }
             else {
@@ -28,8 +26,7 @@ function verify(router, lineID) {
             }
         })
         .catch(function(err){
-            // logger.error(err);
-            console.log(err);
+            logger.error(err);;
         }); 
    });
 }

@@ -16,6 +16,7 @@ function checkManagerDetails(managerData, body, client){
                 q_sendingstatus:'no manager detail'
             }
         };
+        
         replyToQuestetra(querystring, axios, 'emptyPostBack', axiosParameters);
     
 }

@@ -13,5 +13,6 @@ function receiver(router, client){
         //<-------------------------------------------->
         checkManagerDetails(managerData, req.body, client);    
     });
+    res.send(true);    
 }
 module.exports = receiver;

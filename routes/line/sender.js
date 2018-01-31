@@ -1,6 +1,6 @@
 var axios = require('axios');
 var querystring = require('querystring');
-var messageContent = require('../../message-text/message-content');
+var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 
 function sender(body, managerData, client){

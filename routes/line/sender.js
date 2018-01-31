@@ -1,5 +1,6 @@
 function sender(body, messageText){
-    return content ={
+    var content = {};
+    return content = {
         body:body,
         messageText:messageText
     };

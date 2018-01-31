@@ -6,9 +6,10 @@ var checkManagerDetails = require('../line/checker-of-manager-details');
 function receiver(router, client, axios, querystring){
   router.post('/receiveFromQuest', function(req, res) {
     
-    console.log("sender",test);
+    
     var messageText = messageContent(req.body);
     var test = sender(req.body, messageText);
+    console.log("sender",test);
     //Change this to the object retrieved from database
     //<-------------------------------------------->
     var managerData = {

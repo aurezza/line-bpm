@@ -37,7 +37,7 @@ verifyUser(router, passport, logger);
 success(router);
 retrieveUsers();
 
-receiver(router, client, axios, querystring);
+receiver(router, client);
 handler(router, axios, querystring, client);
 
 

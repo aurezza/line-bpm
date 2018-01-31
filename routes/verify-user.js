@@ -26,7 +26,7 @@ function verifyUser(router, passport, logger){
         var lineID = req.params.lineID;
 
         // check if user is in local db
-        var users = retrieveUsers(lineID);
+        var users = retrieveUsers(lineID, 'empty');
 
         const errors = validationResult(req);
         // matchedData returns only the subset of data validated by the middleware

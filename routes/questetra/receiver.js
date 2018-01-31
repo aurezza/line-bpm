@@ -11,8 +11,9 @@ function receiver(router, client){
             line_id:"U309ccccafe5e38419bcc10c23b117620"
         };
         //<-------------------------------------------->
-        checkManagerDetails(managerData, req.body, client);    
+        checkManagerDetails(managerData, req.body, client); 
+        res.send(true);      
     });
-    res.send(true);    
+     
 }
 module.exports = receiver;

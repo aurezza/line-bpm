@@ -8,6 +8,7 @@ var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 var env = require('node-env-file');
 const line = require('@line/bot-sdk');
 
@@ -59,6 +60,9 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+// validator
+app.use(expressValidator);
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -2,10 +2,11 @@ var userModel = require('../models/user-model');
 function saveUser(object, logger){
     // create instance of model transactionModel
     var newUser = new userModel();
-    newUser.lineID = object.lineID;
-    newUser.employeeID = object.employee_id;
-    newUser.employeeName = object.name;
-    newUser.employeeEmail = object.email;
+
+    newUser.line_id = object.lineID;
+    newUser.employee_id = object.employee_id;
+    newUser.employee_name = object.name;
+    newUser.employee_email = object.email;
     newUser.locale = object.locale;
 
     newUser.save()

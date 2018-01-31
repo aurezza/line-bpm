@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 // schema
 var userSchema = mongoose.Schema({
-	employeeID: String,
-	employeeName: String,
-	employeeEmail: {
+	employee_id: String,
+	employee_name: String,
+	employee_email: {
 		type: String
 	},
-	lineID: String,
+	line_id: String,
 	locale: String
 });
 

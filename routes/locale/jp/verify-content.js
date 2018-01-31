@@ -7,12 +7,14 @@ var japanese = {
         verify: "BPMSアプリケーションの検証"
     },
     label: {
-        panelTitle: "BPMS検証",
-        rememberMe: "私を覚えてますか"
+        panelTitle: "BPMS検証"
     },
     placeHolder: {
         username: "ユーザー名", 
         password: "パスワード"
+    },
+    error :{
+        mustNotBeEmpty: "空ではありません"
     }
 }
 module.exports = japanese;

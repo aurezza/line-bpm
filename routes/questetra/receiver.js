@@ -1,9 +1,12 @@
 'use strict';
 var messageContent = require('./message-text/message-content');
+var sender = require('../line/sender');
 var fromNode = require('../line/from-node');
 var checkManagerDetails = require('../line/checker-of-manager-details');
 function receiver(router, client, axios, querystring){
   router.post('/receiveFromQuest', function(req, res) {
+    var test = sender(req.body);
+    console.log("sender",test);
     var messageText = messageContent(req.body);
     //Change this to the object retrieved from database
     //<-------------------------------------------->

@@ -1,9 +1,9 @@
 var userModel = require('../models/user-model');
-function retrieveUsers(receivedLineID, receivedEmpEmail){
+function retrieveUsers(receivedLineID, receivedEmployeeEmail){
         // convert save code above to promise
 		var users = userModel.findOne({$or: [
 			{line_id: receivedLineID},
-			{employee_email: receivedEmpEmail}
+			{employee_email: receivedEmployeeEmail}
 		]});
 		
 		users

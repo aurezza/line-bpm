@@ -9,10 +9,10 @@ function verify(router, lineID) {
             title: localeText.pageTitle.title,
             panelTitle: localeText.label.panelTitle,
             verifyButtonText: localeText.button.verify,
-            rememberMeText: localeText.label.rememberMe,
             usernamePlaceholder: localeText.placeHolder.username, 
             passwordPlaceholder: localeText.placeHolder.password,
-            lineID: lineID
+            lineID: lineID,
+            errors: {}
         });
    });
 

@@ -5,7 +5,7 @@ var sender = require('./sender');
 
 function checkManagerDetails(managerData, body, client){
 
-    if (Object.keys(managerData).length) sender(body, managerData, client);
+    if (Object.keys(managerData).length) return sender(body, managerData, client);
 
         var axiosParameters = {
             url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
@@ -16,7 +16,7 @@ function checkManagerDetails(managerData, body, client){
                 q_sendingstatus:'no manager detail'
             }
         };
-        
+
         replyToQuestetra(querystring, axios, 'emptyPostBack', axiosParameters);
     
 }

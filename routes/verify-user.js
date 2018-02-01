@@ -76,6 +76,7 @@ function verifyUser(router, passport, logger){
                                 employee_id: user.employee_id,
                                 email: user.email
                             };
+                            console.log("employeeDetails",employeeDetails);
     
                             saveUser(employeeDetails, logger);
                             res.redirect('/success');                      

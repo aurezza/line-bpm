@@ -70,6 +70,7 @@ function verifyUser(router, passport, logger){
                                 // edit message for error; must be generic
                                 return res.status(400).send(err.message);                           
                             }
+                            console.log("user",user)
                             employeeDetails = {
                                 lineID: lineID,
                                 name: user.name,

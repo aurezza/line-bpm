@@ -8,14 +8,15 @@ function receiver(router, client){
         var users = retrieveUser('empty',req.body.manager_email);
         
         users.then(function(users){
-            if(!users) return logger.error("no manager data retrieved");
-            logger.info("manager data retrieved");
-            managerData = users;
+          if(!users) return logger.error("no manager data retrieved");
+          
+          logger.info("manager data retrieved");
+          managerData = users;
+          checkManagerDetails(managerData, req.body, client);  
         })
         .catch(function(err){
             logger.error(err);
         });
-        checkManagerDetails(managerData, req.body, client); 
         res.send(true);      
     });
      

@@ -14,7 +14,9 @@ var japanese = {
         password: "パスワード"
     },
     error :{
-        mustNotBeEmpty: "空ではありません"
+        mustNotBeEmpty: "空ではありません",
+        lineIdAlreadyExists: "既に確認済みです.",
+        employeeIdAlreadyExists: "このユーザーは既に確認済みです"
     }
 }
 module.exports = japanese;

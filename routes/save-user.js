@@ -17,6 +17,7 @@ function saveUser(object, logger){
         // add status 500 for error
         logger.info('save error');
         logger.error(err);
+        console.log(err);
       });
 }
 

@@ -26,7 +26,7 @@ function verifyUser(router, passport, logger){
         var lineID = req.params.lineID;
 
         // check if user is in local db
-        var users = retrieveUsers(lineID);
+        var users = retrieveUsers(lineID, 'empty');
 
         const errors = validationResult(req);
         // matchedData returns only the subset of data validated by the middleware
@@ -70,12 +70,14 @@ function verifyUser(router, passport, logger){
                                 // edit message for error; must be generic
                                 return res.status(400).send(err.message);                           
                             }
+                            console.log("user",user)
                             employeeDetails = {
                                 lineID: lineID,
                                 name: user.name,
                                 employee_id: user.employee_id,
                                 email: user.email
                             };
+                            console.log("employeeDetails",employeeDetails);
     
                             saveUser(employeeDetails, logger);
                             res.redirect('/success');                      

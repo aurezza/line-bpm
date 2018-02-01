@@ -7,7 +7,7 @@ function verify(router, lineID) {
         var localeText= localeChecker('jp','verify-content');
          
         // redirect user immediately if line_id exists in db
-        var users = retrieveUsers(lineID);
+        var users = retrieveUsers(lineID, 'empty');
         users.then(function(users){
             if (users){
                 logger.info("The line ID:", lineID, "is already verified");

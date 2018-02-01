@@ -12,13 +12,12 @@ function receiver(router, client){
           
           logger.info("manager data retrieved");
           managerData = users;
-           
+          console.log("managerData",managerData)
+          checkManagerDetails(managerData, req.body, client);  
         })
         .catch(function(err){
           logger.error(err);
         });
-
-        checkManagerDetails(managerData, req.body, client); 
         res.send(true);      
     });
      

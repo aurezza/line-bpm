@@ -8,13 +8,9 @@ function receiver(router, client){
         var users = retrieveUser('empty',req.body.manager_email);
         
         users.then(function(users){
-          if(users){
-            logger.info("manager data retrieved: ", users);
-            managerData = users;
-          }
-          else {
-            logger.error("no manager data retrieved");
-          }
+          if(users) return managerData = users;
+          
+          logger.error("no manager data retrieved");
         })
         .catch(function(err){
           logger.error(err);

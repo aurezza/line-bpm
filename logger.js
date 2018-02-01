@@ -1,4 +1,7 @@
+'use strict';
 var winston = require('winston');
+var mkdirp = require('mkdirp');
+var path = require('path');
 
 var logger = new (winston.Logger) ({
     // level: 'debug',
@@ -26,6 +29,12 @@ var logger = new (winston.Logger) ({
           json:false
       })
     ]
+});
+
+logger.on('error', function(err) {
+  if (err.code == 'ENOENT') {
+    mkdirp.sync(path.join(__dirname, 'logs'));
+  }
 });
   
 // program doesn't terminate if an exception that is not caught is detected

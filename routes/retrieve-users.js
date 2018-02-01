@@ -1,4 +1,5 @@
 var userModel = require('../models/user-model');
+var logger = require('.././logger');
 function retrieveUsers(receivedLineID, receivedEmployeeEmail){
         // convert save code above to promise
 		var users = userModel.findOne({$or: [
@@ -8,7 +9,6 @@ function retrieveUsers(receivedLineID, receivedEmployeeEmail){
 		
 		users
 		.exec(function(res, err){
-			// logger.info("test");
             // logger.error("retrieveUsers error: ", err);
 		});
 		

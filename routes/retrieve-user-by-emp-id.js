@@ -1,5 +1,5 @@
 var userModel = require('../models/user-model');
-var logger = require('.././logger');
+var logger = require('../logger');
 function retrieveUserByEmployeeId(receivedEmployeeID) {
 
 	var users = userModel.findOne({employee_id: receivedEmployeeID});

@@ -1,4 +1,5 @@
 var retrieveUsers = require('./retrieve-users'); 
+var retrieveUserByEmployeeId = require('./retrieve-user-by-emp-id');
 var saveUser = require('./save-user');
 var localeChecker = require('./locale/locale-checker'); 
 const { check, validationResult } = require('express-validator/check');
@@ -54,7 +55,7 @@ function verifyUser(router, passport, logger){
                 if (users){
                     logger.info("The line ID:", lineID, "is already verified");
                     // add error handler on form
-                    res.send(localeText.errorMessageLineIdExists); 
+                    res.send(localeText.error.lineIdAlreadyExists); 
                 }
                 else {
                     // authenticate start
@@ -70,17 +71,28 @@ function verifyUser(router, passport, logger){
                                 // edit message for error; must be generic
                                 return res.status(400).send(err.message);                           
                             }
-                            console.log("user",user)
                             employeeDetails = {
                                 lineID: lineID,
                                 name: user.name,
                                 employee_id: user.employee_id,
                                 email: user.email
                             };
-                            console.log("employeeDetails",employeeDetails);
-    
-                            saveUser(employeeDetails, logger);
-                            res.redirect('/success');                      
+
+                            var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
+                            userWithLineId.then(function(userWithLineId) {
+                                if(userWithLineId) {
+                                    logger.info("This user:", employeeDetails.employee_id, "is already verified");
+                                    res.send(localeText.error.employeeIdAlreadyExists);
+                                }
+                                else {
+                                    saveUser(employeeDetails, logger);
+                                    res.redirect('/success'); 
+                                }
+                            })
+                            .catch(function(err) {
+                                logger.error('error', err);
+                            });
+                  
                         });
                         
                     })(req,res);

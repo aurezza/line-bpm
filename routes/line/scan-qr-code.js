@@ -2,7 +2,7 @@ var localeChecker = require('../locale/locale-checker');
 function scanQrCode(client,line_userId)
 {
     var localeText = localeChecker('jp','scan-qr-code');
-    var msgContent = localeText(process.env.KEY_TO_QUESTETRA+'verify/');
+    var msgContent = localeText(process.env.APP_URL+'verify/');
     console.log(msgContent);
     const message = {
         type: 'text',

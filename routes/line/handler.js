@@ -8,7 +8,7 @@ function handler(router, axios, querystring, client){
 
         if(eventType == "follow"){
             var users = retrieveUserByLineId(line_userId);
-            console.log(users);
+            console.log("users",users);
             scanQrCode(client,line_userId);
         } 
         if(eventType == "postback"){

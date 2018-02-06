@@ -2,8 +2,8 @@ var localeChecker = require('../locale/locale-checker');
 function scanQrCode(client,line_userId)
 {
     var localeText = localeChecker('jp','scan-qr-code');
-
-    var msgContent = localeText(process.env.APP_URL+'verify/');
+    var url = process.env.APP_URL+'verify/';
+    var msgContent = localeText({url:url});
     
     const message = {
         type: 'text',

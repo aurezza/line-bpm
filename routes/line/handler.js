@@ -7,6 +7,7 @@ function handler(router, axios, querystring, client){
         var line_userId = req.body.events[0].source.userId;
 
         if(eventType == "follow"){
+            console.log("eventType",eventType);
             var users = retrieveUserByLineId(line_userId);
             console.log("users",users);
             scanQrCode(client,line_userId);

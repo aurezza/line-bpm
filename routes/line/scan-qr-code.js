@@ -3,7 +3,7 @@ function scanQrCode(client,line_userId)
 {
     var localeText = localeChecker('jp','scan-qr-code');
 
-    var msgContent = localeText(process.env.APP_URL+'verify/',line_userId);
+    var msgContent = localeText(process.env.APP_URL+'verify/');
     
     const message = {
         type: 'text',

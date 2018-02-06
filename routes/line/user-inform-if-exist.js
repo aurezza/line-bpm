@@ -3,7 +3,7 @@ function informUserExistence(client,line_userId,userName)
 {
     var localeText = localeChecker('jp','scan-qr-code');
 
-    var msgContent = localeText(process.env.APP_URL+'verify/',userName);
+    var msgContent = localeText(userName);
     
     const message = {
         type: 'text',

@@ -9,7 +9,16 @@ function handler(router, axios, querystring, client){
         if(eventType == "follow"){
             console.log("eventType",eventType);
             var users = retrieveUserByLineId(line_userId);
-            console.log("users",users);
+
+            users
+            .then(function (users){
+                if(users){console.log("users",users);} 
+                
+            })
+            .catch(function (){
+                console.log(error)
+            });
+            
             scanQrCode(client,line_userId);
         } 
         if(eventType == "postback"){

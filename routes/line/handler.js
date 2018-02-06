@@ -1,4 +1,5 @@
 var scanQrCode = require('./scan-qr-code');
+var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 function handler(router, axios, querystring, client){
@@ -12,14 +13,18 @@ function handler(router, axios, querystring, client){
 
             users
             .then(function (users){
-                if(users){console.log("users",users);} 
+                if(users){
+                    informUserExistence(client,line_userId,users.employee_name)
+                }else{
+                    scanQrCode(client,line_userId)
+                } 
                 
             })
             .catch(function (){
                 console.log(error)
             });
             
-            scanQrCode(client,line_userId);
+            
         } 
         if(eventType == "postback"){
             if(req.body.events[0].postback != null && req.body.events[0].message == null){

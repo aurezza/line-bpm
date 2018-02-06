@@ -1,5 +1,10 @@
-var japanese = {
-    text: "こんにちは！\n"+"追加ありがとう BPMS-Messaging Bot \n" + 
-    "続行するにはログインしてください " + process.env.BPMS_BASE_URL + "verify/"
+function Japanese(key){
+    var japanese = {
+        text: "こんにちは！\n"+"追加ありがとう BPMS-Messaging Bot \n" + 
+        "続行するにはログインしてください " + key
+    };
+    return japanese;
 }
-module.exports = japanese;
+
+
+module.exports = Japanese;

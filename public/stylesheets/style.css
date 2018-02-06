@@ -23,9 +23,9 @@ a {
 
 .container {
   width: 100%;
-  max-width: 500px !important;
-  text-align: center;
   height: 100vh;
+  max-width: none !important;
+  text-align: center;
   display: table;
   margin: 0 auto;
 }
@@ -38,6 +38,7 @@ a {
 
 .panel {
   width:100%;
+  margin: 0 auto;
 }
 
 .panel-info {
@@ -117,6 +118,19 @@ a {
 .light-gray {
   background-color: #f9f6f6 !important;
 }
-        
+
+/*desktop viewport*/
+@media only screen and (min-width:768px) {
+  .panel {
+    max-width: 500px;
+  }
+}
+
+/*mobile viewport*/
+@media only screen and (max-width:767px) {
+  .panel {
+    max-width: 400px;
+  }
+}
 
 

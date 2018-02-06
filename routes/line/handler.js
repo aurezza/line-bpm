@@ -8,17 +8,11 @@ function handler(router, axios, querystring, client){
         var line_userId = req.body.events[0].source.userId;
 
         if(eventType == "follow"){
-            console.log("eventType",eventType);
             var users = retrieveUserByLineId(line_userId);
-
             users
             .then(function (users){
-                if(users){
-                    informUserExistence(client,line_userId,users.employee_name)
-                }else{
-                    scanQrCode(client,line_userId)
-                } 
-                
+                if(users) return  informUserExistence(client,line_userId,users.employee_name);
+                scanQrCode(client,line_userId);
             })
             .catch(function (){
                 console.log(error)

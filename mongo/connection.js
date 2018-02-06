@@ -1,4 +1,5 @@
 function connection(mongoose, connectionURL){
+	mongoose.Promise = global.Promise;
 	// remove deprecationWarning error
 	mongoose.connect(connectionURL, {
 		useMongoClient: true

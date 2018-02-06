@@ -16,7 +16,7 @@ const config = {
 };
 const client = new line.Client(config);
         
-var mongoDbURL = process.env.MONGODB_URL;
+var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 

@@ -1,11 +1,16 @@
 var scanQrCode = require('./scan-qr-code');
 var toNode = require('./to-node');
+var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
         var line_userId = req.body.events[0].source.userId;
 
-        if(eventType == "follow") scanQrCode(client,line_userId);
+        if(eventType == "follow"){
+            var users = retrieveUserByLineId(line_userId);
+            console.log(users);
+            scanQrCode(client,line_userId);
+        } 
         if(eventType == "postback"){
             if(req.body.events[0].postback != null && req.body.events[0].message == null){
                 //postBack is data query params depending on manager reply

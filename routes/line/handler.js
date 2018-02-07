@@ -28,7 +28,6 @@ eventHandler.follow = function(params) {
     });
 }
 eventHandler.postback = function(params){
-    console.log("params",params.req.events[0])
         //postBack is data query params depending on manager reply
         var postBack = params.req.events[0].postback;
         toNode(postBack);

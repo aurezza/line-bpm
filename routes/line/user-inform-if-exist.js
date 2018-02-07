@@ -1,13 +1,13 @@
 var localeChecker = require('../locale/locale-checker');
-function scanQrCode(client,line_userId)
+function informUserExistence(client,line_userId,userName)
 {
     var localeText = localeChecker('jp','scan-qr-code');
-    var url = process.env.APP_URL+'verify/';
-    var msgContent = localeText({url:url});
+
+    var msgContent = localeText({userName:userName});
     
     const message = {
         type: 'text',
-        text: msgContent.text+line_userId,
+        text: msgContent.userExist,
         };
     client.pushMessage(line_userId, message)
         .then(() => {
@@ -19,4 +19,4 @@ function scanQrCode(client,line_userId)
   
 }
 
-module.exports = scanQrCode;
+module.exports = informUserExistence;

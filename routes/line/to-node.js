@@ -1,5 +1,7 @@
 var replyToQuestetra = require('./reply-to-questetra');
-function toNode(querystring, axios, postBack){
+var axios = require('axios');
+var querystring = require('querystring');
+function toNode(postBack){
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {
         url: process.env.REPLYURL_TO_QUESTETRA,

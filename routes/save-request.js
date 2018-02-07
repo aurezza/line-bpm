@@ -23,4 +23,4 @@ function saveRequest(params){
       });
 }
 
-module.exports = saveUser;
+module.exports = saveRequest;

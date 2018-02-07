@@ -13,6 +13,7 @@ function saveRequest(params){
 
     newRequest.save()
       .then(function(savedObject) {
+        console.log("savedObject",savedObject)
         logger.info('data saved');
       })
       .catch(function(err) {

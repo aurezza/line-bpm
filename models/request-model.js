@@ -8,6 +8,6 @@ var requestSchema = mongoose.Schema({
 });
 
 // request model
-var requestModel = mongoose.model('request', requestSchema);  
+var requestModel = mongoose.model('requests', requestSchema);  
 
 module.exports = requestModel;   

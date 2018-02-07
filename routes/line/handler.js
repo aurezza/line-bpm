@@ -4,6 +4,7 @@ var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
+        console.log("req",req);
         var eventType = req.body.events[0].type;
         window[eventType]({req:req,client:client});
 
@@ -14,7 +15,8 @@ function handler(router, axios, querystring, client){
 function follow(params) {
     var line_userId = params.req.body.events[0].source.userId;
     var users = retrieveUserByLineId(line_userId);
-    users.then(function (users){
+    users
+    .then(function (users){
         if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
         scanQrCode(params.client,line_userId);
     })

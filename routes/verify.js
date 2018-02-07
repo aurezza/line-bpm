@@ -5,12 +5,12 @@ function verify(router, lineID) {
     router.get('/verify/:line_id', function(req, res) {
         var lineID = req.params.line_id;
         var localeText= localeChecker('jp','verify-content');
-         
+        logger.info("page has loaded..");
         // redirect user immediately if line_id exists in db
         var users = retrieveUsers(lineID, 'empty');
         users.then(function(users){
             if (users){
-                logger.info("The line ID:", lineID, "is already verified");
+                logger.warn("The line ID:", lineID, "is already verified");
                 return res.send(localeText.errorMessageLineIdExists); 
             }
             res.render('verify', {

@@ -49,6 +49,7 @@ app.use(cookieSession({
     keys: process.env.COOKIE_SESSION_KEY
   }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -58,6 +59,7 @@ app.use('/', handler);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  winLogger.error("Not found: ", err);
   next(err);
 });
 
@@ -68,7 +70,7 @@ app.use(expressValidator);
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = process.env.APP_ENV === 'development' ? err : {};
   
   // winston logger for separate logs
   winLogger.error(err);

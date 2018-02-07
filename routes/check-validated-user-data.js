@@ -8,6 +8,7 @@ var employeeDetails = {};
 function checkValidatedUserData(passport, req, res, lineID, validatedUserData) {
     // check if user is in local db
     var users = retrieveUsers(lineID, 'empty');
+    var localeText = localeChecker('jp','verify-content'); 
 
     if (!validatedUserData) return logger.error("User data not validated");
     users.then(function(users){
@@ -19,11 +20,15 @@ function checkValidatedUserData(passport, req, res, lineID, validatedUserData) {
         passport.authenticate('tmj', function(err, user, info) {
             var throwErr = err || info;         
             if (throwErr) {
+                logger.error("Authenticate error: ", throwErr);
+                // redirect with localetext
                 return res.status(400).send(throwErr);            
             }
             req.logIn(user, function(err) {
                 if (err) {
-                    return res.status(400).send(err.message);                      
+                    logger.error("Error 404: ", err.message);
+                     // redirect with localetext
+                    return res.status(400).send(err.message);                  
                 }
                 
                 employeeDetails = {

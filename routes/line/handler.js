@@ -7,14 +7,14 @@ function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
         
-        functionHandler[eventType]({req:req.body,client:client});
+        eventHandler[eventType]({req:req.body,client:client});
 
         res.send(true)
     });
 }
 
-var functionHandler = {};
-functionHandler.follow = function(params) {
+var eventHandler = {};
+eventHandler.follow = function(params) {
     
     var line_userId = params.req.events[0].source.userId;
     var users = retrieveUserByLineId(line_userId);
@@ -27,13 +27,13 @@ functionHandler.follow = function(params) {
         console.log(error)
     });
 }
-functionHandler.postback = function(params){
+eventHandler.postback = function(params){
     console.log("params",params.req.events[0])
         //postBack is data query params depending on manager reply
         var postBack = params.req.events[0].postback;
         toNode(postBack);
 }
 
-functionHandler.unfollow = function(params){console.log("unfollow event")};
-functionHandler.message = function(params){console.log("message event")};
+eventHandler.unfollow = function(params){console.log("unfollow event")};
+eventHandler.message = function(params){console.log("message event")};
 module.exports = handler;

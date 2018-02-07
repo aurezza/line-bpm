@@ -2,19 +2,22 @@ var scanQrCode = require('./scan-qr-code');
 var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
+
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
+
         var eventType = req.body.events[0].type;
-        Handler[eventType]({req:req.body,client:client});
+
+        functionHandler[eventType]({req:req.body,client:client});
 
         res.send(true)
     });
 }
-var Handler = {};
-Handler.follow = function(params) {
+
+var functionHandler = {};
+functionHandler.follow = function(params) {
     
     var line_userId = params.req.events[0].source.userId;
-    console.log("line_userId",line_userId);
     var users = retrieveUserByLineId(line_userId);
     users
     .then(function (users){
@@ -25,14 +28,14 @@ Handler.follow = function(params) {
         console.log(error)
     });
 }
-Handler.postback = function(params){
-    if(params.req.body.events[0].postback != null && params.req.body.events[0].message == null){
+functionHandler.postback = function(params){
+    if(params.req.events[0].postback != null && params.req.events[0].message == null){
         //postBack is data query params depending on manager reply
         var postBack = params.req.body.events[0].postback;
         toNode(postBack);
     }
 }
 
-Handler.unfollow = function(params){console.log("unfollow event")};
+functionHandler.unfollow = function(params){console.log("unfollow event")};
 
 module.exports = handler;

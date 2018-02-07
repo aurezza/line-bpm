@@ -29,7 +29,7 @@ function sender(body, managerData, client){
             ]
         }    
       };
-
+      
       client.pushMessage(managerData.line_id, message)
       .then(() => { 
           fromNode(querystring, axios,body.process_id, 'yes'); 

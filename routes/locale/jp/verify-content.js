@@ -16,7 +16,8 @@ var japanese = {
     error :{
         mustNotBeEmpty: "空ではありません",
         lineIdAlreadyExists: "既に確認済みです.",
-        employeeIdAlreadyExists: "このユーザーは既に確認済みです"
+        employeeIdAlreadyExists: "このユーザーは既に確認済みです",
+        wrongCredentials: "間違った資格"
     }
 }
 module.exports = japanese;

@@ -8,7 +8,7 @@ var employeeDetails = {};
 function checkValidatedUserData(passport, req, res, lineID, validatedUserData) {
     // check if user is in local db
     var users = retrieveUsers(lineID, 'empty');
-    var localeText = localeChecker('jp','verify-content'); 
+    var localeText= localeChecker('jp','verify-content');
 
     if (!validatedUserData) return logger.error("User data not validated");
     users.then(function(users){

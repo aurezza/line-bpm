@@ -9,7 +9,7 @@ function saveRequest(params){
     newRequest.user_name = params.user_name;
     newRequest.overtime_date = params.overtime_date;
     newRequest.process_id = params.process_id;
-    newRequest.response = params.response;
+    newRequest.reason = params.reason;
 
     newRequest.save()
       .then(function(savedObject) {

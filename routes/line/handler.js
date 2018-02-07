@@ -29,11 +29,12 @@ functionHandler.follow = function(params) {
     });
 }
 functionHandler.postback = function(params){
-    if(params.req.events[0].postback != null && params.req.events[0].message == null){
-        //postBack is data query params depending on manager reply
-        var postBack = params.req.body.events[0].postback;
-        toNode(postBack);
-    }
+    console.log("params",params)
+    // if(params.req.events[0].postback != null && params.req.events[0].message == null){
+    //     //postBack is data query params depending on manager reply
+    //     var postBack = params.req.body.events[0].postback;
+    //     toNode(postBack);
+    // }
 }
 
 functionHandler.unfollow = function(params){console.log("unfollow event")};

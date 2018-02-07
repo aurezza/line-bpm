@@ -3,7 +3,7 @@ var querystring = require('querystring');
 var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 var saveRequest = require('../save-request');
-//var retrieveRequestByProcessId = require('../retrieve-request');
+var retrieveRequest = require('../retrieve-request');
 function sender(body, managerData, client){
     var messageText = messageContent(body);
     const message = {
@@ -30,8 +30,14 @@ function sender(body, managerData, client){
             ]
         }    
       };
-      // var requests = retrieveRequestByProcessId(body.process_id);
-      // console.log(requests);
+      var retrievedRequestData = retrieveRequest(body.process_id);
+      retrievedRequestData
+      .then(function(retrievedRequestData){
+        console.log("retrievedRequestData",retrievedRequestData);
+      })
+      .catch(function(err){
+
+      });
       saveRequest({
         user_name:body.user_name,
         overtime_date:body.overtime_date,

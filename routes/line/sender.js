@@ -3,7 +3,7 @@ var querystring = require('querystring');
 var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 var saveRequest = require('../save-request');
-
+var retrieveRequest = require('../retrieve-request');
 function sender(body, managerData, client){
     var messageText = messageContent(body);
     const message = {
@@ -30,7 +30,8 @@ function sender(body, managerData, client){
             ]
         }    
       };
-
+      var request = retrieveRequest(body.process_id);
+      console.log(request);
       saveRequest({
         user_name:body.user_name,
         overtime_date:body.overtime_date,

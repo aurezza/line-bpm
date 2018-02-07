@@ -14,7 +14,7 @@ var Handler = {};
 Handler.follow = function(params) {
     
     //var line_userId = params.req.body.events[0].source.userId;
-    console.log("params",params);
+    console.log("params",params.req.events[0]);
     // var users = retrieveUserByLineId(line_userId);
     // users
     // .then(function (users){

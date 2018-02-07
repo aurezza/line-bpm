@@ -4,9 +4,9 @@ var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
-        console.log("req",req);
-        var eventType = req.body.events[0].type;
-        window[eventType]({req:req,client:client});
+        console.log("req.body",req.body);
+        //var eventType = req.body.events[0].type;
+        //window[eventType]({req:req,client:client});
 
         res.send(true)
     });

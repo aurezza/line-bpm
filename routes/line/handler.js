@@ -5,31 +5,29 @@ var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
-        var line_userId = req.body.events[0].source.userId;
-
-        if(eventType == "follow"){
-            var users = retrieveUserByLineId(line_userId);
-            users
-            .then(function (users){
-                if(users) return  informUserExistence(client,line_userId,users.employee_name);
-                scanQrCode(client,line_userId);
-            })
-            .catch(function (){
-                console.log(error)
-            });
-            
-            
-        } 
-        if(eventType == "postback"){
-            if(req.body.events[0].postback != null && req.body.events[0].message == null){
-                //postBack is data query params depending on manager reply
-                var postBack = req.body.events[0].postback;
-                toNode(querystring, axios, postBack);
-            }
-        }
+        window[eventType]({req:req,client:client});
 
         res.send(true)
     });
+}
+
+function follow(params) {
+    var line_userId = params.req.body.events[0].source.userId;
+    var users = retrieveUserByLineId(line_userId);
+    users.then(function (users){
+        if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
+        scanQrCode(params.client,line_userId);
+    })
+    .catch(function (){
+        console.log(error)
+    });
+}
+function postback(params){
+    if(params.req.body.events[0].postback != null && params.req.body.events[0].message == null){
+        //postBack is data query params depending on manager reply
+        var postBack = params.req.body.events[0].postback;
+        toNode(postBack);
+    }
 }
 
 module.exports = handler;

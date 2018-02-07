@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
 
 var requestSchema = mongoose.Schema({
+	user_name:String,
+	overtime_date:String,
 	process_id: String,
+	reason:String
 });
 
 // request model

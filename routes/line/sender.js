@@ -2,6 +2,7 @@ var axios = require('axios');
 var querystring = require('querystring');
 var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
+var saveRequest = require('../save-request');
 
 function sender(body, managerData, client){
     var messageText = messageContent(body);
@@ -29,7 +30,13 @@ function sender(body, managerData, client){
             ]
         }    
       };
-      
+
+      saveRequest({
+        user_name:body.user_name,
+        overtime_date:body.overtime_date,
+        process_id:body.process_id,
+        reason:body.overtime_reason
+      });
       client.pushMessage(managerData.line_id, message)
       .then(() => { 
           fromNode(querystring, axios,body.process_id, 'yes'); 

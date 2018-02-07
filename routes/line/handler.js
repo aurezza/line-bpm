@@ -5,7 +5,6 @@ var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
-        console.log("postback",req.body.events[0].postback);
         var eventType = req.body.events[0].type;
         
         eventHandler[eventType]({req:req.body,client:client});
@@ -15,13 +14,12 @@ function handler(router, axios, querystring, client){
 }
 
 var eventHandler = {};
-eventHandler.follow = function(params) {    
+eventHandler.follow = function(params) {
+    
     var line_userId = params.req.events[0].source.userId;
-    console.log("line_userId",line_userId);
     var users = retrieveUserByLineId(line_userId);
     users
     .then(function (users){
-        console.log("users",users);
         if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
         scanQrCode(params.client,line_userId);
     })

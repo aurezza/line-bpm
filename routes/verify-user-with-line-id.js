@@ -12,7 +12,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID) {
     userWithLineId.then(function(userWithLineId) {
         if(!userWithLineId) {
             saveUser(employeeDetails, logger);
-            // successVerifyLineMessage(client, lineID);
+            successVerifyLineMessage(client, lineID);
             res.redirect('/success');
             // push a message to line for successful verification
         }

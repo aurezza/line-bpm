@@ -2,16 +2,19 @@ var retrieveUserByEmployeeId = require('./retrieve-user-by-emp-id');
 var saveUser = require('./save-user');
 var localeChecker = require('./locale/locale-checker');
 var logger = require('../logger');
+var successVerifyLineMessage = require('./success-verify-line-message');
 
 
-function verifyUserWithLineId(employeeDetails, res) {
+function verifyUserWithLineId(employeeDetails, res, client, lineID) {
     var localeText= localeChecker('jp','verify-content');
     var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
 
     userWithLineId.then(function(userWithLineId) {
         if(!userWithLineId) {
             saveUser(employeeDetails, logger);
-            res.redirect('/success');   
+            // successVerifyLineMessage(client, lineID);
+            res.redirect('/success');
+            // push a message to line for successful verification
         }
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
         res.send(localeText.error.employeeIdAlreadyExists);

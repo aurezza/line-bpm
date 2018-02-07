@@ -33,7 +33,7 @@ passportTmj();
 
 // verify page
 verify(router);
-verifyUser(router, passport, logger);
+verifyUser(router, passport, client, logger);
 success(router);
 retrieveUsers();
 

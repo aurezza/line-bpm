@@ -5,7 +5,7 @@ var logger = require('../logger');
 
 var employeeDetails = {};
 
-function checkValidatedUserData(passport, req, res, lineID, validatedUserData) {
+function checkValidatedUserData(passport, req, res, lineID, validatedUserData, client) {
     // check if user is in local db
     var users = retrieveUsers(lineID, 'empty');
     var localeText= localeChecker('jp','verify-content');
@@ -20,9 +20,8 @@ function checkValidatedUserData(passport, req, res, lineID, validatedUserData) {
         passport.authenticate('tmj', function(err, user, info) {
             var throwErr = err || info;         
             if (throwErr) {
-                logger.error("Authenticate error: ", throwErr);
-                // redirect with localetext
-                return res.status(400).send(throwErr);            
+                res.status(400).send(localeText.error.wrongCredentials);
+                // return res.status(400).send(throwErr);            
             }
             req.logIn(user, function(err) {
                 if (err) {
@@ -38,7 +37,7 @@ function checkValidatedUserData(passport, req, res, lineID, validatedUserData) {
                     email: user.email
                 };
 
-                verifyUserWithLineId(employeeDetails, res);
+                verifyUserWithLineId(employeeDetails, res, client, lineID);
             });
         })(req,res);               
     })

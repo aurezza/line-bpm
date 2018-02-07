@@ -7,7 +7,7 @@ const { matchedData, sanitize } = require('express-validator/filter');
 var localeText= localeChecker('jp','verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
 
-function verifyUser(router, passport, logger){
+function verifyUser(router, passport, client, logger){
     // needs additional validation for schema
     router.post('/verify/:lineID', [
         check('username', notEmpty)

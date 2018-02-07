@@ -13,17 +13,17 @@ function handler(router, axios, querystring, client){
 var Handler = {};
 Handler.follow = function(params) {
     
-    //var line_userId = params.req.body.events[0].source.userId;
-    console.log("params",params.req.events[0]);
-    // var users = retrieveUserByLineId(line_userId);
-    // users
-    // .then(function (users){
-    //     if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
-    //     scanQrCode(params.client,line_userId);
-    // })
-    // .catch(function (){
-    //     console.log(error)
-    // });
+    var line_userId = params.req.events[0].source.userId;
+    console.log("line_userId",line_userId);
+    var users = retrieveUserByLineId(line_userId);
+    users
+    .then(function (users){
+        if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
+        scanQrCode(params.client,line_userId);
+    })
+    .catch(function (){
+        console.log(error)
+    });
 }
 Handler.postback = function(params){
     if(params.req.body.events[0].postback != null && params.req.body.events[0].message == null){

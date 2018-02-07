@@ -12,8 +12,9 @@ function handler(router, axios, querystring, client){
 }
 var Handler = {};
 Handler.follow = function(params) {
-    console.log("params",params);
-    // var line_userId = params.req.body.events[0].source.userId;
+    
+    var line_userId = params.req.body.events[0].source.userId;
+    console.log("line_userId",line_userId);
     // var users = retrieveUserByLineId(line_userId);
     // users
     // .then(function (users){

@@ -1,12 +1,14 @@
 var axios = require('axios');
 var querystring = require('querystring');
 var replyToQuestetra = require('./reply-to-questetra');
+var logger = require('../../logger');
 var sender = require('./sender');
 
 function checkManagerDetails(managerData, body, client){
 
     if (Object.keys(managerData).length) return sender(body, managerData, client);
-
+        logger.error("no manager data retrieved");
+        logger.info("manager data retrieved");
         var axiosParameters = {
             url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
             content:{

@@ -7,7 +7,7 @@ function handler(router, axios, querystring, client){
         console.log("req.body",req.body);
         var eventType = req.body.events[0].type;
         console.log("eventType",eventType);
-        window[eventType]({req:req.body,client:client});
+        [eventType]({req:req.body,client:client});
 
         res.send(true)
     });

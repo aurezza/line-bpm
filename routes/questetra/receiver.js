@@ -1,5 +1,6 @@
 'use strict';
 var retrieveUser = require('../retrieve-users');
+var logger = require('../../logger');
 var checkManagerDetails = require('../line/checker-of-manager-details');
 function receiver(router, client){
     router.post('/receiveFromQuest', function(req, res) {

@@ -41,7 +41,7 @@ function verifyUser(router, passport, client, logger){
             });
         }
 
-        checkValidatedUserData(passport, req, res, lineID, validatedUserData);
+        checkValidatedUserData(passport, req, res, client, lineID, validatedUserData);
     });
 }
 

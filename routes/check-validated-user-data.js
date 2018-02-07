@@ -5,7 +5,7 @@ var logger = require('../logger');
 
 var employeeDetails = {};
 
-function checkValidatedUserData(passport, req, res, lineID, validatedUserData, client) {
+function checkValidatedUserData(passport, req, res, client, lineID, validatedUserData) {
     // check if user is in local db
     var users = retrieveUsers(lineID, 'empty');
     var localeText= localeChecker('jp','verify-content');
@@ -20,7 +20,7 @@ function checkValidatedUserData(passport, req, res, lineID, validatedUserData, c
         passport.authenticate('tmj', function(err, user, info) {
             var throwErr = err || info;         
             if (throwErr) {
-                logger.error("Authenticate error: ", throwErr);
+                logger.error("Authenticate error: ", thro);
                  return res.status(400).send(localeText.error.wrongCredentials);
                 // return res.status(400).send(throwErr);            
             }

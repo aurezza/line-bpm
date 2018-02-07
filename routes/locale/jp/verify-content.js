@@ -17,7 +17,8 @@ var japanese = {
         mustNotBeEmpty: "空ではありません",
         lineIdAlreadyExists: "既に確認済みです.",
         employeeIdAlreadyExists: "このユーザーは既に確認済みです",
-        wrongCredentials: "間違った資格"
+        wrongCredentials: "間違った資格",
+        alreadyVerified: "あなたはすでに確認済みです"
     }
 }
 module.exports = japanese;

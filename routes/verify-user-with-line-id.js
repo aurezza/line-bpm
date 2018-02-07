@@ -9,14 +9,12 @@ function verifyUserWithLineId(employeeDetails, res) {
     var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
 
     userWithLineId.then(function(userWithLineId) {
-        if(userWithLineId) {
-            logger.info("This user:", employeeDetails.employee_id, "is already verified");
-            res.send(localeText.error.employeeIdAlreadyExists);
-        }
-        else {
+        if(!userWithLineId) {
             saveUser(employeeDetails, logger);
-            res.redirect('/success'); 
+            res.redirect('/success');   
         }
+        logger.info("This user:", employeeDetails.employee_id, "is already verified");
+        res.send(localeText.error.employeeIdAlreadyExists);
     })
     .catch(function(err) {
         logger.error('error', err);

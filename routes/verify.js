@@ -11,19 +11,17 @@ function verify(router, lineID) {
         users.then(function(users){
             if (users){
                 logger.info("The line ID:", lineID, "is already verified");
-                res.send(localeText.errorMessageLineIdExists); 
+                return res.send(localeText.errorMessageLineIdExists); 
             }
-            else {
-                res.render('verify', {
-                    title: localeText.pageTitle.title,
-                    panelTitle: localeText.label.panelTitle,
-                    verifyButtonText: localeText.button.verify,
-                    usernamePlaceholder: localeText.placeHolder.username, 
-                    passwordPlaceholder: localeText.placeHolder.password,
-                    lineID: lineID,
-                    errors: {}
-                });
-            }
+            res.render('verify', {
+                title: localeText.pageTitle.title,
+                panelTitle: localeText.label.panelTitle,
+                verifyButtonText: localeText.button.verify,
+                usernamePlaceholder: localeText.placeHolder.username, 
+                passwordPlaceholder: localeText.placeHolder.password,
+                lineID: lineID,
+                errors: {}   
+            });
         })
         .catch(function(err){
             logger.error(err);;

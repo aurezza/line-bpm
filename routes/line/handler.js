@@ -32,4 +32,6 @@ Handler.postback = function(params){
     }
 }
 
+Handler.unfollow = function(params){console.log("unfollow event")};
+
 module.exports = handler;

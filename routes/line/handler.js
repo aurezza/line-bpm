@@ -5,9 +5,8 @@ var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
-
         var eventType = req.body.events[0].type;
-        console.log("eventType",eventType)
+        
         functionHandler[eventType]({req:req.body,client:client});
 
         res.send(true)
@@ -30,12 +29,11 @@ functionHandler.follow = function(params) {
 }
 functionHandler.postback = function(params){
     console.log("params",params.req.events[0])
-    // if(params.req.events[0].postback != null && params.req.events[0].message == null){
-    //     //postBack is data query params depending on manager reply
-    //     var postBack = params.req.body.events[0].postback;
-    //     toNode(postBack);
-    // }
+        //postBack is data query params depending on manager reply
+        var postBack = params.req.events[0].postback;
+        toNode(postBack);
 }
+
 functionHandler.unfollow = function(params){console.log("unfollow event")};
 functionHandler.message = function(params){console.log("message event")};
 module.exports = handler;

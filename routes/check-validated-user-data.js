@@ -20,7 +20,8 @@ function checkValidatedUserData(passport, req, res, lineID, validatedUserData, c
         passport.authenticate('tmj', function(err, user, info) {
             var throwErr = err || info;         
             if (throwErr) {
-                res.status(400).send(localeText.error.wrongCredentials);
+                logger.error("Authenticate error: ", throwErr);
+                 return res.status(400).send(localeText.error.wrongCredentials);
                 // return res.status(400).send(throwErr);            
             }
             req.logIn(user, function(err) {

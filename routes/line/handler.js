@@ -6,8 +6,14 @@ var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 function handler(router, axios, querystring, client){
     router.post('/handler',
     function(req, res, next){
-        console.log("testing middleware");
-        next();
+        var a = 2;
+        if(a == 1){
+            console.log("testing middleware");
+            next();
+        }else{
+            return;
+        }
+
     }
     ,function(req, res) {
         var eventType = req.body.events[0].type;        

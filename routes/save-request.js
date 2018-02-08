@@ -14,6 +14,7 @@ function saveRequest(params){
 
     newRequest.save()
       .then(function(savedObject) {
+        logger.info(savedObject)
         logger.info('data saved');
       })
       .catch(function(err) {

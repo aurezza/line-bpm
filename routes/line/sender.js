@@ -13,6 +13,7 @@ function sender(body, managerData, client){
       .then(function(retrievedRequestData){
 
         if(retrievedRequestData) {
+            console.log("retrievedRequestData",retrievedRequestData)
             var actions = [
                 {
                   "type": "postback",
@@ -32,6 +33,16 @@ function sender(body, managerData, client){
                 }
             ];
         }else{
+            console.log("retrievedRequestData",retrievedRequestData)
+            saveRequest({
+                user_name:body.user_name,
+                overtime_date:body.overtime_date,
+                process_id:body.process_id,
+                reason:body.overtime_reason, 
+                response:'replied',
+                manager_email:body.manager_email,       
+            });
+
             var actions = [
                 {
                   "type": "postback",

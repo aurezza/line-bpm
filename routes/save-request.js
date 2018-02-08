@@ -9,8 +9,8 @@ function saveRequest(params){
     newRequest.overtime_date = params.overtime_date;
     newRequest.process_id = params.process_id;
     newRequest.reason = params.reason;
-    newRequest.reason = params.response;
-    newRequest.reason = params.manager_email;
+    newRequest.status = params.status;
+    newRequest.manager_email = params.manager_email;
 
     newRequest.save()
       .then(function(savedObject) {

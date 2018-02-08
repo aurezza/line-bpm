@@ -13,25 +13,8 @@ function sender(body, managerData, client){
       .then(function(retrievedRequestData){
 
         if(retrievedRequestData==null) {
-            console.log("retrievedRequestData",retrievedRequestData)
-            var actions = [
-                {
-                  "type": "postback",
-                  "label": messageText.label.approve,
-                  "text": "You already replied to this.",
-                  "data": "processInstanceId="+body.process_id+"&q_replymessage=yes"+
-                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
-                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
-                },
-                {
-                  "type": "postback",
-                  "label": messageText.label.decline,
-                  "text":  "You already replied to this.",
-                  "data": "processInstanceId="+body.process_id+"&q_replymessage=no"+
-                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
-                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
-                }
-            ];
+            console.log("retrievedRequestData",retrievedRequestData);
+            console.log("empty");
         }else{
             console.log("retrievedRequestData",retrievedRequestData)
             saveRequest({
@@ -39,30 +22,10 @@ function sender(body, managerData, client){
                 overtime_date:body.overtime_date,
                 process_id:body.process_id,
                 reason:body.overtime_reason, 
-                response:'replied',
+                response:'pending',
                 manager_email:body.manager_email,       
             });
 
-            var actions = [
-                {
-                  "type": "postback",
-                  "label": messageText.label.approve,
-                  "text":  messageText.text +
-                           messageText.status.approved,
-                  "data": "processInstanceId="+body.process_id+"&q_replymessage=yes"+
-                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
-                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
-                },
-                {
-                  "type": "postback",
-                  "label": messageText.label.decline,
-                  "text":  messageText.text +
-                           messageText.status.declined,
-                  "data": "processInstanceId="+body.process_id+"&q_replymessage=no"+
-                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
-                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
-                }
-            ];
         }
 
         const message = {
@@ -71,7 +34,26 @@ function sender(body, managerData, client){
             "template": {
                 "type": "confirm",
                 "text":  messageText.text,
-                "actions": actions
+                "actions": [
+                    {
+                      "type": "postback",
+                      "label": messageText.label.approve,
+                      "text":  messageText.text +
+                               messageText.status.approved,
+                      "data": "processInstanceId="+body.process_id+"&q_replymessage=yes"+
+                      "&manager_email="+body.manager_email+"&user_name="+body.user_name+
+                      "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
+                    },
+                    {
+                      "type": "postback",
+                      "label": messageText.label.decline,
+                      "text":  messageText.text +
+                               messageText.status.declined,
+                      "data": "processInstanceId="+body.process_id+"&q_replymessage=no"+
+                      "&manager_email="+body.manager_email+"&user_name="+body.user_name+
+                      "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
+                    }
+                ]
             }    
           };
           client.pushMessage(managerData.line_id, message)

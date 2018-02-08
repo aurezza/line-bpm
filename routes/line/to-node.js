@@ -13,7 +13,7 @@ function toNode(postBack){
             q_replymessage:parsedData.q_replymessage
         }
     };
-    //updateRequestStatus(parsedData);
+    updateRequestStatus(parsedData);
     // console.log(updateRequestStatus(parsedData));
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }

@@ -12,7 +12,7 @@ function sender(body, managerData, client){
       retrievedRequestData
       .then(function(retrievedRequestData){
 
-        if(retrievedRequestData) {
+        if(retrievedRequestData==null) {
             console.log("retrievedRequestData",retrievedRequestData)
             var actions = [
                 {

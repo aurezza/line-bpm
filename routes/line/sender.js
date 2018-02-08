@@ -42,7 +42,7 @@ function sender(body, managerData, client){
                     overtime_date:body.overtime_date,
                     process_id:body.process_id,
                     reason:body.overtime_reason, 
-                    status:'failed',
+                    status:'pending',
                     manager_email:body.manager_email,       
                 });
                 fromNode(querystring, axios,body.process_id, 'yes'); 

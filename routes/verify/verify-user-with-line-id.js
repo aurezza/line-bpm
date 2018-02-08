@@ -13,9 +13,8 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID) {
     userWithLineId.then(function(userWithLineId) {
         if(!userWithLineId) {
             saveUser(employeeDetails, logger);
-            success(true, lineID);
             successVerifyLineMessage(client, lineID);
-            res.redirect('/success');
+            res.redirect('/success/' + lineID);
         }
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
         res.render('verify-error', {message: localeText.error.employeeIdAlreadyExists});

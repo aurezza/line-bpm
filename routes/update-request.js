@@ -8,11 +8,11 @@ function updateRequest(params) {
 
     newRequest.user_name = params.user_name;
     newRequest.overtime_date = params.overtime_date;
-    newRequest.process_id = params.process_id;
-    newRequest.reason = params.reason;
+    newRequest.process_id = params.processInstanceId;
+    newRequest.reason = params.overtime_reason;
     newRequest.status = params.q_replymessage;
     newRequest.manager_email = params.manager_email;
-    
+
     console.log(newRequest.user_name);
     console.log(newRequest.overtime_date);
     console.log(newRequest.process_id);
@@ -20,11 +20,11 @@ function updateRequest(params) {
     console.log(newRequest.status);
     console.log(newRequest.manager_email);
 
-    newRequest.update({ process_id: newRequest.processInstanceId }, 
+    newRequest.update({ process_id: newRequest.process_id }, 
         { $set: { 
                 user_name : newRequest.user_name,
                 overtime_date : newRequest.overtime_date,
-                reason : newRequest.overtime_reason,
+                reason : newRequest.reason,
                 status : newRequest.q_replymessage ,
                 manager_email : newRequest.manager_email,
                 }

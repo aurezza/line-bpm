@@ -12,41 +12,41 @@ function handler(router, axios, querystring, client){
             next();
         }else{
             console.log("dito ang pumasok");
-            next(new Error('mali ka may error pa!'));
+            res.status(500);
         }
 
     }
     ,function(req, res) {
-        var eventType = req.body.events[0].type;        
-        eventHandler[eventType]({req:req.body,client:client});
+        // var eventType = req.body.events[0].type;        
+        // eventHandler[eventType]({req:req.body,client:client});
 
         res.send(true)
     });
 }
 
-var eventHandler = {};
-eventHandler.follow = function(params) {
+// var eventHandler = {};
+// eventHandler.follow = function(params) {
     
-    var line_userId = params.req.events[0].source.userId;
-    var users = retrieveUserByLineId(line_userId);
-    users
-    .then(function (users){
-        if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
-        scanQrCode(params.client,line_userId);
-    })
-    .catch(function (){
-        console.log(error)
-    });
-}
-eventHandler.postback = function(params){
-        //postBack is data query params depending on manager reply
-        console.log("postback",params.req.events[0].postback);
-        var postBack = params.req.events[0].postback;
-        toNode(postBack);
-}
+//     var line_userId = params.req.events[0].source.userId;
+//     var users = retrieveUserByLineId(line_userId);
+//     users
+//     .then(function (users){
+//         if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
+//         scanQrCode(params.client,line_userId);
+//     })
+//     .catch(function (){
+//         console.log(error)
+//     });
+// }
+// eventHandler.postback = function(params){
+//         //postBack is data query params depending on manager reply
+//         console.log("postback",params.req.events[0].postback);
+//         var postBack = params.req.events[0].postback;
+//         toNode(postBack);
+// }
 
-eventHandler.unfollow = function(params){console.log("unfollow event")};
-eventHandler.message = function(params){
-    console.log("message",params.req.events[0].message);
-};
+// eventHandler.unfollow = function(params){console.log("unfollow event")};
+// eventHandler.message = function(params){
+//     console.log("message",params.req.events[0].message);
+// };
 module.exports = handler;

@@ -15,6 +15,8 @@ const config = {
   channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
 };
 const client = new line.Client(config);
+
+var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
         
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
@@ -32,9 +34,9 @@ connection(mongoose, connectionURL);
 passportTmj();
 
 // verify page
-verify(router);
-verifyUser(router, passport, client, logger);
-success(router);
+verify(router, lineBotId);
+verifyUser(router, passport, client, logger, lineBotId);
+success(router, lineBotId);
 retrieveUsers();
 
 receiver(router, client);

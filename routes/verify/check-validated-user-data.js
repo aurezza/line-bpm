@@ -5,7 +5,7 @@ var logger = require('../../logger');
 
 var employeeDetails = {};
 
-function checkValidatedUserData(passport, req, res, client, lineID, validatedUserData) {
+function checkValidatedUserData(passport, req, res, client, lineID, validatedUserData, lineBotId) {
     // check if user is in local db
     var users = retrieveUsers(lineID, 'empty');
     var localeText= localeChecker('jp','verify-content');
@@ -21,13 +21,21 @@ function checkValidatedUserData(passport, req, res, client, lineID, validatedUse
             var throwErr = err || info;         
             if (throwErr) {
                 logger.error("Authenticate error: ", throwErr);
-                 return res.status(400).render('verify-error', {message: localeText.error.wrongCredentials});          
+                 return res.status(400).render('verify-error', {
+                        message: localeText.error.wrongCredentials,
+                        backButtonText: localeText.button.back,
+                        lineBotId: lineBotId
+                    });          
             }
             req.logIn(user, function(err) {
                 if (err) {
                     logger.error("Error 404: ", err.message);
                      // redirect with localetext
-                    return res.status(400).render('verify-error', {message: err.message});                      
+                    return res.status(400).render('verify-error', {
+                        message: err.message,
+                        backButtonText: localeText.button.back,
+                        lineBotId: lineBotId
+                    });                      
                 }
                 
                 employeeDetails = {
@@ -37,7 +45,7 @@ function checkValidatedUserData(passport, req, res, client, lineID, validatedUse
                     email: user.email
                 };
 
-                verifyUserWithLineId(employeeDetails, res, client, lineID);
+                verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId);
             });
         })(req,res);               
     })

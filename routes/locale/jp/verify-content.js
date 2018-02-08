@@ -1,7 +1,8 @@
 var japanese = {
     errorMessageLineIdExists: "既に確認済みです.",
     button: {
-        verify: "確認"
+        verify: "確認",
+        back: "戻る"
     },
     pageTitle: {
         verify: "BPMSアプリケーションの検証"

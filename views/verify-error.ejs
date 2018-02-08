@@ -3,10 +3,23 @@
   <head>
     <title><%= message %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+    function quitBox(cmd)
+        {   
+            if (cmd=='quit')
+            {
+                open("line://ti/p/<%= lineBotId %>", '_self').close();
+            }   
+            return false;   
+        }
+    </script>
   </head>
   <body class="default-page">
     <div class="container">
-        <h1><%= message %></h1>     
+        <h1><%= message %></h1>  
+        <div class="col-sm-12 controls">
+            <input class="btn green" onClick="return quitBox('quit');"  type="submit" value=<%= backButtonText %> >
+        </div>    
     </div>   
   </body>
 </html>

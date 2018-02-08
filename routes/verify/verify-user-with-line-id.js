@@ -6,7 +6,7 @@ var success = require('./success');
 var successVerifyLineMessage = require('./success-verify-line-message');
 
 
-function verifyUserWithLineId(employeeDetails, res, client, lineID) {
+function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText= localeChecker('jp','verify-content');
     var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
 
@@ -14,10 +14,14 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID) {
         if(!userWithLineId) {
             saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);
-            res.redirect('/success');
+            return res.redirect('/success');
         }
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
-        res.render('verify-error', {message: localeText.error.employeeIdAlreadyExists});
+        res.render('verify-error', {
+            message: localeText.error.employeeIdAlreadyExists,
+            backButtonText: localeText.button.back,
+            lineBotId: lineBotId
+        });
 
     })
     .catch(function(err) {

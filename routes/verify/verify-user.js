@@ -7,7 +7,7 @@ const { matchedData, sanitize } = require('express-validator/filter');
 var localeText= localeChecker('jp','verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
 
-function verifyUser(router, passport, client, logger){
+function verifyUser(router, passport, client, logger, lineBotId){
     // needs additional validation for schema
     router.post('/verify/:lineID', [
         check('username', notEmpty)
@@ -41,7 +41,7 @@ function verifyUser(router, passport, client, logger){
             });
         }
 
-        checkValidatedUserData(passport, req, res, client, lineID, validatedUserData);
+        checkValidatedUserData(passport, req, res, client, lineID, validatedUserData, lineBotId);
     });
 }
 

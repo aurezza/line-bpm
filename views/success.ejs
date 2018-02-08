@@ -4,13 +4,10 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script>
-        function quitBox(cmd)
-        {   
-            if (cmd=='quit')
-            {
-                open("line://ti/p/<%= lineBotId %>", '_self').close();
-            }   
-            return false;   
+        function quitBox(cmd){   
+            if (cmd=='quit'){
+                return open("line://ti/p/<%= lineBotId %>", '_self').close();
+            }    
         }
       </script>
   </head>

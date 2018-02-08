@@ -1,8 +1,10 @@
 'use strict';
 var sendResponded = require('./send-responded');
-function informUserRequestResponded(retrievedRequestData,client,line_userId){
+var updateRequestStatus = require('./update-request-status');
+function informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData){
     if (Object.keys(retrievedRequestData).length) return sendResponded(client,line_userId);
-
+    updateRequestStatus(parsedData);
+    
 }
 
 module.exports = informUserRequestResponded;

@@ -1,7 +1,6 @@
 var replyToQuestetra = require('./reply-to-questetra');
 var axios = require('axios');
 var querystring = require('querystring');
-var updateRequestStatus = require('./update-request-status');
 var informUserRequestResponded = require('./inform-user-request-responded');
 var retrieveRequest = require('.././retrieve-request');
 
@@ -16,20 +15,15 @@ function toNode(postBack,client,line_userId){
             q_replymessage:parsedData.q_replymessage
         }
     };
-    console.log("parsedData.processInstanceId",parsedData.processInstanceId);
-    console.log("parsedData.q_replymessage",parsedData.q_replymessage);
-
     var retrievedRequestData = retrieveRequest(parsedData.processInstanceId,parsedData.q_replymessage);
 
     retrievedRequestData
     .then(function (retrievedRequestData){
-        informUserRequestResponded(retrievedRequestData,client,line_userId);
+        informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData);
     })
     .catch(function (){
 
-    });
-
-    updateRequestStatus(parsedData);
+    });   
     // console.log(updateRequestStatus(parsedData));
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }

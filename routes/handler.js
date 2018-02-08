@@ -5,10 +5,10 @@ var mongoose = require('mongoose');
 var connection = require('../mongo/connection');
 var passport = require('passport');
 var passportTmj = require('../passport/passport-tmj');
-var verify = require('./verify');
-var verifyUser = require('./verify-user');
+var verify = require('./verify/verify');
+var verifyUser = require('./verify/verify-user');
+var success = require('./verify/success');
 var retrieveUsers = require('./retrieve-users');
-var success = require('./success');
 const line = require('@line/bot-sdk');
 const config = {
   channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,

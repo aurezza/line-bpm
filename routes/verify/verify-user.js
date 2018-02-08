@@ -1,5 +1,5 @@
 var checkValidatedUserData = require('./check-validated-user-data');
-var localeChecker = require('./locale/locale-checker'); 
+var localeChecker = require('../locale/locale-checker'); 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 

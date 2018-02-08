@@ -1,7 +1,7 @@
-var retrieveUsers = require('./retrieve-users'); 
+var retrieveUsers = require('../retrieve-users'); 
 var verifyUserWithLineId = require('./verify-user-with-line-id');
-var localeChecker = require('./locale/locale-checker');
-var logger = require('../logger');
+var localeChecker = require('../locale/locale-checker');
+var logger = require('../../logger');
 
 var employeeDetails = {};
 

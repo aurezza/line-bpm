@@ -1,7 +1,7 @@
-var retrieveUserByEmployeeId = require('./retrieve-user-by-emp-id');
-var saveUser = require('./save-user');
-var localeChecker = require('./locale/locale-checker');
-var logger = require('../logger');
+var retrieveUserByEmployeeId = require('../retrieve-user-by-emp-id');
+var saveUser = require('../save-user');
+var localeChecker = require('../locale/locale-checker');
+var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
 
 

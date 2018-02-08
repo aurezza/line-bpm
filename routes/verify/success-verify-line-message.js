@@ -1,5 +1,5 @@
-var localeChecker = require('./locale/locale-checker');
-var logger = require('../logger');
+var localeChecker = require('../locale/locale-checker');
+var logger = require('../../logger');
 
 function successVerifyLineMessage(client, lineID)
 {

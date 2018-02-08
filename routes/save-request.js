@@ -3,7 +3,6 @@ var logger = require('../logger.js');
 
 function saveRequest(params){
     // create instance of model transactionModel
-    console.log("params",params);
     var newRequest = new requestModel();
 
     newRequest.user_name = params.user_name;
@@ -13,7 +12,6 @@ function saveRequest(params){
 
     newRequest.save()
       .then(function(savedObject) {
-        console.log("savedObject",savedObject)
         logger.info('data saved');
       })
       .catch(function(err) {

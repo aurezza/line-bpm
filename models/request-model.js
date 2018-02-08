@@ -5,7 +5,6 @@ var requestSchema = mongoose.Schema({
 	overtime_date:String,
 	process_id: String,
 	reason:String,
-	manager_email:String
 });
 
 // request model

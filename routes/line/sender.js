@@ -5,6 +5,7 @@ var fromNode = require('./from-node');
 var saveRequest = require('../save-request');
 var retrieveRequest = require('../retrieve-request');
 function sender(body, managerData, client){
+    console.log("body",body);
     var messageText = messageContent(body);
     const message = {
         "type": "template",
@@ -42,7 +43,7 @@ function sender(body, managerData, client){
         user_name:body.user_name,
         overtime_date:body.overtime_date,
         process_id:body.process_id,
-        reason:body.overtime_reason        
+        reason:body.overtime_reason,        
       });
       client.pushMessage(managerData.line_id, message)
       .then(() => { 

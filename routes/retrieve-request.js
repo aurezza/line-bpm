@@ -5,6 +5,8 @@ function retrieveRequest(id,reply) {
         yes:"Approved",
         no:"Declined"
     };
+    console.log("id",id);
+    console.log("request_status[reply]",request_status[reply]);
 	var overtimeRequest = requestModel.findOne({process_id: id,status: request_status[reply]});
     
     overtimeRequest

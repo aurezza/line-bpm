@@ -3,7 +3,6 @@ var querystring = require('querystring');
 var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 var saveRequest = require('../save-request');
-var retrieveRequest = require('../retrieve-request');
 function sender(body, managerData, client){
     console.log("body",body);
     var messageText = messageContent(body);

@@ -1,6 +1,7 @@
 var replyToQuestetra = require('./reply-to-questetra');
 var axios = require('axios');
 var querystring = require('querystring');
+var updateRequestStatus = require('./update-request-status');
 function toNode(postBack){
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {
@@ -12,6 +13,7 @@ function toNode(postBack){
             q_replymessage:parsedData.q_replymessage
         }
     };
+    updateRequestStatus(parsedData);
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }
 

@@ -1,4 +1,4 @@
 function updateRequestStatus(params){
-    console.log("fire update");
+    console.log("params",params);
 }
 module.exports = updateRequestStatus;

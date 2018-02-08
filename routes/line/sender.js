@@ -30,10 +30,10 @@ function sender(body, managerData, client){
             ]
         }    
       };
-      var retrievedRequestData = retrieveRequest(body.process_id);
-      retrievedRequestData
-      .then(function(retrievedRequestData){
-        console.log("retrievedRequestData",retrievedRequestData);
+      var retrievedRequestData = retrieveRequest(body.process_id)
+      .then(function(res){
+        console.log("retrievedRequestData",res.data);
+        return res.data;
       })
       .catch(function(err){
 
@@ -42,7 +42,7 @@ function sender(body, managerData, client){
         user_name:body.user_name,
         overtime_date:body.overtime_date,
         process_id:body.process_id,
-        reason:body.overtime_reason
+        reason:body.overtime_reason        
       });
       client.pushMessage(managerData.line_id, message)
       .then(() => { 

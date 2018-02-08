@@ -21,7 +21,7 @@ function sender(body, managerData, client){
                            messageText.status.approved,
                   "data": "processInstanceId="+body.process_id+"&q_replymessage=yes"+
                   "&manager_email="+body.manager_email+"&user_name="+body.user_name+
-                  "&overtime_date="+body.overtime_date+"&overtime_reason="+overtime_reason
+                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
                 },
                 {
                   "type": "postback",

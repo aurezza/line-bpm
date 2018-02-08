@@ -18,7 +18,7 @@ env(__dirname + '/.env');
 
 const port = process.env.PORT || 4000;
 
-var handler = require('./routes/handler');
+// var handler = require('./routes/handler');
 
 // create LINE SDK config from env variables
 const config = {

@@ -2,8 +2,6 @@ var scanQrCode = require('./scan-qr-code');
 var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
-var saveRequest = require('../save-request');
-var retrieveRequest = require('../retrieve-request-by-line-id');
 
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
@@ -29,7 +27,6 @@ eventHandler.follow = function(params) {
 }
 eventHandler.postback = function(params){
         //postBack is data query params depending on manager reply
-        // retrieveRequest = retrieveRequest({process_id:params.body.instan})
         var postBack = params.req.events[0].postback;
         toNode(postBack);
 }

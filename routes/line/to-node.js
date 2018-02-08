@@ -15,7 +15,7 @@ function toNode(postBack,client,line_userId){
             q_replymessage:parsedData.q_replymessage
         }
     };
-    var retrievedRequestData = retrieveRequest(parsedData.processInstanceId,parsedData.q_replymessage);
+    var retrievedRequestData = retrieveRequest(parsedData.processInstanceId);
 
     retrievedRequestData
     .then(function (retrievedRequestData){

@@ -11,7 +11,7 @@ function handler(router, axios, querystring, client){
             console.log("testing middleware");
             next();
         }else{
-            return;
+            return res.status(500);
         }
 
     }

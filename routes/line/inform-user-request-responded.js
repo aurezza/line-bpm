@@ -1,9 +1,8 @@
-'use strict';
 var sendResponded = require('./send-responded');
 var updateRequestStatus = require('./update-request-status');
 // function informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData){
-    function informUserRequestResponded(data){    
-        console.log("Object",Object.keys(data).length);
+function informUserRequestResponded(){    
+    console.log("Object");
     // console.log("client",client);
     // console.log("line_userId",line_userId);
     // console.log("parsedData",parsedData);

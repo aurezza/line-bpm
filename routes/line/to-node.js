@@ -3,6 +3,7 @@ var axios = require('axios');
 var querystring = require('querystring');
 var informUserRequestResponded = require('./inform-user-request-responded');
 var retrieveRequest = require('.././retrieve-request');
+var updateRequestStatus = require('./update-request-status');
 
 function toNode(postBack,client,line_userId){
     var parsedData = (querystring.parse(postBack.data));
@@ -21,7 +22,7 @@ function toNode(postBack,client,line_userId){
     .then(function (retrievedRequestData){
         console.log("Do as promised");
         // informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData);
-        informUserRequestResponded(retrievedRequestData)
+        informUserRequestResponded();
     })
     .catch(function (){
 

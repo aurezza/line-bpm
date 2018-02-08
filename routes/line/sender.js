@@ -7,16 +7,14 @@ var retrieveRequest = require('../retrieve-request');
 function sender(body, managerData, client){
     console.log("body",body);
     var messageText = messageContent(body);
-      var retrievedRequestData = retrieveRequest(body.process_id);
+    var retrievedRequestData = retrieveRequest(body.process_id);
 
-      retrievedRequestData
-      .then(function(retrievedRequestData){
+    retrievedRequestData
+    .then(function(retrievedRequestData){
 
         if(retrievedRequestData==null) {
             console.log("retrievedRequestData",retrievedRequestData);
             console.log("empty");
-        }else{
-            console.log("retrievedRequestData",retrievedRequestData)
             saveRequest({
                 user_name:body.user_name,
                 overtime_date:body.overtime_date,
@@ -25,7 +23,8 @@ function sender(body, managerData, client){
                 response:'pending',
                 manager_email:body.manager_email,       
             });
-
+        }else{
+            console.log("retrievedRequestData",retrievedRequestData)
         }
 
         const message = {
@@ -64,10 +63,10 @@ function sender(body, managerData, client){
               fromNode(querystring, axios, body.process_id, 'no');         
             });            
 
-      })
-      .catch(function(err){
+    })
+     .catch(function(err){
 
-      });
+    });
 
 
 

@@ -4,24 +4,24 @@ var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 
 function handler(router, axios, querystring, client){
-    router.post('/handler',
-    function(req, res, next){
-        var a = 2;
-        if(a == 1){
-            console.log("testing middleware");
-            next();
-        }else{
-            console.log("dito ang pumasok");
-            res.status(500);
-        }
+    // router.post('/handler',
+    // function(req, res, next){
+    //     var a = 2;
+    //     if(a == 1){
+    //         console.log("testing middleware");
+    //         next();
+    //     }else{
+    //         console.log("dito ang pumasok");
+    //         res.status(500);
+    //     }
 
-    }
-    ,function(req, res) {
-        // var eventType = req.body.events[0].type;        
-        // eventHandler[eventType]({req:req.body,client:client});
+    // }
+    // ,function(req, res) {
+    //     // var eventType = req.body.events[0].type;        
+    //     // eventHandler[eventType]({req:req.body,client:client});
 
-        res.send(true)
-    });
+    //     res.send(true)
+    // });
 }
 
 // var eventHandler = {};

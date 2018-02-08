@@ -14,7 +14,7 @@ function handler(router, axios, querystring, client){
 var eventHandler = {};
 eventHandler.follow = function(params) {
     
-    var line_userId = params.req.events[0].source.userId;
+    let line_userId = params.req.events[0].source.userId;
     var users = retrieveUserByLineId(line_userId);
     users
     .then(function (users){
@@ -27,8 +27,10 @@ eventHandler.follow = function(params) {
 }
 eventHandler.postback = function(params){
         //postBack is data query params depending on manager reply
+        let line_userId = params.req.events[0].source.userId;
+        console.log(line_userId)
         var postBack = params.req.events[0].postback;
-        toNode(postBack);
+        toNode(postBack,client,line_userId);
 }
 
 eventHandler.unfollow = function(params){console.log("unfollow event")};

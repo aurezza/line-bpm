@@ -2,8 +2,10 @@ var replyToQuestetra = require('./reply-to-questetra');
 var axios = require('axios');
 var querystring = require('querystring');
 var updateRequestStatus = require('./update-request-status');
+var informUserRequestResponded = require('./inform-user-request-responded');
 var retrieveRequest = require('.././retrieve-request');
-function toNode(postBack){
+
+function toNode(postBack,client,line_userId){
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {
         url: process.env.REPLYURL_TO_QUESTETRA,
@@ -21,7 +23,7 @@ function toNode(postBack){
 
     retrievedRequestData
     .then(function (retrievedRequestData){
-        console.log("retrievedRequestData",retrievedRequestData)
+        informUserRequestResponded(retrievedRequestData,client,line_userId);
     })
     .catch(function (){
 

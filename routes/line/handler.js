@@ -30,7 +30,7 @@ eventHandler.follow = function(params) {
 eventHandler.postback = function(params){
         //postBack is data query params depending on manager reply
         // retrieveRequest = retrieveRequest({process_id:params.body.instan})
-        console.log('params',params.req);
+        console.log('params',params.req.events[0].postback);
 
         var postBack = params.req.events[0].postback;
         toNode(postBack);

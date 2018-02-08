@@ -1,6 +1,5 @@
 var updateRequest = require('.././update-request');
 function updateRequestStatus(params){
-    updateRequest(params)
-    console.log("params",params);
+    updateRequest(params);
 }
 module.exports = updateRequestStatus;

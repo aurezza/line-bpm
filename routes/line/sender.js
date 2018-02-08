@@ -19,32 +19,36 @@ function sender(body, managerData, client){
                   "label": messageText.label.approve,
                   "text":  messageText.text +
                            messageText.status.approved,
-                  "data": "processInstanceId="+body.process_id+"&q_replymessage=yes"
+                  "data": "processInstanceId="+body.process_id+"&q_replymessage=yes"+
+                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
+                  "&overtime_date="+body.overtime_date+"&overtime_reason="+overtime_reason
                 },
                 {
                   "type": "postback",
                   "label": messageText.label.decline,
                   "text":  messageText.text +
                            messageText.status.declined,
-                  "data": "processInstanceId="+body.process_id+"&q_replymessage=no"
+                  "data": "processInstanceId="+body.process_id+"&q_replymessage=no"+
+                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
+                  "&overtime_date="+body.overtime_date+"&overtime_reason="+overtime_reason
                 }
             ]
         }    
       };
-      var retrievedRequestData = retrieveRequest(body.process_id)
-      .then(function(res){
-        console.log("retrievedRequestData",res.data);
-        return res.data;
-      })
-      .catch(function(err){
+      // var retrievedRequestData = retrieveRequest(body.process_id)
+      // .then(function(res){
+      //   console.log("retrievedRequestData",res.data);
+      //   return res.data;
+      // })
+      // .catch(function(err){
 
-      });
-      saveRequest({
-        user_name:body.user_name,
-        overtime_date:body.overtime_date,
-        process_id:body.process_id,
-        reason:body.overtime_reason,        
-      });
+      // });
+      // saveRequest({
+      //   user_name:body.user_name,
+      //   overtime_date:body.overtime_date,
+      //   process_id:body.process_id,
+      //   reason:body.overtime_reason,        
+      // });
       client.pushMessage(managerData.line_id, message)
       .then(() => { 
           fromNode(querystring, axios,body.process_id, 'yes'); 

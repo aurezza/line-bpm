@@ -29,10 +29,14 @@ eventHandler.follow = function(params) {
 }
 eventHandler.postback = function(params){
         //postBack is data query params depending on manager reply
+        console.log("postback",params)
         var postBack = params.req.events[0].postback;
         toNode(postBack);
 }
 
 eventHandler.unfollow = function(params){console.log("unfollow event")};
-eventHandler.message = function(params){console.log("message event")};
+eventHandler.message = function(params){
+    console.log("message",params);
+    console.log("message event");
+};
 module.exports = handler;

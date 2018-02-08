@@ -1,11 +1,6 @@
 var localeChecker = require('./locale/locale-checker');
 var logger = require('../logger');
-// const line = require('@line/bot-sdk');
-// const config = {
-//   channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-//   channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-// };
-// const client = new line.Client(config);
+
 function successVerifyLineMessage(client, lineID)
 {
     var localeText = localeChecker('jp','success-message');

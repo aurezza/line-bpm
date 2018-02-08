@@ -14,10 +14,10 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID) {
             saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);
             res.redirect('/success');
-            // push a message to line for successful verification
         }
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
-        res.send(localeText.error.employeeIdAlreadyExists);
+        res.render('verify-error', {message: localeText.error.employeeIdAlreadyExists});
+
     })
     .catch(function(err) {
         logger.error('error', err);

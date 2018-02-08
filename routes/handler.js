@@ -35,7 +35,7 @@ passportTmj();
 
 // verify page
 verify(router, lineBotId);
-verifyUser(router, passport, client, logger, lineBotId);
+verifyUser(router, client, logger, lineBotId);
 success(router, lineBotId);
 retrieveUsers();
 

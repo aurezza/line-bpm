@@ -1,11 +1,12 @@
 var retrieveUsers = require('../retrieve-users'); 
 var verifyUserWithLineId = require('./verify-user-with-line-id');
 var localeChecker = require('../locale/locale-checker');
+var passport = require('passport');
 var logger = require('../../logger');
 
 var employeeDetails = {};
 
-function checkValidatedUserData(passport, req, res, client, lineID, validatedUserData, lineBotId) {
+function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId) {
     // check if user is in local db
     var users = retrieveUsers(lineID, 'empty');
     var localeText= localeChecker('jp','verify-content');

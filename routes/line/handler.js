@@ -12,7 +12,7 @@ function handler(router, axios, querystring, client){
             next();
         }else{
             console.log("dito ang pumasok");
-            res.status(500);
+            next(new Error('mali ka may error pa!'));
         }
 
     }

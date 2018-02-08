@@ -38,7 +38,7 @@ success(router);
 retrieveUsers();
 
 receiver(router, client);
-handler(router, axios, querystring, client);
+//handler(router, axios, querystring, client);
 
 module.exports = router;
 

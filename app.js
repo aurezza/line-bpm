@@ -59,7 +59,6 @@ app.use('/', handler);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  winLogger.error("Not found: ", err);
   next(err);
 });
 

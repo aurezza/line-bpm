@@ -5,11 +5,7 @@ function success(router) {
         res.render('success', {
             title: localeText.successTextTitle, 
             description: localeText.successTextMessage,
-            successButtonText: localeText.closeWindow,
-            // closeWin: function () {
-            //     var window = 
-            //     window.close();
-            // }
+            successButtonText: localeText.closeWindow
         });
    });
 }

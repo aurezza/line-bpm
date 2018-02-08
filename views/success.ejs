@@ -10,8 +10,18 @@
         <p><%= description %></p>
         <!-- Button -->
         <div class="col-sm-12 controls">
-          <input class="btn btn-success green" onClick="open(location, '_self').close();"  type="submit" value=<%= successButtonText %> >
+          <input class="btn btn-success green" onClick="return quitBox('quit');"  type="submit" value=<%= successButtonText %> >
       </div> 
     </div>   
   </body>
+  <script>
+    function quitBox(cmd)
+    {   
+        if (cmd=='quit')
+        {
+            open(location, '_self').close();
+        }   
+        return false;   
+    }
+  </script>
 </html>

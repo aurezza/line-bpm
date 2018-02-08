@@ -1,14 +1,13 @@
 var localeChecker = require('../locale/locale-checker');
-function success(router, lineID) {
-    router.get('/success/:line_id', function(req, res) {
+function success(router) {
+    router.get('/success', function(req, res) {
         var localeText = localeChecker('jp','success-message');
-        var lineID = req.params.line_id;
-        var botID = '@nnd9511o';
+        var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
         res.render('success', {
             title: localeText.successTextTitle, 
             description: localeText.successTextMessage,
             successButtonText: localeText.closeWindow,
-            lineId: botID
+            lineBotId: lineBotId
         });
    });
 }

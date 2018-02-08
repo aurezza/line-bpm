@@ -5,9 +5,15 @@ var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
-        var eventType = req.body.events[0].type;
+            var eventType = req.body.events[0].type;
+            if(eventType=="message"){
+                return ;
+            }else{
+                eventType = req.body.events[0].type;
         
-        eventHandler[eventType]({req:req.body,client:client});
+                eventHandler[eventType]({req:req.body,client:client});
+            } 
+
 
         res.send(true)
     });

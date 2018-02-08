@@ -1,11 +1,12 @@
 var localeChecker = require('../locale/locale-checker');
-function success(router) {
+function success(router, lineID) {
     router.get('/success', function(req, res) {
         var localeText = localeChecker('jp','success-message');
         res.render('success', {
             title: localeText.successTextTitle, 
             description: localeText.successTextMessage,
-            successButtonText: localeText.closeWindow
+            successButtonText: localeText.closeWindow,
+            lineId: lineID
         });
    });
 }

@@ -3,6 +3,20 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+        function quitBox(cmd)
+        {   
+            if (cmd=='quit')
+            {
+                open("line://ti/p/<%= lineId %>", '_self').close();
+            }   
+            return false;   
+        }
+        function windowClose() {
+          window.open('','_parent','');
+          window.close();
+        }
+      </script>
   </head>
   <body class="default-page">
     <div class="container">
@@ -14,14 +28,5 @@
       </div> 
     </div>   
   </body>
-  <script>
-    function quitBox(cmd)
-    {   
-        if (cmd=='quit')
-        {
-            open(location, '_self').close();
-        }   
-        return false;   
-    }
-  </script>
+  
 </html>

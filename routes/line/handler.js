@@ -11,7 +11,8 @@ function handler(router, axios, querystring, client){
             console.log("testing middleware");
             next();
         }else{
-            return res.status(500);
+            console.log("dito ang pumasok");
+            res.status(500);
         }
 
     }

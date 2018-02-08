@@ -7,13 +7,32 @@ var retrieveRequest = require('../retrieve-request');
 function sender(body, managerData, client){
     console.log("body",body);
     var messageText = messageContent(body);
-    const message = {
-        "type": "template",
-        "altText": "this is a confirm template",
-        "template": {
-            "type": "confirm",
-            "text":  messageText.text,
-            "actions": [
+      var retrievedRequestData = retrieveRequest(body.process_id);
+
+      retrievedRequestData
+      .then(function(retrievedRequestData){
+
+        if(retrievedRequestData) {
+            var actions = [
+                {
+                  "type": "postback",
+                  "label": messageText.label.approve,
+                  "text": "You already replied to this.",
+                  "data": "processInstanceId="+body.process_id+"&q_replymessage=yes"+
+                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
+                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
+                },
+                {
+                  "type": "postback",
+                  "label": messageText.label.decline,
+                  "text":  "You already replied to this.",
+                  "data": "processInstanceId="+body.process_id+"&q_replymessage=no"+
+                  "&manager_email="+body.manager_email+"&user_name="+body.user_name+
+                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
+                }
+            ];
+        }else{
+            var actions = [
                 {
                   "type": "postback",
                   "label": messageText.label.approve,
@@ -32,29 +51,32 @@ function sender(body, managerData, client){
                   "&manager_email="+body.manager_email+"&user_name="+body.user_name+
                   "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
                 }
-            ]
-        }    
-      };
-      // var retrievedRequestData = retrieveRequest(body.process_id)
-      // .then(function(res){
-      //   console.log("retrievedRequestData",res.data);
-      //   return res.data;
-      // })
-      // .catch(function(err){
+            ];
+        }
 
-      // });
-      // saveRequest({
-      //   user_name:body.user_name,
-      //   overtime_date:body.overtime_date,
-      //   process_id:body.process_id,
-      //   reason:body.overtime_reason,        
-      // });
-      client.pushMessage(managerData.line_id, message)
-      .then(() => { 
-          fromNode(querystring, axios,body.process_id, 'yes'); 
-        })
-      .catch((err) => { 
-          fromNode(querystring, axios, body.process_id, 'no');         
-        });
+        const message = {
+            "type": "template",
+            "altText": "this is a confirm template",
+            "template": {
+                "type": "confirm",
+                "text":  messageText.text,
+                "actions": actions
+            }    
+          };
+          client.pushMessage(managerData.line_id, message)
+          .then(() => { 
+              fromNode(querystring, axios,body.process_id, 'yes'); 
+            })
+          .catch((err) => { 
+              fromNode(querystring, axios, body.process_id, 'no');         
+            });            
+
+      })
+      .catch(function(err){
+
+      });
+
+
+
 }
 module.exports = sender

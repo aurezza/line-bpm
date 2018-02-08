@@ -36,5 +36,6 @@ eventHandler.postback = function(params){
 eventHandler.unfollow = function(params){console.log("unfollow event")};
 eventHandler.message = function(params){
     console.log("message",params.req.events[0].message);
+    params.req.events[0].message.text = "testing";
 };
 module.exports = handler;

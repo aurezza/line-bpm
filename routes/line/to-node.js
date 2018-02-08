@@ -22,7 +22,7 @@ function toNode(postBack,client,line_userId){
     .then(function (retrievedRequestData){
         console.log("Do as promised");
         // informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData);
-        informUserRequestResponded();
+        informUserRequestResponded(retrievedRequestData);
     })
     .catch(function (){
 

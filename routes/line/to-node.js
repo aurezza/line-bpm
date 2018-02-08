@@ -14,7 +14,7 @@ function toNode(postBack){
         }
     };
     //updateRequestStatus(parsedData);
-    console.log(updateRequestStatus(parsedData));
+    // console.log(updateRequestStatus(parsedData));
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }
 

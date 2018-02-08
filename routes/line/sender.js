@@ -30,7 +30,7 @@ function sender(body, managerData, client){
                            messageText.status.declined,
                   "data": "processInstanceId="+body.process_id+"&q_replymessage=no"+
                   "&manager_email="+body.manager_email+"&user_name="+body.user_name+
-                  "&overtime_date="+body.overtime_date+"&overtime_reason="+overtime_reason
+                  "&overtime_date="+body.overtime_date+"&overtime_reason="+body.overtime_reason
                 }
             ]
         }    

@@ -29,6 +29,7 @@ eventHandler.follow = function(params) {
 }
 eventHandler.postback = function(params){
         //postBack is data query params depending on manager reply
+        console.log("postback",params.req.events[0].postback);
         var postBack = params.req.events[0].postback;
         toNode(postBack);
 }
@@ -36,6 +37,5 @@ eventHandler.postback = function(params){
 eventHandler.unfollow = function(params){console.log("unfollow event")};
 eventHandler.message = function(params){
     console.log("message",params.req.events[0].message);
-    params.req.events[0].message.text = "testing";
 };
 module.exports = handler;

@@ -3,16 +3,15 @@ var logger = require('../logger');
 
 function updateRequest(params) {
     // create instance of model transactionModel
-    var updateRequest = requestModel.update({ process_id: params.processInstanceId }, 
-        { $set: {reason : params.overtime_reason}});
-
-    updateRequest
-    .exec(function(res, err){
-        // logger.error("retrieveRequest error: ", err);
-    });	    
-
-
-    logger.info("updated");
+    requestModel.update({ process_id: params.processInstanceId }, 
+        { $set: {reason : params.overtime_reason}})
+        .then(function(res){
+            logger.info("updated");
+        })
+        .catch(function(err){
+            console.log('err',err);
+        });
+    
 }
 
 module.exports = updateRequest;

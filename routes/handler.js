@@ -25,6 +25,7 @@ const connectionURL = mongoDbURL + mongoDbName;
 var axios = require('axios');
 var querystring = require('querystring');
 var receiver = require('./questetra/receiver');
+var receiverCancelledRequest = require('./questetra/receiver-cancelled-request');
 var handler = require('./line/handler');
 
 // db connection
@@ -40,6 +41,7 @@ success(router, lineBotId);
 retrieveUsers();
 
 receiver(router, client);
+receiverCancelledRequest(router, client);
 handler(router, axios, querystring, client);
 
 module.exports = router;

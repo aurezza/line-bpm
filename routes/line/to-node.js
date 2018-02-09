@@ -20,14 +20,11 @@ function toNode(postBack,client,line_userId){
 
     retrievedRequestData
     .then(function (retrievedRequestData){
-        console.log("Do as promised");
        informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData);
-        //informUserRequestResponded(retrievedRequestData);
     })
     .catch(function (){
 
     });   
-    // console.log(updateRequestStatus(parsedData));
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }
 

@@ -1,7 +1,9 @@
+var translations = require("../locale/locale-checker")
 function sendResponded(client,line_userId){
+    var response = translations('jp','responded-message');
     const message = {
         type: 'text',
-        text: "you have already responded to this request",
+        text: response,
         };
     client.pushMessage(line_userId, message)
         .then(() => {

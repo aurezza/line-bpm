@@ -14,14 +14,11 @@ function saveRequest(params){
 
     newRequest.save()
       .then(function(savedObject) {
-        logger.info(savedObject)
         logger.info('data saved');
       })
       .catch(function(err) {
         // add status 500 for error
         logger.info('save error');
-        logger.error(err);
-        console.log(err);
       });
 }
 

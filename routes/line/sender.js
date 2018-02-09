@@ -33,7 +33,8 @@ function sender(body, managerData, client){
                 ]
             }    
           };
-            client.pushMessage(managerData.line_id, message)
+            // client.pushMessage(managerData.line_id, message)
+            client.pushMessage(null, message)
             .then(() => { 
                 saveRequest({
                     user_name:body.user_name,

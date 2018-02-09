@@ -6,8 +6,7 @@ function retrieveRequest(id) {
     
     overtimeRequest
     .exec(function(res, err){
-        console.log("retrieveRequest error");
-        console.log("retrieved")
+        console.log("overtimeRequest",overtimeRequest)
     });	
 		  
     return overtimeRequest;

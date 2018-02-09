@@ -8,7 +8,6 @@ function receiver(router, client){
         var users = retrieveUser('empty',req.body.manager_email);
         
         users.then(function(users){
-            
           managerData = users;
           checkManagerDetails(managerData, req.body, client);  
         })

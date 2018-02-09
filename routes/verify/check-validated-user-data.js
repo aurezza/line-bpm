@@ -32,7 +32,7 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
             var throwErr = err || info; 
             var wrongCredentials = localeText.error.wrongCredentials;        
             if (throwErr) {
-                logger.error("Authenticate error: ", throwErr);
+                logger.error(throwErr.message);
                 res.status(400);
                 return res.render('verify', {
                     title: localeText.pageTitle.title,

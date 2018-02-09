@@ -26,6 +26,7 @@ function verifyUser(router, client, logger, lineBotId){
         // matchedData returns only the subset of data validated by the middleware
         const validatedUserData = matchedData(req);
         if (!errors.isEmpty()) {  
+            logger.warn('Field must not be empty');
             return res.render('verify',{
                 title: localeText.pageTitle.title,
                 panelTitle: localeText.label.panelTitle,

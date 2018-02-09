@@ -5,7 +5,7 @@ var logger = require('../../logger');
 var sender = require('./sender');
 
 function checkManagerDetails(managerData, body, client){
-
+    console.log("in checkManagerDetails");
     if (Object.keys(managerData).length) return sender(body, managerData, client);
         logger.error("no manager data retrieved");
         var axiosParameters = {

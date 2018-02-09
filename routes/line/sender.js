@@ -4,7 +4,6 @@ var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 var saveRequest = require('../save-request');
 function sender(body, managerData, client){
-    console.log("body",body);
     var messageText = messageContent(body);
         const message = {
             "type": "template",

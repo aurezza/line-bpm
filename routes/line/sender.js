@@ -34,7 +34,8 @@ function sender(body, managerData, client){
             }    
           };
             // client.pushMessage(managerData.line_id, message)
-            client.pushMessage(null, message)
+            if(managerData.line_id==null) return fromNode(querystring, axios, body.process_id, 'no manager detail');
+            client.pushMessage(managerData.line_id, message)
             .then(() => { 
                 saveRequest({
                     user_name:body.user_name,

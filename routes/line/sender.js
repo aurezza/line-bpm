@@ -33,30 +33,29 @@ function sender(body, managerData, client){
                 ]
             }    
           };
-            // if(managerData.line_id==null || managerData.line_id=="") return fromNode(querystring, axios, body.process_id, 'no manager detail');
-            client.pushMessage(managerData.line_id, message)
-            .then(() => { 
-                saveRequest({
-                    user_name:body.user_name,
-                    overtime_date:body.overtime_date,
-                    process_id:body.process_id,
-                    reason:body.overtime_reason, 
-                    status:'pending',
-                    manager_email:body.manager_email,       
-                });
-                fromNode(querystring, axios,body.process_id, 'yes'); 
-            })
-            .catch((err) => {
-                saveRequest({
-                    user_name:body.user_name,
-                    overtime_date:body.overtime_date,
-                    process_id:body.process_id,
-                    reason:body.overtime_reason, 
-                    status:'failed',
-                    manager_email:body.manager_email,       
-                }); 
-                fromNode(querystring, axios, body.process_id, 'no');         
-            });            
+          client.pushMessage(managerData.line_id, message)
+          .then(() => { 
+            saveRequest({
+                user_name:body.user_name,
+                overtime_date:body.overtime_date,
+                process_id:body.process_id,
+                reason:body.overtime_reason, 
+                status:'pending',
+                manager_email:body.manager_email,       
+            });
+            fromNode(querystring, axios,body.process_id, 'yes'); 
+          })
+          .catch((err) => {
+            saveRequest({
+                user_name:body.user_name,
+                overtime_date:body.overtime_date,
+                process_id:body.process_id,
+                reason:body.overtime_reason, 
+                status:'failed',
+                manager_email:body.manager_email,       
+            }); 
+            fromNode(querystring, axios, body.process_id, 'no');         
+         });            
 
 
 }

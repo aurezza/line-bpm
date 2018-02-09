@@ -5,10 +5,7 @@ var logger = require('../../logger');
 var sender = require('./sender');
 
 function checkManagerDetails(managerData, body, client){
-    console.log("in checkManagerDetails");
-    console.log("managerData",managerData);
     if (managerData != null ) return sender(body, managerData, client);
-        logger.error("no manager data retrieved");
         var axiosParameters = {
             url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
             content:{

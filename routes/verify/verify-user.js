@@ -37,6 +37,7 @@ function verifyUser(router, client, logger, lineBotId){
                 error: errors.array({
                     onlyFirstError: true
                 }),
+                errors: {},
                 customError: ''
             });
         }

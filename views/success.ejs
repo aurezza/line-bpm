@@ -3,11 +3,23 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+        function quitBox(cmd){   
+            if (cmd=='quit'){
+                return open("line://ti/p/<%= lineBotId %>", '_self').close();
+            }    
+        }
+      </script>
   </head>
   <body class="default-page">
     <div class="container">
         <h1><%= title %></h1>
         <p><%= description %></p>
+        <!-- Button -->
+        <div class="col-sm-12 controls">
+          <input class="btn btn-success green" onClick="return quitBox('quit');"  type="submit" value=<%= successButtonText %> >
+        </div> 
     </div>   
   </body>
+  
 </html>

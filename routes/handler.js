@@ -6,15 +6,17 @@ var connection = require('../mongo/connection');
 var passport = require('passport');
 var passportTmj = require('../passport/passport-tmj');
 var verify = require('./verify');
-var verifyUser = require('./verify-user');
+var verifyUser = require('./verify/verify-user');
+var success = require('./verify/success');
 var retrieveUsers = require('./retrieve-users');
-var success = require('./success');
 const line = require('@line/bot-sdk');
 const config = {
   channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
   channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
 };
 const client = new line.Client(config);
+
+var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
         
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
@@ -32,9 +34,9 @@ connection(mongoose, connectionURL);
 passportTmj();
 
 // verify page
-verify(router);
-verifyUser(router, passport, logger);
-success(router);
+verify(router, lineBotId);
+verifyUser(router, client, logger, lineBotId);
+success(router, lineBotId);
 retrieveUsers();
 
 receiver(router, client);

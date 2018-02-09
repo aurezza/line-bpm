@@ -1,5 +1,5 @@
 var checkValidatedUserData = require('./check-validated-user-data');
-var localeChecker = require('./locale/locale-checker'); 
+var localeChecker = require('../locale/locale-checker'); 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
@@ -7,7 +7,7 @@ const { matchedData, sanitize } = require('express-validator/filter');
 var localeText= localeChecker('jp','verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
 
-function verifyUser(router, passport, logger){
+function verifyUser(router, client, logger, lineBotId){
     // needs additional validation for schema
     router.post('/verify/:lineID', [
         check('username', notEmpty)
@@ -25,8 +25,8 @@ function verifyUser(router, passport, logger){
         const errors = validationResult(req);
         // matchedData returns only the subset of data validated by the middleware
         const validatedUserData = matchedData(req);
-
         if (!errors.isEmpty()) {  
+            logger.warn('Field must not be empty');
             return res.render('verify',{
                 title: localeText.pageTitle.title,
                 panelTitle: localeText.label.panelTitle,
@@ -37,11 +37,13 @@ function verifyUser(router, passport, logger){
                 username: validatedUserData.username,
                 error: errors.array({
                     onlyFirstError: true
-                })
+                }),
+                errors: {},
+                customError: ''
             });
         }
 
-        checkValidatedUserData(passport, req, res, lineID, validatedUserData);
+        checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId);
     });
 }
 

@@ -1,7 +1,8 @@
 var japanese = {
     errorMessageLineIdExists: "既に確認済みです.",
     button: {
-        verify: "確認"
+        verify: "確認",
+        back: "戻る"
     },
     pageTitle: {
         verify: "BPMSアプリケーションの検証"
@@ -14,9 +15,11 @@ var japanese = {
         password: "パスワード"
     },
     error :{
-        mustNotBeEmpty: "空ではありません",
+        mustNotBeEmpty: "フィールドは空であってはいけません",
         lineIdAlreadyExists: "既に確認済みです.",
-        employeeIdAlreadyExists: "このユーザーは既に確認済みです"
+        employeeIdAlreadyExists: "このユーザーは既に確認済みです",
+        wrongCredentials: "間違った資格",
+        alreadyVerified: "あなたはすでに確認済みです"
     }
 }
 module.exports = japanese;

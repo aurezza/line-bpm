@@ -10,7 +10,6 @@ function receiver(router, client){
         users.then(function(users){
             
           managerData = users;
-          console.log("in users")
           checkManagerDetails(managerData, req.body, client);  
         })
         .catch(function(err){

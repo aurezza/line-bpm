@@ -36,7 +36,7 @@ a {
   margin: 0 auto;
   padding: 6px 12px;
   font-size: 16px;
-  color: #fff;
+  font-weight: 600;
   border-radius: 3px;
   border: 1px solid transparent; 
 }
@@ -142,6 +142,12 @@ a {
 .green {
   background-color: #28a745;
   border-color: #28a745;
+}
+
+.red {
+  color: #850404 !important;
+  background-color: #ffcdcd !important;
+  border-color: #ffbaba !important;
 }
 
 .light-gray {

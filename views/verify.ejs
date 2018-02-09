@@ -34,12 +34,12 @@
                             <%if(typeof error == "undefined"){%>
                                     
                             <% } else { %>
-                                    <div class="alert alert-warning">
+                                    <div class="alert alert-warning red">
                                         <%= error[0].msg %>  
                                     </div>
                             <%}%>
                             <%if(errors == "localDbError" || errors == "bpmsDbError"){%>
-                                <div class="alert alert-warning test">
+                                <div class="alert alert-warning red">
                                     <%= customError %>
                                 </div> 
                              <%}%>

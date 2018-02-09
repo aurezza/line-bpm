@@ -5,8 +5,8 @@ function verify(router, lineID, lineBotId) {
     router.get('/verify/:line_id', function(req, res) {
         var lineID = req.params.line_id;
         var localeText= localeChecker('jp','verify-content');
-        logger.info("page has loaded..");
-        // redirect user immediately if line_id exists in db
+        logger.info("verify page has loaded...");
+
         var users = retrieveUsers(lineID, 'empty');
         users.then(function(users){
             if (users){
@@ -15,7 +15,7 @@ function verify(router, lineID, lineBotId) {
                     message: localeText.errorMessageLineIdExists,
                     backButtonText: localeText.button.back,
                     lineBotId: lineBotId
-                });
+                })
             }
             res.render('verify', {
                 title: localeText.pageTitle.title,
@@ -24,8 +24,10 @@ function verify(router, lineID, lineBotId) {
                 usernamePlaceholder: localeText.placeHolder.username, 
                 passwordPlaceholder: localeText.placeHolder.password,
                 lineID: lineID,
-                errors: {}   
+                errors: {},
+                customError: ''   
             });
+
         })
         .catch(function(err){
             logger.error(err);;

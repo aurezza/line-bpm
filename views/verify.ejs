@@ -32,11 +32,17 @@
                                                         
                         <div class="input-group">
                             <%if(typeof error == "undefined"){%>
-                                <% } else { %>
+                                    
+                            <% } else { %>
                                     <div class="alert alert-warning">
-                                            <%= error[0].msg%>
+                                        <%= error[0].msg %>  
                                     </div>
-                            <%}%>    
+                            <%}%>
+                            <%if(errors == "localDbError" || errors == "bpmsDbError"){%>
+                                <div class="alert alert-warning test">
+                                    <%= customError %>
+                                </div> 
+                             <%}%>
                         </div>
 
                         <div class="form-group">

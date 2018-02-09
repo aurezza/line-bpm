@@ -25,7 +25,6 @@ function verifyUser(router, client, logger, lineBotId){
         const errors = validationResult(req);
         // matchedData returns only the subset of data validated by the middleware
         const validatedUserData = matchedData(req);
-
         if (!errors.isEmpty()) {  
             return res.render('verify',{
                 title: localeText.pageTitle.title,
@@ -37,7 +36,8 @@ function verifyUser(router, client, logger, lineBotId){
                 username: validatedUserData.username,
                 error: errors.array({
                     onlyFirstError: true
-                })
+                }),
+                customError: ''
             });
         }
 

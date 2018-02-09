@@ -16,11 +16,17 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
             return res.redirect('/success');
         }
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
-        res.render('verify-error', {
-            message: localeText.error.employeeIdAlreadyExists,
-            backButtonText: localeText.button.back,
-            lineBotId: lineBotId
-        });
+        var employeeIdAlreadyExists = localeText.error.employeeIdAlreadyExists;
+        return res.render('verify', {
+            title: localeText.pageTitle.title,
+            panelTitle: localeText.label.panelTitle,
+            verifyButtonText: localeText.button.verify,
+            usernamePlaceholder: localeText.placeHolder.username, 
+            passwordPlaceholder: localeText.placeHolder.password,
+            lineID: lineID,
+            errors: 'localDbError',
+            customError: employeeIdAlreadyExists
+        });        
 
     })
     .catch(function(err) {

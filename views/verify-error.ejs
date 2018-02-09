@@ -5,7 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script>
     function goBack() {
-        window.history.go(-1);
+        window.history.go(-2);
     }
     </script>
   </head>
@@ -13,7 +13,7 @@
     <div class="container">
         <h1><%= message %></h1>  
         <div class="col-sm-12 controls">
-            <input class="btn green" onClick="goBack()" type="submit" value=<%= backButtonText %> >
+            <input class="btn green" onClick="goBack()"  type="submit" value=<%= backButtonText %> >
         </div>    
     </div>   
   </body>

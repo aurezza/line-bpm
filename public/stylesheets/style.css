@@ -17,14 +17,18 @@ a {
   color: #fff;
 }
 
-.default-page{
-  margin-top: 60px;
-  padding:0 20px;
+.default-page {
+  padding: 0 20px;
+  display: table;
+  margin: 40px auto 0;
+  width: 100%;
 }
 
 .default-page .container {
   text-align: center;
   padding-top: 0;
+  display: table-cell;
+  vertical-align: top;
 }
 
 .default-page .container .btn {
@@ -124,6 +128,15 @@ a {
 .btn {
   display: block;
   width: 100%;
+}
+
+.alert {
+  padding: .75rem .75rem !important;
+  margin-bottom: .5rem !important;
+}
+
+.alert-warning {
+  font-weight: 600;
 }
 
 .green {

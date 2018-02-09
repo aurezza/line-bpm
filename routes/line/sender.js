@@ -33,7 +33,7 @@ function sender(body, managerData, client){
                 ]
             }    
           };
-            if(managerData.line_id==null || managerData.line_id=="null" || managerData.line_id=="") return fromNode(querystring, axios, body.process_id, 'no manager detail');
+            // if(managerData.line_id==null || managerData.line_id=="") return fromNode(querystring, axios, body.process_id, 'no manager detail');
             client.pushMessage(managerData.line_id, message)
             .then(() => { 
                 saveRequest({

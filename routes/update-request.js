@@ -7,7 +7,11 @@ function updateRequest(params) {
     var overtimeRequest = requestModel
     .findOne({process_id: params.processInstanceId, status: "cancelled"});
 
-    console.log("overtimeRequest",overtimeRequest);   
+    overtimeRequest
+    .exec(function(res, err){
+        console.log("overtimeRequest",overtimeRequest);
+    });
+       
 
     // var replymessage = params.q_replymessage ;
     // var requestStatus = {

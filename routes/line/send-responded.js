@@ -2,10 +2,10 @@ var translations = require("../locale/locale-checker")
 function sendResponded(retrievedRequestData,client,line_userId){
     
     var response = translations('jp','responded-message');
-
+    console.log("retrievedRequestData.status",retrievedRequestData.status);
     var messageType = {
         Approved:"responded",
-        Decline:"responded",
+        Declined:"responded",
         cancelled:"cancelled"
     }
     var messageResponse = response(messageType[retrievedRequestData.status])

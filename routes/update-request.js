@@ -5,8 +5,8 @@ var logger = require('../logger');
 function updateRequest(params) {
     var replymessage = params.q_replymessage ;
     var requestStatus = {
-        yes:"Approved",
-        no:"Declined"
+        yes:"approved",
+        no:"declined"
     };
     requestModel
     .findOneAndUpdate({process_id: params.processInstanceId, status: "pending"},

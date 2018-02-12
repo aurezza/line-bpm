@@ -3,8 +3,8 @@ function sendResponded(retrievedRequestData,client,line_userId){
     
     var response = translations('jp','responded-message');
     var messageType = {
-        Approved:"responded",
-        Declined:"responded",
+        approved:"responded",
+        declined:"responded",
         cancelled:"cancelled"
     };
     var messageResponse = response(messageType[retrievedRequestData.status]);

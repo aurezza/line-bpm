@@ -2,7 +2,7 @@ var requestModel = require('../models/request-model');
 
 function retrieveRequest(id) {
     var overtimeRequest = requestModel.findOne({process_id: id,
-        $or:[{status: "Approved"},{status: "Declined"},{status: "cancelled"}]});
+        $or:[{status: "approved"},{status: "declined"},{status: "Cancelled"}]});
     
     overtimeRequest
     .exec(function(res, err){

@@ -4,7 +4,7 @@ var logger = require('../../logger');
 function successVerifyLineMessage(client, lineID)
 {
     var localeText = localeChecker('jp','success-message');
-    logger.info(lineID + " is the line ID");
+    logger.info(lineID + " has been successfully verified");
     var msgContent = localeText.successTextMessage;
 
     const message = {

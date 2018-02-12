@@ -11,6 +11,9 @@ var japanese = {
     label:{    
         approve: "承認する",
         decline: "低下"
+    },
+    header:{
+        cancelledMessage: "以下の詳細を含むこのリクエストは既にキャンセルされています。"
     }
 }
 module.exports = japanese;

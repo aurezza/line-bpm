@@ -3,6 +3,7 @@ var cancelledMessageContent = require('../questetra/message-text/cancelled-messa
 function sendCancelledRequest(managerData, body, client){
 
     var messageText = cancelledMessageContent(body);
+    console.log("messageText",messageText)
         const message = {
             type: 'text',
             text: messageText.header+messageText.text,

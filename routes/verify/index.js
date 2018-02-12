@@ -11,7 +11,6 @@ function verify(router, lineBotId) {
         users.then(function(users){
             if (users){
                 logger.warn("The line ID:", lineID, "is already verified");
-                logger.info('lineBotId: ' + lineBotId);
                 return res.render('verify-error', {
                     message: localeText.errorMessageLineIdExists,
                     backButtonText: localeText.button.back,

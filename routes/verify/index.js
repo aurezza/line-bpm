@@ -24,6 +24,7 @@ function verify(router, lineID, lineBotId) {
                 usernamePlaceholder: localeText.placeHolder.username, 
                 passwordPlaceholder: localeText.placeHolder.password,
                 lineID: lineID,
+                verified: false,
                 errors: {},
                 customError: ''   
             });

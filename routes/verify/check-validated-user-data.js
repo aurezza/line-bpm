@@ -23,6 +23,7 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
                 usernamePlaceholder: localeText.placeHolder.username, 
                 passwordPlaceholder: localeText.placeHolder.password,
                 lineID: lineID,
+                verified: true,
                 errors: 'localDbError',
                 customError: lineIdAlreadyExists
             });
@@ -41,6 +42,7 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
                     usernamePlaceholder: localeText.placeHolder.username, 
                     passwordPlaceholder: localeText.placeHolder.password,
                     lineID: lineID,
+                    verified: true,
                     errors: 'bpmsDbError',
                     customError: wrongCredentials
                 });                  

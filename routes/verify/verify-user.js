@@ -35,6 +35,7 @@ function verifyUser(router, client, logger, lineBotId){
                 passwordPlaceholder: localeText.placeHolder.password,
                 lineID: lineID,
                 username: validatedUserData.username,
+                verified: true,
                 error: errors.array({
                     onlyFirstError: true
                 }),

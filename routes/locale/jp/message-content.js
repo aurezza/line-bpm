@@ -13,7 +13,7 @@ var japanese = {
         decline: "低下"
     },
     header:{
-        cancelledMessage: "以下の詳細を含むこのリクエストは既にキャンセルされています。"
+        cancelledMessage: "以下の詳細を含むこのリクエストは既にキャンセルされています."
     }
 }
 module.exports = japanese;

@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <script>
         function quitBox(cmd){   
             if (cmd=='quit'){
@@ -17,7 +18,7 @@
         <p><%= description %></p>
         <!-- Button -->
         <div class="col-sm-12 controls">
-          <input class="btn btn-success green" onClick="return quitBox('quit');"  type="submit" value=<%= successButtonText %> >
+          <input class="btn btn-success green-bg" onClick="return quitBox('quit');"  type="submit" value=<%= successButtonText %> >
         </div> 
     </div>   
   </body>

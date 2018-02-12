@@ -26,13 +26,14 @@ a {
 
 .default-page .container {
   text-align: center;
-  padding-top: 0;
+  padding: 0 15px 20px 0;
   display: table-cell;
   vertical-align: top;
 }
 
 .default-page .container .btn {
-  width: 20%;
+  max-width: 120px;
+  color: #fff;
   margin: 0 auto;
   padding: 6px 12px;
   font-size: 16px;
@@ -135,22 +136,26 @@ a {
   margin-bottom: .5rem !important;
 }
 
-.alert-warning {
+.alert-warning p {
   font-weight: 600;
-}
-
-.green {
-  background-color: #28a745;
-  border-color: #28a745;
+  margin-bottom: 0;
 }
 
 .red {
   color: #850404 !important;
+}
+
+.pink-bg {
   background-color: #ffcdcd !important;
   border-color: #ffbaba !important;
 }
 
-.light-gray {
+.green-bg {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.light-gray-bg {
   background-color: #f9f6f6 !important;
 }
 

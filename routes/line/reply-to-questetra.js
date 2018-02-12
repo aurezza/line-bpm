@@ -1,3 +1,4 @@
+var logger = require('../../logger');
 function replyToQuestetra(querystring, axios, postBack, axiosParameters) {
     var throttleCounter = 0;
     //1000 = 1sec
@@ -10,7 +11,7 @@ function replyToQuestetra(querystring, axios, postBack, axiosParameters) {
     function postReplyToQuestetra(resendReplyToQuestetra){
         axios.post(axiosParameters.url,querystring.stringify(axiosParameters.content))
         .then(function(response){ 
-            console.log('success');            
+            logger.info('success replying to questetra');            
         })            
         .catch(function(error){
             if(throttleCounter >= 10) return;

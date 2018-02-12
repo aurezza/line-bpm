@@ -1,16 +1,27 @@
 var translations = require("../locale/locale-checker")
-function sendResponded(client,line_userId){
+var logger = require('../../logger');
+function sendResponded(retrievedRequestData,client,line_userId){
+    
     var response = translations('jp','responded-message');
+    var messageType = {
+        approved:"responded",
+        declined:"responded",
+        cancelled:"cancelled"
+    };
+    var messageResponse = response(messageType[retrievedRequestData.status]);
+
+
+
     const message = {
         type: 'text',
-        text: response,
+        text: messageResponse,
         };
     client.pushMessage(line_userId, message)
         .then(() => {
-            console.log("message sent to "+ line_userId);    
+            logger.info("message sent to "+ line_userId);    
         })
         .catch((err) => {
-            console.log(err)
+            logger.error(err);
         });
 }
 module.exports = sendResponded;

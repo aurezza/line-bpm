@@ -24,6 +24,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
             usernamePlaceholder: localeText.placeHolder.username, 
             passwordPlaceholder: localeText.placeHolder.password,
             lineID: lineID,
+            verified: true,
             errors: 'localDbError',
             customError: employeeIdAlreadyExists
         });        

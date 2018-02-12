@@ -29,6 +29,11 @@ const config = {
 // create LINE SDK client
 const client = new line.Client(config);
 
+app.get('/robots.txt', function (req, res) {
+  res.type('text/plain');
+  res.send("User-agent: *\nDisallow: /");
+});
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

@@ -8,14 +8,13 @@ function sendResponded(retrievedRequestData,client,line_userId){
         Decline:"responded",
         cancelled:"cancelled"
     }
-    console.log("retrievedRequestData",retrievedRequestData.status);
-    //var messageResponse = response()
+    var messageResponse = response(messageType[retrievedRequestData.status])
 
 
 
     const message = {
         type: 'text',
-        text: response,
+        text: messageResponse,
         };
     client.pushMessage(line_userId, message)
         .then(() => {

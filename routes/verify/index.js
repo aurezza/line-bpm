@@ -1,7 +1,7 @@
 var retrieveUsers = require('../retrieve-users');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
-function verify(router, lineID, lineBotId) {
+function verify(router, lineBotId) {
     router.get('/verify/:line_id', function(req, res) {
         var lineID = req.params.line_id;
         var localeText= localeChecker('jp','verify-content');
@@ -11,6 +11,7 @@ function verify(router, lineID, lineBotId) {
         users.then(function(users){
             if (users){
                 logger.warn("The line ID:", lineID, "is already verified");
+                logger.info('lineBotId: ' + lineBotId);
                 return res.render('verify-error', {
                     message: localeText.errorMessageLineIdExists,
                     backButtonText: localeText.button.back,

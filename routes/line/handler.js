@@ -2,6 +2,7 @@ var scanQrCode = require('./scan-qr-code');
 var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
+var logger = require('../logger');
 
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
@@ -22,7 +23,7 @@ eventHandler.follow = function(params) {
         scanQrCode(params.client,line_userId);
     })
     .catch(function (){
-        console.log(error)
+        logger.error(error);
     });
 }
 eventHandler.postback = function(params){
@@ -32,6 +33,6 @@ eventHandler.postback = function(params){
         toNode(postBack,params.client,line_userId);
 }
 
-eventHandler.unfollow = function(params){console.log("unfollow event")};
-eventHandler.message = function(params){console.log("message event")};
+eventHandler.unfollow = function(params){logger.info("unfollow event");};
+eventHandler.message = function(params){logger.info("message event");};
 module.exports = handler;

@@ -1,4 +1,5 @@
 var localeChecker = require('../locale/locale-checker');
+var logger = require('../logger');
 function informUserExistence(client,line_userId,userName)
 {
     var localeText = localeChecker('jp','scan-qr-code');
@@ -11,10 +12,10 @@ function informUserExistence(client,line_userId,userName)
         };
     client.pushMessage(line_userId, message)
         .then(() => {
-            console.log("message sent to "+ line_userId);    
+            logger.info("message sent to "+ line_userId);    
         })
         .catch((err) => {
-            console.log(err)
+            logger.error(err);
         });         
   
 }

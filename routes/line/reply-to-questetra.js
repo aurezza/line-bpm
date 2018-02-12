@@ -1,4 +1,4 @@
-var logger = require('../logger');
+var logger = require('../../logger');
 function replyToQuestetra(querystring, axios, postBack, axiosParameters) {
     var throttleCounter = 0;
     //1000 = 1sec

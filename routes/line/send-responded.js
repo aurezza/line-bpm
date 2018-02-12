@@ -1,5 +1,5 @@
 var translations = require("../locale/locale-checker")
-var logger = require('../logger');
+var logger = require('../../logger');
 function sendResponded(retrievedRequestData,client,line_userId){
     
     var response = translations('jp','responded-message');

@@ -2,7 +2,7 @@ var scanQrCode = require('./scan-qr-code');
 var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
-var logger = require('../logger');
+var logger = require('../../logger');
 
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {

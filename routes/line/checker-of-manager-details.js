@@ -1,7 +1,6 @@
 var axios = require('axios');
 var querystring = require('querystring');
 var replyToQuestetra = require('./reply-to-questetra');
-var logger = require('../../logger');
 var sender = require('./sender');
 
 function checkManagerDetails(managerData, body, client){

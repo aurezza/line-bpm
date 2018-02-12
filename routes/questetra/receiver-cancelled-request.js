@@ -1,5 +1,4 @@
 'use strict';
-var logger = require('../../logger');
 var updateRequestToCancel = require('../update-request-to-cancel');
 
 function receiverCancelledRequest(router, client){

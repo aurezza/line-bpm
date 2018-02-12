@@ -2,6 +2,7 @@
   font-family:'Glyphicons Halflings';
     src:url(.././fonts/glyphicons-halflings-regular.woff2);
 }
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 20px auto;
@@ -45,6 +46,7 @@ a {
 .container {
   width: 100%;
   height: 100vh;
+  /* bootstrap overlap */
   max-width: none !important;
   text-align: center;
   display: table;
@@ -132,6 +134,7 @@ a {
 }
 
 .alert {
+  /* bootstrap overlap */
   padding: .75rem .75rem !important;
   margin-bottom: .5rem !important;
 }
@@ -142,10 +145,12 @@ a {
 }
 
 .red {
+  /* bootstrap overlap */
   color: #850404 !important;
 }
 
 .pink-bg {
+  /* bootstrap overlap */
   background-color: #ffcdcd !important;
   border-color: #ffbaba !important;
 }
@@ -156,7 +161,7 @@ a {
 }
 
 .light-gray-bg {
-  background-color: #f9f6f6 !important;
+  background-color: #f9f6f6;
 }
 
 /*desktop viewport*/

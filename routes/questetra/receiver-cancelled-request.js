@@ -18,6 +18,7 @@ function receiverCancelledRequest(router, client){
         .catch(function(err){
             logger.error(err);
         });
+        res.send(true);
 
 
 

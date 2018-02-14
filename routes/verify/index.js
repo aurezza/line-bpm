@@ -33,7 +33,7 @@ function verify(router, lineBotId) {
                         lineBotId: lineBotId
                     })
                 }
-                updateAccessPass(lineID);
+               
                 res.render('verify', {
                     title: localeText.pageTitle.title,
                     panelTitle: localeText.label.panelTitle,
@@ -44,7 +44,8 @@ function verify(router, lineBotId) {
                     verified: false,
                     errors: {},
                     customError: ''   
-                });               
+                });
+                updateAccessPass(lineID);               
     
             })
             .catch(function(err){

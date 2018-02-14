@@ -4,7 +4,7 @@ var logger = require('../logger');
 
 function updateAccessPass(lineId) {
 
-
+    console.log("lineId in updateAccessPass",lineId);
     accessPassModel.update({ owner: lineId }, 
         { $set: {status : "expired"}},
 

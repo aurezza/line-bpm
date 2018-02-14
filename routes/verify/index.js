@@ -2,8 +2,10 @@ var retrieveUsers = require('../retrieve-users');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 function verify(router, lineBotId) {
-    router.get('/verify/:line_id', function(req, res) {
+    router.get('/verify/:token/:line_id', function(req, res) {
         var lineID = req.params.line_id;
+        var token = req.params.token;
+        console.log("token in verify",token);
         var localeText= localeChecker('jp','verify-content');
         logger.info("verify page has loaded...");
         var users = retrieveUsers(lineID, 'empty');

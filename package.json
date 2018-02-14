@@ -13,7 +13,11 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "cookie-session": "^2.0.0-beta.3",
+<<<<<<< HEAD
     "csurf": "^1.9.0",
+=======
+    "cors": "^2.8.4",
+>>>>>>> add jwt and cors
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "express": "^4.16.2",
@@ -25,6 +29,7 @@
     "jQuery": "^1.7.4",
     "jquery": "^3.3.1",
     "jsdom": "^11.6.2",
+    "jsonwebtoken": "^8.1.1",
     "mkdirp": "^0.5.1",
     "mongo": "^0.1.0",
     "mongod": "^2.0.0",

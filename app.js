@@ -1,5 +1,6 @@
 'use strict';
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -29,6 +30,8 @@ const config = {
 // create LINE SDK client
 const client = new line.Client(config);
 
+app.use(cors())
+
 app.get('/robots.txt', function (req, res) {
   res.type('text/plain');
   res.send("User-agent: *\nDisallow: /");
@@ -44,7 +47,7 @@ app.use(logger('dev'));
 // begin using node line bot - need raw buffer for signature validation
 app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -52,8 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
     name: process.env.COOKIE_SESSION_NAME,
     keys: process.env.COOKIE_SESSION_KEY
-  }));
-
+}));
 
 app.use(passport.initialize());
 // app.use(passport.session());

@@ -56,7 +56,7 @@ app.use(cookieSession({
 
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 app.use('/', handler);
 

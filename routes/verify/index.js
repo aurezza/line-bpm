@@ -1,5 +1,6 @@
 var retrieveUsers = require('../retrieve-users');
 var retrieveAccessPass = require('../retrieve-access-pass');
+var updateAccessPass = require('../update-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 function verify(router, lineBotId) {
@@ -31,6 +32,7 @@ function verify(router, lineBotId) {
                         lineBotId: lineBotId
                     })
                 }
+                updateAccessPass(lineID);
                 res.render('verify', {
                     title: localeText.pageTitle.title,
                     panelTitle: localeText.label.panelTitle,

@@ -3,9 +3,9 @@ var logger = require('../../logger');
 var Token = require('../node/token-generator');
 function scanQrCode(client,line_userId){
 
-    token = new Token(client);
+    token = new Token("aaa");
     console.log(token.get());
-    
+
     var localeText = localeChecker('jp','scan-qr-code');
     var url = process.env.APP_URL+'verify/';
     var msgContent = localeText({url:url});

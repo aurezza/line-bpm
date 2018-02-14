@@ -7,9 +7,9 @@ function verify(router, lineBotId) {
         var localeText= localeChecker('jp','verify-content');
         logger.info("verify page has loaded...");
 
-        var origin = req.get('origin');
+        var origin = req.headers.origin;
         console.log("origin",origin);
-        
+
         var users = retrieveUsers(lineID, 'empty');
         users.then(function(users){
             if (users){

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= message %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <script>
+      function quitBox(cmd){   
+        if (cmd=='quit'){
+            return open("line://ti/p/<%= lineBotId %>", '_self').close();
+        }    
+      }
+    </script>
+  </head>
+  <body class="default-page">
+    <div class="container">
+        <h1><%= message %></h1>  
+        <div class="col-sm-12 controls">
+            <input class="btn red pink-bg" onClick="return quitBox('quit');"  type="submit" value=<%= backButtonText %> >
+        </div>    
+    </div>   
+  </body>
+</html>

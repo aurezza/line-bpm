@@ -10,7 +10,7 @@ function saveAccessPass(token,lineId){
 
     newAccessPass.save()
       .then(function(savedObject) {
-        logger.info('data saved');
+        logger.info('access pass saved');
       })
       .catch(function(err) {
         // add status 500 for error

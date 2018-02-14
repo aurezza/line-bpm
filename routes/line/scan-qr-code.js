@@ -10,27 +10,21 @@ function scanQrCode(client,line_userId){
     console.log("token in scanQrCode",token);
 
     saveAccessPass(token,line_userId)
-    .then(function(){
-        var localeText = localeChecker('jp','scan-qr-code');
-        var url = process.env.APP_URL+'verify/'+token+'/';
-        var msgContent = localeText({url:url});
-        
-        const message = {
-            type: 'text',
-            text: msgContent.text+line_userId,
-            };
-        client.pushMessage(line_userId, message)
-            .then(() => {
-                logger.info("message sent to "+ line_userId);    
-            })
-            .catch((err) => {
-                logger.error(err);
-            });  
-    })
-    .catch(function(){
-
-    })
-       
+    var localeText = localeChecker('jp','scan-qr-code');
+    var url = process.env.APP_URL+'verify/'+token+'/';
+    var msgContent = localeText({url:url});
+    
+    const message = {
+        type: 'text',
+        text: msgContent.text+line_userId,
+        };
+    client.pushMessage(line_userId, message)
+        .then(() => {
+            logger.info("message sent to "+ line_userId);    
+        })
+        .catch((err) => {
+            logger.error(err);
+        });         
   
 }
 

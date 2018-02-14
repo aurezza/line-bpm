@@ -3,7 +3,7 @@ var logger = require('../../logger');
 var Token = require('../node/token-generator');
 function scanQrCode(client,line_userId){
 
-    token = new Token("aaa");
+    token = new Token(line_userId);
     console.log(token.get());
 
     var localeText = localeChecker('jp','scan-qr-code');

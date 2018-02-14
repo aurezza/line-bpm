@@ -10,7 +10,7 @@ var Token =(function(){
         var hash = crypto.createHmac('sha256', this.secret)
                         .update('TMJP OFFSHORE GANG'+Date())
                         .digest('hex');
-        console.log(hash);
+        return hash;
     }
     return Token;
 }());

@@ -3,8 +3,8 @@ var logger = require('../logger');
 var retrieveByApiKey = require('./retrieve-by-api-key');
 
 // TODO: create proper UI for generating keys
-function apiValidation(router, generatedSecretKey) {
-    router.post('/api/authenticate', function(req, res) {
+function generateToken(router, generatedSecretKey) {
+    router.get('/api/generate-token', function(req, res) {
         // TODO: add success verification here
         var successVerification = true;
 
@@ -29,4 +29,4 @@ function apiValidation(router, generatedSecretKey) {
     });
 }
 
-module.exports = apiValidation;
+module.exports = generateToken;

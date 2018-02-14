@@ -6,10 +6,11 @@ function apiValidation(router, generatedSecretKey) {// generate key
         logger.info('passing through api validation...');
         // enable CORS - Cross-Origin Resource Sharing
         // place limitations for domains here, like https://line or questetra url
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.header("Access-Control-Allow-Origin", "https://line.me");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept", "token");
+        res.header("Access-Control-Allow-Methods", 'GET,POST');
 
-        res.cookie('token', jwt)
+        // res.cookie('token', jwt)
 
         // verify token
         var verifyToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
@@ -18,10 +19,11 @@ function apiValidation(router, generatedSecretKey) {// generate key
 
         // TODO: Add cutom? function here to check if encoded token is in db
         // jwt verification
-        // jwt.verify(verifyToken, generatedSecretKey, function(err, decoded) {
-        //     if (!err) return req.decoded = decoded;
-        //     return res.send('Token failed to authenticate');
-        // })     
+        jwt.verify(verifyToken, generatedSecretKey, function(err, decoded) {
+            if (!err) return req.decoded = decoded;
+            return res.send('Token failed to authenticate');
+        })
+        
         next();
     });
 }

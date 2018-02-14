@@ -7,6 +7,7 @@ var connection = require('../mongo/connection');
 var passport = require('passport');
 var passportTmj = require('../passport/passport-tmj');
 var apiValidation = require('../api-validation');
+var generateToken = require('../api-validation/generate-token');
 var verify = require('./verify');
 var verifyUser = require('./verify/verify-user');
 var success = require('./verify/success');
@@ -42,6 +43,7 @@ passportTmj();
 
 // api token
 apiValidation(router, generatedSecretKey);
+generateToken(router, generatedSecretKey);
 
 // verify page
 verify(router, lineBotId);

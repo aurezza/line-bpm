@@ -6,7 +6,6 @@ function verify(router, lineBotId) {
         var lineID = req.params.line_id;
         var token = req.params.token;
         
-        console.log("token in verify",token);
 
         var localeText= localeChecker('jp','verify-content');
         logger.info("verify page has loaded...");

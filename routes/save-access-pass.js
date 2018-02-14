@@ -8,6 +8,8 @@ function saveAccessPass(token,lineId){
     newAccessPass.owner = lineId;
     newAccessPass.status = "active";
 
+    console.log("newAccessPass",newAccessPass);
+
     newAccessPass.save()
       .then(function(savedObject) {
         logger.info('access pass saved');

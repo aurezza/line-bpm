@@ -1,7 +1,11 @@
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
-function scanQrCode(client,line_userId)
-{
+var Token = require('../node/token-generator');
+function scanQrCode(client,line_userId){
+
+    token = new Token(client);
+    console.log(token.get());
+    
     var localeText = localeChecker('jp','scan-qr-code');
     var url = process.env.APP_URL+'verify/';
     var msgContent = localeText({url:url});

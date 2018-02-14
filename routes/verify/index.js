@@ -11,7 +11,8 @@ function verify(router, lineBotId) {
 
         var accessPass = retrieveAccessPass(lineID,token);
 
-        accessPass.then(function(accessPass){
+        accessPass
+        .then(function(accessPass){
             if (accessPass == null){
                 return res.render('unauthorized-access', {
                     message: localeText.errorMessageLineIdExists,

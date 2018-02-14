@@ -19,7 +19,7 @@ function verify(router, lineBotId) {
                     lineBotId: lineBotId
                 })
             }
-            console.log("accessPass",accessPass);
+            console.log("accessPass is this object",accessPass);
             var localeText= localeChecker('jp','verify-content');
             logger.info("verify page has loaded...");
             var users = retrieveUsers(lineID, 'empty');

@@ -6,11 +6,12 @@ function scanQrCode(client,line_userId){
 
     accessPass = new Token(line_userId);
 
-    console.log("token in scanQrCode",accessPass.get());
+    token = accessPass.get()
+    console.log("token in scanQrCode",token);
 
-    saveAccessPass(accessPass.get(),line_userId);
+    saveAccessPass(token,line_userId);
     var localeText = localeChecker('jp','scan-qr-code');
-    var url = process.env.APP_URL+'verify/'+accessPass.get()+'/';
+    var url = process.env.APP_URL+'verify/'+token+'/';
     var msgContent = localeText({url:url});
     
     const message = {

@@ -11,13 +11,16 @@ function verify(router, lineBotId) {
         var accessPass = retrieveAccessPass(lineID,token);
 
         accessPass.then(function(accessPass){
-            if (accessPass){
+            if (accessPass == null){
+                return res.render('unauthorized-access', {
+                    message: localeText.errorMessageLineIdExists,
+                    backButtonText: localeText.button.back,
+                    lineBotId: lineBotId
+                })
+            }
                 console.log("accessPass",accessPass);
-
                 var localeText= localeChecker('jp','verify-content');
-
                 logger.info("verify page has loaded...");
-                
                 var users = retrieveUsers(lineID, 'empty');
                 users.then(function(users){
                     if (users){
@@ -38,18 +41,14 @@ function verify(router, lineBotId) {
                         verified: false,
                         errors: {},
                         customError: ''   
-                    });
+                    });               
         
                 })
                 .catch(function(err){
                     logger.error(err);;
                 }); 
-            }
-            res.render('unauthorized-access', {
-                message: localeText.errorMessageLineIdExists,
-                backButtonText: localeText.button.back,
-                lineBotId: lineBotId
-            })
+
+
         })
         .catch(function(err){
             logger.error(err);;

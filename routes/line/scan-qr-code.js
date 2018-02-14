@@ -10,9 +10,12 @@ function scanQrCode(client,line_userId){
     console.log("token in scanQrCode",token);
 
     saveAccessPass(token,line_userId)
-    
+
     var localeText = localeChecker('jp','scan-qr-code');
     var url = process.env.APP_URL+'verify/'+token+'/';
+
+    console.log("url",url);
+    
     var msgContent = localeText({url:url});
     
     const message = {

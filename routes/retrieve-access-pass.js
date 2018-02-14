@@ -1,6 +1,6 @@
 var accessPassModel = require('../models/access-pass-model');
 var logger = require('.././logger');
-function retrieveUsers(lineId, token){
+function retrieveAccessPass(lineId, token){
         // convert save code above to promise
 		var accessPass = accessPassModel.findOne(
 			{owner: lineId},
@@ -17,4 +17,4 @@ function retrieveUsers(lineId, token){
     return accessPass;
 }
 
-module.exports = retrieveUsers;
+module.exports = retrieveAccessPass;

@@ -8,7 +8,7 @@ var Token =(function(){
 
     Token.prototype.get = function(){
         var hash = crypto.createHmac('sha256', this.secret)
-                        .update('TMJP OFFSHORE GANG'+Date())
+                        .update(process.env.APP_SECRET_TOKEN_KEY+Date())
                         .digest('hex');
         return hash;
     }

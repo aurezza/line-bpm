@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var retrieveByApiKey = require('./retrieve-by-api-key');
 var logger = require('../logger');
-function verifyToken(verifyToken, generatedSecretKey, req, res) {
+function verifyToken(verifyToken, generatedSecretKey, req, res, next) {
     if(!verifyToken) return res.status(403).send('Forbidden, no token found');
 
     var getDecoded = jwt.decode(verifyToken);
@@ -14,6 +14,7 @@ function verifyToken(verifyToken, generatedSecretKey, req, res) {
         jwt.verify(verifyToken, generatedSecretKey, function(err, decoded) {
             if(err) return res.send('Token failed to authenticate');
             logger.info('Token has verified'); // temp
+            next();
             return req.decoded = decoded;
         });
     })

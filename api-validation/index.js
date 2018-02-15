@@ -7,7 +7,6 @@ function apiValidation(router) {
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));
         // enable CORS - Cross-Origin Resource Sharing
-        // place limitations for domains here, like https://line or questetra url
         req.header('Access-Control-Allow-Credentials', true);
         req.header("Access-Control-Allow-Origin", "*");
         req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept", "token");
@@ -24,8 +23,7 @@ function apiValidation(router) {
 
         // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfbmFtZSI6ImxpbmUiLCJjcmVhdGVkX2F0IjoxNTE4NjU3MjE1Nzk3LCJpYXQiOjE1MTg2NjMyOTF9.16msC8vOtiigrhVwSRTajTemhVXtnbYjmTMYgZbovGk
 
-        verifyToken(getToken, generatedSecretKey, req, res);
-        next();
+        verifyToken(getToken, generatedSecretKey, req, res, next);
     });
 }
 

@@ -1,5 +1,6 @@
 var checkValidatedUserData = require('./check-validated-user-data');
-var localeChecker = require('../locale/locale-checker'); 
+var localeChecker = require('../locale/locale-checker');
+var retrieveAccessPass = require('../retrieve-access-pass'); 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
@@ -22,30 +23,44 @@ function verifyUser(router, client, logger, lineBotId){
     function(req, res){
         var lineID = req.params.lineID;
         var token = req.params.token;
-        const errors = validationResult(req);
-        // matchedData returns only the subset of data validated by the middleware
-        const validatedUserData = matchedData(req);
-        if (!errors.isEmpty()) {  
-            logger.warn('Field must not be empty');
-            return res.render('verify',{
-                title: localeText.pageTitle.title,
-                panelTitle: localeText.label.panelTitle,
-                verifyButtonText: localeText.button.verify,
-                usernamePlaceholder: localeText.placeHolder.username, 
-                passwordPlaceholder: localeText.placeHolder.password,
-                lineID: lineID,
-                token:token,
-                username: validatedUserData.username,
-                verified: true,
-                error: errors.array({
-                    onlyFirstError: true
-                }),
-                errors: {},
-                customError: ''
-            });
-        }
+        var accessPass = retrieveAccessPass(lineID,token);
 
-        checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId);
+        accessPass
+        .then(function(accessPass){
+            if (accessPass == null){
+                return res.render('unauthorized-access', {
+                    message: "Error : 403 - Unauthorized Access",
+                })
+            }
+            const errors = validationResult(req);
+            // matchedData returns only the subset of data validated by the middleware
+            const validatedUserData = matchedData(req);
+            if (!errors.isEmpty()) {  
+                logger.warn('Field must not be empty');
+                return res.render('verify',{
+                    title: localeText.pageTitle.title,
+                    panelTitle: localeText.label.panelTitle,
+                    verifyButtonText: localeText.button.verify,
+                    usernamePlaceholder: localeText.placeHolder.username, 
+                    passwordPlaceholder: localeText.placeHolder.password,
+                    lineID: lineID,
+                    token:token,
+                    username: validatedUserData.username,
+                    verified: true,
+                    error: errors.array({
+                        onlyFirstError: true
+                    }),
+                    errors: {},
+                    customError: ''
+                });
+            }
+    
+            checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId);            
+        })
+        .catch(function(){
+
+        })
+
     });
 }
 

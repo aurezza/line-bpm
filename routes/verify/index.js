@@ -3,8 +3,6 @@ var retrieveAccessPass = require('../retrieve-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 function verify(router, lineBotId) {
-
-
     router.get('/verify/:token/:line_id', function(req, res) {
         var localeText= localeChecker('jp','verify-content');
         var lineID = req.params.line_id;

@@ -21,8 +21,9 @@ function verifyUser(router, client, logger, lineBotId){
     ], 
     function(req, res){
         var lineID = req.params.lineID;
-
-        console.log("req",req);
+        console.log("req.header",req.headers);
+        console.log("req.header.origin",req.headers.origin);
+        console.log("req.header.host",req.headers.host);
         const errors = validationResult(req);
         // matchedData returns only the subset of data validated by the middleware
         const validatedUserData = matchedData(req);

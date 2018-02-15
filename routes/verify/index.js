@@ -4,11 +4,28 @@ var updateAccessPass = require('../update-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 function verify(router, lineBotId) {
+
+    router.use(function(req, res, next){
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With', "ksurf-token");
+        res.send(200);
+
+        next();
+    });
+
+
+
+
+
+
+
+
+
     router.get('/verify/:token/:line_id', function(req, res) {
         var localeText= localeChecker('jp','verify-content');
         var lineID = req.params.line_id;
         var token = req.params.token;
-        console.log("token in verify",token);
         var accessPass = retrieveAccessPass(lineID,token);
         
         accessPass
@@ -33,7 +50,7 @@ function verify(router, lineBotId) {
                         lineBotId: lineBotId
                     })
                 }
-                res.setHeader("ksurf-token","leutherking");
+                res.header("ksurf-token","commanotkama");
                 res.render('verify', {
                     title: localeText.pageTitle.title,
                     panelTitle: localeText.label.panelTitle,

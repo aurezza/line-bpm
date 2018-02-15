@@ -5,20 +5,6 @@ var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 function verify(router, lineBotId) {
 
-    router.use(function(req, res, next){
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With', "ksurf-token");
-        next();
-    });
-
-
-
-
-
-
-
-
 
     router.get('/verify/:token/:line_id', function(req, res) {
         var localeText= localeChecker('jp','verify-content');

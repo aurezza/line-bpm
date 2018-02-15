@@ -14,7 +14,7 @@ function verify(router, lineBotId) {
         accessPass
         .then(function(accessPass){
             if (accessPass == null){
-                return res.render('not found', {
+                return res.render('unauthorized-access', {
                     message: "Error : 404",
                 })
             }

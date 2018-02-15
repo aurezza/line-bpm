@@ -23,7 +23,7 @@ function verifyUser(router, client, logger, lineBotId){
     ],
     csrfProtection, 
     function(req, res){
-        console.log("req.body",req.body);
+        console.log("req.body",req.body._csrf);
         var lineID = req.params.lineID;
         var token = req.params.token;
         var accessPass = retrieveAccessPass(lineID,token);
@@ -48,7 +48,7 @@ function verifyUser(router, client, logger, lineBotId){
                     passwordPlaceholder: localeText.placeHolder.password,
                     lineID: lineID,
                     token:token,
-                    csrfToken:req.csrfToken(),
+                    csrfToken:req.body._csrf,
                     username: validatedUserData.username,
                     verified: true,
                     error: errors.array({

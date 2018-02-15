@@ -3,12 +3,10 @@ var verifyUserWithLineId = require('./verify-user-with-line-id');
 var localeChecker = require('../locale/locale-checker');
 var passport = require('passport');
 var logger = require('../../logger');
-var updateAccessPass = require('../update-access-pass');
 var employeeDetails = {};
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId) {
     // check if user is in local db
-    updateAccessPass(lineID);
     var users = retrieveUsers(lineID, 'empty');
     var localeText= localeChecker('jp','verify-content');
 

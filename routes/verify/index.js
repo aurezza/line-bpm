@@ -10,9 +10,10 @@ function verify(router, lineBotId) {
         var token = req.params.token;
         console.log("token in verify",token);
         var accessPass = retrieveAccessPass(lineID,token);
-        console.log("accessPass is this object",accessPass);
+        
         accessPass
         .then(function(accessPass){
+            console.log("accessPass is this object",accessPass);
             if (accessPass == null){
                 return res.render('unauthorized-access', {
                     message: localeText.errorMessageLineIdExists,

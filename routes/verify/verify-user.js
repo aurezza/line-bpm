@@ -9,7 +9,7 @@ var notEmpty = localeText.error.mustNotBeEmpty;
 
 function verifyUser(router, client, logger, lineBotId){
     // needs additional validation for schema
-    router.post('/verify/:lineID', [
+    router.post('/verify/:token/:lineID', [
         check('username', notEmpty)
         .isLength({ min: 1})
         .trim()
@@ -22,7 +22,7 @@ function verifyUser(router, client, logger, lineBotId){
     function(req, res){
         var lineID = req.params.lineID;
 
-        
+        console.log(req.header);
         const errors = validationResult(req);
         // matchedData returns only the subset of data validated by the middleware
         const validatedUserData = matchedData(req);
@@ -35,6 +35,7 @@ function verifyUser(router, client, logger, lineBotId){
                 usernamePlaceholder: localeText.placeHolder.username, 
                 passwordPlaceholder: localeText.placeHolder.password,
                 lineID: lineID,
+                token:token,
                 username: validatedUserData.username,
                 verified: true,
                 error: errors.array({

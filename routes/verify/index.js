@@ -33,7 +33,7 @@ function verify(router, lineBotId) {
                         lineBotId: lineBotId
                     })
                 }
-               
+                res.header('ksurf-token',token);
                 res.render('verify', {
                     title: localeText.pageTitle.title,
                     panelTitle: localeText.label.panelTitle,
@@ -41,6 +41,7 @@ function verify(router, lineBotId) {
                     usernamePlaceholder: localeText.placeHolder.username, 
                     passwordPlaceholder: localeText.placeHolder.password,
                     lineID: lineID,
+                    token: token,
                     verified: false,
                     errors: {},
                     customError: ''   

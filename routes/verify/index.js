@@ -44,8 +44,7 @@ function verify(router, lineBotId) {
                     verified: false,
                     errors: {},
                     customError: ''   
-                });
-                updateAccessPass(lineID);               
+                });          
     
             })
             .catch(function(err){

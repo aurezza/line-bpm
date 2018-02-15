@@ -9,9 +9,6 @@ function updateAccessPassToken(lineId,token) {
         function(){
             logger.info("Access pass with the :"+lineId+" owner was changed");
         });
-
-        
-    
 }
 
 module.exports = updateAccessPassToken;

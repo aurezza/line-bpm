@@ -13,7 +13,10 @@ function verifyToken(verifyToken, generatedSecretKey, req, res, next) {
     payLoadExists.then(function(payLoadExists) {
         if(!payLoadExists) return res.send('Payload details not found in db');
         jwt.verify(verifyToken, generatedSecretKey, function(err, decoded) {
-            if(err) return res.send('Token failed to authenticate');
+            if(err) {
+                logger.error('Failed authentication: ', err)
+                return res.send('Token failed to authenticate');
+            }
             logger.info('Token has verified'); // temp
             next();
             return req.decoded = decoded;

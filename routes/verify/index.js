@@ -10,7 +10,7 @@ function verify(router, lineBotId) {
         var token = req.params.token;
         console.log("token in verify",token);
         var accessPass = retrieveAccessPass(lineID,token);
-
+        console.log("accessPass is this object",accessPass);
         accessPass
         .then(function(accessPass){
             if (accessPass == null){
@@ -20,7 +20,7 @@ function verify(router, lineBotId) {
                     lineBotId: lineBotId
                 })
             }
-            console.log("accessPass is this object",accessPass);
+            
             logger.info("verify page has loaded...");            
             var users = retrieveUsers(lineID, 'empty');
             users.then(function(users){

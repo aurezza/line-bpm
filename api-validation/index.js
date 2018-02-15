@@ -21,8 +21,6 @@ function apiValidation(router) {
 
         const generatedSecretKey = key + secretKey + createdAt;
 
-        // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfbmFtZSI6ImxpbmUiLCJjcmVhdGVkX2F0IjoxNTE4NjU3MjE1Nzk3LCJpYXQiOjE1MTg2NjMyOTF9.16msC8vOtiigrhVwSRTajTemhVXtnbYjmTMYgZbovGk
-
         verifyToken(getToken, generatedSecretKey, req, res, next);
     });
 }

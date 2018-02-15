@@ -10,7 +10,7 @@ function generateToken(router) {
 
         // TODO: create separate? payload for questetra
         const payload = {
-            api_name: 'line', // change this to either line/quest on request atm
+            api_name: 'questetra', // change this to either line/quest on request atm
             created_at: 1518657215797
             // insert other defined values here
         }; 

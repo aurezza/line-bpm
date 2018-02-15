@@ -7,6 +7,7 @@ function verifyToken(verifyToken, generatedSecretKey, req, res, next) {
     var getDecoded = jwt.decode(verifyToken);
     logger.info('decoded values: ', getDecoded);
     if(getDecoded == null) return res.status(403).send('Forbidden, incomplete token');
+    logger.info('the api_name is: ', getDecoded.api_name);
 
     var payLoadExists = retrieveByApiKey(getDecoded.api_name, getDecoded.created_at);
     payLoadExists.then(function(payLoadExists) {

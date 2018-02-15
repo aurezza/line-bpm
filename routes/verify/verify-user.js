@@ -23,11 +23,9 @@ function verifyUser(router, client, logger, lineBotId){
     ],
     csrfProtection, 
     function(req, res){
-        console.log("req.body",req.body._csrf);
         var lineID = req.params.lineID;
         var token = req.params.token;
         var accessPass = retrieveAccessPass(lineID,token);
-        console.log("req.csrfToken",req.csrfToken);
         accessPass
         .then(function(accessPass){
             if (accessPass == null){

@@ -34,6 +34,7 @@ function verify(router, lineBotId) {
                         lineBotId: lineBotId
                     })
                 }
+                console.log("res.header",res.header);
                 res.header("ksurf-token","commanotkama");
                 res.render('verify', {
                     title: localeText.pageTitle.title,

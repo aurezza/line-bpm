@@ -7,7 +7,7 @@ function updateAccessPassToken(lineId,token) {
         { $set: {access_pass_token : token }},
 
         function(){
-            logger.info("all access pass with the :"+lineId+" owner was updated to expired");
+            logger.info("Access pass with the :"+lineId+" owner was changed");
         });
 
         

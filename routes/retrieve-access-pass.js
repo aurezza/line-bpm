@@ -11,8 +11,6 @@ function retrieveAccessPass(lineId, token){
 		
 		accessPass
 		.exec(function(res, err){
-            // logger.error("retrieveUsers error: ", err);
-            console.log("res",res);
 		});
 		
     return accessPass;

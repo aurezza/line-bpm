@@ -1,6 +1,5 @@
 var retrieveUsers = require('../retrieve-users');
 var retrieveAccessPass = require('../retrieve-access-pass');
-var updateAccessPass = require('../update-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 function verify(router, lineBotId) {
@@ -14,7 +13,6 @@ function verify(router, lineBotId) {
         
         accessPass
         .then(function(accessPass){
-            console.log("accessPass is this object",accessPass);
             if (accessPass == null){
                 return res.render('unauthorized-access', {
                     message: localeText.errorMessageLineIdExists,
@@ -34,8 +32,6 @@ function verify(router, lineBotId) {
                         lineBotId: lineBotId
                     })
                 }
-                res.header("ksurf-token","commanotkama");
-                console.log("req.header",req.header);
                 res.render('verify', {
                     title: localeText.pageTitle.title,
                     panelTitle: localeText.label.panelTitle,

@@ -2,8 +2,10 @@ var retrieveUsers = require('../retrieve-users');
 var retrieveAccessPass = require('../retrieve-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
+var csrf = require('csurf');
+var csrfProtection = csrf({ cookie: true });
 function verify(router, lineBotId) {
-    router.get('/verify/:token/:line_id', function(req, res) {
+    router.get('/verify/:token/:line_id', csrfProtection, function(req, res) {
         var localeText= localeChecker('jp','verify-content');
         var lineID = req.params.line_id;
         var token = req.params.token;         
@@ -34,6 +36,7 @@ function verify(router, lineBotId) {
                     passwordPlaceholder: localeText.placeHolder.password,
                     lineID: lineID,
                     token: token,
+                    csrfToken:req.csrfToken(),
                     verified: false,
                     errors: {},
                     customError: ''   

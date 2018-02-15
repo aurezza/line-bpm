@@ -3,7 +3,8 @@ var localeChecker = require('../locale/locale-checker');
 var retrieveAccessPass = require('../retrieve-access-pass'); 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
-
+var csrf = require('csurf');
+var csrfProtection = csrf({ cookie: true });
 // locale checker
 var localeText= localeChecker('jp','verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
@@ -19,12 +20,14 @@ function verifyUser(router, client, logger, lineBotId){
         check('password')
         .isLength({ min: 1})
         .trim().withMessage(notEmpty),
-    ], 
+    ],
+    csrfProtection, 
     function(req, res){
+        console.log("req.body",req.body);
         var lineID = req.params.lineID;
         var token = req.params.token;
         var accessPass = retrieveAccessPass(lineID,token);
-
+        console.log("req.csrfToken",req.csrfToken);
         accessPass
         .then(function(accessPass){
             if (accessPass == null){
@@ -45,6 +48,7 @@ function verifyUser(router, client, logger, lineBotId){
                     passwordPlaceholder: localeText.placeHolder.password,
                     lineID: lineID,
                     token:token,
+                    csrfToken:req.csrfToken(),
                     username: validatedUserData.username,
                     verified: true,
                     error: errors.array({

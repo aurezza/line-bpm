@@ -8,7 +8,6 @@ function verify(router, lineBotId) {
         var lineID = req.params.line_id;
         var token = req.params.token;
         console.log("token in verify",token);
-
         var accessPass = retrieveAccessPass(lineID,token);
 
         accessPass

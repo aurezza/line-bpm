@@ -14,7 +14,7 @@ function verify(router, lineBotId) {
         accessPass
         .then(function(accessPass){
             if (accessPass == null){
-                return res.render('unauthorized-access', {
+                return res.render('not found', {
                     message: localeText.errorMessageLineIdExists,
                     backButtonText: localeText.button.back,
                     lineBotId: lineBotId

@@ -33,7 +33,7 @@ function verify(router, lineBotId) {
                         lineBotId: lineBotId
                     })
                 }
-                res.headers('ksurf-token',token);
+                res.header('ksurf-token',token);
                 res.render('verify', {
                     title: localeText.pageTitle.title,
                     panelTitle: localeText.label.panelTitle,

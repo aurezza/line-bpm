@@ -7,9 +7,6 @@ function saveAccessPass(token,lineId){
     newAccessPass.access_pass_token = token;
     newAccessPass.owner = lineId;
     newAccessPass.status = "active";
-
-    console.log("newAccessPass",newAccessPass);
-
     newAccessPass.save()
       .then(function(savedObject) {
         logger.info('access pass saved');

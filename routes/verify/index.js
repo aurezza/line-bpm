@@ -15,9 +15,7 @@ function verify(router, lineBotId) {
         .then(function(accessPass){
             if (accessPass == null){
                 return res.render('not found', {
-                    message: localeText.errorMessageLineIdExists,
-                    backButtonText: localeText.button.back,
-                    lineBotId: lineBotId
+                    message: "Error : 404",
                 })
             }
             

@@ -1,29 +1,30 @@
-var jwt = require('jsonwebtoken');
 var logger = require('../logger');
-function apiValidation(router, generatedSecretKey) {// generate key
-    
-    router.use(function(req, res, next) {
+var verifyToken = require('./verify-token');
+
+function apiValidation(router) {
+    var externalRoutes = ['/receiveFromQuest', '/handler', '/verify/:lineId'];
+    router.use(externalRoutes, function(req, res, next) {
         logger.info('passing through api validation...');
+        logger.info('headers: ', JSON.stringify(req.headers));
         // enable CORS - Cross-Origin Resource Sharing
         // place limitations for domains here, like https://line or questetra url
-        res.header("Access-Control-Allow-Origin", "https://line.me");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept", "token");
-        res.header("Access-Control-Allow-Methods", 'GET,POST');
-
-        // res.cookie('token', jwt)
+        req.header('Access-Control-Allow-Credentials', true);
+        req.header("Access-Control-Allow-Origin", "*");
+        req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept", "token");
+        req.header("Access-Control-Allow-Methods", 'GET, POST');
 
         // verify token
-        var verifyToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
+        var getToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
 
-        if(!verifyToken) return res.status(403).send('Forbidden, no token found');
+        var key = 'somethingjibberish'; // refer to api db for this value
+        var secretKey = process.env.APP_SECRET_KEY;
+        var createdAt = 1518657215797; // refer to api db for this value
 
-        // TODO: Add cutom? function here to check if encoded token is in db
-        // jwt verification
-        jwt.verify(verifyToken, generatedSecretKey, function(err, decoded) {
-            if (!err) return req.decoded = decoded;
-            return res.send('Token failed to authenticate');
-        })
-        
+        const generatedSecretKey = key + secretKey + createdAt;
+
+        // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfbmFtZSI6ImxpbmUiLCJjcmVhdGVkX2F0IjoxNTE4NjU3MjE1Nzk3LCJpYXQiOjE1MTg2NjMyOTF9.16msC8vOtiigrhVwSRTajTemhVXtnbYjmTMYgZbovGk
+
+        verifyToken(getToken, generatedSecretKey, req, res);
         next();
     });
 }

@@ -5,6 +5,7 @@ var checkManagerDetails = require('../line/checker-of-manager-details');
 var errorLocator = require('../node/error-locator');
 function receiver(router, client){
     router.post('/receiveFromQuest', function(req, res) {
+        
         var managerData = {};
         var users = retrieveUser('empty',req.body.manager_email);
         

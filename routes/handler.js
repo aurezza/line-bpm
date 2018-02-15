@@ -25,10 +25,6 @@ var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 
-var dateNow = Date.now();
-var secretKey = process.env.APP_SECRET_KEY;
-var generatedSecretKey = 'dfkladjsflkjdfklj' + secretKey + dateNow;
-
 var axios = require('axios');
 var querystring = require('querystring');
 var receiver = require('./questetra/receiver');
@@ -42,8 +38,8 @@ connection(mongoose, connectionURL);
 passportTmj();
 
 // api token
-apiValidation(router, generatedSecretKey);
-generateToken(router, generatedSecretKey);
+apiValidation(router);
+generateToken(router);
 
 // verify page
 verify(router, lineBotId);

@@ -7,6 +7,7 @@ function retrieveUserByLineId(line_userId) {
     
     users
     .exec(function(res, err){
+        if(err){ logger.error(err.message); logger.error(err.stack);}
     });	
 		  
     return users;

@@ -10,6 +10,7 @@ function retrieveAccessPassOwner(lineId){
 		);		
 		accessPassOwner
 		.exec(function(res, err){
+			if(err){ logger.error(err.message); logger.error(err.stack);}
 		});
 		
     return accessPassOwner;

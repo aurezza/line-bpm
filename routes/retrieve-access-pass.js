@@ -4,15 +4,13 @@ var logger = require('../logger');
 function retrieveAccessPass(lineId, token){
         // convert save code above to promise
 		var accessPass = accessPassModel.findOne(
-			{line_id: lineId,
-            access_pass_token: token,
-            status:"active"}
+			{line_id: lineId, access_pass_token: token, status:"active"}
             
 		);
 		
 		accessPass
 		.exec(function(res, err){
-			logger.info('res',res);
+			if(err){ logger.error(err.message); logger.error(err.stack);}
 		});
 		
     return accessPass;

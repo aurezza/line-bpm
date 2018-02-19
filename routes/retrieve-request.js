@@ -7,7 +7,7 @@ function retrieveRequest(id) {
     
     overtimeRequest
     .exec(function(res, err){
-        
+        if(err){ logger.error(err.message); logger.error(err.stack);}       
     });	
 		  
     return overtimeRequest;

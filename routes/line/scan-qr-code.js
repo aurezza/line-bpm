@@ -1,22 +1,22 @@
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var Token = require('../node/token-generator');
-// var saveAccessPass = require('.././save-access-pass');
-// var retrieveAccessPassOwner = require('.././retrieve-access-pass-line-id');
-// var updateAccessPassToken = require('.././update-access-pass-token');
+var saveAccessPass = require('../save-access-pass');
+var retrieveAccessPassOwner = require('../retrieve-access-pass-line-id');
+var updateAccessPassToken = require('../update-access-pass-token');
 
 function scanQrCode(client,line_userId){
 
     accessPass = new Token(line_userId);
     token = accessPass.get();
-    // var owner = retrieveAccessPassOwner(line_userId);
-    // owner
-    // .then(function(owner){
-    //     if(owner){
-    //         updateAccessPassToken(line_userId,token)
-    //     }else{
-    //         saveAccessPass(token,line_userId);
-    //     }            
+    var owner = retrieveAccessPassOwner(line_userId);
+    owner
+    .then(function(owner){
+        if(owner){
+            updateAccessPassToken(line_userId,token)
+        }else{
+            saveAccessPass(token,line_userId);
+        }            
         var localeText = localeChecker('jp','scan-qr-code');
         var url = process.env.APP_URL+'verify/'+token+'/';
     
@@ -34,9 +34,9 @@ function scanQrCode(client,line_userId){
                 console.log('text');
                 // logger.error(err);
             }); 
-    // })
-    // .catch(function(){
-    // });
+    })
+    .catch(function(){
+    });
   
 }
 

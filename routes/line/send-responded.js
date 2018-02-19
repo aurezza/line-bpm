@@ -21,9 +21,9 @@ function sendResponded(retrievedRequestData,client,line_userId){
         .then(() => {
             logger.info("message sent to "+ line_userId);    
         })
-        .catch((err) => {
-            logger.error('line/send-responded.js/client.pushMessage');
-            logger.error(err);
+        .catch((error) => {
+            logger.error(error.message);
+            logger.error(error.stack);
         });
 }
 module.exports = sendResponded;

@@ -10,7 +10,6 @@ function retrieveUsers(receivedLineID, receivedEmployeeEmail){
 		
 		users
 		.exec(function(res, err){
-            // logger.error("retrieveUsers error: ", err);
 		});
 		
     return users;

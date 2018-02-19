@@ -43,13 +43,14 @@ function verify(router, lineBotId) {
                     customError: ''   
                 });    
             })
-            .catch(function(err){
-                logger.error(err);
+            .catch(function(error){
+                logger.error(error.message);
+                logger.error(error.stack);
             }); 
         })
-        .catch(function(err){
-            logger.error('verify/index.js');
-            logger.error(err);            
+        .catch(function(error){
+            logger.error(error.message);
+            logger.error(error.stack);          
         }); 
    });
 }

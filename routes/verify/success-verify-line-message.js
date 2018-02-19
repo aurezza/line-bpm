@@ -17,9 +17,9 @@ function successVerifyLineMessage(client, lineID)
     .then(() => {
         logger.info("message sent to "+ lineID);    
     })
-    .catch((err) => {
-        logger.error('verify/index.js');
-        logger.error(err); 
+    .catch((error) => {
+        logger.error(error.message);
+        logger.error(error.stack);  
     });             
   
 }

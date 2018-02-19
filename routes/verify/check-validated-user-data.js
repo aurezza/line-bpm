@@ -68,9 +68,9 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
             });
         })(req,res);               
     })
-    .catch(function(err){
-        logger.error('verify/check-validated-user-data.js');
-        logger.error(err);
+    .catch(function(error){
+        logger.error(error.message);
+        logger.error(error.stack);
     });     
 }
 

@@ -12,9 +12,9 @@ function saveAccessPass(token,lineId){
       .then(function(savedObject) {
         logger.info('access pass saved');
       })
-      .catch(function(err) {
-        // add status 500 for error
-        logger.error('save error',err);
+      .catch(function(error) {
+        logger.error(error.message);
+        logger.error(error.stack); 
       });    
 }
 module.exports = saveAccessPass;

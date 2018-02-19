@@ -7,7 +7,6 @@ function retrieveUserByEmployeeId(receivedEmployeeID) {
     
     users
     .exec(function(res, err){
-        // logger.error("retrieveUsers error: ", err);
     });	
 		  
     return users;

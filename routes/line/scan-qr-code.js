@@ -30,14 +30,14 @@ function scanQrCode(client,line_userId){
             .then(() => {
                 logger.info("message sent to "+ line_userId);    
             })
-            .catch((err) => {
-                logger.error('scan-qr-code.js/client.pushMessage');
-                logger.error(err);
+            .catch((error) => {
+                logger.error(error.message);
+                logger.error(error.stack);
             }); 
     })
-    .catch(function(err){
-        logger.error('scan-qr-code.js/owner promise');
-        logger.error(err);
+    .catch(function(error){
+        logger.error(error.message);
+        logger.error(error.stack);
     });
   
 }

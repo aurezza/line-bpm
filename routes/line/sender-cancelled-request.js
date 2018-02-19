@@ -12,8 +12,9 @@ function sendCancelledRequest(managerData, body, client){
             .then(() => {
                 logger.info("message sent to "+ managerData.line_id);    
             })
-            .catch((err) => {
-                logger.error(err);
+            .catch((error) => {
+                logger.error(error.message);
+                logger.error(error.stack);
             });
 }
 

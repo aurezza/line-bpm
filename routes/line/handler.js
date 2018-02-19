@@ -24,8 +24,8 @@ eventHandler.follow = function(params) {
         scanQrCode(params.client,line_userId);
     })
     .catch(function (error){
-        logger.error('line/handler.js/follow event');
-        logger.error('error',error);
+        logger.error(error.message);
+        logger.error(error.stack);
     });
 }
 eventHandler.postback = function(params){

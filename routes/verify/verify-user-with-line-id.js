@@ -32,7 +32,9 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
         });        
 
     })
-    .catch(function(err) {
+    .catch(function(error) {
+        logger.error(error.message);
+        logger.error(error.stack);        
     });                        
 }
 

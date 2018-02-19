@@ -7,7 +7,6 @@ function retrieveUserByLineId(line_userId) {
     
     users
     .exec(function(res, err){
-        // logger.error("retrieveUsers error: ", err);
     });	
 		  
     return users;

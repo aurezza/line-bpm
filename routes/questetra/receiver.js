@@ -11,9 +11,9 @@ function receiver(router, client){
           managerData = users;
           checkManagerDetails(managerData, req.body, client);  
         })
-        .catch(function(err){
-            logger.error('questertra/receiver.js');
-            logger.error(err);
+        .catch(function(error){
+            logger.error(error.message);
+            logger.error(error.stack);
         });
         res.send(true);      
     });

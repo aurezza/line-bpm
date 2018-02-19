@@ -1,3 +1,5 @@
+'use strict';
+
 var logger = require('../logger');
 var verifyToken = require('./verify-token');
 

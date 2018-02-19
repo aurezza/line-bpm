@@ -1,3 +1,5 @@
+'use strict';
+
 var apiModel = require('../models/api-model');
 var logger = require('../logger');
 
@@ -7,7 +9,7 @@ function retrieveApiByKey(apiName, createdAt) {
     
     api
     .exec(function(res, err){
-        // logger.error("retrieveUsers error: ", err);
+        logger.error("retrieveUsers error: ", err);
     });	
 		  
     return api;

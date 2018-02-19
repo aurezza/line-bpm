@@ -1,3 +1,5 @@
+'use strict';
+
 var jwt = require('jsonwebtoken');
 var logger = require('../logger');
 var retrieveByApiKey = require('./retrieve-by-api-key');
@@ -14,7 +16,7 @@ function generateToken(router) {
             created_at: 1518657215797
             // insert other defined values here
         }; 
-
+s
         var key = 'somethingjibberish';
         var secretKey = process.env.APP_SECRET_KEY;
         var createdAt = 1518657215797; // refer to api db for this value

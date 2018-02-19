@@ -1,3 +1,5 @@
+'use strict';
+
 var jwt = require('jsonwebtoken');
 var retrieveByApiKey = require('./retrieve-by-api-key');
 var logger = require('../logger');

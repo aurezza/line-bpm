@@ -5,11 +5,10 @@ var apiSchema = mongoose.Schema({
 	key: String,
 	token: {
         type: String
-        // add property unique
+        // TODO: add property unique
 	},
 	created_at: Date,
-	updated_at: Date,
-	token: String
+	updated_at: Date
 });	
 
 // user model

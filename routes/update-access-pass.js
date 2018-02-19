@@ -3,7 +3,7 @@ var accessPassModel = require('../models/access-pass-model');
 var logger = require('../logger');
 
 function updateAccessPass(lineId) {
-    accessPassModel.updateMany({ line_id: lineId, status:"active" }, 
+    accessPassModel.updateMany({ owner: lineId, status:"active" }, 
         { $set: {status : "expired"}},
 
         function(){

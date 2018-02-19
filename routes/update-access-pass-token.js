@@ -3,7 +3,7 @@ var accessPassModel = require('../models/access-pass-model');
 var logger = require('../logger');
 
 function updateAccessPassToken(lineId,token) {
-    accessPassModel.updateMany({ line_id: lineId }, 
+    accessPassModel.updateMany({ owner: lineId }, 
         { $set: {access_pass_token : token }},
 
         function(){

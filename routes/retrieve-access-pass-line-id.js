@@ -5,7 +5,7 @@ function retrieveAccessPassOwner(lineId){
 		// convert save code above to promise
 		console.log('here1');
 		var accessPassOwner = accessPassModel.findOne(
-			{line_id: lineId,
+			{owner: lineId,
             status:"active"}
             
 		);

@@ -1,3 +1,4 @@
+'use strict';
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var Token = require('../node/token-generator');

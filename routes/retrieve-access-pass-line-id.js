@@ -1,3 +1,4 @@
+'use strict';
 var accessPassModel = require('../models/access-pass-model');
 var logger = require('../logger');
 function retrieveAccessPassOwner(lineId){

@@ -1,3 +1,4 @@
+'use strict';
 var requestModel = require('../models/request-model');
 
 function retrieveRequest(id) {

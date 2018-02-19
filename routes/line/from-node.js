@@ -1,3 +1,4 @@
+'use strict';
 var replyToQuestetra = require('./reply-to-questetra');
 function fromNode(querystring, axios, instanceId, isMessageSent){
 

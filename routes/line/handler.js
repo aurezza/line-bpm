@@ -1,3 +1,4 @@
+'use strict';
 var scanQrCode = require('./scan-qr-code');
 var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');

@@ -1,3 +1,4 @@
+'use strict';
 var replyToQuestetra = require('./reply-to-questetra');
 var axios = require('axios');
 var querystring = require('querystring');

@@ -1,3 +1,4 @@
+'use strict';
 var logger = require('../../logger');
 function replyToQuestetra(querystring, axios, postBack, axiosParameters) {
     var throttleCounter = 0;

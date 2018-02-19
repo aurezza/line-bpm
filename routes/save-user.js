@@ -1,3 +1,4 @@
+'use strict';
 var userModel = require('../models/user-model');
 function saveUser(object, logger){
     // create instance of model transactionModel

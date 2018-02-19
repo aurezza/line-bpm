@@ -1,3 +1,4 @@
+'use strict';
 var userModel = require('../models/user-model');
 var logger = require('../logger');
 

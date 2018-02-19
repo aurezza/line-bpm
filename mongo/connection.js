@@ -1,3 +1,4 @@
+'use strict';
 function connection(mongoose, connectionURL){
 	mongoose.Promise = global.Promise;
 	// remove deprecationWarning error

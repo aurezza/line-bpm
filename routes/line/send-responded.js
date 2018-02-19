@@ -1,3 +1,4 @@
+'use strict';
 var translations = require("../locale/locale-checker")
 var logger = require('../../logger');
 function sendResponded(retrievedRequestData,client,line_userId){

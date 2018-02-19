@@ -2,7 +2,7 @@ var logger = require('../logger');
 var verifyToken = require('./verify-token');
 
 function apiValidation(router) {
-    var externalRoutes = ['/receiveFromQuest', '/handler', '/verify/:lineId'];
+    var externalRoutes = ['/receiveFromQuest', '/handler'];
     router.use(externalRoutes, function(req, res, next) {
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));

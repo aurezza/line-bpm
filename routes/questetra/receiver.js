@@ -12,6 +12,7 @@ function receiver(router, client){
           checkManagerDetails(managerData, req.body, client);  
         })
         .catch(function(err){
+            logger.error('questertra/receiver.js');
             logger.error(err);
         });
         res.send(true);      

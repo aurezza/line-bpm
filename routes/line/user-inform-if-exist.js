@@ -16,6 +16,7 @@ function informUserExistence(client,line_userId,userName)
             logger.info("message sent to "+ line_userId);    
         })
         .catch((err) => {
+            logger.error('line/user-inform-if-exist.js');
             logger.error(err);
         });         
   

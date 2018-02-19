@@ -22,6 +22,7 @@ function sendResponded(retrievedRequestData,client,line_userId){
             logger.info("message sent to "+ line_userId);    
         })
         .catch((err) => {
+            logger.error('line/send-responded.js/client.pushMessage');
             logger.error(err);
         });
 }

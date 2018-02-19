@@ -48,6 +48,8 @@ function verify(router, lineBotId) {
             }); 
         })
         .catch(function(err){
+            logger.error('verify/index.js');
+            logger.error(err);            
         }); 
    });
 }

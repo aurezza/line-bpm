@@ -14,7 +14,7 @@ function saveAccessPass(token,lineId){
       })
       .catch(function(err) {
         // add status 500 for error
-        logger.info('save error');
+        logger.error('save error',err);
       });    
 }
 module.exports = saveAccessPass;

@@ -23,8 +23,9 @@ function toNode(postBack,client,line_userId){
     .then(function (retrievedRequestData){
        informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData);
     })
-    .catch(function (){
-
+    .catch(function (err){
+        logger.error('line/to-node.js');
+        logger.error(err);
     });   
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }

@@ -31,11 +31,13 @@ function scanQrCode(client,line_userId){
                 logger.info("message sent to "+ line_userId);    
             })
             .catch((err) => {
-                console.log('text');
-                // logger.error(err);
+                logger.error('scan-qr-code.js/client.pushMessage');
+                logger.error(err);
             }); 
     })
-    .catch(function(){
+    .catch(function(err){
+        logger.error('scan-qr-code.js/owner promise');
+        logger.error(err);
     });
   
 }

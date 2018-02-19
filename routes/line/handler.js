@@ -23,8 +23,9 @@ eventHandler.follow = function(params) {
         if(users) return  informUserExistence(params.client,line_userId,users.employee_name);
         scanQrCode(params.client,line_userId);
     })
-    .catch(function (){
-        logger.error('error');
+    .catch(function (error){
+        logger.error('line/handler.js/follow event');
+        logger.error('error',error);
     });
 }
 eventHandler.postback = function(params){

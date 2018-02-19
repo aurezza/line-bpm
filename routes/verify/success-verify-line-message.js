@@ -18,7 +18,8 @@ function successVerifyLineMessage(client, lineID)
         logger.info("message sent to "+ lineID);    
     })
     .catch((err) => {
-        logger.error("there was an error sending message to line: ", err)
+        logger.error('verify/index.js');
+        logger.error(err); 
     });             
   
 }

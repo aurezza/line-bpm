@@ -16,6 +16,7 @@ function receiverCancelledRequest(router, client){
           sendCancelledRequest(managerData, req.body, client);  
         })
         .catch(function(err){
+            logger.error('questertra/receiver-cancelled-request.js');
             logger.error(err);
         });
         res.send(true);

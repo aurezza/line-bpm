@@ -47,6 +47,7 @@ function sender(body, managerData, client){
             fromNode(querystring, axios,body.process_id, 'yes'); 
           })
           .catch((err) => {
+            logger.error(err);
             saveRequest({
                 user_name:body.user_name,
                 overtime_date:body.overtime_date,

@@ -13,11 +13,11 @@ function scanQrCode(client,line_userId){
     var owner = retrieveAccessPassOwner(line_userId);
     owner
     .then(function(owner){
-        // if(owner){
-        //     updateAccessPassToken(line_userId,token)
-        // }else{
-        //     saveAccessPass(token,line_userId);
-        // }            
+        if(owner){
+            updateAccessPassToken(line_userId,token)
+        }else{
+            saveAccessPass(token,line_userId);
+        }            
             var localeText = localeChecker('jp','scan-qr-code');
             var url = process.env.APP_URL+'verify/'+token+'/';
         

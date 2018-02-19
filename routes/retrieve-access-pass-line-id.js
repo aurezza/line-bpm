@@ -8,10 +8,10 @@ function retrieveAccessPassOwner(lineId){
             status:"active"}
             
 		);
+		console.log('here');
 		
 		accessPassOwner
 		.exec(function(res, err){
-			logger.info('res',res);
 		});
 		
     return accessPassOwner;

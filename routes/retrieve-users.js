@@ -10,7 +10,7 @@ function retrieveUsers(receivedLineID, receivedEmployeeEmail){
 		
 		users
 		.exec(function(res, err){
-			if(err){ logger.error(err.message); logger.error(err.stack);}
+			if(err.message){ logger.error(err.message); logger.error(err.stack);}
 		});
 		
     return users;

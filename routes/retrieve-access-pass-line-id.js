@@ -4,7 +4,7 @@ var logger = require('../logger');
 function retrieveAccessPassOwner(lineId){
         // convert save code above to promise
 		var accessPassOwner = accessPassModel.findOne(
-			{owner: lineId,
+			{line_id: lineId,
             status:"active"}
             
 		);

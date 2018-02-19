@@ -6,7 +6,7 @@ function saveAccessPass(token,lineId){
     var newAccessPass = new accessPassModel();
 
     newAccessPass.access_pass_token = token;
-    newAccessPass.owner = lineId;
+    newAccessPass.line_id = lineId;
     newAccessPass.status = "active";
     newAccessPass.save()
       .then(function(savedObject) {

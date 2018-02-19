@@ -1,6 +1,7 @@
 'use strict';
 var cancelledMessageContent = require('../questetra/message-text/cancelled-message-content');
 var logger = require('../../logger');
+var errorLocator = require('../node/error-locator');
 function sendCancelledRequest(managerData, body, client){
 
     var messageText = cancelledMessageContent(body);
@@ -14,7 +15,7 @@ function sendCancelledRequest(managerData, body, client){
             })
             .catch((error) => {
                 logger.error(error.message);
-                logger.error(error.stack);
+                logger.error(errorLocator());
             });
 }
 

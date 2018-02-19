@@ -4,6 +4,7 @@ var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
 var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 var logger = require('../../logger');
+var errorLocator = require('../node/error-locator');
 
 function handler(router, axios, querystring, client){
     router.post('/handler', function(req, res) {
@@ -25,7 +26,7 @@ eventHandler.follow = function(params) {
     })
     .catch(function (error){
         logger.error(error.message);
-        logger.error(error.stack);
+        logger.error(errorLocator());
     });
 }
 eventHandler.postback = function(params){

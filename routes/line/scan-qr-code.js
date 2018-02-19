@@ -1,6 +1,7 @@
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var Token = require('../node/token-generator');
+var errorLocator = require('../node/error-locator');
 var saveAccessPass = require('../save-access-pass');
 var retrieveAccessPassOwner = require('../retrieve-access-pass-line-id');
 var updateAccessPassToken = require('../update-access-pass-token');
@@ -32,7 +33,7 @@ function scanQrCode(client,line_userId){
             })
             .catch((error) => {
                 logger.error(error.message);
-                logger.error(error.stack);
+                logger.error(errorLocator());
             }); 
     })
     .catch(function(error){

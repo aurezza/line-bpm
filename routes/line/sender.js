@@ -4,6 +4,7 @@ var querystring = require('querystring');
 var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 var saveRequest = require('../save-request');
+var errorLocator = require('../node/error-locator');
 function sender(body, managerData, client){
     var messageText = messageContent(body);
         const message = {
@@ -48,7 +49,7 @@ function sender(body, managerData, client){
           })
           .catch((error) => {
             logger.error(error.message);
-            logger.error(error.stack);
+            logger.error(errorLocator());
             saveRequest({
                 user_name:body.user_name,
                 overtime_date:body.overtime_date,

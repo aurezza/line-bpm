@@ -1,6 +1,7 @@
 'use strict';
 var translations = require("../locale/locale-checker")
 var logger = require('../../logger');
+var errorLocator = require('../node/error-locator');
 function sendResponded(retrievedRequestData,client,line_userId){
     
     var response = translations('jp','responded-message');
@@ -23,7 +24,7 @@ function sendResponded(retrievedRequestData,client,line_userId){
         })
         .catch((error) => {
             logger.error(error.message);
-            logger.error(error.stack);
+            logger.error(errorLocator());
         });
 }
 module.exports = sendResponded;

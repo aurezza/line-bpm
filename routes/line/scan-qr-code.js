@@ -2,9 +2,9 @@
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var Token = require('../node/token-generator');
-var saveAccessPass = require('../save-access-pass');
-var retrieveAccessPassOwner = require('../retrieve-access-pass-line-id');
-var updateAccessPassToken = require('../update-access-pass-token');
+var saveAccessPass = require('.././save-access-pass');
+var retrieveAccessPassOwner = require('.././retrieve-access-pass-line-id');
+var updateAccessPassToken = require('.././update-access-pass-token');
 
 function scanQrCode(client,line_userId){
 
@@ -36,7 +36,6 @@ function scanQrCode(client,line_userId){
                 }); 
     })
     .catch(function(){
-        logger.info("Error");
     });
   
 }

@@ -36,7 +36,7 @@ function scanQrCode(client,line_userId){
                 }); 
     })
     .catch(function(){
-        logger.error("Error");
+        logger.info("Error");
     });
   
 }

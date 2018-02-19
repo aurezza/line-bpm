@@ -11,6 +11,7 @@ function retrieveAccessPass(lineId, token){
 		
 		accessPass
 		.exec(function(res, err){
+			logger.info('res',res);
 		});
 		
     return accessPass;

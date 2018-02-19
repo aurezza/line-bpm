@@ -24,7 +24,7 @@ eventHandler.follow = function(params) {
         scanQrCode(params.client,line_userId);
     })
     .catch(function (){
-        logger.error(error);
+        logger.error('ito ka lang pala');
     });
 }
 eventHandler.postback = function(params){

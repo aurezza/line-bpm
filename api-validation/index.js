@@ -3,17 +3,27 @@
 var logger = require('../logger');
 var verifyToken = require('./verify-token');
 var kernel = require('../kernel');
+var whitelistForCors = require('../whitelist-for-cors');
+var cors = require('cors');
 
 function apiValidation(router) {
+    var corsOptions = {
+        origin: function(origin, callback) {
+            logger.info('whitelist: ', whitelistForCors);
+            if(whitelistForCors.indexOf(origin) !== -1) return callback(null, true);
+            callback(new Error('Not allowed by CORS'));
+        },
+        methods: 'GET, POST'
+    }
     // external validation
-    router.use(kernel.externalRoutes, function(req, res, next) {
+    router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
         logger.info('passing through api validation...');
         // logger.info('headers: ', JSON.stringify(req.headers));
         // enable CORS - Cross-Origin Resource Sharing
-        req.header('Access-Control-Allow-Credentials', true);
-        req.header("Access-Control-Allow-Origin", "*");
-        req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept", "token");
-        req.header("Access-Control-Allow-Methods", 'GET, POST');
+        // req.header('Access-Control-Allow-Credentials', true);
+        // req.header("Access-Control-Allow-Origin", "*");
+        // req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept", "token");
+        // req.header("Access-Control-Allow-Methods", 'GET, POST');
 
         // verify token
         var getToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];

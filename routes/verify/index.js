@@ -1,3 +1,4 @@
+'use strict';
 var retrieveUsers = require('../retrieve-users');
 var retrieveAccessPass = require('../retrieve-access-pass');
 var localeChecker = require('../locale/locale-checker');

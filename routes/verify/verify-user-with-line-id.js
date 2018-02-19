@@ -1,3 +1,4 @@
+'use strict';
 var retrieveUserByEmployeeId = require('../retrieve-user-by-emp-id');
 var saveUser = require('../save-user');
 var localeChecker = require('../locale/locale-checker');

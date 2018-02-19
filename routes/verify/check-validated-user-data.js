@@ -1,3 +1,4 @@
+'use strict';
 var retrieveUsers = require('../retrieve-users'); 
 var verifyUserWithLineId = require('./verify-user-with-line-id');
 var localeChecker = require('../locale/locale-checker');

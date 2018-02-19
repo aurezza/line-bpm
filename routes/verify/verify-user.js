@@ -1,3 +1,4 @@
+'use strict';
 var checkValidatedUserData = require('./check-validated-user-data');
 var localeChecker = require('../locale/locale-checker');
 var retrieveAccessPass = require('../retrieve-access-pass'); 
@@ -60,7 +61,7 @@ function verifyUser(router, client, logger, lineBotId){
             checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId);            
         })
         .catch(function(){
-
+            logger.error('Error');
         })
 
     });

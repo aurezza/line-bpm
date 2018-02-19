@@ -1,6 +1,7 @@
 'use strict';
 var accessPassModel = require('../models/access-pass-model');
 var logger = require('../logger');
+var errorLocator = require('./node/error-locator');
 function retrieveAccessPass(lineId, token){
         // convert save code above to promise
 		var accessPass = accessPassModel.findOne(
@@ -10,7 +11,7 @@ function retrieveAccessPass(lineId, token){
 		
 		accessPass
 		.exec(function(res, err){
-			if(err.message){ logger.error(err.message); logger.error(err.stack);}
+			if(err.message){ logger.error(err.message); logger.error(errorLocator());}
 		});
 		
     return accessPass;

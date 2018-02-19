@@ -5,6 +5,7 @@ var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
 var updateAccessPass = require('../update-access-pass');
+var errorLocator = require('../node/error-locator');
 
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText= localeChecker('jp','verify-content');
@@ -34,7 +35,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     })
     .catch(function(error) {
         logger.error(error.message);
-        logger.error(error.stack);        
+        logger.error(errorLocator());        
     });                        
 }
 

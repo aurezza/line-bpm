@@ -2,6 +2,7 @@
 var retrieveUser = require('../retrieve-users');
 var logger = require('../../logger');
 var checkManagerDetails = require('../line/checker-of-manager-details');
+var errorLocator = require('../node/error-locator');
 function receiver(router, client){
     router.post('/receiveFromQuest', function(req, res) {
         var managerData = {};
@@ -13,7 +14,7 @@ function receiver(router, client){
         })
         .catch(function(error){
             logger.error(error.message);
-            logger.error(error.stack);
+            logger.error(errorLocator());
         });
         res.send(true);      
     });

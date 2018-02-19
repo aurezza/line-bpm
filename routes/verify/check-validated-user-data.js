@@ -4,6 +4,7 @@ var verifyUserWithLineId = require('./verify-user-with-line-id');
 var localeChecker = require('../locale/locale-checker');
 var passport = require('passport');
 var logger = require('../../logger');
+var errorLocator = require('../node/error-locator');
 var employeeDetails = {};
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId) {
@@ -70,7 +71,7 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
     })
     .catch(function(error){
         logger.error(error.message);
-        logger.error(error.stack);
+        logger.error(errorLocator());
     });     
 }
 

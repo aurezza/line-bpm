@@ -1,5 +1,6 @@
 'use strict';
 var requestModel = require('../models/request-model');
+var errorLocator = require('./node/error-locator');
 
 function retrieveRequest(id) {
     var overtimeRequest = requestModel.findOne({process_id: id,
@@ -7,7 +8,7 @@ function retrieveRequest(id) {
     
     overtimeRequest
     .exec(function(res, err){
-        if(err.message){ logger.error(err.message); logger.error(err.stack);}      
+        if(err.message){ logger.error(err.message); logger.error(errorLocator());}      
     });	
 		  
     return overtimeRequest;

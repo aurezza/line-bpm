@@ -2,6 +2,7 @@
 var checkValidatedUserData = require('./check-validated-user-data');
 var localeChecker = require('../locale/locale-checker');
 var retrieveAccessPass = require('../retrieve-access-pass'); 
+var errorLocator = require('../node/error-locator');
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var csrf = require('csurf');
@@ -62,7 +63,7 @@ function verifyUser(router, client, logger, lineBotId){
         })
         .catch(function(error){
             logger.error(error.message);
-            logger.error(error.stack);             
+            logger.error(errorLocator());             
         })
 
     });

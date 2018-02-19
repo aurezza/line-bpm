@@ -3,6 +3,7 @@ var retrieveUsers = require('../retrieve-users');
 var retrieveAccessPass = require('../retrieve-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
+var errorLocator = require('../node/error-locator');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 function verify(router, lineBotId) {
@@ -50,7 +51,7 @@ function verify(router, lineBotId) {
         })
         .catch(function(error){
             logger.error(error.message);
-            logger.error(error.stack);          
+            logger.error(errorLocator());          
         }); 
    });
 }

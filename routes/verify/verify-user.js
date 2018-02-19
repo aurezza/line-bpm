@@ -61,7 +61,6 @@ function verifyUser(router, client, logger, lineBotId){
             checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId);            
         })
         .catch(function(){
-            logger.error('Error');
         })
 
     });

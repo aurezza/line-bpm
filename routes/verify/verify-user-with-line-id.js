@@ -33,7 +33,6 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
 
     })
     .catch(function(err) {
-        logger.error('error', err);
     });                        
 }
 

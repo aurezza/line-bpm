@@ -2,10 +2,11 @@
 
 var logger = require('../logger');
 var verifyToken = require('./verify-token');
+var kernel = require('../kernel');
 
 function apiValidation(router) {
-    var externalRoutes = ['/receiveFromQuest', '/handler', '/verify/:lineId'];
-    router.use(externalRoutes, function(req, res, next) {
+    // external validation
+    router.use(kernel.externalRoutes, function(req, res, next) {
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));
         // enable CORS - Cross-Origin Resource Sharing

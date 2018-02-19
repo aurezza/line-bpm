@@ -1,3 +1,4 @@
+'use strict';
 var requestModel = require('../models/request-model');
 var logger = require('../logger.js');
 
@@ -16,9 +17,9 @@ function saveRequest(params){
       .then(function(savedObject) {
         logger.info('data saved');
       })
-      .catch(function(err) {
-        // add status 500 for error
-        logger.info('save error');
+      .catch(function(error) {
+        logger.error(error.message);
+        logger.error(error.stack); 
       });
 }
 

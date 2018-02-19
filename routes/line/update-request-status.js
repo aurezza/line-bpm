@@ -1,4 +1,5 @@
-var updateRequest = require('.././update-request');
+'use strict';
+var updateRequest = require('../update-request');
 function updateRequestStatus(params){
     updateRequest(params);
 }

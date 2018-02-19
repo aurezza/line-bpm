@@ -1,9 +1,11 @@
+'use strict';
 var replyToQuestetra = require('./reply-to-questetra');
 var axios = require('axios');
 var querystring = require('querystring');
 var informUserRequestResponded = require('./inform-user-request-responded');
 var retrieveRequest = require('.././retrieve-request');
 var updateRequestStatus = require('./update-request-status');
+var errorLocator = require('../node/error-locator');
 
 function toNode(postBack,client,line_userId){
     var parsedData = (querystring.parse(postBack.data));
@@ -22,8 +24,9 @@ function toNode(postBack,client,line_userId){
     .then(function (retrievedRequestData){
        informUserRequestResponded(retrievedRequestData,client,line_userId,parsedData);
     })
-    .catch(function (){
-
+    .catch(function (error){
+        logger.error(error.message);
+        logger.error(errorLocator());
     });   
     replyToQuestetra(querystring, axios, postBack, axiosParameters)
 }

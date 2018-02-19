@@ -1,5 +1,7 @@
+'use strict';
 var userModel = require('../models/user-model');
 var logger = require('.././logger');
+var errorLocator = require('./node/error-locator');
 function retrieveUsers(receivedLineID, receivedEmployeeEmail){
         // convert save code above to promise
 		var users = userModel.findOne({$or: [
@@ -9,10 +11,8 @@ function retrieveUsers(receivedLineID, receivedEmployeeEmail){
 		
 		users
 		.exec(function(res, err){
-            // logger.error("retrieveUsers error: ", err);
-		});
-		
+			if(err.message){ logger.error(err.message); logger.error(errorLocator());}
+		});		
     return users;
 }
-
 module.exports = retrieveUsers;

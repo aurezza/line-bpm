@@ -1,3 +1,4 @@
+'use strict';
 var localeChecker = require('../locale/locale-checker');
 function success(router, lineBotId) {
     router.get('/success', function(req, res) {

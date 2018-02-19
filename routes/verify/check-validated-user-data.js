@@ -1,9 +1,10 @@
+'use strict';
 var retrieveUsers = require('../retrieve-users'); 
 var verifyUserWithLineId = require('./verify-user-with-line-id');
 var localeChecker = require('../locale/locale-checker');
 var passport = require('passport');
 var logger = require('../../logger');
-
+var errorLocator = require('../node/error-locator');
 var employeeDetails = {};
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId) {
@@ -68,8 +69,9 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
             });
         })(req,res);               
     })
-    .catch(function(err){
-        logger.error(err);
+    .catch(function(error){
+        logger.error(error.message);
+        logger.error(errorLocator());
     });     
 }
 

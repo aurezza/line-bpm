@@ -1,3 +1,4 @@
+'use strict';
 var userModel = require('../models/user-model');
 function saveUser(object, logger){
     // create instance of model transactionModel
@@ -13,10 +14,9 @@ function saveUser(object, logger){
       .then(function(savedObject) {
         logger.info('data saved');
       })
-      .catch(function(err) {
-        // add status 500 for error
-        logger.warn('save error');
-        logger.error(err);
+      .catch(function(error) {
+        logger.error(error.message);
+        logger.error(error.stack); 
       });
 }
 

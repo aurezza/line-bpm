@@ -32,7 +32,8 @@ function scanQrCode(client,line_userId){
                 logger.info("message sent to "+ line_userId);    
             })
             .catch((err) => {
-                logger.error(err);
+                console.log('text');
+                // logger.error(err);
             }); 
     // })
     // .catch(function(){

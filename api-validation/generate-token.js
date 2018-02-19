@@ -17,7 +17,7 @@ function generateToken(router) {
             // insert other defined values here
         }; 
 s
-        var key = 'somethingjibberish';
+        var key = process.env.API_SECRET_KEY;
         var secretKey = process.env.APP_SECRET_KEY;
         var createdAt = 1518657215797; // refer to api db for this value
 

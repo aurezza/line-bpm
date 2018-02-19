@@ -1,14 +1,15 @@
+'use strict';
 var mongoose = require('mongoose');
 // schema
 var apiSchema = mongoose.Schema({
 	api_name: String,
-	key: String,
+	api_key: String,
 	token: {
-        type: String
+	type: String
         // TODO: add property unique
 	},
-	created_at: Date,
-	updated_at: Date
+	created_at: String,
+	updated_at: Date // backlog
 });	
 
 // user model

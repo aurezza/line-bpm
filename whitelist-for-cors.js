@@ -1,5 +1,5 @@
 'use strict';
 
-var whitelistForCors = ['https://line.me', process.env.APP_URL, "http://localhost/"];
+var whitelistForCors = [process.env.APP_URL];
 
 module.exports = whitelistForCors;

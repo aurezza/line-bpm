@@ -9,16 +9,19 @@ var cors = require('cors');
 function apiValidation(router) {
     var corsOptions = {
         origin: function(origin, callback) {
-            logger.info('whitelist: ', whitelistForCors);
+            logger.info('successfully allowed by CORS');
             if(whitelistForCors.indexOf(origin) !== -1) return callback(null, true);
             callback(new Error('Not allowed by CORS'));
         },
+        // origin: ["*"], // enable for testing only
+        headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type", "token"],
+        credentials: true,
         methods: 'GET, POST'
     }
     // external validation
     router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
         logger.info('passing through api validation...');
-        // logger.info('headers: ', JSON.stringify(req.headers));
+        logger.info('headers: ', JSON.stringify(req.headers));
         // enable CORS - Cross-Origin Resource Sharing
         // req.header('Access-Control-Allow-Credentials', true);
         // req.header("Access-Control-Allow-Origin", "*");

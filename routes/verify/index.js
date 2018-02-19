@@ -44,11 +44,11 @@ function verify(router, lineBotId) {
                 });    
             })
             .catch(function(err){
-                logger.error(err);;
+                // logger.error(err);;
             }); 
         })
         .catch(function(err){
-            logger.error(err);;
+            // logger.error(err);
         }); 
    });
 }

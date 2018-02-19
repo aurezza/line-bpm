@@ -40,9 +40,7 @@ function verify(router, lineBotId) {
                     verified: false,
                     errors: {},
                     customError: ''   
-                });          
-    
-    
+                });    
             })
             .catch(function(err){
                 logger.error(err);;

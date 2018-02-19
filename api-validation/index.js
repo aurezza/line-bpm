@@ -7,28 +7,22 @@ var whitelistForCors = require('../whitelist-for-cors');
 var cors = require('cors');
 
 function apiValidation(router) {
-    var corsOptionsDelegate = function (req, callback) {
-        var corsOptions;
-        if (whitelistForCors.indexOf(req.header('Origin')) !== -1) {
-          corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-        }else{
-          corsOptions = { origin: false } // disable CORS for this request
-        }
-        callback(null, corsOptions) // callback expects two parameters: error and options
+    var corsOptions = {
+        origin: function(origin, callback) {
+            if(whitelistForCors.indexOf(origin) !== -1){
+                logger.info('successfully allowed by CORS');
+                return callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        // origin: ["*"], // enable for testing only
+        headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type"],
+        credentials: true,
+        methods: 'GET, POST'
     }
-    // var corsOptions = {
-    //     origin: function(origin, callback) {
-    //         logger.info('successfully allowed by CORS');
-    //         if(whitelistForCors.indexOf(origin) !== -1) return callback(null, true);
-    //         callback(new Error('Not allowed by CORS'));
-    //     },
-    //     // origin: ["*"], // enable for testing only
-    //     headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type", "token"],
-    //     credentials: true,
-    //     methods: 'GET, POST'
-    // }
     // external validation
-    router.use(kernel.externalRoutes, cors(corsOptionsDelegate), function(req, res, next) {
+    router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));
 

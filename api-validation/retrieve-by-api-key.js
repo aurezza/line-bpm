@@ -3,9 +3,9 @@
 var apiModel = require('../models/api-model');
 var logger = require('../logger');
 
-function retrieveApiByKey(apiName, createdAt) {
+function retrieveApiByKey(apiName, createdAt, token) {
     // api_name and created_at
-	var api = apiModel.findOne({api_name: apiName, created_at: createdAt});
+	var api = apiModel.findOne({api_name: apiName, created_at: createdAt, token: token});
     
     api
     .exec(function(err, res){

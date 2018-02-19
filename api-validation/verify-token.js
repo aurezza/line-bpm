@@ -10,16 +10,15 @@ function verifyToken(verifyToken, req, res, next) {
     logger.info('decoded values: ', getDecoded);
     
     if(getDecoded == null) return res.status(403).send('Forbidden, incomplete token');
-    logger.info('the api_name is: ', getDecoded.api_name);
 
-    var payLoadExists = retrieveByApiKey(getDecoded.api_name, getDecoded.created_at);
+    var payLoadExists = retrieveByApiKey(getDecoded.api_name, getDecoded.created_at, verifyToken);
     payLoadExists.then(function(payLoadExists) {
         if(!payLoadExists) return res.send('Payload details not found in db');
-        var key = process.env.API_SECRET_KEY; 
-        var secretKey = process.env.APP_SECRET_KEY;
+        var apiKey = payLoadExists.api_key;
         var createdAt = payLoadExists.created_at;
-
-        const generatedSecretKey = key + secretKey + createdAt;
+        var secretKey = process.env.APP_SECRET_KEY;
+        
+        const generatedSecretKey = apiKey + secretKey + createdAt;
         jwt.verify(verifyToken, generatedSecretKey, function(err, decoded) {
             if(err) {
                 logger.error('Failed authentication: ', err)

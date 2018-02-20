@@ -26,6 +26,10 @@ function apiValidation(router) {
         logger.info('passed cors...');
     });
 
+    router.put('/testPut', function(req, res) {
+        res.send('testing for put');
+    });
+
     // external validation
     router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
         logger.info('passing through api validation...');

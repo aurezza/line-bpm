@@ -8,15 +8,15 @@ var cors = require('cors');
 
 function apiValidation(router) {
     var corsOptions = {
-        origin: function(origin, callback) {
-            if(whitelistForCors.indexOf(origin) !== -1){
-                logger.info('successfully allowed by CORS');
-                return callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        // origin: ["*"], // enable for testing only
+        // origin: function(origin, callback) {
+        //     if(whitelistForCors.indexOf(origin) !== -1){
+        //         logger.info('successfully allowed by CORS');
+        //         return callback(null, true);
+        //     } else {
+        //         callback(new Error('Not allowed by CORS'));
+        //     }
+        // },
+        origin: ["https://bot-dev3.tmjp.jp"], // enable for testing only
         credentials: true,
         methods: 'GET, POST'
     }

@@ -17,7 +17,6 @@ function apiValidation(router) {
             }
         },
         // origin: ["*"], // enable for testing only
-        headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type"],
         credentials: true,
         methods: 'GET, POST'
     }

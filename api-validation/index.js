@@ -24,6 +24,12 @@ function apiValidation(router) {
 
     router.use(cors(corsOptions), function(req,res, next) {
         logger.info('passed cors...');
+        logger.info('request headers: ', req.headers);
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET, POST');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.header('Access-Control-Allow-Credentials', true);
+        next();
     });
 
     router.get('/testGet', function(req, res) {

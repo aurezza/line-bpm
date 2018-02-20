@@ -30,7 +30,15 @@ const config = {
 // create LINE SDK client
 const client = new line.Client(config);
 
-app.use(cors())
+// app.use(cors());
+
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   res.header('Access-Control-Allow-Methods', 'GET, POST');
+//   res.header('Access-Control-Allow-Credentials', false);
+//   next();
+// });
 
 app.get('/robots.txt', function (req, res) {
   res.type('text/plain');

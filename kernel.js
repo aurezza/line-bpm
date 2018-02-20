@@ -3,7 +3,7 @@
 var logger = require('./logger');
 
 var kernelForRoutes = {
-    externalRoutes: ['/receiveFromQuest', '/handler', '/verify/:lineId']
+    externalRoutes: ['/receiveFromQuest', '/handler']
     // TODO: add internal routes
 };
 

@@ -8,48 +8,45 @@ var cors = require('cors');
 
 function apiValidation(router) {
     router.use(function(req, res, next){
+        // solution provided in https://github.com/expressjs/cors/issues/71
         req.headers.origin = req.headers.origin || req.headers.host;
         next();
     });
-    var whitelist = [process.env.APP_URL];
+    
     var corsOptions = {
        origin: function(origin, callback) {
-            if(whitelistForCors.indexOf(origin) !== -1){
-                
+            logger.info("origin: ", origin);
+            var whiteList = whitelistForCors.find(function(listedUrl) {
+                return listedUrl.includes(origin);
+            });
+            logger.info("whiteList: ", whiteList);
+            logger.info("whitelistForCors: ", whitelistForCors);
+            logger.info("indesof origin: ", whitelistForCors.indexOf(origin));
+            logger.info("result: ", whitelistForCors.indexOf(origin) !== -1);
+            if(whiteList){
                 logger.info('successfully allowed by CORS');
                 return callback(null, true);
-            } else {
-                logger.info(whitelistForCors);
-                logger.info(whitelistForCors.indexOf(origin));
-                logger.info("result: ", whitelistForCors.indexOf(origin) !== -1);
-                logger.info("origin: ", origin);
-                logger.error('cors error');
-                callback(new Error('Not allowed by CORS'));
-            }
+            } 
+            logger.error('cors error');
+            callback(new Error('Not allowed by CORS'));
         },
-        // origin: "*", // enable for testing only
         credentials: true,
         allowedHeaders: ['Content-Type', 'Authorization'],
         methods: 'GET, POST'
     }
 
-    router.use(cors(corsOptions), function(req, res, next) {
-        logger.info('passed cors...');
-        logger.info('request headers: ', req.headers);
-        // res.setHeader("Access-Control-Allow-Origin", process.env.APP_URL);
-        // res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-        // res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-        next();
-    });
-
     router.get('/testGet', function(req, res) {
-        logger.info('test get got accessed');
-        res.status(200).send('testing for ');
+        res.send("test get");
     });
 
     router.put('/testPut', function(req, res) {
-        logger.info('test put got accessed');
-        res.send('testing for put');
+        res.send("test put");
+    });
+
+    router.use(cors(corsOptions), function(req, res, next) {
+        logger.info('passed cors...');
+        logger.info('request headers: ', req.headers);
+        next();
     });
 
     // external validation

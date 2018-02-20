@@ -21,6 +21,11 @@ function apiValidation(router) {
         credentials: true,
         methods: 'GET, POST'
     }
+
+    router.use(cors(corsOptions), function(req,res, next) {
+        logger.info('passed cors...');
+    });
+
     // external validation
     router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
         logger.info('passing through api validation...');
@@ -28,7 +33,6 @@ function apiValidation(router) {
 
         // verify token
         var getToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
-
 
         verifyToken(getToken, req, res, next);
     });

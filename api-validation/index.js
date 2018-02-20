@@ -26,7 +26,13 @@ function apiValidation(router) {
         logger.info('passed cors...');
     });
 
+    router.get('/testGet', function(req, res) {
+        logger.info('test get got accessed');
+        res.send('testing for ');
+    });
+
     router.put('/testPut', function(req, res) {
+        logger.info('test put got accessed');
         res.send('testing for put');
     });
 

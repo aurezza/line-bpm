@@ -9,20 +9,21 @@ var cors = require('cors');
 function apiValidation(router) {
     var whitelist = [process.env.APP_URL, 'http://localhost:8080'];
     var corsOptions = {
-        origin: function(origin, callback) {
-            if(whitelist.indexOf(origin) !== -1){
+        // origin: function(origin, callback) {
+        //     if(whitelist.indexOf(origin) !== -1){
                 
-                logger.info('successfully allowed by CORS');
-                return callback(null, true);
-            } else {
-                logger.info(whitelist);
-                logger.info(whitelist.indexOf(origin));
-                logger.error('cors error');
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        // origin: ["https://bot-dev3.tmjp.jp"], // enable for testing only
+        //         logger.info('successfully allowed by CORS');
+        //         return callback(null, true);
+        //     } else {
+        //         logger.info(whitelist);
+        //         logger.info(whitelist.indexOf(origin));
+        //         logger.error('cors error');
+        //         callback(new Error('Not allowed by CORS'));
+        //     }
+        // },
+        origin: "https://bot-dev3.tmjp.jp", // enable for testing only
         credentials: true,
+        preflightContinue: true,
         methods: 'GET, POST'
     }
 

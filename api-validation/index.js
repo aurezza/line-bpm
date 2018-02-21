@@ -9,6 +9,7 @@ var cors = require('cors');
 function apiValidation(router) {
     router.use(function(req, res, next){
         // solution provided in https://github.com/expressjs/cors/issues/71
+        logger.info('before set req headers', req.headers);
         req.headers.origin = req.headers.origin || req.headers.host;
         next();
     });

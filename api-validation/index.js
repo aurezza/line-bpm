@@ -36,8 +36,8 @@ function apiValidation(router) {
             const signature = crypto.createHmac('SHA256', channelSecret).update(sourceSignature).digest('base64');
             logger.info("req.body is: ", req.body);
             logger.info('signature is: ', signature);
-
-            const bodySignature = crypto.createHmac('SHA256', channelSecret).update(req.body).digest('base64');
+            const testBody = JSON.stringify(req.body);
+            const bodySignature = crypto.createHmac('SHA256', channelSecret).update(testBody).digest('base64');
             logger.info('body signature is: ', bodySignature);
         }
 

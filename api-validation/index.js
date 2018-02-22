@@ -14,8 +14,14 @@ function apiValidation(router) {
         next();
     });
 
+    // enable CORS on all routes
+    router.use(cors(corsOptions), function(req, res, next) {
+        logger.info('cors check');
+        next();
+    });
+
     // external validation
-    router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
+    router.use(kernel.externalRoutes, function(req, res, next) {
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));
 

@@ -8,7 +8,6 @@ function retrieveApiByKey(apiKey) {
     
     api
     .exec(function(err, res){
-        logger.info('retrieve by key ', res);
         if(err) return logger.error("retrieve API error: ", err);
     });	
 		  

@@ -7,6 +7,7 @@ var corsOptions = require('./cors-options');
 var cors = require('cors');
 const crypto = require('crypto');
 const channelSecret  = process.env.LINE_BOT_CHANNEL_SECRET;
+const verify = crypto.createVerify('SHA256');
 
 function apiValidation(router) {
     router.use(function(req, res, next){

@@ -18,7 +18,7 @@ var corsOptions = {
          callback(new Error('Not allowed by CORS'));
      },
      credentials: true,
-     allowedHeaders: ['Content-Type', 'Authorization', 'X-Line-Signature'],
+     allowedHeaders: ['Content-Type', 'Authorization'],
      methods: 'GET, POST'
  }
 

@@ -22,12 +22,15 @@ function apiValidation(router) {
 
     // external validation
     router.use(kernel.externalRoutes, function(req, res, next) {
-        // check x-line signature
-        logger.info("x-line-signature: ", req.headers.x-line-signature);
+        // check if sources are valid
+        var sourceSignature = req.headers['x-line-signature'];
+        // if (!sourceSignature) return logger.info('source is verified with: ', sourceSignature);
+
+        logger.info('source is verified with: ', sourceSignature);
+
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));
 
-        // verify token
         var getToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
 
         verifyToken(getToken, req, res, next);

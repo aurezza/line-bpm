@@ -5,6 +5,8 @@ var verifyToken = require('./verify-token');
 var kernel = require('../kernel');
 var corsOptions = require('./cors-options');
 var cors = require('cors');
+const crypto = require('crypto');
+const channelSecret  = process.env.LINE_BOT_CHANNEL_SECRET;
 
 function apiValidation(router) {
     router.use(function(req, res, next){
@@ -27,6 +29,12 @@ function apiValidation(router) {
         // if (!sourceSignature) return logger.info('source is verified with: ', sourceSignature);
 
         logger.info('source is verified with: ', sourceSignature);
+
+        if(sourceSignature == req.headers['x-line-signature']) {
+            logger.info('source is from line');
+            const signature = createHmac('SHA256', channelSecret).update(body).digest('base64');
+            logger.info('signature is: ', signature);
+        }
 
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));

@@ -4,10 +4,8 @@ var logger = require('../logger');
 var verifyToken = require('./verify-token');
 var kernel = require('../kernel');
 var corsOptions = require('./cors-options');
+var checkSource = require('./check-source');
 var cors = require('cors');
-const crypto = require('crypto');
-const channelSecret  = process.env.LINE_BOT_CHANNEL_SECRET;
-const verify = crypto.createVerify('SHA256');
 
 function apiValidation(router) {
     router.use(function(req, res, next){
@@ -27,19 +25,9 @@ function apiValidation(router) {
     router.use(kernel.externalRoutes, function(req, res, next) {
         // check if sources are valid
         var sourceSignature = req.headers['x-line-signature'];
-        // if (!sourceSignature) return logger.info('source is verified with: ', sourceSignature);
 
-        logger.info('source is verified with: ', sourceSignature);
-
-        if(sourceSignature == req.headers['x-line-signature']) {
-            logger.info('source is from line');
-            const signature = crypto.createHmac('SHA256', channelSecret).update(sourceSignature).digest('base64');
-            logger.info("req.body is: ", req.body);
-            logger.info('signature is: ', signature);
-            const testBody = JSON.stringify(req.body);
-            const bodySignature = crypto.createHmac('SHA256', channelSecret).update(testBody).digest('base64');
-            logger.info('body signature is: ', bodySignature);
-        }
+        logger.info('source is identified with: ', sourceSignature);
+        checkSource(sourceSignature, req, res, next);
 
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));

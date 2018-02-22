@@ -32,7 +32,7 @@ function apiValidation(router) {
 
         if(sourceSignature == req.headers['x-line-signature']) {
             logger.info('source is from line');
-            const signature = createHmac('SHA256', channelSecret).update(body).digest('base64');
+            const signature = crypto.createHmac('SHA256', channelSecret).update(sourceSignature).digest('base64');
             logger.info('signature is: ', signature);
         }
 

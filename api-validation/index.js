@@ -15,7 +15,6 @@ function apiValidation(router) {
         next();
     });
 
-    // enable CORS on all routes
     router.use(cors(corsOptions), function(req, res, next) {
         logger.info('cors has been run');
         next();
@@ -24,7 +23,7 @@ function apiValidation(router) {
     // external validation
     router.use(kernel.externalRoutes, function(req, res, next) {
         // check if sources are valid
-        var sourceSignature = req.headers['x-line-signature'];
+        var sourceSignature = req.headers['x-line-signature'] // add questetra source here;
 
         logger.info('source is identified with: ', sourceSignature);
         checkSource(sourceSignature, req, res, next);

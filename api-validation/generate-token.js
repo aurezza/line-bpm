@@ -16,10 +16,10 @@ function generateToken(router) {
             logger.warn("Params should only be line/questetra");
             return res.send("Invalid params"); 
         }
-
-        var hashedKey = new Token(process.env.APP_SECRET_KEY);
-        var key = hashedKey.get(); 
         var secretKey = process.env.APP_SECRET_KEY;
+        var forHashing = apiName + secretKey;
+        var hashedKey = new Token(forHashing);
+        var key = hashedKey.get(); 
 
         var payload = {
             api_key: key

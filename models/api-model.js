@@ -8,6 +8,7 @@ var apiSchema = mongoose.Schema({
 	    type: String
 	    // TODO: add property unique
     },
+    origin: String,
     created_at: String,
     updated_at: String
 });	

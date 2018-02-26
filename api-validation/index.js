@@ -21,8 +21,10 @@ function apiValidation(router) {
         // check if sources are valid
         var sourceSignature = req.headers['x-line-signature'] // add questetra source here;
 
-        logger.info('source is identified with: ', sourceSignature);
-        checkSource(sourceSignature, req, res, next);
+        if (sourceSignature != null) {
+            logger.info('source is identified with: ', sourceSignature);
+            checkSource(sourceSignature, req, res, next);
+        }
 
         logger.info('passing through api validation...');
         logger.info('headers: ', JSON.stringify(req.headers));

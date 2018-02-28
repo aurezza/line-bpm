@@ -1,57 +1,44 @@
 {
-  "name": "test",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
-  },
+  "name": "bpms-dev",
+  "version": "1.0.0",
+  "description": "TMJ BPMS using Questetra and LINE API.",
+  "main": "app.js",
   "dependencies": {
     "@line/bot-sdk": "^5.2.0",
-    "append-query": "^2.0.1",
-    "axios": "^0.17.1",
-    "body-parser": "~1.18.2",
+    "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.4",
     "csurf": "^1.9.0",
-    "debug": "~2.6.9",
-    "ejs": "~2.5.7",
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "express-flash": "0.0.2",
+    "express-flash": "^0.0.2",
     "express-session": "^1.15.6",
     "express-validator": "^4.3.0",
-    "express-winston": "^2.4.0",
-    "heroku": "^0.2.0",
-    "jQuery": "^1.7.4",
-    "jquery": "^3.3.1",
     "jsdom": "^11.6.2",
+    "jsonwebtoken": "^8.1.1",
     "mkdirp": "^0.5.1",
-    "mongo": "^0.1.0",
-    "mongod": "^2.0.0",
-    "mongodb": "^3.0.1",
-    "mongoose": "^4.13.9",
-    "morgan": "~1.9.0",
+    "mongoose": "^5.0.6",
+    "morgan": "^1.9.0",
     "node-env-file": "^0.1.8",
-    "node-line-bot-api": "^0.1.4",
     "passport": "^0.4.0",
-    "qs": "^6.5.1",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2",
-    "serve-favicon": "~2.4.5",
+    "serve-favicon": "^2.4.5",
     "tmj-passport": "^1.0.0",
     "winston": "^2.4.0"
   },
-  "main": "app.js",
   "devDependencies": {},
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TMJEngineers/bpms-questetra.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/TMJEngineers/bpms-questetra/issues"
   },
-  "homepage": "https://github.com/TMJEngineers/bpms-questetra#readme",
-  "description": ""
+  "homepage": "https://github.com/TMJEngineers/bpms-questetra#readme"
 }

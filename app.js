@@ -1,4 +1,5 @@
 'use strict';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -44,7 +45,7 @@ app.use(logger('dev'));
 // begin using node line bot - need raw buffer for signature validation
 app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -52,8 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieSession({
     name: process.env.COOKIE_SESSION_NAME,
     keys: process.env.COOKIE_SESSION_KEY
-  }));
-
+}));
 
 app.use(passport.initialize());
 // app.use(passport.session());

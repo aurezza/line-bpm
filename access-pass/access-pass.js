@@ -34,19 +34,21 @@ var AccessPass = (function () {
             });
     }
     AccessPass.prototype.expireAccessPass = function (lineId) {
-        accessPassModel.updateMany({ line_id: lineId, status: "active" }, 
-            { $set: {status: "expired"}},
+        accessPassModel.updateMany({ 
+            line_id: lineId, 
+            status: "active" }, 
+        { $set: {status: "expired"}},
 
-            function() {
-                logger.info("all access pass with the :" + lineId + " owner was updated to expired");
-            });
+        function() {
+            logger.info("all access pass with the :" + lineId + " owner was updated to expired");
+        });
     }
 
     AccessPass.prototype.retrieveLineId = function (lineId) {
-        var accessPassOwner = accessPassModel.findOne(
-            {line_id: lineId,
-                status: "active"}               
-        );		
+        var accessPassOwner = accessPassModel.findOne({
+            line_id: lineId,
+            status: "active"
+        });		
         accessPassOwner
             .exec(function(res, err) {
                 if (err.message) { logger.error(err.message);}
@@ -56,9 +58,11 @@ var AccessPass = (function () {
     }
 
     AccessPass.prototype.retrieve = function (lineId, token) {
-        var accessPass = accessPassModel.findOne(
-            {line_id: lineId, access_pass_token: token, status: "active"}
-        );
+        var accessPass = accessPassModel.findOne({
+            line_id: lineId, 
+            access_pass_token: token, 
+            status: "active"
+        });
         accessPass
             .exec(function(res, err) {
                 if (err.message) { logger.error(err.message);}

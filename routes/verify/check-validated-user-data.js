@@ -55,7 +55,8 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
                     return res.status(400).render('verify-error', {
                         message: err.message,
                         backButtonText: localeText.button.back,
-                        lineBotId: lineBotId
+                        lineBotId: lineBotId,
+                        csrfToken: req.body._csrf
                     });                      
                 }
                 

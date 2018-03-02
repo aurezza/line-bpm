@@ -2,13 +2,12 @@ var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var Token = require('../node/token-generator');
 var errorLocator = require('../node/error-locator');
-var retrieveAccessPassOwner = require('../retrieve-access-pass-line-id');
 var AccessPass = require('../../access-pass/access-pass');
 function scanQrCode(client, line_userId) {
     var accessPass = new Token(line_userId);
     var token = accessPass.get();
     var accessPass = new AccessPass({});
-    var owner = retrieveAccessPassOwner(line_userId);
+    var owner = accessPass.retrieveLineId(line_userId);
     owner
         .then(function(owner) {
             if (owner) {

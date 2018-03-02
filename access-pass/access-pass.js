@@ -41,6 +41,21 @@ var AccessPass = (function () {
                 logger.info("all access pass with the :" + lineId + " owner was updated to expired");
             });
     }
+
+    AccessPass.prototype.retrieveLineId = function (lineId) {
+
+        var accessPassOwner = accessPassModel.findOne(
+            {line_id: lineId,
+                status: "active"}
+                
+        );		
+        accessPassOwner
+            .exec(function(res, err) {
+                if (err.message) { logger.error(err.message); logger.error(errorLocator());}
+            });
+            
+        return accessPassOwner;
+    }
     
     return AccessPass;
 }());

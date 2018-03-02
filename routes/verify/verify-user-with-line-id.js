@@ -2,7 +2,6 @@
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
-var updateAccessPass = require('../update-access-pass');
 var Users = require('../../users/users');
 var AccessPass = require('../../access-pass/access-pass');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
@@ -19,6 +18,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
             accessPass.expireAccessPass(lineID);
             return res.redirect('/success');
         }
+        
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
         var employeeIdAlreadyExists = localeText.error.employeeIdAlreadyExists;
         return res.render('verify', {

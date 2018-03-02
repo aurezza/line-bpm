@@ -16,7 +16,6 @@ function handler(router, axios, querystring, client) {
 
 var eventHandler = {};
 eventHandler.follow = function(params) {
-    console.log('follow event');
     let line_userId = params.req.events[0].source.userId;
     var users = retrieveUserByLineId(line_userId);
     users

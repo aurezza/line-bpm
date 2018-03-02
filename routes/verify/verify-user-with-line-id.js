@@ -16,7 +16,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
         if (!userWithLineId) {
             var user = new Users();
             user.save(employeeDetails);
-            saveUser(employeeDetails, logger);
+            // saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);
             updateAccessPass(lineID);
             return res.redirect('/success');

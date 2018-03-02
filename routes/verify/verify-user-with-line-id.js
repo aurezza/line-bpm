@@ -6,6 +6,7 @@ var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
 var updateAccessPass = require('../update-access-pass');
 var errorLocator = require('../node/error-locator');
+var Users = require('../../users/users');
 
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
@@ -13,6 +14,8 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
 
     userWithLineId.then(function(userWithLineId) {
         if (!userWithLineId) {
+            var user = new Users();
+            user.save(employeeDetails);
             saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);
             updateAccessPass(lineID);

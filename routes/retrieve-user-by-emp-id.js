@@ -10,7 +10,7 @@ function retrieveUserByEmployeeId(receivedEmployeeID) {
         .exec(function(res, err) {
             if (err.message) { logger.error(err.message); logger.error(errorLocator());}
         });	
-		  
+
     return users;
 }
 

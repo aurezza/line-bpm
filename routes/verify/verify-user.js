@@ -60,7 +60,7 @@ function verifyUser(router, client, logger, lineBotId) {
                     });
                 }
     
-                checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId);            
+                checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token);            
             })
             .catch(function(error) {
                 logger.error(error.message);

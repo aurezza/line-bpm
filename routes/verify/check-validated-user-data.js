@@ -7,7 +7,7 @@ var errorLocator = require('../node/error-locator');
 var employeeDetails = {};
 var Users = require('../../users/users');
 
-function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId) {
+function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
     var user = new Users({line_id: lineID});
     var users = user.retrieveByLineId(lineID); 
@@ -46,7 +46,9 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
                     lineID: lineID,
                     verified: true,
                     errors: 'bpmsDbError',
-                    customError: wrongCredentials
+                    customError: wrongCredentials,
+                    csrfToken: req.body._csrf,
+                    token: token
                 });                  
             }
             req.logIn(user, function(err) {

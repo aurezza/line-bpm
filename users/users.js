@@ -54,6 +54,17 @@ var Users = (function () {
         return users;
     }
 
+    Users.prototype.retriveByEmpEmail = function (receivedEmployeeEmail) {
+        var users = userModel.findOne({employee_email: receivedEmployeeEmail});
+
+        users
+            .exec(function(res, err) {
+                if (err.message) { logger.error(err.message); logger.error(errorLocator());}
+            });	
+
+        return users;
+    }
+
 
     return Users;
 }());

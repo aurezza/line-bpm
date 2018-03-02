@@ -2,7 +2,6 @@ var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var Token = require('../node/token-generator');
 var errorLocator = require('../node/error-locator');
-var saveAccessPass = require('../save-access-pass');
 var retrieveAccessPassOwner = require('../retrieve-access-pass-line-id');
 var updateAccessPassToken = require('../update-access-pass-token');
 var AccessPass = require('../../access-pass/access-pass');

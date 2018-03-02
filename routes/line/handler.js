@@ -2,9 +2,9 @@
 var scanQrCode = require('./scan-qr-code');
 var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
-var retrieveUserByLineId = require('.././retrieve-user-by-line-id');
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
+var Users = require('../../users/users');
 
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
@@ -16,8 +16,9 @@ function handler(router, axios, querystring, client) {
 
 var eventHandler = {};
 eventHandler.follow = function(params) {
+    var user = new Users({});
     let line_userId = params.req.events[0].source.userId;
-    var users = retrieveUserByLineId(line_userId);
+    var users = user.retrieveByLineId(line_userId);
     users
         .then(function (users) {
             if (users) return  informUserExistence(params.client, line_userId, users.employee_name);

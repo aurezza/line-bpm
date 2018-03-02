@@ -1,13 +1,13 @@
 'use strict';
-var retrieveUser = require('../retrieve-users');
 var logger = require('../../logger');
 var checkManagerDetails = require('../line/checker-of-manager-details');
 var errorLocator = require('../node/error-locator');
+var Users = require('../../users/users');
 function receiver(router, client) {
     router.post('/receiveFromQuest', function(req, res) {
-        
+        var user = new Users({});
         var managerData = {};
-        var users = retrieveUser('empty', req.body.manager_email);
+        var users = user.retriveByEmpEmail(req.body.manager_email);
         
         users.then(function(users) {
             managerData = users;

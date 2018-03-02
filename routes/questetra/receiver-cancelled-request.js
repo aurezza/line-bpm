@@ -1,17 +1,18 @@
 'use strict';
 var sendCancelledRequest = require('../line/sender-cancelled-request');
-var retrieveUser = require('../retrieve-users');
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
 var Requests = require('../../requests/requests')
+var Users = require('../../users/users');
 function receiverCancelledRequest(router, client) {
-    
+    var user = new Users({});
     router.post('/receiverCancelledRequest', function(req, res) {
         var request = new Requests ({});
+        var user = new Users({});
         request.updateToCancel(req.body)
 
         var managerData = {};
-        var users = retrieveUser('empty', req.body.manager_email);
+        var users = user.retriveByEmpEmail(req.body.manager_email);
         
         users.then(function(users) {
             managerData = users;

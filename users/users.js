@@ -14,6 +14,7 @@ var Users = (function () {
     }
 
     Users.prototype.save = function (userData) {
+        console.log("userData", userData)
         var newUser = new userModel();
         newUser.line_id = userData.lineID;
         newUser.employee_id = userData.employee_id;

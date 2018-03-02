@@ -1,6 +1,6 @@
 'use strict';
 var sendResponded = require('./send-responded');
-var Requests = require('../../requests/requests');
+var Requests = require('../../service/requests');
 
 function informUserRequestResponded(retrievedRequestData, client, line_userId, parsedData) { 
     var request = new Requests({});   

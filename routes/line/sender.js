@@ -3,9 +3,9 @@ var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 var errorLocator = require('../node/error-locator');
 var logger = require('../../logger');
-var Requests = require('../../requests/requests')
+var Requests = require('../../service/requests')
 function sender(body, managerData, client) {
-    var request = new Requests({}); 
+    var request = new Requests(); 
     var messageText = messageContent(body);
     const message = {
         "type": "template",

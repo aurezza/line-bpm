@@ -2,7 +2,7 @@ var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var Token = require('../node/token-generator');
 var errorLocator = require('../node/error-locator');
-var AccessPass = require('../../access-pass/access-pass');
+var AccessPass = require('../../service/access-pass');
 function scanQrCode(client, line_userId) {
     var accessPass = new Token(line_userId);
     var token = accessPass.get();

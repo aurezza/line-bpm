@@ -6,14 +6,14 @@ const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
-var AccessPass = require('../../access-pass/access-pass');
+var AccessPass = require('../../service/access-pass');
 // locale checker
 var localeText = localeChecker('jp', 'verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
 
 function verifyUser(router, client, logger, lineBotId) {
     // needs additional validation for schema
-    var accessPass = new AccessPass({});
+    var accessPass = new AccessPass();
     router.post('/verify/:token/:lineID', [
         check('username', notEmpty)
             .isLength({ min: 1})

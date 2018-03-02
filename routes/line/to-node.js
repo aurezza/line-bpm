@@ -6,7 +6,7 @@ var informUserRequestResponded = require('./inform-user-request-responded');
 var errorLocator = require('../node/error-locator');
 var logger = require('../../logger');
 
-var Requests = require('../../requests/requests')
+var Requests = require('../../service/requests')
 
 function toNode(postBack, client, line_userId) {
     var request = new Requests({});

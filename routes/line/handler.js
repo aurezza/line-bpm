@@ -4,7 +4,7 @@ var informUserExistence = require('./user-inform-if-exist');
 var toNode = require('./to-node');
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
-var Users = require('../../users/users');
+var Users = require('../../service/users');
 
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {

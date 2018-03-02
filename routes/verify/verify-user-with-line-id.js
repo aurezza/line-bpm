@@ -10,11 +10,12 @@ var Users = require('../../users/users');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
     console.log("employeeDetails", employeeDetails);
+
     var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
-    console.log("userWithLineId", userWithLineId)
+    
     userWithLineId.then(function(userWithLineId) {
         if (!userWithLineId) {
-            var user = new Users();
+            var user = new Users(employeeDetails);
             user.save(employeeDetails);
             // saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);

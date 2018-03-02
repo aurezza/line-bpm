@@ -1,10 +1,11 @@
 'use strict';
 var sendResponded = require('./send-responded');
-var updateRequestStatus = require('./update-request-status');
+var Requests = require('../../requests/requests');
 
-function informUserRequestResponded(retrievedRequestData, client, line_userId, parsedData) {    
+function informUserRequestResponded(retrievedRequestData, client, line_userId, parsedData) { 
+    var request = new Requests({});   
     if (retrievedRequestData != null) return sendResponded(retrievedRequestData, client, line_userId);
-    updateRequestStatus(parsedData);
+    request.updateToApproveDisapprove(parsedData);
     
 }
 

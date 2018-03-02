@@ -1,5 +1,4 @@
 'use strict';
-var retrieveUserByEmployeeId = require('../retrieve-user-by-emp-id');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');

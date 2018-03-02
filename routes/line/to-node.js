@@ -3,11 +3,14 @@ var replyToQuestetra = require('./reply-to-questetra');
 var axios = require('axios');
 var querystring = require('querystring');
 var informUserRequestResponded = require('./inform-user-request-responded');
-var retrieveRequest = require('.././retrieve-request');
 var errorLocator = require('../node/error-locator');
 var logger = require('../../logger');
 
+var Requests = require('../../requests/requests')
+
 function toNode(postBack, client, line_userId) {
+    var request = new Requests({});
+
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {
         url: process.env.REPLYURL_TO_QUESTETRA,
@@ -18,7 +21,7 @@ function toNode(postBack, client, line_userId) {
             q_replymessage: parsedData.q_replymessage
         }
     };
-    var retrievedRequestData = retrieveRequest(parsedData.processInstanceId);
+    var retrievedRequestData = request.retrieve(parsedData.processInstanceId);
 
     retrievedRequestData
         .then(function (retrievedRequestData) {

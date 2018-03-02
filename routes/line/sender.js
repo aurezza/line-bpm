@@ -3,10 +3,11 @@ var axios = require('axios');
 var querystring = require('querystring');
 var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
-var saveRequest = require('../save-request');
 var errorLocator = require('../node/error-locator');
 var logger = require('../../logger');
+var Requests = require('../../requests/requests')
 function sender(body, managerData, client) {
+    var request = new Requests({}); 
     var messageText = messageContent(body);
     const message = {
         "type": "template",
@@ -38,27 +39,27 @@ function sender(body, managerData, client) {
     };
     client.pushMessage(managerData.line_id, message)
         .then(() => { 
-            saveRequest({
+            request.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
                 reason: body.overtime_reason, 
                 status: 'pending',
                 manager_email: body.manager_email,       
-            });
+            })
             fromNode(querystring, axios, body.process_id, 'yes'); 
         })
         .catch((error) => {
             logger.error(error.message);
             logger.error(errorLocator());
-            saveRequest({
+            request.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
                 reason: body.overtime_reason, 
                 status: 'failed',
                 manager_email: body.manager_email,       
-            }); 
+            })
             fromNode(querystring, axios, body.process_id, 'no');         
         });            
 

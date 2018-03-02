@@ -1,6 +1,9 @@
 'use strict';
 var logger = require('../../logger');
-function replyToQuestetra(querystring, axios, postBack, axiosParameters) {
+var axios = require('axios');
+var querystring = require('querystring');
+
+function replyToQuestetra(postBack, axiosParameters) {
     var throttleCounter = 0;
     //1000 = 1sec
     var replyDelayTime = 6000;

@@ -1,6 +1,4 @@
 'use strict';
-var axios = require('axios');
-var querystring = require('querystring');
 var messageContent = require('../questetra/message-text/message-content');
 var fromNode = require('./from-node');
 var errorLocator = require('../node/error-locator');
@@ -47,7 +45,7 @@ function sender(body, managerData, client) {
                 status: 'pending',
                 manager_email: body.manager_email,       
             })
-            fromNode(querystring, axios, body.process_id, 'yes'); 
+            fromNode(body.process_id, 'yes'); 
         })
         .catch((error) => {
             logger.error(error.message);
@@ -60,7 +58,7 @@ function sender(body, managerData, client) {
                 status: 'failed',
                 manager_email: body.manager_email,       
             })
-            fromNode(querystring, axios, body.process_id, 'no');         
+            fromNode(body.process_id, 'no');         
         });            
 
 

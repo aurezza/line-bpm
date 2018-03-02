@@ -7,7 +7,7 @@ var AccessPass = require('../../access-pass/access-pass');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
     var user = new Users(employeeDetails);
-    var accessPass = new AccessPass({});
+    var accessPass = new AccessPass();
     var userWithLineId = user.retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(userWithLineId) {
@@ -18,7 +18,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
             accessPass.expireAccessPass(lineID);
             return res.redirect('/success');
         }
-        
+
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
         var employeeIdAlreadyExists = localeText.error.employeeIdAlreadyExists;
         return res.render('verify', {

@@ -1,6 +1,6 @@
 'use strict';
 var replyToQuestetra = require('./reply-to-questetra');
-function fromNode(querystring, axios, instanceId, isMessageSent) {
+function fromNode(instanceId, isMessageSent) {
 
     var axiosParameters = {
         url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
@@ -12,7 +12,7 @@ function fromNode(querystring, axios, instanceId, isMessageSent) {
         }
     };
 
-    replyToQuestetra(querystring, axios, 'emptyPostBack', axiosParameters);
+    replyToQuestetra('emptyPostBack', axiosParameters);
 
 }
 module.exports = fromNode;

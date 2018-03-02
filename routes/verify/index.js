@@ -11,8 +11,8 @@ function verify(router, lineBotId) {
         var localeText = localeChecker('jp', 'verify-content');
         var lineID = req.params.line_id;
         var token = req.params.token;
-        var user = new Users({});
-        var accessPass = new AccessPass({});
+        var user = new Users();
+        var accessPass = new AccessPass();
         var users = user.retrieveByLineId(lineID);    
         users.then(function(users) {
             if (users) {

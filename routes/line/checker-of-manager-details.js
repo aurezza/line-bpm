@@ -1,6 +1,4 @@
 'use strict';
-var axios = require('axios');
-var querystring = require('querystring');
 var replyToQuestetra = require('./reply-to-questetra');
 var sender = require('./sender');
 
@@ -16,7 +14,7 @@ function checkManagerDetails(managerData, body, client) {
         }
     };
 
-    replyToQuestetra(querystring, axios, 'emptyPostBack', axiosParameters);
+    replyToQuestetra('emptyPostBack', axiosParameters);
     
 }
 module.exports = checkManagerDetails;

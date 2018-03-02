@@ -11,7 +11,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
     console.log("employeeDetails", employeeDetails);
     var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
-
+    console.log("userWithLineId", userWithLineId)
     userWithLineId.then(function(userWithLineId) {
         if (!userWithLineId) {
             var user = new Users();

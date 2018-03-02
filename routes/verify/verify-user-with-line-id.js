@@ -15,6 +15,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     userWithLineId.then(function(userWithLineId) {
         if (!userWithLineId) {
             var user = new Users();
+            console.log('entered here');
             user.save(employeeDetails);
             // saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);

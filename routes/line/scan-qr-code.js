@@ -7,7 +7,7 @@ var retrieveAccessPassOwner = require('../retrieve-access-pass-line-id');
 var updateAccessPassToken = require('../update-access-pass-token');
 
 function scanQrCode(client, line_userId) {
-
+    console.log('scanqrcode');
     var accessPass = new Token(line_userId);
     var token = accessPass.get();
     var owner = retrieveAccessPassOwner(line_userId);

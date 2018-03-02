@@ -1,7 +1,7 @@
 'use strict';
 var accessPassModel = require('../models/access-pass-model');
 var logger = require('../logger.js');
-function saveAccessPass(token, lineId) {
+function c(token, lineId) {
     // create instance of model transactionModel
     var newAccessPass = new accessPassModel();
 

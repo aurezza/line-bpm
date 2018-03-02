@@ -1,5 +1,4 @@
 'use strict';
-var retrieveUsers = require('../retrieve-users');
 var retrieveAccessPass = require('../retrieve-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
@@ -13,8 +12,7 @@ function verify(router, lineBotId) {
         var lineID = req.params.line_id;
         var token = req.params.token;
         var user = new Users({});
-        var users = user.retrieveByLineId(lineID);   
-        // var users = retrieveUsers(lineID, 'empty');  
+        var users = user.retrieveByLineId(lineID);    
         users.then(function(users) {
             if (users) {
                 logger.warn("The line ID:", lineID, "is already verified");

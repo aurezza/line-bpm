@@ -34,7 +34,18 @@ var Users = (function () {
     }
 
     Users.prototype.retrieveByLineId = function (lineID) {
+
         var users = userModel.findOne({line_id: lineID});
+        users
+            .exec(function(res, err) {
+                if (err.message) { logger.error(err.message); logger.error(errorLocator());}
+            });	
+        return users;
+    }
+
+    Users.prototype.retrieveByEmpId = function(receivedEmployeeID) {
+        var users = userModel.findOne({employee_id: receivedEmployeeID});
+    
         users
             .exec(function(res, err) {
                 if (err.message) { logger.error(err.message); logger.error(errorLocator());}

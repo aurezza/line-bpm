@@ -1,15 +1,16 @@
-'use strict';
-var retrieveUsers = require('../retrieve-users'); 
+'use strict'; 
 var verifyUserWithLineId = require('./verify-user-with-line-id');
 var localeChecker = require('../locale/locale-checker');
 var passport = require('passport');
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
 var employeeDetails = {};
+var Users = require('../../users/users');
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId) {
     // check if user is in local db
-    var users = retrieveUsers(lineID, 'empty');
+    var user = new Users({line_id: lineID});
+    var users = user.retrieveByLineId(lineID); 
     var localeText = localeChecker('jp', 'verify-content');
 
     if (!validatedUserData) return logger.error("User data not validated");

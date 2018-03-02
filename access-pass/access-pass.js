@@ -43,18 +43,28 @@ var AccessPass = (function () {
     }
 
     AccessPass.prototype.retrieveLineId = function (lineId) {
-
         var accessPassOwner = accessPassModel.findOne(
             {line_id: lineId,
-                status: "active"}
-                
+                status: "active"}               
         );		
         accessPassOwner
             .exec(function(res, err) {
-                if (err.message) { logger.error(err.message); logger.error(errorLocator());}
+                if (err.message) { logger.error(err.message);}
             });
             
         return accessPassOwner;
+    }
+
+    AccessPass.prototype.retrieve = function (lineId, token) {
+        var accessPass = accessPassModel.findOne(
+            {line_id: lineId, access_pass_token: token, status: "active"}
+        );
+        accessPass
+            .exec(function(res, err) {
+                if (err.message) { logger.error(err.message);}
+            });
+            
+        return accessPass;
     }
     
     return AccessPass;

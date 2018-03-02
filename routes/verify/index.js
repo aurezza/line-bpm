@@ -1,17 +1,18 @@
 'use strict';
-var retrieveAccessPass = require('../retrieve-access-pass');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 var Users = require('../../users/users');
+var AccessPass = require('../../access-pass/access-pass');
 function verify(router, lineBotId) {
     router.get('/verify/:token/:line_id', csrfProtection, function(req, res) {
         var localeText = localeChecker('jp', 'verify-content');
         var lineID = req.params.line_id;
         var token = req.params.token;
         var user = new Users({});
+        var accessPass = new AccessPass({});
         var users = user.retrieveByLineId(lineID);    
         users.then(function(users) {
             if (users) {
@@ -22,10 +23,10 @@ function verify(router, lineBotId) {
                     lineBotId: lineBotId
                 })
             }
-            var accessPass = retrieveAccessPass(lineID, token);
-            accessPass
-                .then(function(accessPass) {
-                    if (accessPass == null) {
+            var retrievedAccessPass = accessPass.retrieve(lineID, token);
+            retrievedAccessPass
+                .then(function(retrievedAccessPass) {
+                    if (retrievedAccessPass == null) {
                         return res.render('unauthorized-access', {
                             message: "Error : 403 - Unauthorized Access",
                         })

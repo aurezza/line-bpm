@@ -7,12 +7,14 @@ const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
+var AccessPass = require('../../access-pass/access-pass');
 // locale checker
 var localeText = localeChecker('jp', 'verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
 
 function verifyUser(router, client, logger, lineBotId) {
     // needs additional validation for schema
+    var accessPass = new AccessPass({});
     router.post('/verify/:token/:lineID', [
         check('username', notEmpty)
             .isLength({ min: 1})
@@ -27,10 +29,10 @@ function verifyUser(router, client, logger, lineBotId) {
     function(req, res) {
         var lineID = req.params.lineID;
         var token = req.params.token;
-        var accessPass = retrieveAccessPass(lineID, token);
-        accessPass
-            .then(function(accessPass) {
-                if (accessPass == null) {
+        var retrivedAccessPass = accessPass.retrieve(lineID, token);
+        retrivedAccessPass
+            .then(function(retrivedAccessPass) {
+                if (retrivedAccessPass == null) {
                     return res.render('unauthorized-access', {
                         message: "Error : 403 - Unauthorized Access",
                     })

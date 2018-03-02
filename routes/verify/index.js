@@ -6,12 +6,15 @@ var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
+var Users = require('../../users/users');
 function verify(router, lineBotId) {
     router.get('/verify/:token/:line_id', csrfProtection, function(req, res) {
         var localeText = localeChecker('jp', 'verify-content');
         var lineID = req.params.line_id;
-        var token = req.params.token;         
-        var users = retrieveUsers(lineID, 'empty');        
+        var token = req.params.token;
+        var user = new Users({});
+        var users = user.retrieveByLineId(lineID);   
+        // var users = retrieveUsers(lineID, 'empty');  
         users.then(function(users) {
             if (users) {
                 logger.warn("The line ID:", lineID, "is already verified");

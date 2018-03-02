@@ -4,11 +4,11 @@ var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
 var updateAccessPass = require('../update-access-pass');
 var Users = require('../../users/users');
-
+var AccessPass = require('../../access-pass/access-pass');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
     var user = new Users(employeeDetails);
-
+    var accessPass = new AccessPass({});
     var userWithLineId = user.retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(userWithLineId) {
@@ -16,7 +16,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
             
             user.save(employeeDetails);
             successVerifyLineMessage(client, lineID);
-            updateAccessPass(lineID);
+            accessPass.expireAccessPass(lineID);
             return res.redirect('/success');
         }
         logger.info("This user:", employeeDetails.employee_id, "is already verified");

@@ -13,7 +13,6 @@ var AccessPass = (function () {
     AccessPass.prototype.save = function (token, lineId) {
 
         var newAccessPass = new accessPassModel();
-
         newAccessPass.access_pass_token = token;
         newAccessPass.line_id = lineId;
         newAccessPass.status = "active";
@@ -27,12 +26,19 @@ var AccessPass = (function () {
             }); 
     }
     AccessPass.prototype.changeAccessPass = function(lineId, token) {
-
         accessPassModel.updateMany({ line_id: lineId }, 
             { $set: {access_pass_token: token }},
     
             function() {
                 logger.info("Access pass with the :" + lineId + " owner was changed");
+            });
+    }
+    AccessPass.prototype.expireAccessPass = function (lineId) {
+        accessPassModel.updateMany({ line_id: lineId, status: "active" }, 
+            { $set: {status: "expired"}},
+
+            function() {
+                logger.info("all access pass with the :" + lineId + " owner was updated to expired");
             });
     }
     

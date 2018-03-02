@@ -3,7 +3,6 @@ var logger = require('../../logger');
 var Token = require('../node/token-generator');
 var errorLocator = require('../node/error-locator');
 var retrieveAccessPassOwner = require('../retrieve-access-pass-line-id');
-var updateAccessPassToken = require('../update-access-pass-token');
 var AccessPass = require('../../access-pass/access-pass');
 function scanQrCode(client, line_userId) {
     var accessPass = new Token(line_userId);

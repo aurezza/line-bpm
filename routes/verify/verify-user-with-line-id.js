@@ -1,11 +1,10 @@
 'use strict';
 var retrieveUserByEmployeeId = require('../retrieve-user-by-emp-id');
-var saveUser = require('../save-user');
+// var saveUser = require('../save-user');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
 var updateAccessPass = require('../update-access-pass');
-var errorLocator = require('../node/error-locator');
 var Users = require('../../users/users');
 
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
@@ -15,7 +14,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     userWithLineId.then(function(userWithLineId) {
         if (!userWithLineId) {
             var user = new Users();
-            console.log('entered here');
+            console.log("employeeDetails", employeeDetails);
             user.save(employeeDetails);
             // saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);
@@ -38,8 +37,8 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
 
     })
         .catch(function(error) {
-            logger.error(error.message);
-            logger.error(errorLocator());        
+            console.log("here?");
+            logger.error(error.message);     
         });                        
 }
 

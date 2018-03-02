@@ -26,6 +26,15 @@ var AccessPass = (function () {
                 logger.error(error.stack);
             }); 
     }
+    AccessPass.prototype.changeAccessPass = function(lineId, token) {
+
+        accessPassModel.updateMany({ line_id: lineId }, 
+            { $set: {access_pass_token: token }},
+    
+            function() {
+                logger.info("Access pass with the :" + lineId + " owner was changed");
+            });
+    }
     
     return AccessPass;
 }());

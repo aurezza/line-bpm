@@ -10,11 +10,11 @@ var employeeDetails = {};
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId) {
     // check if user is in local db
     var users = retrieveUsers(lineID, 'empty');
-    var localeText= localeChecker('jp','verify-content');
+    var localeText = localeChecker('jp', 'verify-content');
 
     if (!validatedUserData) return logger.error("User data not validated");
-    users.then(function(users){
-        if (users){
+    users.then(function(users) {
+        if (users) {
             logger.info("The line ID:", lineID, "is already verified");
             var lineIdAlreadyExists = localeText.error.lineIdAlreadyExists;
             return res.render('verify', {
@@ -67,12 +67,12 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
 
                 verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId);
             });
-        })(req,res);               
+        })(req, res);               
     })
-    .catch(function(error){
-        logger.error(error.message);
-        logger.error(errorLocator());
-    });     
+        .catch(function(error) {
+            logger.error(error.message);
+            logger.error(errorLocator());
+        });     
 }
 
 module.exports = checkValidatedUserData;  

@@ -12,7 +12,7 @@ function generateToken(router) {
     router.get('/api/generate-token/:api_name', function(req, res) {
         var successVerification = true; // TODO: add authorization handler
         var apiName = req.params.api_name; 
-        if((apiName !== "line") && (apiName !== "questetra")) {
+        if ((apiName !== "line") && (apiName !== "questetra")) {
             logger.warn("Params should only be line/questetra");
             return res.send("Invalid params"); 
         }
@@ -63,9 +63,9 @@ function generateToken(router) {
                     token: token
                 });                   
             })
-            .catch(function(err){
+            .catch(function(err) {
                 logger.error('Update api error ', err);
-        });
+            });
 
     });
 }

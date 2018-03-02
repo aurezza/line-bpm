@@ -14,7 +14,7 @@ var japanese = {
         username: "ユーザー名", 
         password: "パスワード"
     },
-    error :{
+    error: {
         mustNotBeEmpty: "フィールドは空であってはいけません",
         lineIdAlreadyExists: "既に確認済みです.",
         employeeIdAlreadyExists: "このユーザーは既に確認済みです",

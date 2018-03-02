@@ -1,7 +1,7 @@
 'use strict';
 var apiModel = require('../models/api-model');
 var logger = require('../logger');
-function saveApi(object){
+function saveApi(object) {
     // create instance of model transactionModel
     var newApi = new apiModel();
     logger.info('api: ', object);
@@ -12,13 +12,13 @@ function saveApi(object){
     newApi.updated_at = Date();
 
     newApi.save()
-      .then(function(savedObject) {
-        logger.info('api data saved');
-      })
-      .catch(function(error) {
-        logger.error(error.message);
-        logger.error(error.stack); 
-      });
+        .then(function(savedObject) {
+            logger.info('api data saved');
+        })
+        .catch(function(error) {
+            logger.error(error.message);
+            logger.error(error.stack); 
+        });
 }
 
 module.exports = saveApi;

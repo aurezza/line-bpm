@@ -6,12 +6,11 @@ function updateRequesttoCancel(params) {
 
 
     requestModel.update({ process_id: params.process_id }, 
-        { $set: {status : "cancelled"}},
+        { $set: {status: "cancelled"}},
 
-        function(){
-            logger.info("process_id :"+params.process_id+" was updated to cancel");
+        function() {
+            logger.info("process_id :" + params.process_id + " was updated to cancel");
         });
-
         
     
 }

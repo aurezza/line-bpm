@@ -8,11 +8,11 @@ var updateAccessPass = require('../update-access-pass');
 var errorLocator = require('../node/error-locator');
 
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
-    var localeText= localeChecker('jp','verify-content');
+    var localeText = localeChecker('jp', 'verify-content');
     var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
 
     userWithLineId.then(function(userWithLineId) {
-        if(!userWithLineId) {
+        if (!userWithLineId) {
             saveUser(employeeDetails, logger);
             successVerifyLineMessage(client, lineID);
             updateAccessPass(lineID);
@@ -33,10 +33,10 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
         });        
 
     })
-    .catch(function(error) {
-        logger.error(error.message);
-        logger.error(errorLocator());        
-    });                        
+        .catch(function(error) {
+            logger.error(error.message);
+            logger.error(errorLocator());        
+        });                        
 }
 
 module.exports = verifyUserWithLineId;

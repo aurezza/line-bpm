@@ -2,7 +2,7 @@
 var requestModel = require('../models/request-model');
 var logger = require('../logger.js');
 
-function saveRequest(params){
+function saveRequest(params) {
     // create instance of model transactionModel
     var newRequest = new requestModel();
 
@@ -14,13 +14,13 @@ function saveRequest(params){
     newRequest.manager_email = params.manager_email;
 
     newRequest.save()
-      .then(function(savedObject) {
-        logger.info('data saved');
-      })
-      .catch(function(error) {
-        logger.error(error.message);
-        logger.error(error.stack); 
-      });
+        .then(function(savedObject) {
+            logger.info('data saved');
+        })
+        .catch(function(error) {
+            logger.error(error.message);
+            logger.error(error.stack); 
+        });
 }
 
 module.exports = saveRequest;

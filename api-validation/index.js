@@ -8,7 +8,7 @@ var checkSource = require('./check-source');
 var cors = require('cors');
 
 function apiValidation(router) {
-    router.use(function(req, res, next){
+    router.use(function(req, res, next) {
         // solution provided in https://github.com/expressjs/cors/issues/71
         // case of non-existing origins that usually come from direct server requests
         logger.info('before set req headers', req.headers);
@@ -37,8 +37,8 @@ function apiValidation(router) {
     // TODO: additional error handling for other instances
     router.use(function tokenSyntaxError(err, req, res, next) {
         if (err instanceof SyntaxError) {
-          logger.error("Token Not Readable: ", err.message);
-          return res.status(503).send("API Validation Error");
+            logger.error("Token Not Readable: ", err.message);
+            return res.status(503).send("API Validation Error");
         }
         next(err);
     });

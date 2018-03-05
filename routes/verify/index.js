@@ -28,7 +28,7 @@ function verify(router, lineBotId) {
                 .then(function(retrievedAccessPass) {
                     if (retrievedAccessPass == null) {
                         return res.render('unauthorized-access', {
-                            message: "Error : 403 - Unauthorized Access",
+                            message: localeText.error.unauthorizedAccess,
                         })
                     }
                     logger.info("verify page has loaded...");   

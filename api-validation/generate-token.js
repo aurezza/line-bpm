@@ -2,9 +2,6 @@
 
 var jwt = require('jsonwebtoken');
 var logger = require('../logger');
-// var retrieveByApiName = require('./retrieve-by-api-name');
-// var saveApi = require('./save-api');
-// var updateApi = require('./update-api');
 var Token = require('../routes/node/token-generator');
 var Api = require('../service/api');
 
@@ -37,7 +34,7 @@ function generateToken(router) {
         logger.info('generatedkey: ', generatedSecretKey);
         var token = jwt.sign(payload, generatedSecretKey);
 
-        var checkApiName = apiTransaction.retrieveByApiName(apiName);
+        var checkApiName = apiTransaction.retrieveApiByName(apiName);
         checkApiName
             .then(function(data) {
                 logger.info("checking api name");
@@ -62,7 +59,7 @@ function generateToken(router) {
                     api_key: payload.api_key,
                     token: token
                 };
-                apiTransaction.updateApi(api);
+                apiTransaction.update(api);
                 return res.json({
                     success: true,
                     message: 'Your token has been updated',

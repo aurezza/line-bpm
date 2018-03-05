@@ -14,7 +14,7 @@ function checkManagerDetails(managerData, body, client) {
         }
     };
 
-    replyToQuestetra('emptyPostBack', axiosParameters);
+    replyToQuestetra(axiosParameters);
     
 }
 module.exports = checkManagerDetails;

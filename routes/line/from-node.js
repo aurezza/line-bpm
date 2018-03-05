@@ -12,7 +12,7 @@ function fromNode(instanceId, isMessageSent) {
         }
     };
 
-    replyToQuestetra('emptyPostBack', axiosParameters);
+    replyToQuestetra(axiosParameters);
 
 }
 module.exports = fromNode;

@@ -3,7 +3,7 @@ var logger = require('../../logger');
 var axios = require('axios');
 var querystring = require('querystring');
 
-function replyToQuestetra(postBack, axiosParameters) {
+function replyToQuestetra(axiosParameters) {
     var throttleCounter = 0;
     //1000 = 1sec
     var replyDelayTime = 6000;

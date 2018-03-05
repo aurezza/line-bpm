@@ -31,7 +31,7 @@ function toNode(postBack, client, line_userId) {
             logger.error(error.message);
             logger.error(errorLocator());
         });   
-    replyToQuestetra(postBack, axiosParameters)
+    replyToQuestetra(axiosParameters)
 }
 
 module.exports = toNode;

@@ -3,69 +3,71 @@ var userModel = require('../models/user-model');
 var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 
-var Users = (function () {
+function Users(userData) {
+    //constructor
+    this.employee_id = userData.employee_id || null;
+    this.employee_name = userData.employee_name || null;
+    this.employee_email = userData.employee_email || null;
+    this.line_id = userData.line_id || null;
+    this.locale = userData.locale || null;
+}
+
+Users.prototype = {
+    save: save,
+    retrieveByLineId: retrieveByLineId,
+    retrieveByEmpId: retrieveByEmpId,
+    retriveByEmpEmail: retriveByEmpEmail
+};
     
-    function Users(userData) {
-        //constructor
-        this.employee_id = userData.employee_id || null;
-        this.employee_name = userData.employee_name || null;
-        this.employee_email = userData.employee_email || null;
-        this.line_id = userData.line_id || null;
-        this.locale = userData.locale || null;
-    }
+function save(userData) {
 
-    Users.prototype.save = function (userData) {
-
-        var newUser = new userModel();
-        newUser.line_id = userData.lineID;
-        newUser.employee_id = userData.employee_id;
-        newUser.employee_name = userData.name;
-        newUser.employee_email = userData.email;
-        newUser.locale = userData.locale;
+    var newUser = new userModel();
+    newUser.line_id = userData.lineID;
+    newUser.employee_id = userData.employee_id;
+    newUser.employee_name = userData.name;
+    newUser.employee_email = userData.email;
+    newUser.locale = userData.locale;
         
-        newUser.save()
-            .then(function(savedObject) {
-                logger.info('data saved');
-            })
-            .catch(function(error) {
-                logger.error(error.message);
-                logger.error(error.stack); 
-            });
-    }
+    newUser.save()
+        .then(function(savedObject) {
+            logger.info('data saved');
+        })
+        .catch(function(error) {
+            logger.error(error.message);
+            logger.error(error.stack); 
+        }); 
+}
 
-    Users.prototype.retrieveByLineId = function (lineID) {
+function retrieveByLineId(lineID) {
 
-        var users = userModel.findOne({line_id: lineID});
-        users
-            .exec(function(res, err) {
-                if (err.message) { logger.error(err.message); logger.error(errorLocator());}
-            });	
-        return users;
-    }
+    var users = userModel.findOne({line_id: lineID});
+    users
+        .exec(function(res, err) {
+            if (err.message) { logger.error(err.message); logger.error(errorLocator());}
+        });	
+    return users; 
+}
 
-    Users.prototype.retrieveByEmpId = function(receivedEmployeeID) {
-        var users = userModel.findOne({employee_id: receivedEmployeeID});
+function retrieveByEmpId(receivedEmployeeID) {
+    var users = userModel.findOne({employee_id: receivedEmployeeID});
     
-        users
-            .exec(function(res, err) {
-                if (err.message) { logger.error(err.message); logger.error(errorLocator());}
-            });	
+    users
+        .exec(function(res, err) {
+            if (err.message) { logger.error(err.message); logger.error(errorLocator());}
+        });	
 
-        return users;
-    }
+    return users;
+}
 
-    Users.prototype.retriveByEmpEmail = function (receivedEmployeeEmail) {
-        var users = userModel.findOne({employee_email: receivedEmployeeEmail});
+function retriveByEmpEmail (receivedEmployeeEmail) {
+    var users = userModel.findOne({employee_email: receivedEmployeeEmail});
 
-        users
-            .exec(function(res, err) {
-                if (err.message) { logger.error(err.message); logger.error(errorLocator());}
-            });	
+    users
+        .exec(function(res, err) {
+            if (err.message) { logger.error(err.message); logger.error(errorLocator());}
+        });	
 
-        return users;
-    }
+    return users;
+}
 
-
-    return Users;
-}());
 module.exports = Users;

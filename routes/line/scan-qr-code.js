@@ -6,7 +6,7 @@ var AccessPass = require('../../service/access-pass');
 function scanQrCode(client, line_userId) {
     var accessPass = new Token(line_userId);
     var token = accessPass.get();
-    var accessPass = new AccessPass({});
+    var accessPass = new AccessPass();
     var owner = accessPass.retrieveLineId(line_userId);
     owner
         .then(function(owner) {

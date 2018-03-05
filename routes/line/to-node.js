@@ -9,7 +9,7 @@ var logger = require('../../logger');
 var Requests = require('../../service/requests')
 
 function toNode(postBack, client, line_userId) {
-    var request = new Requests({});
+    var request = new Requests();
 
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {
@@ -31,7 +31,7 @@ function toNode(postBack, client, line_userId) {
             logger.error(error.message);
             logger.error(errorLocator());
         });   
-    replyToQuestetra(querystring, axios, postBack, axiosParameters)
+    replyToQuestetra(postBack, axiosParameters)
 }
 
 module.exports = toNode;

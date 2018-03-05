@@ -2,11 +2,12 @@
 var accessPassModel = require('../models/access-pass-model');
 var logger = require('../logger');
 
-function AccessPass(accessPassData) {
+function AccessPass(accessPassData = {}) {
     //constructor
     this.access_pass_token = accessPassData.access_pass_token || null ;
     this.line_id = accessPassData.access_pass_token || null ;
     this.status = accessPassData.access_pass_token || null ;
+
 }
 
 AccessPass.prototype = {
@@ -78,5 +79,6 @@ function retrieve (lineId, token) {
             
     return accessPass;
 }
+
 
 module.exports = AccessPass;

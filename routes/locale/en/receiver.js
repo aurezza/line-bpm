@@ -1,17 +1,17 @@
 var english = {
-    text:{ 
+    text: { 
         Name: "Name",
         OvertimeDate: "Overtime-Date",
         OvertimeTime: "Overtime",
         OverTimeReason: "Overtime-Reason",
-        Approved:"Approved",
-        Declined:"Declined",
-        Status:"Status" 
+        Approved: "Approved",
+        Declined: "Declined",
+        Status: "Status" 
     },
-    label:{    
+    label: {    
         Approve: "Approve",
         Decline: "Decline"
-     }
+    }
 
 }
 

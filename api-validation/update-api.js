@@ -12,7 +12,7 @@ function updateApi(api) {
                 updated_at: dateNow.toUTCString()
             }
         },
-        function(){
+        function() {
             logger.info("API for " + api.api_name + " was updated");
         });
 }

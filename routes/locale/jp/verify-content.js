@@ -14,12 +14,13 @@ var japanese = {
         username: "ユーザー名", 
         password: "パスワード"
     },
-    error :{
+    error: {
         mustNotBeEmpty: "フィールドは空であってはいけません",
         lineIdAlreadyExists: "既に確認済みです.",
         employeeIdAlreadyExists: "このユーザーは既に確認済みです",
         wrongCredentials: "間違った資格",
-        alreadyVerified: "あなたはすでに確認済みです"
+        alreadyVerified: "あなたはすでに確認済みです",
+        unauthorizedAccess: "Error : 403 - 不正アクセス"
     }
 }
 module.exports = japanese;

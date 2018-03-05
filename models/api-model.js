@@ -5,8 +5,8 @@ var apiSchema = mongoose.Schema({
     api_name: String,
     api_key: String,
     token: {
-	    type: String
-	    // TODO: add property unique
+        type: String
+        // TODO: add property unique
     },
     origin: String,
     created_at: String,

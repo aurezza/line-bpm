@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 // schema
 var userSchema = mongoose.Schema({
-	employee_id: String,
-	employee_name: String,
-	employee_email: {
-		type: String
-	},
-	line_id: String,
-	locale: String
+    employee_id: String,
+    employee_name: String,
+    employee_email: {
+        type: String
+    },
+    line_id: String,
+    locale: String
 });
 
 // user model

@@ -11,11 +11,10 @@ var generateToken = require('../api-validation/generate-token');
 var verify = require('./verify');
 var verifyUser = require('./verify/verify-user');
 var success = require('./verify/success');
-var retrieveUsers = require('./retrieve-users');
 const line = require('@line/bot-sdk');
 const config = {
-  channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-  channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+    channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+    channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
 };
 const client = new line.Client(config);
 
@@ -45,7 +44,6 @@ generateToken(router);
 verify(router, lineBotId);
 verifyUser(router, client, logger, lineBotId);
 success(router, lineBotId);
-retrieveUsers();
 
 receiver(router, client);
 receiverCancelledRequest(router, client);

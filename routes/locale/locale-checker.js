@@ -1,5 +1,5 @@
-function localechecker(locale,filename){  
-    return translations = require('../locale/'+locale+'/'+filename);    
+function localechecker(locale, filename) {  
+    return require('../locale/' + locale + '/' + filename);    
 }
 
 module.exports = localechecker;

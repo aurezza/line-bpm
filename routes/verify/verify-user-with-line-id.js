@@ -1,23 +1,24 @@
 'use strict';
-var retrieveUserByEmployeeId = require('../retrieve-user-by-emp-id');
-var saveUser = require('../save-user');
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
-var updateAccessPass = require('../update-access-pass');
-var errorLocator = require('../node/error-locator');
-
+var Users = require('../../service/users');
+var AccessPass = require('../../service/access-pass');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
-    var localeText= localeChecker('jp','verify-content');
-    var userWithLineId = retrieveUserByEmployeeId(employeeDetails.employee_id);
-
+    var localeText = localeChecker('jp', 'verify-content');
+    var user = new Users(employeeDetails);
+    var accessPass = new AccessPass();
+    var userWithLineId = user.retrieveByEmpId(employeeDetails.employee_id);
+    
     userWithLineId.then(function(userWithLineId) {
-        if(!userWithLineId) {
-            saveUser(employeeDetails, logger);
+        if (!userWithLineId) {
+            
+            user.save(employeeDetails);
             successVerifyLineMessage(client, lineID);
-            updateAccessPass(lineID);
+            accessPass.expireAccessPass(lineID);
             return res.redirect('/success');
         }
+
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
         var employeeIdAlreadyExists = localeText.error.employeeIdAlreadyExists;
         return res.render('verify', {
@@ -33,10 +34,9 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
         });        
 
     })
-    .catch(function(error) {
-        logger.error(error.message);
-        logger.error(errorLocator());        
-    });                        
+        .catch(function(error) {
+            logger.error(error.message);     
+        });                        
 }
 
 module.exports = verifyUserWithLineId;

@@ -3,7 +3,7 @@ var userModel = require('../models/user-model');
 var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 
-function Users(userData) {
+function Users(userData  = {}) {
     //constructor
     this.employee_id = userData.employee_id || null;
     this.employee_name = userData.employee_name || null;

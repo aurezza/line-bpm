@@ -4,7 +4,7 @@ var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 
 
-function Requests(requestData) {
+function Requests(requestData = {}) {
     //constructor
     this.user_name = requestData.user_name || null;
     this.overtime_date = requestData.overtime_date || null;

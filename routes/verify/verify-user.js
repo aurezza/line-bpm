@@ -1,20 +1,19 @@
 'use strict';
-var checkValidatedUserData = require('./check-validated-user-data');
-var localeChecker = require('../locale/locale-checker');
-var errorLocator = require('../node/error-locator');
-const { check, validationResult } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
+const { check } = require('express-validator/check');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
-var AccessPass = require('../../service/access-pass');
+
 // locale checker
+var Verify = require('../../controllers/verify-page');
+var localeChecker = require('../../routes/locale/locale-checker');
 var localeText = localeChecker('jp', 'verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
 
-function verifyUser(router, client, logger, lineBotId) {
+function verifyUser(router) {
     // needs additional validation for schema
-    var accessPass = new AccessPass();
-    router.post('/verify/:token/:lineID', [
+    var verify = new Verify();
+    // router.post('/verify/:token/:lineID',
+    router.post('/verify/:lineID', [
         check('username', notEmpty)
             .isLength({ min: 1})
             .trim()
@@ -24,50 +23,9 @@ function verifyUser(router, client, logger, lineBotId) {
             .isLength({ min: 1})
             .trim().withMessage(notEmpty),
     ],
-    csrfProtection, 
-    function(req, res) {
-        var lineID = req.params.lineID;
-        var token = req.params.token;
-        var retrivedAccessPass = accessPass.retrieve(lineID, token);
-        retrivedAccessPass
-            .then(function(retrivedAccessPass) {
-                if (retrivedAccessPass == null) {
-                    return res.render('unauthorized-access', {
-                        message: "Error : 403 - Unauthorized Access",
-                    })
-                }
-                const errors = validationResult(req);
-                // matchedData returns only the subset of data validated by the middleware
-                const validatedUserData = matchedData(req);
-                if (!errors.isEmpty()) {  
-                    logger.warn('Field must not be empty');
-                    return res.render('verify', {
-                        title: localeText.pageTitle.title,
-                        panelTitle: localeText.label.panelTitle,
-                        verifyButtonText: localeText.button.verify,
-                        usernamePlaceholder: localeText.placeHolder.username, 
-                        passwordPlaceholder: localeText.placeHolder.password,
-                        lineID: lineID,
-                        token: token,
-                        csrfToken: req.body._csrf,
-                        username: validatedUserData.username,
-                        verified: true,
-                        error: errors.array({
-                            onlyFirstError: true
-                        }),
-                        errors: {},
-                        customError: ''
-                    });
-                }
-    
-                checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token);            
-            })
-            .catch(function(error) {
-                logger.error(error.message);
-                logger.error(errorLocator());             
-            })
-
-    });
+    // csrfProtection, 
+    verify.checkVerifyFormData
+    );
 }
 
 module.exports = verifyUser;

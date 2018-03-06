@@ -4,14 +4,14 @@ var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
 var Users = require('../../service/users');
 var AccessPass = require('../../service/access-pass');
-function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
+function verifyUserWithLineId(employeeDetails, res, client, lineID) {
     var localeText = localeChecker('jp', 'verify-content');
     var user = new Users(employeeDetails);
     var accessPass = new AccessPass();
     var userWithLineId = user.retrieveByEmpId(employeeDetails.employee_id);
     
-    userWithLineId.then(function(userWithLineId) {
-        if (!userWithLineId) {
+    userWithLineId.then(function(data) {
+        if (!data) {
             
             user.save(employeeDetails);
             successVerifyLineMessage(client, lineID);

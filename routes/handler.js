@@ -17,8 +17,6 @@ const config = {
     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
 };
 const client = new line.Client(config);
-
-var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
         
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
@@ -41,9 +39,9 @@ apiValidation(router);
 generateToken(router);
 
 // verify page
-verify(router, lineBotId);
-verifyUser(router, client, logger, lineBotId);
-success(router, lineBotId);
+verify(router);
+verifyUser(router, client, logger);
+success(router);
 
 receiver(router, client);
 receiverCancelledRequest(router, client);

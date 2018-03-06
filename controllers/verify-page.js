@@ -4,16 +4,22 @@ const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var passport = require('passport');
 var logger = require('../logger');
-var Users = require('../service/users');
-var localeChecker = require('../routes/locale/locale-checker');
-// var successVerifyLineMessage = require('./success-verify-line-message');
-var localeChecker = require('../routes/locale/locale-checker');
 var errorLocator = require('../routes/node/error-locator');
+
+var Users = require('../service/users');
+
 var AccessPass = require('../service/access-pass');
 var accessPass = new AccessPass();
 
+var RenderPage = require('../service/render-pages');
+var renderPage = new RenderPage();
+
+var localeChecker = require('../routes/locale/locale-checker');
+// var localeText = localeChecker('jp', 'verify-content');
+
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
-var localeText = localeChecker('jp', 'verify-content');
+
+
 const line = require('@line/bot-sdk');
 const config = {
     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
@@ -42,23 +48,25 @@ function showVerifyPage (req, res) {
         .then(function(data) {
             if (data) {
                 logger.warn("The line ID:", lineID, "is already verified");
-                return res.render('verify-error', {
-                    message: localeText.errorMessageLineIdExists,
-                    backButtonText: localeText.button.back,
-                    lineBotId: lineBotId
-                })
+                return res.render('verify-error', renderPage.errorForm(lineBotId));
+                // return res.render('verify-error', {
+                //     message: localeText.errorMessageLineIdExists,
+                //     backButtonText: localeText.button.back,
+                //     lineBotId: lineBotId
+                // })
             }
-            res.render('verify', {
-                title: localeText.pageTitle.title,
-                panelTitle: localeText.label.panelTitle,
-                verifyButtonText: localeText.button.verify,
-                usernamePlaceholder: localeText.placeHolder.username, 
-                passwordPlaceholder: localeText.placeHolder.password,
-                lineID: lineID,
-                verified: false,
-                errors: {},
-                customError: ''   
-            });
+            res.render('verify', renderPage.verifyForm(lineID));
+            // res.render('verify', {
+            //     title: localeText.pageTitle.title,
+            //     panelTitle: localeText.label.panelTitle,
+            //     verifyButtonText: localeText.button.verify,
+            //     usernamePlaceholder: localeText.placeHolder.username, 
+            //     passwordPlaceholder: localeText.placeHolder.password,
+            //     lineID: lineID,
+            //     verified: false,
+            //     errors: {},
+            //     customError: ''   
+            // });
 
         })
         .catch(function(err) {

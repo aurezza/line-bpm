@@ -5,7 +5,7 @@ var localeChecker = require('../routes/locale/locale-checker');
 var localeText = localeChecker('jp', 'verify-content');
 
 // setting default variables
-function VerifyPage(pageData = {}) {
+function RenderPage(pageData = {}) {
     this.title = localeText.panelTitle || null;
     this.panelTitle = localeText.label.panelTitle;
     this.verifyButtonText = localeText.button.verify;
@@ -18,11 +18,14 @@ function VerifyPage(pageData = {}) {
     this.error = null;
     this.errors = null;
     this.customError = null;
+    // this.message = localeText.errorMessageLineIdExists || null;
+    // this.backButtonText = localeText.button.back || null;
 }
 
-VerifyPage.prototype = {
+RenderPage.prototype = {
     verifyPage: verifyPage,
-    test: test
+    verifyForm: verifyForm,
+    errorForm: errorForm
 };
 
 function verifyPage(validatedUserData) {
@@ -33,10 +36,30 @@ function verifyPage(validatedUserData) {
     return validatedUser;
 }
 
-function test(lineId) {
-    var lineID = lineId;
+function verifyForm(lineID) {
+    var testObject = {
+        title: localeText.pageTitle.title,
+        panelTitle: localeText.label.panelTitle,
+        verifyButtonText: localeText.button.verify,
+        usernamePlaceholder: localeText.placeHolder.username, 
+        passwordPlaceholder: localeText.placeHolder.password,
+        lineID: lineID,
+        verified: false,
+        errors: {},
+        customError: ''         
+    }  
 
-    return lineID;
+    return testObject;
 }
 
-module.exports = VerifyPage;
+function errorForm(lineBotId) {
+    var errorObject =  {
+        message: localeText.errorMessageLineIdExists,
+        backButtonText: localeText.button.back,
+        lineBotId: lineBotId
+    }
+
+    return errorObject;
+}
+
+module.exports = RenderPage;

@@ -1,8 +1,9 @@
 'use strict';
 var logger = require('../../logger');
-var checkManagerDetails = require('../line/checker-of-manager-details');
 var errorLocator = require('../node/error-locator');
 var Users = require('../../service/users');
+var Line = require('../../line/line');
+var line = new Line();
 function receiver(router, client) {
     router.post('/receiveFromQuest', function(req, res) {
         var user = new Users();
@@ -11,7 +12,7 @@ function receiver(router, client) {
         
         users.then(function(users) {
             managerData = users;
-            checkManagerDetails(managerData, req.body, client);  
+            line.checkManagerDetails(managerData, req.body, client);  
         })
             .catch(function(error) {
                 logger.error(error.message);

@@ -8,7 +8,7 @@ function verify(router, lineBotId) {
         var localeText = localeChecker('jp', 'verify-content');
         logger.info("verify page has loaded...");
 
-        var users = user.retrieveUsers(lineID, 'empty');
+        var users = user.retrieveByLineId(lineID);
         users
             .then(function(data) {
                 if (data) {

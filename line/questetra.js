@@ -1,0 +1,36 @@
+'use strict';
+var logger = require('../logger');
+var axios = require('axios');
+var querystring = require('querystring');
+
+
+function Questetra() {}
+
+Questetra.prototype = {
+    reply: reply
+};
+
+function reply(axiosParameters) {
+    var throttleCounter = 0;
+    //1000 = 1sec
+    var replyDelayTime = 6000;
+
+    (function resendReplyToQuestetra() {
+        setTimeout(postReplyToQuestetra, replyDelayTime, resendReplyToQuestetra);
+    })();
+
+    function postReplyToQuestetra(resendReplyToQuestetra) {
+        axios.post(axiosParameters.url, querystring.stringify(axiosParameters.content))
+            .then(function(response) { 
+                logger.info('success replying to questetra');            
+            })            
+            .catch(function(error) {
+                if (throttleCounter >= 10) return;
+                throttleCounter++;
+                resendReplyToQuestetra();
+            }); 
+    }
+}
+
+
+module.exports = Questetra;

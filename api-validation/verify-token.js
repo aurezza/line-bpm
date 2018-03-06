@@ -1,7 +1,6 @@
 'use strict';
 
 var jwt = require('jsonwebtoken');
-var retrieveByApiKey = require('./retrieve-by-api-key');
 var Api = require('../service/api');
 var logger = require('../logger');
 function verifyToken(verifyToken, req, res, next) {

@@ -83,6 +83,7 @@ function showVerifySuccess (req, res) {
 function checkVerifyFormData(req, res) {
     var localeText = localeChecker('jp', 'verify-content');
     var renderPage = new RenderPage();
+    var lineConfig = new LineConfiguration();
     var lineID = req.params.lineID;
     var token = req.params.token;
     var accessPass = new AccessPass();
@@ -111,7 +112,7 @@ function checkVerifyFormData(req, res) {
                 return res.render('verify', renderPage);  
             }
 
-            checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token);   
+            checkValidatedUserData(req, res, lineID, validatedUserData, lineConfig.lineBotId, token);   
         })
         .catch(function(error) {
             logger.error(error.message);

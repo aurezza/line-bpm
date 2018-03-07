@@ -20,4 +20,6 @@ function lineConfiguration() {
     return client;
 }
 
+module.exports = Configuration;
+
 

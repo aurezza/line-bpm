@@ -12,15 +12,6 @@ var AccessPass = require('../service/access-pass');
 var RenderPage = require('../service/render-pages');
 var LineConfiguration = require('../config/line');
 
-// var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
-
-// const line = require('@line/bot-sdk');
-// const config = {
-//     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-//     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-// };
-// const client = new line.Client(config);
-
 function Verify(verifyData = {}) {
     
 }

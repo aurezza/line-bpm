@@ -4,7 +4,6 @@ var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 function verify(router) {
     var verifyFunc = new Verify();
-    console.log('verify index is up');
     router.get('/verify/:token/:line_id', csrfProtection, verifyFunc.showVerifyPage);
 }
 

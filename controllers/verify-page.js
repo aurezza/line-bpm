@@ -5,19 +5,13 @@ const { matchedData, sanitize } = require('express-validator/filter');
 var passport = require('passport');
 var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
-
-var Users = require('../service/users');
-
-var AccessPass = require('../service/access-pass');
-var accessPass = new AccessPass();
-
-var RenderPage = require('../service/render-pages');
-var renderPage = new RenderPage();
-
 var localeChecker = require('../routes/locale/locale-checker');
 
-var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
+var Users = require('../service/users');
+var AccessPass = require('../service/access-pass');
+var RenderPage = require('../service/render-pages');
 
+var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
 const line = require('@line/bot-sdk');
 const config = {
@@ -42,6 +36,7 @@ function showVerifyPage (req, res) {
     var token = req.params.token;
     var user = new Users();
     var accessPass = new AccessPass();
+    var renderPage = new RenderPage();
 
     var users = user.retrieveByLineId(lineID);
     users
@@ -86,10 +81,11 @@ function showVerifySuccess (req, res) {
 
 function checkVerifyFormData(req, res) {
     var localeText = localeChecker('jp', 'verify-content');
+    var renderPage = new RenderPage();
     var lineID = req.params.lineID;
     var token = req.params.token;
+    var accessPass = new AccessPass();
     var retrivedAccessPass = accessPass.retrieve(lineID, token);
-    var renderPage = new RenderPage();
     retrivedAccessPass
         .then(function(retrivedAccessPassData) {
             if (retrivedAccessPassData == null) {
@@ -124,11 +120,11 @@ function checkVerifyFormData(req, res) {
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
-    var renderPage = new RenderPage();
     var employeeDetails = {};
-    var user = new Users({line_id: lineID});
-    var users = user.retrieveByLineId(lineID); 
     var localeText = localeChecker('jp', 'verify-content');
+    var renderPage = new RenderPage();
+    var user = new Users({line_id: lineID});;
+    var users = user.retrieveByLineId(lineID); 
 
     if (!validatedUserData) return logger.error("User data not validated");
     users.then(function(users) {

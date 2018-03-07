@@ -37,10 +37,11 @@ Verify.prototype = {
 };
 
 function showVerifyPage (req, res) {
-    var user = new Users();
-    var lineID = req.params.line_id;
     var localeText = localeChecker('jp', 'verify-content');
-    logger.info("verify page has loaded...");
+    var lineID = req.params.line_id;
+    var token = req.params.token;
+    var user = new Users();
+    var accessPass = new AccessPass();
 
     var users = user.retrieveByLineId(lineID);
     users
@@ -51,13 +52,30 @@ function showVerifyPage (req, res) {
                 renderPage.errorForm.backButtonText = localeText.button.back;
                 return res.render('verify-error', renderPage.errorForm());
             }
-            
-            renderPage.lineID = lineID;
-            res.render('verify', renderPage);
 
+            var retrievedAccessPass = accessPass.retrieve(lineID, token);
+            retrievedAccessPass
+                .then(function(retrievedAccessPass) {
+                    if (retrievedAccessPass == null) {
+                        return res.render('unauthorized-access', {
+                            message: localeText.error.unauthorizedAccess,
+                        })
+                    }
+                    logger.info("verify page has loaded...");   
+                    renderPage.lineID = lineID;
+                    renderPage.token = token;
+                    renderPage.csrfToken = req.csrfToken();
+                    renderPage.verified =  false,
+                    res.render('verify', renderPage);  
+                })
+                .catch(function(error) {
+                    logger.error(error.message);
+                    logger.error(error.stack);
+                }); 
         })
-        .catch(function(err) {
-            logger.error(err);;
+        .catch(function(error) {
+            logger.error(error.message);
+            logger.error(errorLocator());          
         }); 
 }
 
@@ -67,38 +85,41 @@ function showVerifySuccess (req, res) {
 }
 
 function checkVerifyFormData(req, res) {
+    var localeText = localeChecker('jp', 'verify-content');
     var lineID = req.params.lineID;
     var token = req.params.token;
     var retrivedAccessPass = accessPass.retrieve(lineID, token);
     var renderPage = new RenderPage();
-    // retrivedAccessPass
-    //     .then(function(retrivedAccessPass) {
-    //         if (retrivedAccessPass == null) {
-    //             return res.render('unauthorized-access', {
-    //                 message: "Error : 403 - Unauthorized Access",
-    //             })
-    //         }
-    const errors = validationResult(req);
-    // matchedData returns only the subset of data validated by the middleware
-    const validatedUserData = matchedData(req);
-    if (!errors.isEmpty()) {  
-        var localeText = localeChecker('jp', 'verify-content');
-        logger.warn('Field must not be empty');
-        
-        renderPage.title = localeText.pageTitle.title;
-        renderPage.lineID = lineID;
-        renderPage.token = token;
-        renderPage.csrfToken = req.body._csrf;
-        renderPage.username = validatedUserData.username;
-        renderPage.verified = true;
-        renderPage.error = errors.array({
-            onlyFirstError: true
-        });
-        
-        return res.render('verify', renderPage);
-    }
+    retrivedAccessPass
+        .then(function(retrivedAccessPassData) {
+            if (retrivedAccessPassData == null) {
+                return res.render('unauthorized-access', {
+                    message: "Error : 403 - Unauthorized Access",
+                })
+            }
+            const errors = validationResult(req);
+            // matchedData returns only the subset of data validated by the middleware
+            const validatedUserData = matchedData(req);
+            if (!errors.isEmpty()) {  
+                logger.warn('Field must not be empty');
+                renderPage.title = localeText.pageTitle.title;
+                renderPage.lineID = lineID;
+                renderPage.token = token;
+                renderPage.csrfToken = req.body._csrf;
+                renderPage.username = validatedUserData.username;
+                renderPage.verified = true;
+                renderPage.error = errors.array({
+                    onlyFirstError: true
+                });
+                return res.render('verify', renderPage);  
+            }
 
-    checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token);   
+            checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token);   
+        })
+        .catch(function(error) {
+            logger.error(error.message);
+            logger.error(errorLocator());             
+        })
 }
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {

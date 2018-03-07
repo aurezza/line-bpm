@@ -14,8 +14,7 @@ var notEmpty = localeText.error.mustNotBeEmpty;
 function verifyUser(router) {
     // needs additional validation for schema
     var verify = new Verify();
-    // router.post('/verify/:token/:lineID',
-    router.post('/verify/:lineID', [
+    router.post('/verify/:token/:lineID', [
         check('username', notEmpty)
             .isLength({ min: 1})
             .trim()
@@ -25,7 +24,7 @@ function verifyUser(router) {
             .isLength({ min: 1})
             .trim().withMessage(notEmpty),
     ],
-    // csrfProtection, 
+    csrfProtection, 
     verify.checkVerifyFormData
     );
 }

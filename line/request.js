@@ -3,7 +3,7 @@ var logger = require('../logger');
 var messageContent = require('../routes/questetra/message-text/message-content');
 var cancelledMessageContent = require('../routes/questetra/message-text/cancelled-message-content');
 var errorLocator = require('../routes/node/error-locator');
-var Requests = require('../service/requests');
+var ServiceRequests = require('../service/requests');
 var Node = require('./node');
 var ClientPushMessage = require('./push-message');
 
@@ -16,7 +16,7 @@ Request.prototype = {
 
 function sender(body, managerData, client) {
     let node = new Node();
-    var request = new Requests(); 
+    var serviceRequest = new ServiceRequests(); 
     var messageText = messageContent(body);
     const message = {
         "type": "template",
@@ -48,7 +48,7 @@ function sender(body, managerData, client) {
     };
     client.pushMessage(managerData.line_id, message)
         .then(() => { 
-            request.save({
+            serviceRequest.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
@@ -61,7 +61,7 @@ function sender(body, managerData, client) {
         .catch((error) => {
             logger.error(error.message);
             logger.error(errorLocator());
-            request.save({
+            serviceRequest.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,

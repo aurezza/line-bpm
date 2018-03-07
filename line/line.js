@@ -3,10 +3,10 @@ var logger = require('../logger');
 var Token = require('../routes/node/token-generator');
 var AccessPass = require('../service/access-pass');
 var localeChecker = require('../routes/locale/locale-checker');
-var Requests = require('../service/requests');
+var ServiceRequests = require('../service/requests');
 var Sender = require('./sender');
 let Questetra = require('./questetra');
-let Request = require('./request');
+let LineRequest = require('./request');
 var ClientPushMessage = require('./push-message');
 
 function Line () {}
@@ -18,10 +18,10 @@ Line.prototype = {
 };
 function checkManagerDetails(managerData, body, client) {
  
-    let request = new Request();
+    let lineRequest = new LineRequest();
     let questetra = new Questetra();
 
-    if (managerData != null) return request.sender(body, managerData, client);
+    if (managerData != null) return lineRequest.sender(body, managerData, client);
     var axiosParameters = {
         url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
         content: {
@@ -39,9 +39,9 @@ function checkManagerDetails(managerData, body, client) {
 function notifyUserResponded(retrievedRequestData, client, line_userId, parsedData) { 
 
     let sender = new Sender();
-    let requests = new Requests();   
+    let serviceRequests = new ServiceRequests();   
     if (retrievedRequestData != null) return sender.responded(retrievedRequestData, client, line_userId);
-    requests.updateToApproveDisapprove(parsedData);
+    serviceRequests.updateToApproveDisapprove(parsedData);
     
 }
 

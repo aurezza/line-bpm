@@ -55,8 +55,8 @@ function showVerifyPage (req, res) {
 
             var retrievedAccessPass = accessPass.retrieve(lineID, token);
             retrievedAccessPass
-                .then(function(retrievedAccessPass) {
-                    if (retrievedAccessPass == null) {
+                .then(function(retrievedAccessPassData) {
+                    if (retrievedAccessPassData == null) {
                         return res.render('unauthorized-access', {
                             message: localeText.error.unauthorizedAccess,
                         })

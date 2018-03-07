@@ -7,7 +7,10 @@ const app = express();
 function verify(router) {
     var verifyFunc = new Verify();
     console.log('vefiry index is up');
-    app.get('/verify/:token/:line_id', csrfProtection, verifyFunc.showVerifyPage);
+    // router.get('/verify/:token/:line_id', csrfProtection, verifyFunc.showVerifyPage);
+    router.get('/verify/:token/:line_id', function (req, res) {
+        res.send('verify test');
+    });
 }
 
 module.exports = verify;

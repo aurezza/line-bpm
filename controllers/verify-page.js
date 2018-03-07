@@ -110,7 +110,7 @@ function checkVerifyFormData(req, res) {
                 return res.render('verify', renderPage);  
             }
 
-            checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token);   
+            checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token);   
         })
         .catch(function(error) {
             logger.error(error.message);
@@ -118,7 +118,7 @@ function checkVerifyFormData(req, res) {
         })
 }
 
-function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {
+function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
     var employeeDetails = {};
     var localeText = localeChecker('jp', 'verify-content');
@@ -167,7 +167,7 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
                     email: user.email
                 };
 
-                verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId);
+                verifyUserWithLineId(employeeDetails, res, lineID, lineBotId);
             });
         })(req, res);               
     })
@@ -177,7 +177,7 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
         });     
 }
 
-function verifyUserWithLineId(employeeDetails, res, client, lineID) {
+function verifyUserWithLineId(employeeDetails, res, lineID) {
     var localeText = localeChecker('jp', 'verify-content');
     var renderPage = new RenderPage();
     var user = new Users(employeeDetails);
@@ -187,7 +187,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID) {
     userWithLineId.then(function(data) {
         if (!data) {
             user.save(employeeDetails);
-            successVerifyLineMessage(client, lineID);
+            successVerifyLineMessage(lineID);
             accessPass.expireAccessPass(lineID);
             return res.redirect('/success');
         }
@@ -206,7 +206,7 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID) {
         });                        
 }
 
-function successVerifyLineMessage(client, lineID)
+function successVerifyLineMessage(lineID)
 {
     var localeText = localeChecker('jp', 'success-message');
     logger.info(lineID + " has been successfully verified");

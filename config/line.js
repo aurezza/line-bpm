@@ -1,12 +1,11 @@
 const line = require('@line/bot-sdk');
 
 function Configuration() {
-    
+    this.lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 }
 
 Configuration.prototype = {
-    lineConfiguration: lineConfiguration,
-    lineBotId: process.env.LINE_BOT_CHANNEL_ID
+    lineConfiguration: lineConfiguration
 };
 
 

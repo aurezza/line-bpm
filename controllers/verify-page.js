@@ -10,15 +10,16 @@ var localeChecker = require('../routes/locale/locale-checker');
 var Users = require('../service/users');
 var AccessPass = require('../service/access-pass');
 var RenderPage = require('../service/render-pages');
+var LineConfiguration = require('../config/line');
 
-var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
+// var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
-const line = require('@line/bot-sdk');
-const config = {
-    channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-    channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-};
-const client = new line.Client(config);
+// const line = require('@line/bot-sdk');
+// const config = {
+//     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+//     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+// };
+// const client = new line.Client(config);
 
 function Verify(verifyData = {}) {
     
@@ -208,6 +209,7 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 
 function successVerifyLineMessage(lineID)
 {
+    var lineConfig = new LineConfiguration();
     var localeText = localeChecker('jp', 'success-message');
     logger.info(lineID + " has been successfully verified");
     var msgContent = localeText.successTextMessage;
@@ -217,7 +219,7 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
     
-    client.pushMessage(lineID, message)
+    lineConfig.lineConfiguration().pushMessage(lineID, message)
         .then(() => {
             logger.info("message sent to " + lineID);    
         })

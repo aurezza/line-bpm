@@ -15,7 +15,6 @@ var RenderPage = require('../service/render-pages');
 var renderPage = new RenderPage();
 
 var localeChecker = require('../routes/locale/locale-checker');
-// var localeText = localeChecker('jp', 'verify-content');
 
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
@@ -48,25 +47,13 @@ function showVerifyPage (req, res) {
         .then(function(data) {
             if (data) {
                 logger.warn("The line ID:", lineID, "is already verified");
-                return res.render('verify-error', renderPage.errorForm(lineBotId));
-                // return res.render('verify-error', {
-                //     message: localeText.errorMessageLineIdExists,
-                //     backButtonText: localeText.button.back,
-                //     lineBotId: lineBotId
-                // })
+                renderPage.errorForm.message = localeText.errorMessageLineIdExists;
+                renderPage.errorForm.backButtonText = localeText.button.back;
+                return res.render('verify-error', renderPage.errorForm());
             }
-            res.render('verify', renderPage.verifyForm(lineID));
-            // res.render('verify', {
-            //     title: localeText.pageTitle.title,
-            //     panelTitle: localeText.label.panelTitle,
-            //     verifyButtonText: localeText.button.verify,
-            //     usernamePlaceholder: localeText.placeHolder.username, 
-            //     passwordPlaceholder: localeText.placeHolder.password,
-            //     lineID: lineID,
-            //     verified: false,
-            //     errors: {},
-            //     customError: ''   
-            // });
+            
+            renderPage.lineID = lineID;
+            res.render('verify', renderPage);
 
         })
         .catch(function(err) {
@@ -75,20 +62,15 @@ function showVerifyPage (req, res) {
 }
 
 function showVerifySuccess (req, res) {
-    var localeText = localeChecker('jp', 'success-message');
-    res.render('success', {
-        title: localeText.successTextTitle, 
-        description: localeText.successTextMessage,
-        successButtonText: localeText.closeWindow,
-        lineBotId: lineBotId
-    });
+    var renderPage = new RenderPage();
+    res.render('success', renderPage.successForm());
 }
 
 function checkVerifyFormData(req, res) {
     var lineID = req.params.lineID;
     var token = req.params.token;
     var retrivedAccessPass = accessPass.retrieve(lineID, token);
-    var verifyFunc = new Verify();
+    var renderPage = new RenderPage();
     // retrivedAccessPass
     //     .then(function(retrivedAccessPass) {
     //         if (retrivedAccessPass == null) {
@@ -100,24 +82,20 @@ function checkVerifyFormData(req, res) {
     // matchedData returns only the subset of data validated by the middleware
     const validatedUserData = matchedData(req);
     if (!errors.isEmpty()) {  
+        var localeText = localeChecker('jp', 'verify-content');
         logger.warn('Field must not be empty');
-        return res.render('verify', {
-            title: localeText.pageTitle.title,
-            panelTitle: localeText.label.panelTitle,
-            verifyButtonText: localeText.button.verify,
-            usernamePlaceholder: localeText.placeHolder.username, 
-            passwordPlaceholder: localeText.placeHolder.password,
-            lineID: lineID,
-            token: token,
-            csrfToken: req.body._csrf,
-            username: validatedUserData.username,
-            verified: true,
-            error: errors.array({
-                onlyFirstError: true
-            }),
-            errors: {},
-            customError: ''
+        
+        renderPage.title = localeText.pageTitle.title;
+        renderPage.lineID = lineID;
+        renderPage.token = token;
+        renderPage.csrfToken = req.body._csrf;
+        renderPage.username = validatedUserData.username;
+        renderPage.verified = true;
+        renderPage.error = errors.array({
+            onlyFirstError: true
         });
+        
+        return res.render('verify', renderPage);
     }
 
     checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token);   
@@ -125,6 +103,7 @@ function checkVerifyFormData(req, res) {
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
+    var renderPage = new RenderPage();
     var employeeDetails = {};
     var user = new Users({line_id: lineID});
     var users = user.retrieveByLineId(lineID); 
@@ -134,49 +113,34 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
     users.then(function(users) {
         if (users) {
             logger.info("The line ID:", lineID, "is already verified");
-            var lineIdAlreadyExists = localeText.error.lineIdAlreadyExists;
-            return res.render('verify', {
-                title: localeText.pageTitle.title,
-                panelTitle: localeText.label.panelTitle,
-                verifyButtonText: localeText.button.verify,
-                usernamePlaceholder: localeText.placeHolder.username, 
-                passwordPlaceholder: localeText.placeHolder.password,
-                lineID: lineID,
-                verified: true,
-                errors: 'localDbError',
-                customError: lineIdAlreadyExists
-            });
+            renderPage.title = localeText.pageTitle.title,
+            renderPage.lineID = lineID,
+            renderPage.verified = true,
+            renderPage.errors = 'localDbError';
+            renderPage.customError = localeText.error.lineIdAlreadyExists;
+            return res.render('verify', renderPage);
         }
-        // authenticate start
+        
         passport.authenticate('tmj', function(err, user, info) {
-            var throwErr = err || info; 
-            var wrongCredentials = localeText.error.wrongCredentials;        
+            var throwErr = err || info;         
             if (throwErr) {
                 logger.error(throwErr.message);
+                renderPage.title = localeText.pageTitle.title,
+                renderPage.lineID = lineID,
+                renderPage.verified = true,
+                renderPage.errors = 'bpmsDbError';
+                renderPage.customError = localeText.error.wrongCredentials;
+                renderPage.csrfToken = req.body._csrf;
+                renderPage.token = token;
                 res.status(400);
-                return res.render('verify', {
-                    title: localeText.pageTitle.title,
-                    panelTitle: localeText.label.panelTitle,
-                    verifyButtonText: localeText.button.verify,
-                    usernamePlaceholder: localeText.placeHolder.username, 
-                    passwordPlaceholder: localeText.placeHolder.password,
-                    lineID: lineID,
-                    verified: true,
-                    errors: 'bpmsDbError',
-                    customError: wrongCredentials,
-                    csrfToken: req.body._csrf,
-                    token: token
-                });                  
+                return res.render('verify', renderPage);               
             }
             req.logIn(user, function(err) {
                 if (err) {
                     logger.error("Error 404: ", err.message);
-                    return res.status(400).render('verify-error', {
-                        message: err.message,
-                        backButtonText: localeText.button.back,
-                        lineBotId: lineBotId,
-                        csrfToken: req.body._csrf
-                    });                      
+                    renderPage.message = err.message;
+                    renderPage.csrfToken = req.body._csrf;
+                    return res.status(400).render('verify-error', renderPage.errorForm());                   
                 }
                 
                 employeeDetails = {
@@ -198,13 +162,13 @@ function checkValidatedUserData(req, res, client, lineID, validatedUserData, lin
 
 function verifyUserWithLineId(employeeDetails, res, client, lineID) {
     var localeText = localeChecker('jp', 'verify-content');
+    var renderPage = new RenderPage();
     var user = new Users(employeeDetails);
     var accessPass = new AccessPass();
     var userWithLineId = user.retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(data) {
         if (!data) {
-            
             user.save(employeeDetails);
             successVerifyLineMessage(client, lineID);
             accessPass.expireAccessPass(lineID);
@@ -212,18 +176,12 @@ function verifyUserWithLineId(employeeDetails, res, client, lineID) {
         }
 
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
-        var employeeIdAlreadyExists = localeText.error.employeeIdAlreadyExists;
-        return res.render('verify', {
-            title: localeText.pageTitle.title,
-            panelTitle: localeText.label.panelTitle,
-            verifyButtonText: localeText.button.verify,
-            usernamePlaceholder: localeText.placeHolder.username, 
-            passwordPlaceholder: localeText.placeHolder.password,
-            lineID: lineID,
-            verified: true,
-            errors: 'localDbError',
-            customError: employeeIdAlreadyExists
-        });        
+        renderPage.title = localeText.pageTitle.title;
+        renderPage.lineID = lineID;
+        renderPage.verified = true;
+        renderPage.errors = 'localDbError';
+        renderPage.customError = localeText.error.employeeIdAlreadyExists;
+        return res.render('verify', renderPage);    
 
     })
         .catch(function(error) {

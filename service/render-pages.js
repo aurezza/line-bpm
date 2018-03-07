@@ -2,57 +2,44 @@
 var logger = require('../logger');
 var localeChecker = require('../routes/locale/locale-checker');
 
-var localeText = localeChecker('jp', 'verify-content');
+var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
 // setting default variables
 function RenderPage(pageData = {}) {
+    var localeText = localeChecker('jp', 'verify-content');
     this.title = localeText.panelTitle || null;
     this.panelTitle = localeText.label.panelTitle;
     this.verifyButtonText = localeText.button.verify;
     this.usernamePlaceholder = localeText.placeHolder.username;
     this.passwordPlaceholder = localeText.placeHolder.password;
-    this.lineID = pageData.lineID || null;
-    // this.csrfToken = pageData.req.body._csrf || null;
-    // this.username = pageData.validatedUser.username || null;
-    this.verified = pageData.verified || null;
-    this.error = null;
-    this.errors = null;
+    this.lineID = null;
+    this.csrfToken = null;
+    this.username = null;
+    this.verified =  null;
+    this.error = undefined;
+    this.errors = undefined;
     this.customError = null;
-    // this.message = localeText.errorMessageLineIdExists || null;
-    // this.backButtonText = localeText.button.back || null;
 }
 
 RenderPage.prototype = {
-    verifyPage: verifyPage,
-    verifyForm: verifyForm,
+    successForm: successForm,
     errorForm: errorForm
 };
 
-function verifyPage(validatedUserData) {
-    var validatedUser = {
-        username: validatedUserData.username
-    };
+function successForm() {
+    var localeText = localeChecker('jp', 'success-message');
+    var successObject =  {
+        title: localeText.successTextTitle, 
+        description: localeText.successTextMessage,
+        successButtonText: localeText.closeWindow,
+        lineBotId: lineBotId
+    }
 
-    return validatedUser;
+    return successObject;
 }
 
-function verifyForm(lineID) {
-    var testObject = {
-        title: localeText.pageTitle.title,
-        panelTitle: localeText.label.panelTitle,
-        verifyButtonText: localeText.button.verify,
-        usernamePlaceholder: localeText.placeHolder.username, 
-        passwordPlaceholder: localeText.placeHolder.password,
-        lineID: lineID,
-        verified: false,
-        errors: {},
-        customError: ''         
-    }  
-
-    return testObject;
-}
-
-function errorForm(lineBotId) {
+function errorForm() {
+    var localeText = localeChecker('jp', 'verify-content');
     var errorObject =  {
         message: localeText.errorMessageLineIdExists,
         backButtonText: localeText.button.back,

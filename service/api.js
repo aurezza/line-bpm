@@ -56,10 +56,9 @@ function update(api) {
 function retrieveApiByKey(apiKey) {
     var api = apiModel.findOne({api_key: apiKey});
     
-    api
-        .exec(function(err, res) {
-            if (err) return logger.error("retrieve API error: ", err);
-        });	
+    api.exec(function(err, res) {
+        if (err) return logger.error("retrieve API error: ", err);
+    });	
 
     return api;
 }
@@ -67,10 +66,9 @@ function retrieveApiByKey(apiKey) {
 function retrieveApiByName(apiName) {
     var api = apiModel.findOne({api_name: apiName});
     
-    api
-        .exec(function(err, res) {
-            if (err) return logger.error("retrieve API name error: ", err);
-        }); 
+    api.exec(function(err, res) {
+        if (err) return logger.error("retrieve API name error: ", err);
+    }); 
     return api;
 }
 

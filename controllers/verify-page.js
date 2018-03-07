@@ -112,7 +112,7 @@ function checkVerifyFormData(req, res) {
                 return res.render('verify', renderPage);  
             }
 
-            checkValidatedUserData(req, res, lineID, validatedUserData, lineConfig.lineBotId., token);   
+            checkValidatedUserData(req, res, lineID, validatedUserData, lineConfig.lineBotId, token);   
         })
         .catch(function(error) {
             logger.error(error.message);

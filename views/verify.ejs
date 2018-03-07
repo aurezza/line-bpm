@@ -15,8 +15,8 @@
                             <%= panelTitle %>
                         </div>
                     </div>                                 
-                    <form class="form-horizontal" role="form" method="post" action="/verify/<%= lineID %>">
-                        <input type="hidden" name="_csrf" value="">  
+                    <form class="form-horizontal" role="form" method="post" action="/verify/<%= token %>/<%= lineID %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">  
                         <div class="form-horizontal-input-group input-group">
                             <span class="icon">
                                 <i class="glyphicon glyphicon-user"></i>

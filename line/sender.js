@@ -3,6 +3,7 @@ var localeChecker = require('../routes/locale/locale-checker');
 var ClientPushMessage = require('./push-message');
 
 function Sender() {}
+var pushMessage = new ClientPushMessage();
 
 Sender.prototype = {
     userExist: userExist,
@@ -16,7 +17,6 @@ function userExist(client, line_userId, userName) {
         type: 'text',
         text: msgContent.userExist,
     };
-    var pushMessage = new ClientPushMessage();
     pushMessage.clientPushMessage(client, line_userId, message);        
   
 }
@@ -36,7 +36,6 @@ function responded(retrievedRequestData, client, line_userId) {
         type: 'text',
         text: messageResponse,
     };
-    var pushMessage = new ClientPushMessage();
     pushMessage.clientPushMessage(client, line_userId, message);    
 }
 

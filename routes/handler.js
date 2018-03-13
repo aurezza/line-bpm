@@ -25,6 +25,8 @@ var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 var receiver = require('./questetra/receiver');
 var receiverCancelledRequest = require('./questetra/receiver-cancelled-request');
+var LineController = require('../controller/line');
+var lineController = new LineController();
 
 // db connection
 connection(mongoose, connectionURL);
@@ -43,21 +45,9 @@ success(router, lineBotId);
 
 receiver(router, client);
 receiverCancelledRequest(router, client);
-var LineController = require('../controller/line');
-var ctrl = new LineController();
 
-console.log("ctrl", ctrl);
-router.post('/handler', ctrl);
 
-// function testController (req, res) {
-//     logger.info('line handler testController');
-//     var lineController = new LineController();
-//     var eventType = req.body.events[0].type;
-//     lineController.eventHandler[eventType]({
-//         req: req.body, 
-//         client: client
-//     })
-//     res.send(true);
-// }
+router.post('/handler', lineController);
+
 module.exports = router;
 

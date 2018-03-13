@@ -17,26 +17,25 @@ const config = {
 const client = new line.Client(config);
 
 
-function LineController (req, res) {
-    var eventType = req.body.events[0].type;
-    eventHandler[eventType]({
-        req: req.body, 
-        client: client
-    })
-    res.send(true);
+function LineController () {
+
 }
 
 var eventHandler = {};
 LineController.prototype = {
-    eventHandler: {
-        follow: follow,
-        unfollow: unfollow,
-        message: message,
-        postback: postback
-    }
+    handler: handler
 };
 
-function follow(params) {
+function handler(req, res) {
+    var eventType = req.body.events[0].type;
+    eventHandler[eventType]({
+        req: req.body, 
+        client: client
+    });
+    res.send(true);
+}
+
+eventHandler.follow = function (params) {
     logger.info("follow event triggered");
     let line_userId = params.req.events[0].source.userId;
     var users = userModel.retrieveByLineId(line_userId);

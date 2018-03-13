@@ -1,17 +1,38 @@
 'use strict';
-var querystring = require('querystring');
 var logger = require('../logger');
+var axios = require('axios');
+var querystring = require('querystring');
 var errorLocator = require('../routes/node/error-locator');
-var Questetra = require('./questetra');
-var questetra = new Questetra();
 
-function Node() {}
+function Questetra() {}
 
-Node.prototype = {
+Questetra.prototype = {
+    reply: reply,
     incomingMessage: incomingMessage,
     outgoingMessage: outgoingMessage
 };
 
+function reply(axiosParameters) {
+    var throttleCounter = 0;
+    //1000 = 1sec
+    var replyDelayTime = 6000;
+
+    (function resendReplyToQuestetra() {
+        setTimeout(postReplyToQuestetra, replyDelayTime, resendReplyToQuestetra);
+    })();
+
+    function postReplyToQuestetra(resendReplyToQuestetra) {
+        axios.post(axiosParameters.url, querystring.stringify(axiosParameters.content))
+            .then(function(response) { 
+                logger.info('success replying to questetra');            
+            })            
+            .catch(function(error) {
+                if (throttleCounter >= 10) return;
+                throttleCounter++;
+                resendReplyToQuestetra();
+            }); 
+    }
+}
 
 function incomingMessage(instanceId, isMessageSent) {
 
@@ -24,7 +45,7 @@ function incomingMessage(instanceId, isMessageSent) {
             q_sendingstatus: isMessageSent
         }
     };
-    questetra.reply(axiosParameters);
+    reply(axiosParameters);
 }
 
 function outgoingMessage(postBack, client, line_userId) {
@@ -53,7 +74,8 @@ function outgoingMessage(postBack, client, line_userId) {
             logger.error(error.message);
             logger.error(errorLocator());
         });   
-    questetra.reply(axiosParameters);
+    reply(axiosParameters);
 }
 
-module.exports = Node;
+
+module.exports = Questetra;

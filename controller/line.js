@@ -4,12 +4,10 @@ var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 var UserModel = require('../model/users');
 var userModel = new UserModel();
-var Line = require('../line/line');
+var Line = require('../service/line');
 var line = new Line();
-var Sender = require('../line/sender');
-var sender = new Sender();
-var Node = require('../line/node');
-var node = new Node();
+var Questetra = require('../service/questetra');
+var questetra = new Questetra();
 
 function LineController () {}
 
@@ -28,7 +26,7 @@ function follow(params) {
     var users = userModel.retrieveByLineId(line_userId);
     users
         .then(function (users) {
-            if (users) return  sender.userExist(params.client, line_userId, users.employee_name);
+            if (users) return  line.userExist(params.client, line_userId, users.employee_name);
             line.scanQrCode(params.client, line_userId);
         })
         .catch(function (error) {
@@ -42,7 +40,7 @@ function postback(params) {
     //postBack is data query params depending on manager reply
     let line_userId = params.req.events[0].source.userId;
     var postBack = params.req.events[0].postback;
-    node.outgoingMessage(postBack, params.client, line_userId);
+    questetra.outgoingMessage(postBack, params.client, line_userId);
 }
 
 function unfollow(params) {logger.info("unfollow event triggered");};

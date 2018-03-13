@@ -3,10 +3,10 @@ var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
 var RequestModel = require('../../model/requests')
 var UserModel = require('../../model/users');
-var LineRequest = require('../../line/request');
+var Line = require('../../service/line');
 function receiverCancelledRequest(router, client) {
     router.post('/receiverCancelledRequest', function(req, res) {
-        var lineRequest = new LineRequest();
+        var line = new Line();
         var requestModel = new RequestModel ();
         var userModel = new UserModel();
         requestModel.updateToCancel(req.body)
@@ -16,7 +16,7 @@ function receiverCancelledRequest(router, client) {
         
         users.then(function(users) {
             managerData = users;
-            lineRequest.sendCancelledRequest(managerData, req.body, client);  
+            line.sendCancelledRequest(managerData, req.body, client);  
         })
             .catch(function(error) {
                 logger.error(error.message);

@@ -17,17 +17,19 @@ const config = {
 const client = new line.Client(config);
 
 
-function LineController () {
-    function eventTrigger(req, res) {
-        var eventType = req.body.events[0].type;
-        eventHandler[eventType]({
-            req: req.body, 
-            client: client
-        })
-        res.send(true);
-    }
+function LineController () {}
 
-    return eventTrigger;
+LineController.prototype = {
+    eventTrigger: eventTrigger
+};
+
+function eventTrigger(req, res) {
+    var eventType = req.body.events[0].type;
+    eventHandler[eventType]({
+        req: req.body, 
+        client: client
+    })
+    res.send(true);
 }
 
 var eventHandler = {};

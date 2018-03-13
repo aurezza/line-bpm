@@ -3,6 +3,7 @@
 var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 var UserModel = require('../model/users');
+var userModel = new UserModel();
 var Line = require('../line/line');
 var line = new Line();
 var Sender = require('../line/sender');
@@ -19,12 +20,10 @@ LineController.prototype = {
         message: message,
         postback: postback
     }
-        
 };
 
 function follow(params) {
     logger.info("follow event triggered");
-    var userModel = new UserModel();
     let line_userId = params.req.events[0].source.userId;
     var users = userModel.retrieveByLineId(line_userId);
     users
@@ -48,6 +47,5 @@ function postback(params) {
 
 function unfollow(params) {logger.info("unfollow event triggered");};
 function message(params) {logger.info("message event triggered");};
-
 
 module.exports = LineController;

@@ -45,8 +45,8 @@ success(router, lineBotId);
 receiver(router, client);
 receiverCancelledRequest(router, client);
 var lc = new LineController();
-
-router.post('/handler', lc.handler);
+console.log("lc", lc);
+// router.post('/handler', lc.handler);
 
 
 module.exports = router;

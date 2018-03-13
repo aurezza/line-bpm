@@ -17,23 +17,16 @@ const config = {
 const client = new line.Client(config);
 
 
-function LineController () {
-
-}
-
-var eventHandler = {};
-LineController.prototype = {
-    handler: handler
-};
-
-function handler(req, res) {
+function LineController (req, res) {
     var eventType = req.body.events[0].type;
     eventHandler[eventType]({
         req: req.body, 
         client: client
-    });
+    })
     res.send(true);
 }
+
+var eventHandler = {};
 
 eventHandler.follow = function (params) {
     logger.info("follow event triggered");

@@ -12,10 +12,12 @@ var node = new Node();
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
         var cont = new Controller();
-        var eventType = req.body.events[0].type;        
-        cont.eventHandler[eventType]({
-            req: req.body, 
-            client: client});
+        var eventType = req.body.events[0].type; 
+        
+        console.log("cont", cont.eventHandler);
+        // cont.eventHandler[eventType]({
+        //     req: req.body, 
+        //     client: client});
         res.send(true);
     });
 }

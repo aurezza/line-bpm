@@ -48,7 +48,7 @@ receiverCancelledRequest(router, client);
 
 console.log("lineController.eventTrigger", lineController.eventTrigger);
 
-// router.post('/handler', lineController.eventTrigger);
+router.post('/handler', lineController.eventTrigger);
 
 module.exports = router;
 

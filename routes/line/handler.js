@@ -10,7 +10,8 @@ var Node = require('../../line/node');
 var node = new Node();
 function Controller(params) {
     this.body = params.body;
-    this.client = params.client;  
+    this.client = params.client; 
+    console.log("this.body", this.body) 
 }
 
 Controller.prototype = {
@@ -22,8 +23,7 @@ Controller.prototype = {
 };
 
 function follow() {
-
-    console.log(this.body);
+    console.log("this.body", this.body);
     // var user = new Users();
     // let line_userId = this.body.events[0].source.userId;
     // var users = user.retrieveByLineId(line_userId);

@@ -1,7 +1,7 @@
 'use strict';
 var logger = require('../logger');
 var Token = require('../routes/node/token-generator');
-var AccessPass = require('../model/access-pass');
+var AccessPassModel = require('../model/access-pass');
 var localeChecker = require('../routes/locale/locale-checker');
 var RequestModel = require('../model/requests');
 var Sender = require('./sender');
@@ -49,7 +49,7 @@ function scanQrCode(client, line_userId) {
     logger.info('scan qr code');
     var generate = new Token(line_userId);
     var token = generate.get();
-    var accessPass = new AccessPass();
+    var accessPass = new AccessPassModel();
     var owner = accessPass.retrieveLineId(line_userId);
     owner
         .then(function(owner) {

@@ -1,9 +1,9 @@
 'use strict';
-var apiModel = require('../models/api-model');
+var apiSchema = require('../schema/api-schema');
 var logger = require('../logger');
 function saveApi(object) {
     // create instance of model transactionModel
-    var newApi = new apiModel();
+    var newApi = new apiSchema();
     logger.info('api: ', object);
     newApi.api_name = object.api_name;
     newApi.api_key = object.api_key;

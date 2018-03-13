@@ -1,10 +1,10 @@
 'use strict';
 
-var apiModel = require('../models/api-model');
+var apiSchema = require('../schema/api-schema');
 var logger = require('../logger');
 
 function retrieveApiByName(apiName) {
-    var api = apiModel.findOne({api_name: apiName});
+    var api = apiSchema.findOne({api_name: apiName});
     
     api
         .exec(function(err, res) {

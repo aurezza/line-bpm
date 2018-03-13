@@ -1,10 +1,10 @@
 'use strict';
-var apiModel = require('../models/api-model');
+var apiSchema = require('../schema/api-schema');
 var logger = require('../logger');
 
 function updateApi(api) {
     var dateNow = new Date();
-    apiModel.updateOne({ api_name: api.api_name }, 
+    apiSchema.updateOne({ api_name: api.api_name }, 
         { 
             $set: {
                 token: api.token, 

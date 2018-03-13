@@ -46,6 +46,7 @@ function notifyUserResponded(retrievedRequestData, client, line_userId, parsedDa
 }
 
 function scanQrCode(client, line_userId) {
+    logger.info('scan qr code');
     var generate = new Token(line_userId);
     var token = generate.get();
     var accessPass = new AccessPass();

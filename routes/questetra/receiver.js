@@ -12,7 +12,7 @@ function receiver(router, client) {
         
         users.then(function(users) {
             managerData = users;
-            line.checkManagerDetails(managerData, req.body, client);  
+            Line.checkManagerDetails(managerData, req.body, client);  
         })
             .catch(function(error) {
                 logger.error(error.message);

@@ -3,8 +3,10 @@ var logger = require('../../logger');
 
 var LineController = require('../../controller/line');
 
-function handler(router, axios, querystring, client) {
-    router.post('/handler', function(req, res) {
+function handler(router, client) {
+    router.post('/handler', Controller);
+
+    function Controller(req, res) {
         logger.info('line handler triggered');
         var lineController = new LineController();
         var eventType = req.body.events[0].type;
@@ -13,7 +15,7 @@ function handler(router, axios, querystring, client) {
             client: client
         })
         res.send(true);
-    });
+    }
 }
 
 

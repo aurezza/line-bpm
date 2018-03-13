@@ -8,6 +8,20 @@ var Sender = require('../../line/sender');
 var sender = new Sender();
 var Node = require('../../line/node');
 var node = new Node();
+function Controller() {
+    
+}
+
+Controller.prototype = {
+    eventHandler: {
+        follow: follow
+    }
+    
+};
+
+function follow() {
+    console.log('aa')
+}
 
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
@@ -25,20 +39,6 @@ function handler(router, axios, querystring, client) {
     });
 }
 
-function Controller() {
-    
-}
-
-Controller.prototype = {
-    eventHandler: {
-        follow: follow
-    }
-    
-};
-
-function follow() {
-    console.log('aa')
-}
 
 var eventHandler = {};
 eventHandler.follow = function(params) {

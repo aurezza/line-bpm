@@ -43,7 +43,7 @@ function Controller() {
     function unfollow() {
         logger.info("unfollow event");    
     }
-    
+    return Controller;
 }
 
 

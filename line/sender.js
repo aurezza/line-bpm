@@ -17,7 +17,7 @@ function userExist(client, line_userId, userName) {
         type: 'text',
         text: msgContent.userExist,
     };
-    pushMessage.clientPushMessage(client, line_userId, message);        
+    pushMessage.clientPushMessage(client, line_userId, message, false);        
   
 }
 
@@ -36,7 +36,7 @@ function responded(retrievedRequestData, client, line_userId) {
         type: 'text',
         text: messageResponse,
     };
-    pushMessage.clientPushMessage(client, line_userId, message);    
+    pushMessage.clientPushMessage(client, line_userId, message, false);    
 }
 
 module.exports = Sender;

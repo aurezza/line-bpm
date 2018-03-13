@@ -67,7 +67,7 @@ function scanQrCode(client, line_userId) {
                 text: msgContent.text + line_userId,
             };
             var pushMessage = new ClientPushMessage();
-            pushMessage.clientPushMessage(client, line_userId, message);
+            pushMessage.clientPushMessage(client, line_userId, message, null);
         })
         .catch(function(error) {
             logger.error(error.message);

@@ -2,9 +2,6 @@
 var logger = require('../logger');
 var messageContent = require('../routes/questetra/message-text/message-content');
 var cancelledMessageContent = require('../routes/questetra/message-text/cancelled-message-content');
-var errorLocator = require('../routes/node/error-locator');
-var ServiceRequests = require('../service/requests');
-var Node = require('./node');
 var ClientPushMessage = require('./push-message');
 
 function Request () {}
@@ -15,8 +12,7 @@ Request.prototype = {
 };
 
 function sender(body, managerData, client) {
-    let node = new Node();
-    var serviceRequest = new ServiceRequests(); 
+    logger.info('line request sender is triggered');
     var messageText = messageContent(body);
     const message = {
         "type": "template",
@@ -46,43 +42,20 @@ function sender(body, managerData, client) {
             ]
         }    
     };
-    client.pushMessage(managerData.line_id, message)
-        .then(() => { 
-            serviceRequest.save({
-                user_name: body.user_name,
-                overtime_date: body.overtime_date,
-                process_id: body.process_id,
-                reason: body.overtime_reason, 
-                status: 'pending',
-                manager_email: body.manager_email,       
-            })
-            node.incomingMessage(body.process_id, 'yes'); 
-        })
-        .catch((error) => {
-            logger.error(error.message);
-            logger.error(errorLocator());
-            serviceRequest.save({
-                user_name: body.user_name,
-                overtime_date: body.overtime_date,
-                process_id: body.process_id,
-                reason: body.overtime_reason, 
-                status: 'failed',
-                manager_email: body.manager_email,       
-            })
-            node.incomingMessage(body.process_id, 'no');         
-        });            
+    var pushMessage = new ClientPushMessage();
+    pushMessage.clientPushMessage(client, managerData.line_id, message, body);          
 
 }
 
 function sendCancelledRequest(managerData, body, client) {
-
+    logger.info('line sender of cancelled request is triggered');
     var messageText = cancelledMessageContent(body);
     const message = {
         type: 'text',
         text: messageText.header + messageText.text,
     };
     var pushMessage = new ClientPushMessage();
-    pushMessage.clientPushMessage(client, managerData.line_id, message);
+    pushMessage.clientPushMessage(client, managerData.line_id, message, false);
 }
 
 module.exports = Request;

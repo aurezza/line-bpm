@@ -11,22 +11,33 @@ var node = new Node();
 
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
-        var cont = new Controller();
-        console.log("cont", cont);
-        var eventType = req.body.events[0].type; 
-        
-        console.log("cont", cont.eventHandler());
-        // cont.eventHandler[eventType]({
+        var eventType = req.body.events[0].type;
+        console.log("eventType", eventType);
+        var ctrl = new Controller();
+        console.log("ctrl", ctrl);   
+        // ctrl.eventType({
+        //     req: req.body, 
+        //     client: client})
+        // eventHandler[eventType]({
         //     req: req.body, 
         //     client: client});
         res.send(true);
     });
 }
 
-function Controller () {}
+function Controller() {
+    
+}
 
 Controller.prototype = {
-    eventHandler: eventHandler
+    eventHandler: {
+        follow: follow
+    }
+    
+};
+
+function follow() {
+    console.log('aa')
 }
 
 var eventHandler = {};

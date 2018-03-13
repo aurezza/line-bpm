@@ -23,11 +23,10 @@ var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
-var receiver = require('./questetra/receiver');
-var receiverCancelledRequest = require('./questetra/receiver-cancelled-request');
 var LineController = require('../controller/line');
 var lineController = new LineController();
-
+var QuestetraController = require('../controller/questetra');
+var quesController = new QuestetraController();
 // db connection
 connection(mongoose, connectionURL);
 
@@ -43,12 +42,8 @@ verify(router, lineBotId);
 verifyUser(router, client, logger, lineBotId);
 success(router, lineBotId);
 
-receiver(router, client);
-receiverCancelledRequest(router, client);
-
-console.log("lineController.eventTrigger", lineController.eventTrigger);
-
+router.post('/receiverCancelledRequest', quesController.receiverCancelledRequest);
+router.post('/receiveFromQuest', quesController.recieveFromQuest);
 router.post('/handler', lineController.eventTrigger);
 
 module.exports = router;
-

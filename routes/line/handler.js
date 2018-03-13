@@ -42,11 +42,13 @@ var Controller = ('../../controller/line');
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
-        var ctrl = new Controller();  
-        ctrl.eventHandler[eventType]({
-            req: req.body, 
-            client: client
-        })
+        var ctrl = new Controller(); 
+        
+        console.log("ctrl", ctrl);
+        // ctrl.eventHandler[eventType]({
+        //     req: req.body, 
+        //     client: client
+        // })
         res.send(true);
     });
 }

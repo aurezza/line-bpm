@@ -1,14 +1,14 @@
 'use strict';
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
-var Users = require('../../service/users');
+var UserModel = require('../../model/users');
 var Line = require('../../line/line')();
 
 function receiver(router, client) {
     router.post('/receiveFromQuest', function(req, res) {
-        var user = new Users();
+        var userModel = new UserModel();
         var managerData = {};
-        var users = user.retriveByEmpEmail(req.body.manager_email);
+        var users = userModel.retriveByEmpEmail(req.body.manager_email);
         
         users.then(function(users) {
             managerData = users;

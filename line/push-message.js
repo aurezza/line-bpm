@@ -1,7 +1,7 @@
 'use strict';
 var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
-var ServiceRequests = require('../service/requests');
+var RequestModel = require('../model/requests');
 var Node = require('./node');
 function ClientPushMessage() {}
 
@@ -11,14 +11,14 @@ ClientPushMessage.prototype = {
 
 function clientPushMessage(client, line_userId, message, body) {
     let node = new Node();
-    var serviceRequest = new ServiceRequests(); 
+    var requestModel = new RequestModel(); 
     client.pushMessage(line_userId, message)
         .then(() => {
             
             logger.info("message sent to " + line_userId);
             if (!body) return;
             logger.info("serviceRequest.save");
-            serviceRequest.save({
+            requestModel.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
@@ -33,7 +33,7 @@ function clientPushMessage(client, line_userId, message, body) {
             logger.error(errorLocator());
             if (!body) return;
             logger.info("serviceRequest.save");
-            serviceRequest.save({
+            requestModel.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,

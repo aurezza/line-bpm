@@ -1,18 +1,18 @@
 'use strict';
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
-var ServiceRequests = require('../../service/requests')
-var Users = require('../../service/users');
+var RequestModel = require('../../model/requests')
+var UserModel = require('../../model/users');
 var LineRequest = require('../../line/request');
 function receiverCancelledRequest(router, client) {
     router.post('/receiverCancelledRequest', function(req, res) {
         var lineRequest = new LineRequest();
-        var serviceRequests = new ServiceRequests ();
-        var user = new Users();
-        serviceRequests.updateToCancel(req.body)
+        var requestModel = new RequestModel ();
+        var userModel = new UserModel();
+        requestModel.updateToCancel(req.body)
 
         var managerData = {};
-        var users = user.retriveByEmpEmail(req.body.manager_email);
+        var users = userModel.retriveByEmpEmail(req.body.manager_email);
         
         users.then(function(users) {
             managerData = users;

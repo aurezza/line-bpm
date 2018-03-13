@@ -1,5 +1,5 @@
 'use strict';
-var accessPassModel = require('../models/access-pass-model');
+var accessPassSchema = require('../schema/access-pass-schema');
 var logger = require('../logger');
 
 function AccessPass(accessPassData = {}) {
@@ -19,7 +19,7 @@ AccessPass.prototype = {
 };
 
 function save (token, lineId) {
-    var newAccessPass = new accessPassModel();
+    var newAccessPass = new accessPassSchema();
     newAccessPass.access_pass_token = token;
     newAccessPass.line_id = lineId;
     newAccessPass.status = "active";
@@ -34,7 +34,7 @@ function save (token, lineId) {
 }
 
 function changeAccessPass (lineId, token) {
-    accessPassModel.updateMany({ line_id: lineId }, 
+    accessPassSchema.updateMany({ line_id: lineId }, 
         { $set: {access_pass_token: token }},
     
         function() {
@@ -43,7 +43,7 @@ function changeAccessPass (lineId, token) {
 }
 
 function expireAccessPass (lineId) {
-    accessPassModel.updateMany({ 
+    accessPassSchema.updateMany({ 
         line_id: lineId, 
         status: "active" }, 
     { $set: {status: "expired"}},
@@ -54,7 +54,7 @@ function expireAccessPass (lineId) {
 }
 
 function retrieveLineId (lineId) {
-    var accessPassOwner = accessPassModel.findOne({
+    var accessPassOwner = accessPassSchema.findOne({
         line_id: lineId,
         status: "active"
     });		
@@ -67,7 +67,7 @@ function retrieveLineId (lineId) {
 }
 
 function retrieve (lineId, token) {
-    var accessPass = accessPassModel.findOne({
+    var accessPass = accessPassSchema.findOne({
         line_id: lineId, 
         access_pass_token: token, 
         status: "active"

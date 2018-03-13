@@ -5,12 +5,12 @@ var passport = require('passport');
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
 var employeeDetails = {};
-var Users = require('../../service/users');
+var UserModel = require('../../model/users');
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
-    var user = new Users({line_id: lineID});
-    var users = user.retrieveByLineId(lineID); 
+    var userModel = new UserModel({line_id: lineID});
+    var users = userModel.retrieveByLineId(lineID); 
     var localeText = localeChecker('jp', 'verify-content');
 
     if (!validatedUserData) return logger.error("User data not validated");

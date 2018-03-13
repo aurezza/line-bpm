@@ -1,5 +1,5 @@
 'use strict';
-var userModel = require('../models/user-model');
+var UserSchema = require('../schema/user-schema');
 var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 
@@ -21,7 +21,7 @@ Users.prototype = {
     
 function save(userData) {
 
-    var newUser = new userModel();
+    var newUser = new UserSchema();
     newUser.line_id = userData.lineID;
     newUser.employee_id = userData.employee_id;
     newUser.employee_name = userData.name;
@@ -40,7 +40,7 @@ function save(userData) {
 
 function retrieveByLineId(lineID) {
 
-    var users = userModel.findOne({line_id: lineID});
+    var users = UserSchema.findOne({line_id: lineID});
     users
         .exec(function(res, err) {
             if (err.message) { logger.error(err.message); logger.error(errorLocator());}
@@ -49,7 +49,7 @@ function retrieveByLineId(lineID) {
 }
 
 function retrieveByEmpId(receivedEmployeeID) {
-    var users = userModel.findOne({employee_id: receivedEmployeeID});
+    var users = UserSchema.findOne({employee_id: receivedEmployeeID});
     
     users
         .exec(function(res, err) {
@@ -60,7 +60,7 @@ function retrieveByEmpId(receivedEmployeeID) {
 }
 
 function retriveByEmpEmail (receivedEmployeeEmail) {
-    var users = userModel.findOne({employee_email: receivedEmployeeEmail});
+    var users = UserSchema.findOne({employee_email: receivedEmployeeEmail});
 
     users
         .exec(function(res, err) {

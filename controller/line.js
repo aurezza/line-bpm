@@ -2,7 +2,7 @@
 
 var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
-var Users = require('../service/users');
+var UserModel = require('../model/users');
 var Line = require('../line/line');
 var line = new Line();
 var Sender = require('../line/sender');
@@ -24,9 +24,9 @@ LineController.prototype = {
 
 function follow(params) {
     logger.info("follow event triggered");
-    var user = new Users();
+    var userModel = new UserModel();
     let line_userId = params.req.events[0].source.userId;
-    var users = user.retrieveByLineId(line_userId);
+    var users = userModel.retrieveByLineId(line_userId);
     users
         .then(function (users) {
             if (users) return  sender.userExist(params.client, line_userId, users.employee_name);

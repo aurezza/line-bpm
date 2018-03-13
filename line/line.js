@@ -1,9 +1,9 @@
 'use strict';
 var logger = require('../logger');
 var Token = require('../routes/node/token-generator');
-var AccessPass = require('../service/access-pass');
+var AccessPass = require('../model/access-pass');
 var localeChecker = require('../routes/locale/locale-checker');
-var ServiceRequests = require('../service/requests');
+var RequestModel = require('../model/requests');
 var Sender = require('./sender');
 let Questetra = require('./questetra');
 let LineRequest = require('./request');
@@ -39,9 +39,9 @@ function checkManagerDetails(managerData, body, client) {
 function notifyUserResponded(retrievedRequestData, client, line_userId, parsedData) { 
 
     let sender = new Sender();
-    let serviceRequests = new ServiceRequests();   
+    let requestModel = new RequestModel();   
     if (retrievedRequestData != null) return sender.responded(retrievedRequestData, client, line_userId);
-    serviceRequests.updateToApproveDisapprove(parsedData);
+    requestModel.updateToApproveDisapprove(parsedData);
     
 }
 

@@ -2,18 +2,18 @@
 var localeChecker = require('../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
-var Users = require('../../service/users');
-var AccessPass = require('../../service/access-pass');
+var UserModel = require('../../model/users');
+var AccessPassModel = require('../model/access-pass');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
-    var user = new Users(employeeDetails);
-    var accessPass = new AccessPass();
-    var userWithLineId = user.retrieveByEmpId(employeeDetails.employee_id);
+    var userModel = new UserModel(employeeDetails);
+    var accessPass = new AccessPassModel();
+    var userWithLineId = userModel.retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(userWithLineId) {
         if (!userWithLineId) {
             
-            user.save(employeeDetails);
+            userModel.save(employeeDetails);
             successVerifyLineMessage(client, lineID);
             accessPass.expireAccessPass(lineID);
             return res.redirect('/success');

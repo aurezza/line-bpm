@@ -30,8 +30,8 @@ function incomingMessage(instanceId, isMessageSent) {
 function outgoingMessage(postBack, client, line_userId) {
     let Line = require('./line');
     let line = new Line();
-    let Requests = require('../service/requests');
-    let request = new Requests();
+    let RequestModel = require('../model/requests');
+    let request = new RequestModel();
 
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {

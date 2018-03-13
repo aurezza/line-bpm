@@ -17,13 +17,17 @@ const config = {
 const client = new line.Client(config);
 
 
-function LineController (req, res) {
-    var eventType = req.body.events[0].type;
-    eventHandler[eventType]({
-        req: req.body, 
-        client: client
-    })
-    res.send(true);
+function LineController () {
+    function test(req, res) {
+        var eventType = req.body.events[0].type;
+        eventHandler[eventType]({
+            req: req.body, 
+            client: client
+        })
+        res.send(true);
+    }
+    
+    return test;
 }
 
 var eventHandler = {};
@@ -43,15 +47,15 @@ eventHandler.follow = function (params) {
         });
 }
 
-function postback(params) {
-    logger.info("postback event triggered");
-    //postBack is data query params depending on manager reply
-    let line_userId = params.req.events[0].source.userId;
-    var postBack = params.req.events[0].postback;
-    questetra.outgoingMessage(postBack, params.client, line_userId);
-}
+// function postback(params) {
+//     logger.info("postback event triggered");
+//     //postBack is data query params depending on manager reply
+//     let line_userId = params.req.events[0].source.userId;
+//     var postBack = params.req.events[0].postback;
+//     questetra.outgoingMessage(postBack, params.client, line_userId);
+// }
 
-function unfollow(params) {logger.info("unfollow event triggered");};
-function message(params) {logger.info("message event triggered");};
+// function unfollow(params) {logger.info("unfollow event triggered");};
+// function message(params) {logger.info("message event triggered");};
 
 module.exports = LineController;

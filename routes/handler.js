@@ -48,6 +48,16 @@ success(router, lineBotId);
 receiver(router, client);
 receiverCancelledRequest(router, client);
 handler(router, axios, querystring, client);
-
+var LineController = require('../controller/line');
+router.post('/handler', function(req, res) {
+    logger.info('line handler triggered');
+    var lineController = new LineController();
+    var eventType = req.body.events[0].type;
+    lineController.eventHandler[eventType]({
+        req: req.body, 
+        client: client
+    })
+    res.send(true);
+});
 module.exports = router;
 

@@ -24,12 +24,9 @@ var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 
-var axios = require('axios');
-var querystring = require('querystring');
 var receiver = require('./questetra/receiver');
 var receiverCancelledRequest = require('./questetra/receiver-cancelled-request');
-var handler = require('./line/handler');
-
+var LineController = require('../controller/line');
 // db connection
 connection(mongoose, connectionURL);
 
@@ -47,21 +44,9 @@ success(router, lineBotId);
 
 receiver(router, client);
 receiverCancelledRequest(router, client);
-handler(router, axios, querystring, client);
-var LineController = require('../controller/line');
 
-function testController (req, res) {
-    logger.info('line handler triggered');
-    var lineController = new LineController();
-    var eventType = req.body.events[0].type;
-    lineController.eventHandler[eventType]({
-        req: req.body, 
-        client: client
-    })
-    res.send(true);
-}
 
-router.post('/handler', testController);
+router.post('/handler', LineController);
 
 
 module.exports = router;

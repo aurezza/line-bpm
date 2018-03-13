@@ -29,6 +29,10 @@ function handler(router, axios, querystring, client) {
         console.log("eventType", eventType);
         var ctrl = new Controller();
         console.log("ctrl", ctrl);   
+        ctrl.eventHandler[eventType]({
+            req: req.body, 
+            client: client
+        })
         // ctrl.eventType({
         //     req: req.body, 
         //     client: client})

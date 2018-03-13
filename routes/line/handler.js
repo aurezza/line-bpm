@@ -40,12 +40,9 @@ var LineController = ('../../controller/line');
 // }
 
 function handler(router, axios, querystring, client) {
-    var ctrl = new LineController();
     router.post('/handler', function(req, res) {
-        var eventType = req.body.events[0].type;
-         
-        
-        console.log("ctrl", ctrl);
+        console.log("LineController", LineController);
+        // var eventType = req.body.events[0].type;
         // ctrl.eventHandler[eventType]({
         //     req: req.body, 
         //     client: client
@@ -79,4 +76,5 @@ function handler(router, axios, querystring, client) {
 
 // eventHandler.unfollow = function(params) {logger.info("unfollow event");};
 // eventHandler.message = function(params) {logger.info("message event");};
+
 module.exports = handler;

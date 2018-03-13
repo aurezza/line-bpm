@@ -8,7 +8,7 @@
 // var sender = new Sender();
 // var Node = require('../../line/node');
 // var node = new Node();
-var LineController = ('../../controller/line');
+var LineController = require('../../controller/line');
 
 // function Controller() {}
 
@@ -42,11 +42,12 @@ var LineController = ('../../controller/line');
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
         console.log("LineController", LineController);
-        // var eventType = req.body.events[0].type;
-        // ctrl.eventHandler[eventType]({
-        //     req: req.body, 
-        //     client: client
-        // })
+        var lineController = new LineController();
+        var eventType = req.body.events[0].type;
+        lineController.eventHandler[eventType]({
+            req: req.body, 
+            client: client
+        })
         res.send(true);
     });
 }

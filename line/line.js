@@ -17,7 +17,7 @@ Line.prototype = {
     scanQrCode: scanQrCode
 };
 function checkManagerDetails(managerData, body, client) {
- 
+    logger.info('check manager details');
     let lineRequest = new LineRequest();
     let questetra = new Questetra();
 

@@ -2,8 +2,8 @@
 var logger = require('../../logger');
 var errorLocator = require('../node/error-locator');
 var Users = require('../../service/users');
-var Line = require('../../line/line');
-var line = new Line();
+var Line = require('../../line/line')();
+
 function receiver(router, client) {
     router.post('/receiveFromQuest', function(req, res) {
         var user = new Users();

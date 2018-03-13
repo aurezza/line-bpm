@@ -11,14 +11,14 @@ var Node = require('../line/node');
 var node = new Node();
 
 
-function LineController () {}
+function Controller() {}
 
-LineController.prototype = {
+Controller.prototype = {
     eventHandler: {
         follow: follow,
         unfollow: unfollow
     }
-        
+    
 };
 
 function follow(params) {
@@ -41,4 +41,4 @@ function unfollow(params) {
 }
 
 
-module.exports = LineController;
+module.exports = Controller;

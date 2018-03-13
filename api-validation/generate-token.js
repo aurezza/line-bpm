@@ -5,7 +5,7 @@ var logger = require('../logger');
 var retrieveByApiName = require('./retrieve-by-api-name');
 var saveApi = require('./save-api');
 var updateApi = require('./update-api');
-var Token = require('../routes/node/token-generator');
+var Token = require('../node/token-generator');
 
 // TODO: create proper UI for generating keys
 function generateToken(router) {

@@ -2,7 +2,7 @@
 var logger = require('../logger');
 var axios = require('axios');
 var querystring = require('querystring');
-var errorLocator = require('../routes/node/error-locator');
+var errorLocator = require('../node/error-locator');
 
 function Questetra() {}
 

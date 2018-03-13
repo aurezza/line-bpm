@@ -1,7 +1,7 @@
 'use strict';
 
 var logger = require('../logger');
-var errorLocator = require('../routes/node/error-locator');
+var errorLocator = require('../node/error-locator');
 var UserModel = require('../model/users');
 var userModel = new UserModel();
 var Line = require('../service/line');

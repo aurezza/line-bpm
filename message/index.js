@@ -1,4 +1,12 @@
-var localeChecker = require('../../locale/locale-checker');
+'use strict';
+var localeChecker = require('../locale/locale-checker');
+function Message () {}
+
+Message.prototype = {
+    messageContent: messageContent,
+    cancelledMessageContent: cancelledMessageContent
+};
+
 function messageContent(body) 
 {
     var localeText = localeChecker('jp', 'message-content');
@@ -21,4 +29,16 @@ function messageContent(body)
     return messageTemplate;
 }
 
-module.exports = messageContent;
+function cancelledMessageContent(body) {
+    var localeText = localeChecker('jp', 'message-content');
+    var messageTemplate = {
+        header: localeText.header.cancelledMessage + "\n",
+        text: localeText.text.name + " : " + body.user_name + "\n" +
+        localeText.text.overtimeDate + " : " + body.overtime_date + "\n" +
+        localeText.text.overTimeReason + " : " + body.reason + "\n",
+    }
+
+    return messageTemplate;
+}
+
+module.exports = Message;

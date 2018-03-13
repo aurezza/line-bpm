@@ -1,7 +1,7 @@
 'use strict';
 var RequestSchema = require('../schema/request-schema');
 var logger = require('../logger');
-var errorLocator = require('../routes/node/error-locator');
+var errorLocator = require('../node/error-locator');
 
 
 function Requests(requestData = {}) {

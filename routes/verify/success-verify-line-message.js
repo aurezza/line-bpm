@@ -1,7 +1,7 @@
 'use strict';
-var localeChecker = require('../locale/locale-checker');
+var localeChecker = require('../../locale/locale-checker');
 var logger = require('../../logger');
-var errorLocator = require('../node/error-locator');
+var errorLocator = require('../../node/error-locator');
 
 function successVerifyLineMessage(client, lineID)
 {

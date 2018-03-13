@@ -1,7 +1,7 @@
 'use strict';
 var checkValidatedUserData = require('./check-validated-user-data');
-var localeChecker = require('../locale/locale-checker');
-var errorLocator = require('../node/error-locator');
+var localeChecker = require('../../locale/locale-checker');
+var errorLocator = require('../../node/error-locator');
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var csrf = require('csurf');

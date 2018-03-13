@@ -1,13 +1,13 @@
 'use strict';
-var errorLocator = require('../routes/node/error-locator');
-var messageContent = require('../routes/questetra/message-text/message-content');
-var cancelledMessageContent = require('../routes/questetra/message-text/cancelled-message-content');
+var errorLocator = require('../node/error-locator');
+var Message = require('../message');
 var logger = require('../logger');
-var Token = require('../routes/node/token-generator');
+var Token = require('../node/token-generator');
 var AccessPassModel = require('../model/access-pass');
-var localeChecker = require('../routes/locale/locale-checker');
+var localeChecker = require('../locale/locale-checker');
 var RequestModel = require('../model/requests');
 let Questetra = require('./questetra');
+var textMessage = new Message();
 var questetra = new Questetra();
 function Line () {}
 
@@ -79,7 +79,7 @@ function scanQrCode(client, line_userId) {
 
 function sender(body, managerData, client) {
     logger.info('line request sender is triggered');
-    var messageText = messageContent(body);
+    var messageText = textMessage.messageContent(body);
     const message = {
         "type": "template",
         "altText": "this is a confirm template",
@@ -114,7 +114,7 @@ function sender(body, managerData, client) {
 
 function sendCancelledRequest(managerData, body, client) {
     logger.info('line sender of cancelled request is triggered');
-    var messageText = cancelledMessageContent(body);
+    var messageText = textMessage.cancelledMessageContent(body);
     const message = {
         type: 'text',
         text: messageText.header + messageText.text,

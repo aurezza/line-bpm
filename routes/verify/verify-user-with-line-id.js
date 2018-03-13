@@ -1,5 +1,5 @@
 'use strict';
-var localeChecker = require('../locale/locale-checker');
+var localeChecker = require('../../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
 var UserModel = require('../../model/users');

@@ -1,9 +1,9 @@
 'use strict'; 
 var verifyUserWithLineId = require('./verify-user-with-line-id');
-var localeChecker = require('../locale/locale-checker');
+var localeChecker = require('../../locale/locale-checker');
 var passport = require('passport');
 var logger = require('../../logger');
-var errorLocator = require('../node/error-locator');
+var errorLocator = require('../../node/error-locator');
 var employeeDetails = {};
 var UserModel = require('../../model/users');
 

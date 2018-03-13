@@ -14,31 +14,39 @@ function Controller() {
 
 Controller.prototype = {
     eventHandler: {
-        follow: follow
+        follow: follow,
+        unfollow: unfollow
     }
     
 };
 
-function follow() {
-    console.log('aa')
+function follow(params) {
+    var user = new Users();
+    let line_userId = params.req.events[0].source.userId;
+    var users = user.retrieveByLineId(line_userId);
+    users
+        .then(function (users) {
+            if (users) return  sender.userExist(params.client, line_userId, users.employee_name);
+            line.scanQrCode(params.client, line_userId);
+        })
+        .catch(function (error) {
+            logger.error(error.message);
+            logger.error(errorLocator());
+        });
+}
+
+function unfollow(params) {
+    logger.info("message event");    
 }
 
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
-        console.log("eventType", eventType);
-        var ctrl = new Controller();
-        console.log("ctrl", ctrl);   
+        var ctrl = new Controller();  
         ctrl.eventHandler[eventType]({
             req: req.body, 
             client: client
         })
-        // ctrl.eventType({
-        //     req: req.body, 
-        //     client: client})
-        // eventHandler[eventType]({
-        //     req: req.body, 
-        //     client: client});
         res.send(true);
     });
 }

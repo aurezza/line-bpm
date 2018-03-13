@@ -8,8 +8,9 @@ var Sender = require('../../line/sender');
 var sender = new Sender();
 var Node = require('../../line/node');
 var node = new Node();
-function Controller() {
-    
+function Controller(params) {
+    this.body = params.body;
+    this.client = params.client;  
 }
 
 Controller.prototype = {
@@ -20,14 +21,14 @@ Controller.prototype = {
     
 };
 
-function follow(params) {
+function follow() {
     var user = new Users();
-    let line_userId = params.req.events[0].source.userId;
+    let line_userId = this.body.events[0].source.userId;
     var users = user.retrieveByLineId(line_userId);
     users
         .then(function (users) {
-            if (users) return  sender.userExist(params.client, line_userId, users.employee_name);
-            line.scanQrCode(params.client, line_userId);
+            if (users) return  sender.userExist(this.client, line_userId, users.employee_name);
+            line.scanQrCode(this.client, line_userId);
         })
         .catch(function (error) {
             logger.error(error.message);
@@ -35,18 +36,18 @@ function follow(params) {
         });
 }
 
-function unfollow(params) {
-    logger.info("message event");    
+function unfollow() {
+    logger.info("unfollow event");    
 }
 
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
-        var ctrl = new Controller();  
-        ctrl.eventHandler[eventType]({
-            req: req.body, 
+        var ctrl = new Controller({
+            body: req.body, 
             client: client
-        })
+        });  
+        ctrl.eventHandler[eventType]();
         res.send(true);
     });
 }

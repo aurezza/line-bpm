@@ -8,53 +8,44 @@ var Sender = require('../../line/sender');
 var sender = new Sender();
 var Node = require('../../line/node');
 var node = new Node();
+var LineController = ('../../controller/line');
+function Controller() {}
 
-function Controller() {
-    function Controller(params) {
-        this.body = params.body;
-        this.client = params.client; 
-        console.log("this.body", this.body) 
+Controller.prototype = {
+    eventHandler: {
+        follow: follow,
+        unfollow: unfollow
     }
     
-    Controller.prototype = {
-        eventHandler: {
-            follow: follow,
-            unfollow: unfollow
-        }
-        
-    };
-    
-    function follow() {
-        console.log("this.body", this.body);
-        // var user = new Users();
-        // let line_userId = this.body.events[0].source.userId;
-        // var users = user.retrieveByLineId(line_userId);
-        // users
-        //     .then(function (users) {
-        //         if (users) return  sender.userExist(this.client, line_userId, users.employee_name);
-        //         line.scanQrCode(this.client, line_userId);
-        //     })
-        //     .catch(function (error) {
-        //         logger.error(error.message);
-        //         logger.error(errorLocator());
-        //     });
-    }
-    
-    function unfollow() {
-        logger.info("unfollow event");    
-    }
-    return Controller;
+};
+
+function follow(params) {
+    var user = new Users();
+    let line_userId = params.req.events[0].source.userId;
+    var users = user.retrieveByLineId(line_userId);
+    users
+        .then(function (users) {
+            if (users) return  sender.userExist(params.client, line_userId, users.employee_name);
+            line.scanQrCode(params.client, line_userId);
+        })
+        .catch(function (error) {
+            logger.error(error.message);
+            logger.error(errorLocator());
+        });
 }
 
+function unfollow(params) {
+    logger.info("message event");    
+}
 
 function handler(router, axios, querystring, client) {
     router.post('/handler', function(req, res) {
         var eventType = req.body.events[0].type;
-        var ctrl = new Controller({
-            body: req.body.source, 
+        var ctrl = new LineController();  
+        ctrl.eventHandler[eventType]({
+            req: req.body, 
             client: client
-        });  
-        ctrl.eventHandler[eventType]();
+        })
         res.send(true);
     });
 }

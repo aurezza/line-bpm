@@ -22,18 +22,20 @@ Controller.prototype = {
 };
 
 function follow() {
-    var user = new Users();
-    let line_userId = this.body.events[0].source.userId;
-    var users = user.retrieveByLineId(line_userId);
-    users
-        .then(function (users) {
-            if (users) return  sender.userExist(this.client, line_userId, users.employee_name);
-            line.scanQrCode(this.client, line_userId);
-        })
-        .catch(function (error) {
-            logger.error(error.message);
-            logger.error(errorLocator());
-        });
+
+    console.log(this.body);
+    // var user = new Users();
+    // let line_userId = this.body.events[0].source.userId;
+    // var users = user.retrieveByLineId(line_userId);
+    // users
+    //     .then(function (users) {
+    //         if (users) return  sender.userExist(this.client, line_userId, users.employee_name);
+    //         line.scanQrCode(this.client, line_userId);
+    //     })
+    //     .catch(function (error) {
+    //         logger.error(error.message);
+    //         logger.error(errorLocator());
+    //     });
 }
 
 function unfollow() {

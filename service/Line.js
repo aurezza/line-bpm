@@ -6,7 +6,7 @@ var Token = require('../node/token-generator');
 var AccessPassModel = require('../model/AccessPassModel');
 var localeChecker = require('../locale/locale-checker');
 var RequestModel = require('../model/RequestModel');
-let Questetra = require('./questetra');
+let Questetra = require('./Questetra');
 var textMessage = new Message();
 var questetra = new Questetra();
 

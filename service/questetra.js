@@ -51,7 +51,7 @@ function incomingMessage(instanceId, isMessageSent) {
 function outgoingMessage(postBack, client, line_userId) {
     let Line = require('./line');
     let line = new Line();
-    let RequestModel = require('../model/requests');
+    let RequestModel = require('../model/RequestModel');
     let request = new RequestModel();
 
     var parsedData = (querystring.parse(postBack.data));

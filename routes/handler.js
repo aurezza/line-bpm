@@ -23,9 +23,9 @@ var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
-var LineController = require('../controller/line');
+var LineController = require('../controller/LineController');
 var lineController = new LineController();
-var QuestetraController = require('../controller/questetra');
+var QuestetraController = require('../controller/QuestetraController');
 var quesController = new QuestetraController();
 // db connection
 connection(mongoose, connectionURL);

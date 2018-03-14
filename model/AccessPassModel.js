@@ -2,7 +2,7 @@
 var accessPassSchema = require('../schema/access-pass-schema');
 var logger = require('../logger');
 
-function AccessPass(accessPassData = {}) {
+function AccessPassModel(accessPassData = {}) {
     //constructor
     this.access_pass_token = accessPassData.access_pass_token || null ;
     this.line_id = accessPassData.access_pass_token || null ;
@@ -10,7 +10,7 @@ function AccessPass(accessPassData = {}) {
 
 }
 
-AccessPass.prototype = {
+AccessPassModel.prototype = {
     save: save,
     changeAccessPass: changeAccessPass,
     expireAccessPass: expireAccessPass,
@@ -81,4 +81,4 @@ function retrieve (lineId, token) {
 }
 
 
-module.exports = AccessPass;
+module.exports = AccessPassModel;

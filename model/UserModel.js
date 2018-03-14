@@ -3,7 +3,7 @@ var UserSchema = require('../schema/user-schema');
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 
-function Users(userData  = {}) {
+function UserModel(userData  = {}) {
     //constructor
     this.employee_id = userData.employee_id || null;
     this.employee_name = userData.employee_name || null;
@@ -12,7 +12,7 @@ function Users(userData  = {}) {
     this.locale = userData.locale || null;
 }
 
-Users.prototype = {
+UserModel.prototype = {
     save: save,
     retrieveByLineId: retrieveByLineId,
     retrieveByEmpId: retrieveByEmpId,
@@ -70,4 +70,4 @@ function retriveByEmpEmail (receivedEmployeeEmail) {
     return users;
 }
 
-module.exports = Users;
+module.exports = UserModel;

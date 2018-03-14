@@ -1,11 +1,11 @@
 'use strict';
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
-var UserModel = require('../model/users');
+var UserModel = require('../model/UserModel');
 var userModel = new UserModel();
-var LineService = require('../service/line');
+var LineService = require('../service/Line');
 var lineService = new LineService();
-var RequestModel = require('../model/requests');
+var RequestModel = require('../model/RequestModel');
 var requestModel = new RequestModel();
 const line = require('@line/bot-sdk');
 const config = {
@@ -14,9 +14,9 @@ const config = {
 };
 const client = new line.Client(config);
 
-function Questetra() {}
+function QuestetraController() {}
 
-Questetra.prototype = {
+QuestetraController.prototype = {
     recieveFromQuest: recieveFromQuest,
     receiverCancelledRequest: receiverCancelledRequest
 };
@@ -56,4 +56,4 @@ function receiverCancelledRequest(req, res) {
 
 }
 
-module.exports = Questetra;
+module.exports = QuestetraController;

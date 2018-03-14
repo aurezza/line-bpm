@@ -4,8 +4,8 @@ var logger = require('../../logger');
 var errorLocator = require('../../node/error-locator');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
-var UserModel = require('../../model/users');
-var AccessPassModel = require('../../model/access-pass');
+var UserModel = require('../../model/UserModel');
+var AccessPassModel = require('../../model/AccessPassModel');
 function verify(router, lineBotId) {
     router.get('/verify/:token/:line_id', csrfProtection, function(req, res) {
         var localeText = localeChecker('jp', 'verify-content');

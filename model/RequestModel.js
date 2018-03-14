@@ -4,7 +4,7 @@ var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 
 
-function Requests(requestData = {}) {
+function RequestModel(requestData = {}) {
     //constructor
     this.user_name = requestData.user_name || null;
     this.overtime_date = requestData.overtime_date || null;
@@ -14,7 +14,7 @@ function Requests(requestData = {}) {
     this.manager_email = requestData.manager_email || null;
 }
 
-Requests.prototype = {
+RequestModel.prototype = {
     save: save,
     retrieve: retrieve,
     updateToCancel: updateToCancel,
@@ -76,4 +76,4 @@ function updateToApproveDisapprove(requestData) {
         );        
 }
 
-module.exports = Requests;
+module.exports = RequestModel;

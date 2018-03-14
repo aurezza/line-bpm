@@ -2,8 +2,8 @@
 var localeChecker = require('../../locale/locale-checker');
 var logger = require('../../logger');
 var successVerifyLineMessage = require('./success-verify-line-message');
-var UserModel = require('../../model/users');
-var AccessPassModel = require('../../model/access-pass');
+var UserModel = require('../../model/UserModel');
+var AccessPassModel = require('../../model/AccessPassModel');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
     var userModel = new UserModel(employeeDetails);

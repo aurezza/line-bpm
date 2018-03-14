@@ -2,11 +2,11 @@
 
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
-var UserModel = require('../model/users');
+var UserModel = require('../model/UserModel');
 var userModel = new UserModel();
-var Line = require('../service/line');
+var Line = require('../service/Line');
 var lineService = new Line();
-var Questetra = require('../service/questetra');
+var Questetra = require('../service/Questetra');
 var questetra = new Questetra();
 const line = require('@line/bot-sdk');
 const config = {

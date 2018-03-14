@@ -5,7 +5,7 @@ var passport = require('passport');
 var logger = require('../../logger');
 var errorLocator = require('../../node/error-locator');
 var employeeDetails = {};
-var UserModel = require('../../model/users');
+var UserModel = require('../../model/UserModel');
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db

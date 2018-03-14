@@ -6,7 +6,7 @@ const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
-var AccessPassModel = require('../../model/access-pass');
+var AccessPassModel = require('../../model/AccessPassModel');
 // locale checker
 var localeText = localeChecker('jp', 'verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;

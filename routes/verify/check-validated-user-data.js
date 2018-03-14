@@ -9,8 +9,7 @@ var UserModel = require('../../model/UserModel');
 
 function checkValidatedUserData(req, res, client, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
-    var userModel = new UserModel({line_id: lineID});
-    var users = userModel.retrieveByLineId(lineID); 
+    var users = UserModel().retrieveByLineId(lineID); 
     var localeText = localeChecker('jp', 'verify-content');
 
     if (!validatedUserData) return logger.error("User data not validated");

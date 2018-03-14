@@ -7,10 +7,10 @@ var AccessPassModel = require('../model/AccessPassModel');
 var localeChecker = require('../locale/locale-checker');
 var RequestModel = require('../model/RequestModel');
 let Questetra = require('./Questetra');
-var textMessage = new Message();
-var questetra = new Questetra();
 
-function Line () {}
+function Line () {
+    if (!(this instanceof Line)) return new Line();
+}
 
 Line.prototype = {
     checkManagerDetails: checkManagerDetails,
@@ -35,15 +35,14 @@ function checkManagerDetails(managerData, body, client) {
         }
     };
 
-    questetra.reply(axiosParameters);
+    Questetra().reply(axiosParameters);
     
 }
 
 function notifyUserResponded(retrievedRequestData, client, line_userId, parsedData) { 
-
-    let requestModel = new RequestModel();   
+ 
     if (retrievedRequestData != null) return responded(retrievedRequestData, client, line_userId);
-    requestModel.updateToApproveDisapprove(parsedData);
+    RequestModel().updateToApproveDisapprove(parsedData);
     
 }
 
@@ -51,14 +50,13 @@ function scanQrCode(client, line_userId) {
     logger.info('scan qr code');
     var generate = new Token(line_userId);
     var token = generate.get();
-    var accessPass = new AccessPassModel();
-    var owner = accessPass.retrieveLineId(line_userId);
+    var owner = AccessPassModel().retrieveLineId(line_userId);
     owner
         .then(function(owner) {
             if (owner) {
-                accessPass.changeAccessPass(line_userId, token)
+                AccessPassModel().changeAccessPass(line_userId, token)
             } else {
-                accessPass.save(token, line_userId)
+                AccessPassModel().save(token, line_userId)
             }            
             var localeText = localeChecker('jp', 'scan-qr-code');
             var url = process.env.APP_URL + 'verify/' + token + '/';
@@ -80,7 +78,7 @@ function scanQrCode(client, line_userId) {
 
 function sender(body, managerData, client) {
     logger.info('line request sender is triggered');
-    var messageText = textMessage.messageContent(body);
+    var messageText = Message().messageContent(body);
     const message = {
         "type": "template",
         "altText": "this is a confirm template",
@@ -115,7 +113,7 @@ function sender(body, managerData, client) {
 
 function sendCancelledRequest(managerData, body, client) {
     logger.info('line sender of cancelled request is triggered');
-    var messageText = textMessage.cancelledMessageContent(body);
+    var messageText = Message().cancelledMessageContent(body);
     const message = {
         type: 'text',
         text: messageText.header + messageText.text,
@@ -155,14 +153,13 @@ function responded(retrievedRequestData, client, line_userId) {
 
 
 function clientPushMessage(client, line_userId, message, body) {
-    var requestModel = new RequestModel(); 
     client.pushMessage(line_userId, message)
         .then(() => {
             
             logger.info("message sent to " + line_userId);
             if (!body) return;
             logger.info("serviceRequest.save");
-            requestModel.save({
+            RequestModel().save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
@@ -170,14 +167,14 @@ function clientPushMessage(client, line_userId, message, body) {
                 status: 'pending',
                 manager_email: body.manager_email,       
             })
-            questetra.incomingMessage(body.process_id, 'yes');     
+            Questetra().incomingMessage(body.process_id, 'yes');     
         })
         .catch((error) => {
             logger.error(error.message);
             logger.error(errorLocator());
             if (!body) return;
             logger.info("serviceRequest.save");
-            requestModel.save({
+            RequestModel().save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
@@ -185,7 +182,7 @@ function clientPushMessage(client, line_userId, message, body) {
                 status: 'failed',
                 manager_email: body.manager_email,       
             })
-            questetra.incomingMessage(body.process_id, 'no'); 
+            Questetra().incomingMessage(body.process_id, 'no'); 
         });
  
 }

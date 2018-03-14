@@ -6,16 +6,14 @@ var UserModel = require('../../model/UserModel');
 var AccessPassModel = require('../../model/AccessPassModel');
 function verifyUserWithLineId(employeeDetails, res, client, lineID, lineBotId) {
     var localeText = localeChecker('jp', 'verify-content');
-    var userModel = new UserModel(employeeDetails);
-    var accessPass = new AccessPassModel();
-    var userWithLineId = userModel.retrieveByEmpId(employeeDetails.employee_id);
+    var userWithLineId = UserModel().retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(userWithLineId) {
         if (!userWithLineId) {
             
-            userModel.save(employeeDetails);
+            UserModel().save(employeeDetails);
             successVerifyLineMessage(client, lineID);
-            accessPass.expireAccessPass(lineID);
+            AccessPassModel().expireAccessPass(lineID);
             return res.redirect('/success');
         }
 

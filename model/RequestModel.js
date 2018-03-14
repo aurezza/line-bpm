@@ -4,14 +4,9 @@ var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 
 
-function RequestModel(requestData = {}) {
+function RequestModel() {
     //constructor
-    this.user_name = requestData.user_name || null;
-    this.overtime_date = requestData.overtime_date || null;
-    this.process_id = requestData.process_id || null;
-    this.reason = requestData.reason || null;
-    this.status = requestData.status || null;
-    this.manager_email = requestData.manager_email || null;
+    if (!(this instanceof RequestModel)) return new RequestModel();
 }
 
 RequestModel.prototype = {
@@ -32,7 +27,7 @@ function save (requestData) {
     newRequest.manager_email = requestData.manager_email;
     
     newRequest.save()
-        .then(function(savedObject) {
+        .then(function() {
             logger.info('data saved');
         })
         .catch(function(error) {

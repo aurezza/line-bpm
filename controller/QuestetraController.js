@@ -2,11 +2,9 @@
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 var UserModel = require('../model/UserModel');
-var userModel = new UserModel();
 var LineService = require('../service/Line');
 var lineService = new LineService();
 var RequestModel = require('../model/RequestModel');
-var requestModel = new RequestModel();
 const line = require('@line/bot-sdk');
 const config = {
     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
@@ -14,7 +12,9 @@ const config = {
 };
 const client = new line.Client(config);
 
-function QuestetraController() {}
+function QuestetraController() {
+    if (!(this instanceof QuestetraController)) return new QuestetraController();
+}
 
 QuestetraController.prototype = {
     recieveFromQuest: recieveFromQuest,
@@ -23,7 +23,7 @@ QuestetraController.prototype = {
 
 function recieveFromQuest(req, res) {
     var managerData = {};
-    var users = userModel.retriveByEmpEmail(req.body.manager_email);
+    var users = UserModel().retriveByEmpEmail(req.body.manager_email);
     
     users.then(function(users) {
         managerData = users;
@@ -38,10 +38,10 @@ function recieveFromQuest(req, res) {
 
 function receiverCancelledRequest(req, res) {
 
-    requestModel.updateToCancel(req.body)
+    RequestModel().updateToCancel(req.body)
 
     var managerData = {};
-    var users = userModel.retriveByEmpEmail(req.body.manager_email);
+    var users = UserModel().retriveByEmpEmail(req.body.manager_email);
     
     users.then(function(users) {
         managerData = users;

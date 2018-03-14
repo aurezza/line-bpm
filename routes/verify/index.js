@@ -11,9 +11,7 @@ function verify(router, lineBotId) {
         var localeText = localeChecker('jp', 'verify-content');
         var lineID = req.params.line_id;
         var token = req.params.token;
-        var userModel = new UserModel();
-        var accessPass = new AccessPassModel();
-        var users = userModel.retrieveByLineId(lineID);    
+        var users = UserModel().retrieveByLineId(lineID);    
         users.then(function(users) {
             if (users) {
                 logger.warn("The line ID:", lineID, "is already verified");
@@ -23,7 +21,7 @@ function verify(router, lineBotId) {
                     lineBotId: lineBotId
                 })
             }
-            var retrievedAccessPass = accessPass.retrieve(lineID, token);
+            var retrievedAccessPass = AccessPassModel().retrieve(lineID, token);
             retrievedAccessPass
                 .then(function(retrievedAccessPass) {
                     if (retrievedAccessPass == null) {

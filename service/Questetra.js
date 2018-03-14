@@ -4,7 +4,9 @@ var axios = require('axios');
 var querystring = require('querystring');
 var errorLocator = require('../node/error-locator');
 
-function Questetra() {}
+function Questetra() {
+    if (!(this instanceof Questetra)) return new Questetra();
+}
 
 Questetra.prototype = {
     reply: reply,

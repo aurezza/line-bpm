@@ -13,7 +13,6 @@ var notEmpty = localeText.error.mustNotBeEmpty;
 
 function verifyUser(router, client, logger, lineBotId) {
     // needs additional validation for schema
-    var accessPass = new AccessPassModel();
     router.post('/verify/:token/:lineID', [
         check('username', notEmpty)
             .isLength({ min: 1})
@@ -28,7 +27,7 @@ function verifyUser(router, client, logger, lineBotId) {
     function(req, res) {
         var lineID = req.params.lineID;
         var token = req.params.token;
-        var retrivedAccessPass = accessPass.retrieve(lineID, token);
+        var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
         retrivedAccessPass
             .then(function(retrivedAccessPass) {
                 if (retrivedAccessPass == null) {

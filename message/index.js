@@ -1,6 +1,8 @@
 'use strict';
 var localeChecker = require('../locale/locale-checker');
-function Message () {}
+function Message () {
+    if (!(this instanceof Message)) return new Message();
+}
 
 Message.prototype = {
     messageContent: messageContent,

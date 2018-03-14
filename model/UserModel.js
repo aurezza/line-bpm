@@ -3,13 +3,8 @@ var UserSchema = require('../schema/user-schema');
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 
-function UserModel(userData  = {}) {
-    //constructor
-    this.employee_id = userData.employee_id || null;
-    this.employee_name = userData.employee_name || null;
-    this.employee_email = userData.employee_email || null;
-    this.line_id = userData.line_id || null;
-    this.locale = userData.locale || null;
+function UserModel() {
+    if (!(this instanceof UserModel)) return new UserModel();
 }
 
 UserModel.prototype = {
@@ -29,7 +24,7 @@ function save(userData) {
     newUser.locale = userData.locale;
         
     newUser.save()
-        .then(function(savedObject) {
+        .then(function() {
             logger.info('data saved');
         })
         .catch(function(error) {

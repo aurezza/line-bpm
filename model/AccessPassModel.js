@@ -2,12 +2,9 @@
 var accessPassSchema = require('../schema/access-pass-schema');
 var logger = require('../logger');
 
-function AccessPassModel(accessPassData = {}) {
+function AccessPassModel() {
     //constructor
-    this.access_pass_token = accessPassData.access_pass_token || null ;
-    this.line_id = accessPassData.access_pass_token || null ;
-    this.status = accessPassData.access_pass_token || null ;
-
+    if (!(this instanceof AccessPassModel)) return new AccessPassModel();
 }
 
 AccessPassModel.prototype = {

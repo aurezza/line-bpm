@@ -12,6 +12,9 @@ LineEventHandler.prototype = {
 };
 
 function follow(params) {
+    let line_userId = params.req.events[0].source.userId;
+
+    console.log("line_userId", line_userId);
     console.log("follow")
 }
 

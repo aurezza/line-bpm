@@ -6,7 +6,8 @@ function LineEventHandler() {
 
 LineEventHandler.prototype = {
     eventHandler: {
-        follow: follow
+        follow: follow,
+        unfollow: unfollow
     }
 };
 

@@ -9,6 +9,7 @@ var RequestModel = require('../model/requests');
 let Questetra = require('./questetra');
 var textMessage = new Message();
 var questetra = new Questetra();
+
 function Line () {}
 
 Line.prototype = {

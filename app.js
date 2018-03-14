@@ -11,7 +11,6 @@ var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var env = require('node-env-file');
-const line = require('@line/bot-sdk');
 var logger = require('./logger');
 
 const app = express();
@@ -21,15 +20,6 @@ env(__dirname + '/.env');
 const port = process.env.PORT || 4000;
 
 var handler = require('./routes/handler');
-
-// create LINE SDK config from env variables
-const config = {
-    channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-    channelSecret: process.env.LINE_BOT_CHANNEL_SECRET
-};
-
-// create LINE SDK client
-const client = new line.Client(config);
 
 app.get('/robots.txt', function (req, res) {
     res.type('text/plain');

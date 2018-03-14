@@ -16,8 +16,9 @@ const config = {
 
 const client = new line.Client(config);
 
-
-function LineController () {}
+function LineController () {
+    if (!(this instanceof LineController)) return new LineController();
+}
 
 LineController.prototype = {
     eventTrigger: eventTrigger

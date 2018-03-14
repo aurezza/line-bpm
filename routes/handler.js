@@ -24,7 +24,6 @@ var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 var LineController = require('../controller/LineController');
-var lineController = new LineController();
 var QuestetraController = require('../controller/QuestetraController');
 var quesController = new QuestetraController();
 // db connection
@@ -41,9 +40,9 @@ generateToken(router);
 verify(router, lineBotId);
 verifyUser(router, client, logger, lineBotId);
 success(router, lineBotId);
-
+console.log("LineController", LineController());
 router.post('/receiverCancelledRequest', quesController.receiverCancelledRequest);
 router.post('/receiveFromQuest', quesController.recieveFromQuest);
-router.post('/handler', lineController.eventTrigger);
+router.post('/handler', LineController().eventTrigger);
 
 module.exports = router;

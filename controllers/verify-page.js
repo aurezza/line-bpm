@@ -60,6 +60,7 @@ function showVerifyPage (req, res) {
                         verified: false
                     };
                     RenderPage().setData(dataForRendering);
+                    logger.info('dataForRendering: ', dataForRendering);
                     logger.info("lineID: ", RenderPage().getData().lineID, lineID);
                     res.render('verify', RenderPage());  
                 })

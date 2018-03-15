@@ -12,13 +12,8 @@ function RenderPage(pageData = {}) {
     this.verifyButtonText = localeText.button.verify;
     this.usernamePlaceholder = localeText.placeHolder.username;
     this.passwordPlaceholder = localeText.placeHolder.password;
-    // this.lineID = null;
-    // this.csrfToken = null;
-    // this.username = null;
-    // this.verified =  null;
     this.error = undefined;
     this.errors = undefined;
-    // this.customError = null;
 
     if (!(this instanceof RenderPage)) return new RenderPage();
 }

@@ -7,7 +7,7 @@ var connection = require('../mongo/connection');
 var passportTmj = require('../passport/passport-tmj');
 var apiValidation = require('../api-validation');
 var generateToken = require('../api-validation/generate-token');
-var verifyUser = require('./verify/verify-user');
+var verify = require('./verify');
 const line = require('@line/bot-sdk');
 const config = {
     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
@@ -28,7 +28,7 @@ var handler = require('./line/handler');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
-var Verify = require('../../controllers/verify-page');
+var Verify = require('../controllers/verify-page');
 var renderVerify = new Verify();
 
 // db connection
@@ -43,7 +43,7 @@ generateToken(router);
 
 // verify page
 router.get('/verify/:token/:line_id', csrfProtection, renderVerify.showVerifyPage);
-verifyUser(router, client, logger);
+verify(router, client, logger);
 router.get('/success', renderVerify.showVerifySuccess);
 
 receiver(router, client);

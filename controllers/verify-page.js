@@ -26,21 +26,21 @@ function showVerifyPage (req, res) {
     var localeText = localeChecker('jp', 'verify-content');
     var lineID = req.params.line_id;
     var token = req.params.token;
-    var user = new Users();
-    var accessPass = new AccessPass();
-    var renderPage = new RenderPage();
+    // var user = new Users();
+    // var accessPass = new AccessPass();
+    // var renderPage = new RenderPage();
 
-    var users = user.retrieveByLineId(lineID);
+    var users = Users().retrieveByLineId(lineID);
     users
         .then(function(data) {
             if (data) {
                 logger.warn("The line ID:", lineID, "is already verified");
-                renderPage.errorForm.message = localeText.errorMessageLineIdExists;
-                renderPage.errorForm.backButtonText = localeText.button.back;
-                return res.render('verify-error', renderPage.errorForm());
+                RenderPage().errorForm.message = localeText.errorMessageLineIdExists;
+                RenderPage().errorForm.backButtonText = localeText.button.back;
+                return res.render('verify-error', RenderPage().errorForm());
             }
 
-            var retrievedAccessPass = accessPass.retrieve(lineID, token);
+            var retrievedAccessPass = AccessPass().retrieve(lineID, token);
             retrievedAccessPass
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {
@@ -49,11 +49,11 @@ function showVerifyPage (req, res) {
                         })
                     }
                     logger.info("verify page has loaded...");   
-                    renderPage.lineID = lineID;
-                    renderPage.token = token;
-                    renderPage.csrfToken = req.csrfToken();
-                    renderPage.verified =  false,
-                    res.render('verify', renderPage);  
+                    RenderPage().lineID = lineID;
+                    RenderPage().token = token;
+                    RenderPage().csrfToken = req.csrfToken();
+                    RenderPage().verified =  false,
+                    res.render('verify', RenderPage());  
                 })
                 .catch(function(error) {
                     logger.error(error.message);
@@ -67,18 +67,18 @@ function showVerifyPage (req, res) {
 }
 
 function showVerifySuccess (req, res) {
-    var renderPage = new RenderPage();
-    res.render('success', renderPage.successForm());
+    // var renderPage = new RenderPage();
+    res.render('success', RenderPage().successForm());
 }
 
 function checkVerifyFormData(req, res) {
     var localeText = localeChecker('jp', 'verify-content');
-    var renderPage = new RenderPage();
-    var lineConfig = new LineConfiguration();
+    // var renderPage = new RenderPage();
+    // var lineConfig = new LineConfiguration();
     var lineID = req.params.lineID;
     var token = req.params.token;
-    var accessPass = new AccessPass();
-    var retrivedAccessPass = accessPass.retrieve(lineID, token);
+    // var accessPass = new AccessPass();
+    var retrivedAccessPass = AccessPass().retrieve(lineID, token);
     retrivedAccessPass
         .then(function(retrivedAccessPassData) {
             if (retrivedAccessPassData == null) {
@@ -91,19 +91,19 @@ function checkVerifyFormData(req, res) {
             const validatedUserData = matchedData(req);
             if (!errors.isEmpty()) {  
                 logger.warn('Field must not be empty');
-                renderPage.title = localeText.pageTitle.title;
-                renderPage.lineID = lineID;
-                renderPage.token = token;
-                renderPage.csrfToken = req.body._csrf;
-                renderPage.username = validatedUserData.username;
-                renderPage.verified = true;
-                renderPage.error = errors.array({
+                RenderPage().title = localeText.pageTitle.title;
+                RenderPage().lineID = lineID;
+                RenderPage().token = token;
+                RenderPage().csrfToken = req.body._csrf;
+                RenderPage().username = validatedUserData.username;
+                RenderPage().verified = true;
+                RenderPage().error = errors.array({
                     onlyFirstError: true
                 });
-                return res.render('verify', renderPage);  
+                return res.render('verify', RenderPage());  
             }
 
-            checkValidatedUserData(req, res, lineID, validatedUserData, lineConfig.lineBotId, token);   
+            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineBotId, token);   
         })
         .catch(function(error) {
             logger.error(error.message);
@@ -115,42 +115,42 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
     // check if user is in local db
     var employeeDetails = {};
     var localeText = localeChecker('jp', 'verify-content');
-    var renderPage = new RenderPage();
-    var user = new Users({line_id: lineID});;
-    var users = user.retrieveByLineId(lineID); 
+    // var renderPage = new RenderPage();
+    // var user = new Users({line_id: lineID});;
+    var users = Users({line_id: lineID}).retrieveByLineId(lineID); 
 
     if (!validatedUserData) return logger.error("User data not validated");
-    users.then(function(users) {
-        if (users) {
+    users.then(function(data) {
+        if (data) {
             logger.info("The line ID:", lineID, "is already verified");
-            renderPage.title = localeText.pageTitle.title,
-            renderPage.lineID = lineID,
-            renderPage.verified = true,
-            renderPage.errors = 'localDbError';
-            renderPage.customError = localeText.error.lineIdAlreadyExists;
-            return res.render('verify', renderPage);
+            RenderPage().title = localeText.pageTitle.title,
+            RenderPage().lineID = lineID,
+            RenderPage().verified = true,
+            RenderPage().errors = 'localDbError';
+            RenderPage().customError = localeText.error.lineIdAlreadyExists;
+            return res.render('verify', RenderPage());
         }
         
         passport.authenticate('tmj', function(err, user, info) {
             var throwErr = err || info;         
             if (throwErr) {
                 logger.error(throwErr.message);
-                renderPage.title = localeText.pageTitle.title,
-                renderPage.lineID = lineID,
-                renderPage.verified = true,
-                renderPage.errors = 'bpmsDbError';
-                renderPage.customError = localeText.error.wrongCredentials;
-                renderPage.csrfToken = req.body._csrf;
-                renderPage.token = token;
+                RenderPage().title = localeText.pageTitle.title,
+                RenderPage().lineID = lineID,
+                RenderPage().verified = true,
+                RenderPage().errors = 'bpmsDbError';
+                RenderPage().customError = localeText.error.wrongCredentials;
+                RenderPage().csrfToken = req.body._csrf;
+                RenderPage().token = token;
                 res.status(400);
-                return res.render('verify', renderPage);               
+                return res.render('verify', RenderPage());               
             }
             req.logIn(user, function(err) {
                 if (err) {
                     logger.error("Error 404: ", err.message);
-                    renderPage.message = err.message;
-                    renderPage.csrfToken = req.body._csrf;
-                    return res.status(400).render('verify-error', renderPage.errorForm());                   
+                    RenderPage().message = err.message;
+                    RenderPage().csrfToken = req.body._csrf;
+                    return res.status(400).render('verify-error', RenderPage().errorForm());                   
                 }
                 
                 employeeDetails = {
@@ -172,26 +172,26 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
     var localeText = localeChecker('jp', 'verify-content');
-    var renderPage = new RenderPage();
-    var user = new Users(employeeDetails);
-    var accessPass = new AccessPass();
-    var userWithLineId = user.retrieveByEmpId(employeeDetails.employee_id);
+    // var renderPage = new RenderPage();
+    // var user = new Users(employeeDetails);
+    // var accessPass = new AccessPass();
+    var userWithLineId = Users(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(data) {
         if (!data) {
-            user.save(employeeDetails);
+            Users().save(employeeDetails);
             successVerifyLineMessage(lineID);
-            accessPass.expireAccessPass(lineID);
+            AccessPass().expireAccessPass(lineID);
             return res.redirect('/success');
         }
 
         logger.info("This user:", employeeDetails.employee_id, "is already verified");
-        renderPage.title = localeText.pageTitle.title;
-        renderPage.lineID = lineID;
-        renderPage.verified = true;
-        renderPage.errors = 'localDbError';
-        renderPage.customError = localeText.error.employeeIdAlreadyExists;
-        return res.render('verify', renderPage);    
+        RenderPage().title = localeText.pageTitle.title;
+        RenderPage().lineID = lineID;
+        RenderPage().verified = true;
+        RenderPage().errors = 'localDbError';
+        RenderPage().customError = localeText.error.employeeIdAlreadyExists;
+        return res.render('verify', RenderPage());    
 
     })
         .catch(function(error) {
@@ -201,7 +201,7 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 
 function successVerifyLineMessage(lineID)
 {
-    var lineConfig = new LineConfiguration();
+    // var lineConfig = new LineConfiguration();
     var localeText = localeChecker('jp', 'success-message');
     logger.info(lineID + " has been successfully verified");
     var msgContent = localeText.successTextMessage;
@@ -211,7 +211,7 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
     
-    lineConfig.lineConfiguration().pushMessage(lineID, message)
+    LineConfiguration().lineConfiguration().pushMessage(lineID, message)
         .then(() => {
             logger.info("message sent to " + lineID);    
         })

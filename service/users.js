@@ -10,6 +10,8 @@ function Users(userData  = {}) {
     this.employee_email = userData.employee_email || null;
     this.line_id = userData.line_id || null;
     this.locale = userData.locale || null;
+    
+    if (!(this instanceof Users)) return new Users();
 }
 
 Users.prototype = {

@@ -8,6 +8,7 @@ function AccessPass(accessPassData = {}) {
     this.line_id = accessPassData.access_pass_token || null ;
     this.status = accessPassData.access_pass_token || null ;
 
+    if (!(this instanceof AccessPass)) return new AccessPass();
 }
 
 AccessPass.prototype = {

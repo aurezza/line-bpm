@@ -7,7 +7,7 @@ var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 // setting default variables
 function RenderPage(pageData = {}) {
     var localeText = localeChecker('jp', 'verify-content');
-    this.title = localeText.panelTitle || undefined;
+    this.title = localeText.panelTitle || null;
     this.panelTitle = localeText.label.panelTitle;
     this.verifyButtonText = localeText.button.verify;
     this.usernamePlaceholder = localeText.placeHolder.username;

@@ -4,14 +4,13 @@ var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 
 function Users(userData  = {}) {
+    if (!(this instanceof Users)) return new Users();
     //constructor
     this.employee_id = userData.employee_id || null;
     this.employee_name = userData.employee_name || null;
     this.employee_email = userData.employee_email || null;
     this.line_id = userData.line_id || null;
     this.locale = userData.locale || null;
-    
-    if (!(this instanceof Users)) return new Users();
 }
 
 Users.prototype = {

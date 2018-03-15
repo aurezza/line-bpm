@@ -51,10 +51,8 @@ function incomingMessage(instanceId, isMessageSent) {
 }
 
 function outgoingMessage(postBack, client, line_userId) {
-    let Line = require('./line');
-    let line = new Line();
+    let Line = require('./Line');
     let RequestModel = require('../model/RequestModel');
-    let request = new RequestModel();
 
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {
@@ -66,11 +64,11 @@ function outgoingMessage(postBack, client, line_userId) {
             q_replymessage: parsedData.q_replymessage
         }
     };
-    var retrievedRequestData = request.retrieve(parsedData.processInstanceId);
+    var retrievedRequestData = RequestModel().retrieve(parsedData.processInstanceId);
 
     retrievedRequestData
         .then(function (retrievedRequestData) {
-            line.notifyUserResponded(retrievedRequestData, client, line_userId, parsedData);
+            Line().notifyUserResponded(retrievedRequestData, client, line_userId, parsedData);
         })
         .catch(function (error) {
             logger.error(error.message);

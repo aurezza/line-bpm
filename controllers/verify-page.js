@@ -62,7 +62,7 @@ function showVerifyPage (req, res) {
                     RenderPage().fetchData(dataForRendering);
                     logger.info('dataForRendering: ', dataForRendering);
                     logger.info("lineID: ", RenderPage().fetchData, lineID);
-                    res.render('verify', RenderPage());  
+                    res.render('verify', RenderPage().fetchData(dataForRendering));  
                 })
                 .catch(function(error) {
                     logger.error(error.message);

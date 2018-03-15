@@ -5,17 +5,8 @@ var localeChecker = require('../routes/locale/locale-checker');
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
 // setting default variables
-function RenderPage(pageData = {}) {
-    if (!(this instanceof RenderPage)) return new RenderPage(pageData);
-
-    var localeText = localeChecker('jp', 'verify-content');
-
-    this.title = localeText.panelTitle || null;
-    this.panelTitle = localeText.label.panelTitle;
-    this.verifyButtonText = localeText.button.verify;
-    this.usernamePlaceholder = localeText.placeHolder.username;
-    this.passwordPlaceholder = localeText.placeHolder.password;
-
+function RenderPage() {
+    if (!(this instanceof RenderPage)) return new RenderPage();
 }
 
 RenderPage.prototype = {
@@ -25,6 +16,8 @@ RenderPage.prototype = {
 };
 
 function fetchData(data) {
+    var localeText = localeChecker('jp', 'verify-content');
+    
     var renderData = {
         error: data.error,
         errors: data.errors,
@@ -32,7 +25,12 @@ function fetchData(data) {
         lineID: data.lineID,
         csrfToken: data.csrfToken,
         verified: data.verified,
-        customError: data.customError
+        customError: data.customError,
+        title: localeText.panelTitle,
+        panelTitle: localeText.label.panelTitle,
+        verifyButtonText: localeText.button.verify,
+        usernamePlaceholder: localeText.placeHolder.username,
+        passwordPlaceholder: localeText.placeHolder.password
     }
 
     return renderData;

@@ -43,7 +43,7 @@ generateToken(router);
 
 // verify page
 router.get('/verify/:token/:line_id', csrfProtection, Verify().showVerifyPage);
-verify(router, client, logger);
+verify(router);
 router.get('/success', Verify().showVerifySuccess);
 
 receiver(router, client);

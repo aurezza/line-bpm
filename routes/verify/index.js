@@ -13,7 +13,7 @@ var notEmpty = localeText.error.mustNotBeEmpty;
 
 function verify(router) {
     // needs additional validation for schema
-    var renderVerify = new Verify();
+    // var renderVerify = new Verify();
     router.post('/verify/:token/:lineID', [
         check('username', notEmpty)
             .isLength({ min: 1})
@@ -25,7 +25,7 @@ function verify(router) {
             .trim().withMessage(notEmpty),
     ],
     csrfProtection, 
-    renderVerify.checkVerifyFormData
+    Verify().checkVerifyFormData
     );
 }
 

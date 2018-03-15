@@ -17,7 +17,7 @@ function checkSource(sourceSignature, req, res, next) {
         
     }
 
-    if (sourceSignature == req.header['x-origin']) {
+    if (sourceSignature == req.headers['x-origin']) {
         logger.info('source is from questetra');
         if (sourceSignature != 'questetra') return logger.error('source signature not valid');
         logger.info('source signature is valid');

@@ -52,7 +52,7 @@ function showVerifyPage (req, res) {
                     RenderPage().lineID = lineID;
                     RenderPage().token = token;
                     RenderPage().csrfToken = req.csrfToken();
-                    RenderPage().verified =  false,
+                    RenderPage().verified =  false;
                     logger.log("lineID: ", RenderPage().lineID, lineID);
                     res.render('verify', RenderPage());  
                 })

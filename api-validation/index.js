@@ -19,8 +19,7 @@ function apiValidation(router) {
     // external validation
     router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
         // check if sources are valid
-        // TODO: add questetra source here
-        var sourceSignature = req.headers['x-line-signature'];
+        var sourceSignature = req.headers['x-line-signature'] || req.headers['x-origin'];
 
         if (sourceSignature != null) {
             logger.info('source is identified with: ', sourceSignature);

@@ -7,6 +7,7 @@ var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 // setting default variables
 function RenderPage() {
     if (!(this instanceof RenderPage)) return new RenderPage();
+    this.lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 }
 
 RenderPage.prototype = {
@@ -17,7 +18,7 @@ RenderPage.prototype = {
 
 function fetchData(data) {
     var localeText = localeChecker('jp', 'verify-content');
-    
+
     var renderData = {
         error: data.error,
         errors: data.errors,

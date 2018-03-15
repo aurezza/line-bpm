@@ -4,13 +4,10 @@ var router = express.Router();
 var logger = require('../logger');
 var mongoose = require('mongoose');
 var connection = require('../mongo/connection');
-var passport = require('passport');
 var passportTmj = require('../passport/passport-tmj');
 var apiValidation = require('../api-validation');
 var generateToken = require('../api-validation/generate-token');
-var verify = require('./verify');
 var verifyUser = require('./verify/verify-user');
-var success = require('./verify/success');
 const line = require('@line/bot-sdk');
 const config = {
     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
@@ -28,6 +25,12 @@ var receiver = require('./questetra/receiver');
 var receiverCancelledRequest = require('./questetra/receiver-cancelled-request');
 var handler = require('./line/handler');
 
+var csrf = require('csurf');
+var csrfProtection = csrf({ cookie: true });
+
+var Verify = require('../../controllers/verify-page');
+var renderVerify = new Verify();
+
 // db connection
 connection(mongoose, connectionURL);
 
@@ -39,9 +42,9 @@ apiValidation(router);
 generateToken(router);
 
 // verify page
-verify(router);
+router.get('/verify/:token/:line_id', csrfProtection, renderVerify.showVerifyPage);
 verifyUser(router, client, logger);
-success(router);
+router.get('/success', renderVerify.showVerifySuccess);
 
 receiver(router, client);
 receiverCancelledRequest(router, client);

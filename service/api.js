@@ -69,6 +69,7 @@ function retrieveApiByName(apiName) {
     api.exec(function(err, res) {
         if (err) return logger.error("retrieve API name error: ", err);
     }); 
+    
     return api;
 }
 

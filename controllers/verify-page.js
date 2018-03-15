@@ -49,19 +49,12 @@ function showVerifyPage (req, res) {
                         })
                     }
                     logger.info("verify page has loaded...");   
-                    // RenderPage().lineID = lineID;
-                    // RenderPage().token = token;
-                    // RenderPage().csrfToken = req.csrfToken();
-                    // RenderPage().verified =  false;
                     var dataForRendering = {
                         lineID: lineID,
                         token: token,
                         csrfToken: req.csrfToken(),
                         verified: false
                     };
-                    RenderPage().fetchData(dataForRendering);
-                    logger.info('dataForRendering: ', dataForRendering);
-                    logger.info("lineID: ", RenderPage().fetchData, lineID);
                     res.render('verify', RenderPage().fetchData(dataForRendering));  
                 })
                 .catch(function(error) {
@@ -100,16 +93,27 @@ function checkVerifyFormData(req, res) {
             const validatedUserData = matchedData(req);
             if (!errors.isEmpty()) {  
                 logger.warn('Field must not be empty');
-                RenderPage().title = localeText.pageTitle.title;
-                RenderPage().lineID = lineID;
-                RenderPage().token = token;
-                RenderPage().csrfToken = req.body._csrf;
-                RenderPage().username = validatedUserData.username;
-                RenderPage().verified = true;
-                RenderPage().error = errors.array({
-                    onlyFirstError: true
-                });
-                return res.render('verify', RenderPage());  
+                // RenderPage().title = localeText.pageTitle.title;
+                // RenderPage().lineID = lineID;
+                // RenderPage().token = token;
+                // RenderPage().csrfToken = req.body._csrf;
+                // RenderPage().username = validatedUserData.username;
+                // RenderPage().verified = true;
+                // RenderPage().error = errors.array({
+                //     onlyFirstError: true
+                // });
+                // return res.render('verify', RenderPage()); 
+                var dataForRendering = {
+                    title: localeText.pageTitle.title,
+                    lineID: lineID,
+                    token: token,
+                    csrfToken: req.body._csrf,
+                    verified: true,
+                    error: errors.array({
+                        onlyFirstError: true
+                    })
+                };
+                res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
 
             checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineBotId, token);   
@@ -132,27 +136,45 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
     users.then(function(data) {
         if (data) {
             logger.info("The line ID:", lineID, "is already verified");
-            RenderPage().title = localeText.pageTitle.title,
-            RenderPage().lineID = lineID,
-            RenderPage().verified = true,
-            RenderPage().errors = 'localDbError';
-            RenderPage().customError = localeText.error.lineIdAlreadyExists;
-            return res.render('verify', RenderPage());
+            // RenderPage().title = localeText.pageTitle.title,
+            // RenderPage().lineID = lineID,
+            // RenderPage().verified = true,
+            // RenderPage().errors = 'localDbError';
+            // RenderPage().customError = localeText.error.lineIdAlreadyExists;
+            // return res.render('verify', RenderPage());
+            var dataForRendering = {
+                title: localeText.pageTitle.title,
+                lineID: lineID,
+                verified: true,
+                errors: 'localDbError',
+                customError: localeText.error.lineIdAlreadyExists
+            };
+            res.render('verify', RenderPage().fetchData(dataForRendering));  
         }
         
         passport.authenticate('tmj', function(err, user, info) {
             var throwErr = err || info;         
             if (throwErr) {
                 logger.error(throwErr.message);
-                RenderPage().title = localeText.pageTitle.title,
-                RenderPage().lineID = lineID,
-                RenderPage().verified = true,
-                RenderPage().errors = 'bpmsDbError';
-                RenderPage().customError = localeText.error.wrongCredentials;
-                RenderPage().csrfToken = req.body._csrf;
-                RenderPage().token = token;
+                // RenderPage().title = localeText.pageTitle.title,
+                // RenderPage().lineID = lineID,
+                // RenderPage().verified = true,
+                // RenderPage().errors = 'bpmsDbError';
+                // RenderPage().customError = localeText.error.wrongCredentials;
+                // RenderPage().csrfToken = req.body._csrf;
+                // RenderPage().token = token;
+                var dataForRenderingForPassport = {
+                    title: localeText.pageTitle.title,
+                    lineID: lineID,
+                    token: token,
+                    csrfToken: req.body._csrf,
+                    verified: true,
+                    errors: 'bpmsDbError',
+                    customError: localeText.error.wrongCredentials
+                };
                 res.status(400);
-                return res.render('verify', RenderPage());               
+                // return res.render('verify', RenderPage());  
+                res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
             }
             req.logIn(user, function(err) {
                 if (err) {
@@ -194,13 +216,22 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
             return res.redirect('/success');
         }
 
-        logger.info("This user:", employeeDetails.employee_id, "is already verified");
-        RenderPage().title = localeText.pageTitle.title;
-        RenderPage().lineID = lineID;
-        RenderPage().verified = true;
-        RenderPage().errors = 'localDbError';
-        RenderPage().customError = localeText.error.employeeIdAlreadyExists;
-        return res.render('verify', RenderPage());    
+        logger.info("This user:", employeeDetails.employee_id, "is already verified"); 
+        // RenderPage().title = localeText.pageTitle.title;
+        // RenderPage().lineID = lineID;
+        // RenderPage().verified = true;
+        // RenderPage().errors = 'localDbError';
+        // RenderPage().customError = localeText.error.employeeIdAlreadyExists;
+        // return res.render('verify', RenderPage());  
+        var dataForRendering = {
+            title: localeText.pageTitle.title,
+            lineID: lineID,
+            verified: true,
+            errors: 'localDbError',
+            customError: localeText.error.employeeIdAlreadyExists
+        };
+         
+        res.render('verify', RenderPage().fetchData(dataForRendering));  
 
     })
         .catch(function(error) {

@@ -21,6 +21,7 @@ function RenderPage(pageData = {}) {
     this.lineID = undefined;
     this.csrfToken = undefined;
     this.verified = undefined;
+    this.customError = undefined;
 }
 
 RenderPage.prototype = {

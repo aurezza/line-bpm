@@ -61,7 +61,7 @@ function showVerifyPage (req, res) {
                     };
                     RenderPage().setData(dataForRendering);
                     logger.info('dataForRendering: ', dataForRendering);
-                    logger.info("lineID: ", RenderPage().getData(), lineID);
+                    logger.info("lineID: ", RenderPage().getData, lineID);
                     res.render('verify', RenderPage());  
                 })
                 .catch(function(error) {

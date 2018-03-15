@@ -3,8 +3,6 @@ var logger = require('../logger');
 var axios = require('axios');
 var querystring = require('querystring');
 var errorLocator = require('../node/error-locator');
-var LineService = require('./Line');
-var RequestModel = require('../model/RequestModel');
 
 function Questetra() {
     if (!(this instanceof Questetra)) return new Questetra();
@@ -53,7 +51,8 @@ function incomingMessage(instanceId, isMessageSent) {
 }
 
 function outgoingMessage(postBack, client, line_userId) {
-
+    let Line = require('./Line');
+    let RequestModel = require('../model/RequestModel');
 
     var parsedData = (querystring.parse(postBack.data));
     var axiosParameters = {
@@ -69,7 +68,7 @@ function outgoingMessage(postBack, client, line_userId) {
 
     retrievedRequestData
         .then(function (retrievedRequestData) {
-            LineService().notifyUserResponded(retrievedRequestData, client, line_userId, parsedData);
+            Line().notifyUserResponded(retrievedRequestData, client, line_userId, parsedData);
         })
         .catch(function (error) {
             logger.error(error.message);

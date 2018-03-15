@@ -19,6 +19,8 @@ function RenderPage(pageData = {}) {
     this.error = undefined;
     this.errors = undefined;
     this.customError = null;
+
+    if (!(this instanceof RenderPage)) return new RenderPage();
 }
 
 RenderPage.prototype = {

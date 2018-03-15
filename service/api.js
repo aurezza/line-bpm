@@ -10,6 +10,9 @@ function Api(apiData = {}) {
     this.origin = apiData.origin || null;
     this.created_at = apiData.created_at || null;
     this.updated_at = apiData.updated_at || null;
+    
+    // declare Api as a method; no need to decare as a new instance of class
+    if (!(this instanceof Api)) return new Api();
 }
 
 Api.prototype = {

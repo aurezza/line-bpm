@@ -13,7 +13,7 @@ var RenderPage = require('../service/render-pages');
 var LineConfiguration = require('../config/line');
 
 function Verify(verifyData = {}) {
-    
+    if (!(this instanceof Verify)) return new Verify();
 }
 
 Verify.prototype = {

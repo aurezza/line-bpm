@@ -29,7 +29,7 @@ var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
 var Verify = require('../controllers/verify-page');
-var renderVerify = new Verify();
+// var renderVerify = new Verify();
 
 // db connection
 connection(mongoose, connectionURL);
@@ -42,9 +42,9 @@ apiValidation(router);
 generateToken(router);
 
 // verify page
-router.get('/verify/:token/:line_id', csrfProtection, renderVerify.showVerifyPage);
+router.get('/verify/:token/:line_id', csrfProtection, Verify().showVerifyPage);
 verify(router, client, logger);
-router.get('/success', renderVerify.showVerifySuccess);
+router.get('/success', Verify().showVerifySuccess);
 
 receiver(router, client);
 receiverCancelledRequest(router, client);

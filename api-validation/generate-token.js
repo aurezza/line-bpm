@@ -11,7 +11,6 @@ function generateToken(router) {
         // TODO: add authorization handler
         var successVerification = true; 
         
-        var apiTransaction = new Api();
         var apiName = req.params.api_name; 
 
         if ((apiName !== "line") && (apiName !== "questetra")) {
@@ -34,7 +33,7 @@ function generateToken(router) {
         logger.info('generatedkey: ', generatedSecretKey);
         var token = jwt.sign(payload, generatedSecretKey);
 
-        var checkApiName = apiTransaction.retrieveApiByName(apiName);
+        var checkApiName = Api().retrieveApiByName(apiName);
         checkApiName
             .then(function(data) {
                 logger.info("checking api name");
@@ -45,7 +44,7 @@ function generateToken(router) {
                         created_at: dateNow.toUTCString(),
                         token: token
                     };
-                    apiTransaction.save(api);
+                    Api().save(api);
                     return res.json({
                         success: true,
                         message: 'You haz token now',
@@ -59,7 +58,7 @@ function generateToken(router) {
                     api_key: payload.api_key,
                     token: token
                 };
-                apiTransaction.update(api);
+                Api().update(api);
                 return res.json({
                     success: true,
                     message: 'Your token has been updated',

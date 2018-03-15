@@ -9,18 +9,24 @@ function checkSource(sourceSignature, req, res, next) {
         const lineBody = JSON.stringify(req.body);
         const lineBodySignature = crypto.createHmac('SHA256', channelSecret).update(lineBody).digest('base64');
     
-        // TODO: add passing api validation after lineBodySignature is equal too sourceSignature
-        if (lineBodySignature != sourceSignature) return logger.error('source signature not valid');
-        
+        if (lineBodySignature != sourceSignature) {
+            logger.error('source from line is not valid');
+            return res.send('source from line is not valid');
+        }
         logger.info('body signature: ', lineBodySignature, ' is matched to line source signature'); 
+        // TODO: insert api validation
         next(); 
         
     }
 
     if (sourceSignature == req.headers['x-origin']) {
         logger.info('source is from questetra');
-        if (sourceSignature != 'questetra') return logger.error('source signature not valid');
+        if (sourceSignature != 'questetra') {
+            logger.error('source from questetra is not valid');
+            return res.send('source from questetra is not valid');
+        }
         logger.info('source signature is valid');
+        // TODO: insert api validation
         next();
         
     }

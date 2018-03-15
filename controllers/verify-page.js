@@ -49,11 +49,18 @@ function showVerifyPage (req, res) {
                         })
                     }
                     logger.info("verify page has loaded...");   
-                    RenderPage().lineID = lineID;
-                    RenderPage().token = token;
-                    RenderPage().csrfToken = req.csrfToken();
-                    RenderPage().verified =  false;
-                    logger.info("lineID: ", RenderPage().lineID, lineID);
+                    // RenderPage().lineID = lineID;
+                    // RenderPage().token = token;
+                    // RenderPage().csrfToken = req.csrfToken();
+                    // RenderPage().verified =  false;
+                    var dataForRendering = {
+                        lineID: lineID,
+                        token: token,
+                        csrfToken: req.csrfToken(),
+                        verified: false
+                    };
+                    RenderPage().setData(dataForRendering);
+                    logger.info("lineID: ", RenderPage().getData().lineID, lineID);
                     res.render('verify', RenderPage());  
                 })
                 .catch(function(error) {

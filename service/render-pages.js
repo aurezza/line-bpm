@@ -25,16 +25,6 @@ RenderPage.prototype = {
     setData: setData
 };
 
-function setData(params) {
-    this.error = params.error;
-    this.errors = params.errors;
-    this.token = params.token;
-    this.lineID = params.lineID;
-    this.csrfToken = params.csrfToken;
-    this.verified = params.verified;
-    this.customError = params.customError;
-}
-
 function getData() {
     var renderData = {
         error: this.error,
@@ -47,6 +37,17 @@ function getData() {
     }
 
     return renderData;
+}
+
+function setData(params) {
+    console.log('setData: ', params);
+    this.error = params.error;
+    this.errors = params.errors;
+    this.token = params.token;
+    this.lineID = params.lineID;
+    this.csrfToken = params.csrfToken;
+    this.verified = params.verified;
+    this.customError = params.customError;
 }
 
 function successForm() {

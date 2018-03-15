@@ -21,30 +21,18 @@ function RenderPage(pageData = {}) {
 RenderPage.prototype = {
     successForm: successForm,
     errorForm: errorForm,
-    getData: getData,
-    setData: setData
+    fetchData: fetchData
 };
 
-function setData(params) {
-    console.log('setData: ', params);
-    this.error = params.error;
-    this.errors = params.errors;
-    this.token = params.token;
-    this.lineID = params.lineID;
-    this.csrfToken = params.csrfToken;
-    this.verified = params.verified;
-    this.customError = params.customError;
-}
-
-function getData() {
+function fetchData(data) {
     var renderData = {
-        error: this.error,
-        errors: this.errors,
-        token: this.token,
-        lineID: this.lineID,
-        csrfToken: this.csrfToken,
-        verified: this.verified,
-        customError: this.customError
+        error: data.error,
+        errors: data.errors,
+        token: data.token,
+        lineID: data.lineID,
+        csrfToken: data.csrfToken,
+        verified: data.verified,
+        customError: data.customError
     }
 
     return renderData;

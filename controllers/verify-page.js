@@ -59,9 +59,9 @@ function showVerifyPage (req, res) {
                         csrfToken: req.csrfToken(),
                         verified: false
                     };
-                    RenderPage().setData(dataForRendering);
+                    RenderPage().fetchData(dataForRendering);
                     logger.info('dataForRendering: ', dataForRendering);
-                    logger.info("lineID: ", RenderPage().getData, lineID);
+                    logger.info("lineID: ", RenderPage().fetchData, lineID);
                     res.render('verify', RenderPage());  
                 })
                 .catch(function(error) {

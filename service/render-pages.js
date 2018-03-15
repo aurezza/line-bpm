@@ -7,18 +7,18 @@ var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 // setting default variables
 function RenderPage(pageData = {}) {
     var localeText = localeChecker('jp', 'verify-content');
-    this.title = localeText.panelTitle || null;
+    this.title = localeText.panelTitle || undefined;
     this.panelTitle = localeText.label.panelTitle;
     this.verifyButtonText = localeText.button.verify;
     this.usernamePlaceholder = localeText.placeHolder.username;
     this.passwordPlaceholder = localeText.placeHolder.password;
-    this.lineID = null;
-    this.csrfToken = null;
-    this.username = null;
-    this.verified =  null;
+    // this.lineID = null;
+    // this.csrfToken = null;
+    // this.username = null;
+    // this.verified =  null;
     this.error = undefined;
     this.errors = undefined;
-    this.customError = null;
+    // this.customError = null;
 
     if (!(this instanceof RenderPage)) return new RenderPage();
 }

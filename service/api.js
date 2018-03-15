@@ -4,13 +4,6 @@ var logger = require('../logger');
 
 // setting default variables
 function Api(apiData = {}) {
-    this.api_name = apiData.api_name || null;
-    this.api_key = apiData.api_key || null;
-    this.token = apiData.api_key || null;
-    this.origin = apiData.origin || null;
-    this.created_at = apiData.created_at || null;
-    this.updated_at = apiData.updated_at || null;
-    
     // declare Api as a method; no need to decare as a new instance of class
     if (!(this instanceof Api)) return new Api();
 }

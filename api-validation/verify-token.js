@@ -4,7 +4,8 @@ var jwt = require('jsonwebtoken');
 var Api = require('../service/api');
 var logger = require('../logger');
 function verifyToken(verifyToken, req, res, next) {
-    var apiTransaction = new Api();
+    // var apiTransaction = new Api();
+    logger.info('passing through api validation...');
     if (!verifyToken) return res.status(403).send('Forbidden, no token found');
 
     var getDecoded = jwt.decode(verifyToken);
@@ -13,7 +14,7 @@ function verifyToken(verifyToken, req, res, next) {
     
     if (getDecoded == null) return res.status(403).send('Forbidden, incomplete token');
 
-    var payLoadExists = apiTransaction.retrieveApiByKey(getDecoded.api_key);
+    var payLoadExists = Api().retrieveApiByKey(getDecoded.api_key);
     payLoadExists.then(function(data) {
         if (!data) return res.send('Payload details not found in db');
 

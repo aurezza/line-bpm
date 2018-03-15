@@ -1,9 +1,12 @@
 var logger = require('../logger');
+var verifyToken = require('./verify-token');
 const crypto = require('crypto');
 const channelSecret  = process.env.LINE_BOT_CHANNEL_SECRET;
 const verify = crypto.createVerify('SHA256');
 
 function checkSource(sourceSignature, req, res, next) {
+    var getToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
+
     if (sourceSignature == req.headers['x-line-signature']) {
         logger.info('source is from line');
         const lineBody = JSON.stringify(req.body);
@@ -14,8 +17,8 @@ function checkSource(sourceSignature, req, res, next) {
             return res.send('source from line is not valid');
         }
         logger.info('body signature: ', lineBodySignature, ' is matched to line source signature'); 
-        // TODO: insert api validation
-        next(); 
+        verifyToken(getToken, req, res, next);
+        // next(); 
         
     }
 
@@ -26,8 +29,8 @@ function checkSource(sourceSignature, req, res, next) {
             return res.send('source from questetra is not valid');
         }
         logger.info('source signature is valid');
-        // TODO: insert api validation
-        next();
+        verifyToken(getToken, req, res, next);
+        // next();
         
     }
 }

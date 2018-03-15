@@ -25,7 +25,7 @@ Verify.prototype = {
 function showVerifyPage (req, res) {
     var localeText = localeChecker('jp', 'verify-content');
     var lineID = req.params.line_id;
-    var getToken = req.params.token;
+    var token = req.params.token;
     // var user = new Users();
     // var accessPass = new AccessPass();
     // var renderPage = new RenderPage();
@@ -40,7 +40,7 @@ function showVerifyPage (req, res) {
                 return res.render('verify-error', RenderPage().errorForm());
             }
 
-            var retrievedAccessPass = AccessPass().retrieve(lineID, getToken);
+            var retrievedAccessPass = AccessPass().retrieve(lineID, token);
             retrievedAccessPass
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {
@@ -50,7 +50,7 @@ function showVerifyPage (req, res) {
                     }
                     logger.info("verify page has loaded...");   
                     RenderPage().lineID = lineID;
-                    RenderPage().token = getToken;
+                    RenderPage().token = token;
                     RenderPage().csrfToken = req.csrfToken();
                     RenderPage().verified =  false,
                     res.render('verify', RenderPage());  

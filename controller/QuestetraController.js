@@ -3,7 +3,6 @@ var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 var UserModel = require('../model/UserModel');
 var LineService = require('../service/Line');
-var lineService = new LineService();
 var RequestModel = require('../model/RequestModel');
 const line = require('@line/bot-sdk');
 const config = {
@@ -27,7 +26,7 @@ function recieveFromQuest(req, res) {
     
     users.then(function(users) {
         managerData = users;
-        LineService.checkManagerDetails(managerData, req.body, client);  
+        LineService().checkManagerDetails(managerData, req.body, client);  
     })
         .catch(function(error) {
             logger.error(error.message);
@@ -45,7 +44,7 @@ function receiverCancelledRequest(req, res) {
     
     users.then(function(users) {
         managerData = users;
-        lineService.sendCancelledRequest(managerData, req.body, client);  
+        LineService().sendCancelledRequest(managerData, req.body, client);  
     })
         .catch(function(error) {
             logger.error(error.message);

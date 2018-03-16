@@ -28,7 +28,7 @@ var handler = require('./line/handler');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
-var Verify = require('../controllers/verify-page');
+var VerifyPageController = require('../controllers/VerifyPageController');
 // var renderVerify = new Verify();
 
 // db connection
@@ -42,9 +42,9 @@ apiValidation(router);
 generateToken(router);
 
 // verify page
-router.get('/verify/:token/:line_id', csrfProtection, Verify().showVerifyPage);
+router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage);
 verify(router);
-router.get('/success', Verify().showVerifySuccess);
+router.get('/success', VerifyPageController().showSuccess);
 
 receiver(router, client);
 receiverCancelledRequest(router, client);

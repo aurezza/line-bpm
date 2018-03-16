@@ -12,14 +12,14 @@ var AccessPass = require('../service/access-pass');
 var RenderPage = require('../service/render-pages');
 var LineConfiguration = require('../config/line');
 
-function Verify() {
-    if (!(this instanceof Verify)) return new Verify();
+function VerifyPageController() {
+    if (!(this instanceof VerifyPageController)) return new VerifyPageController();
 }
 
-Verify.prototype = {
-    showVerifyPage: showVerifyPage,
-    showVerifySuccess: showVerifySuccess,
-    checkVerifyFormData: checkVerifyFormData
+VerifyPageController.prototype = {
+    showPage: showVerifyPage,
+    showSuccess: showVerifySuccess,
+    checkFormData: checkVerifyFormData 
 };
 
 function showVerifyPage (req, res) {
@@ -220,4 +220,4 @@ function successVerifyLineMessage(lineID)
   
 }
 
-module.exports = Verify;
+module.exports = VerifyPageController;

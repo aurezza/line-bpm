@@ -73,17 +73,6 @@ function showVerifyPage (req, res) {
 }
 
 function showVerifySuccess (req, res) {
-    // var client = new line.Client(LineConfiguration().lineConfiguration[0]);
-    const config = {
-        channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-        channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-    };
-    
-    console.log("LineConfiguration", LineConfiguration().lineConfiguration()[0]);
-    // const test = new line.Client(config);
-    // logger.info('lineconfig: ', LineConfiguration().lineConfiguration([0]));
-    // logger.info('test:', test);
-    // logger.info('config:', config);
     res.render('success', RenderPage().successForm());
 }
 
@@ -230,12 +219,6 @@ function successVerifyLineMessage(lineID)
         type: 'text',
         text: msgContent,
     };
-
-    // const config = {
-    //     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-    //     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-    // };
-    // const client = new line.Client(config);
 
     var client = new line.Client(LineConfiguration().lineConfiguration()[0]);
     

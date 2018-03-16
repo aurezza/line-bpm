@@ -235,7 +235,7 @@ function successVerifyLineMessage(lineID)
     // };
     // const client = new line.Client(config);
 
-    var client = LineConfiguration().lineConfiguration([0]);
+    var client = LineConfiguration().lineConfiguration[0];
     
     client.pushMessage(lineID, message)
         .then(() => {

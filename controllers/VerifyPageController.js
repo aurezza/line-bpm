@@ -70,9 +70,6 @@ function showVerifyPage (req, res) {
 }
 
 function showVerifySuccess (req, res) {
-    var client = new line.Client(LineConfiguration.channel);
-    logger.info('client: ', client);
-    logger.info('LineConfiguration: ', LineConfiguration.channel);
     res.render('success', RenderPage().successForm());
 }
 

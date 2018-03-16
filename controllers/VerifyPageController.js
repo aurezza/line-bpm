@@ -79,8 +79,8 @@ function showVerifySuccess (req, res) {
         channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
     };
     const client = new line.Client(config);
-    logger.info('lineconfig: ', LineConfiguration().lineConfiguration([0]));
-    logger.info('client', client);
+    // logger.info('lineconfig: ', LineConfiguration().lineConfiguration([0]));
+    // logger.info('client', client);
     res.render('success', RenderPage().successForm());
 }
 
@@ -228,9 +228,15 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
 
+    const config = {
+        channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+        channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+    };
+    const client = new line.Client(config);
+
     // var client = new line.Client(LineConfiguration().lineConfiguration([0]));
     
-    LineConfiguration().lineConfiguration([0]).pushMessage(lineID, message)
+    client.pushMessage(lineID, message)
         .then(() => {
             logger.info("message sent to " + lineID);    
         })

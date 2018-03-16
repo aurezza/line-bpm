@@ -19,16 +19,16 @@ function LineController () {
 }
 
 LineController.prototype = {
-    eventTrigger,
-    follow,
-    unfollow,
-    postback,
-    message
+    eventTrigger: eventTrigger,
+    follow: follow,
+    unfollow: unfollow,
+    postback: postback,
+    message: message
 };
 
 function eventTrigger(req, res) {
     var eventType = req.body.events[0].type;
-    this[eventType]({
+    LineController[eventType]({
         req: req.body, 
         client: client
     });

@@ -12,8 +12,8 @@ var AccessPass = require('../service/access-pass');
 var RenderPage = require('../service/render-pages');
 var LineConfiguration = require('../config/line');
 
-const line = require('@line/bot-sdk');
-const client = new line.Client(LineConfiguration().lineConfiguration());
+var line = require('@line/bot-sdk');
+// var client = new line.Client(LineConfiguration().lineConfiguration());
 
 function VerifyPageController() {
     if (!(this instanceof VerifyPageController)) return new VerifyPageController();
@@ -220,8 +220,9 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
 
+    var client = new line.Client(LineConfiguration().lineConfiguration());
     
-    client.pushMessage(lineID, message)
+    LineConfiguration().lineConfiguration().pushMessage(lineID, message)
         .then(() => {
             logger.info("message sent to " + lineID);    
         })

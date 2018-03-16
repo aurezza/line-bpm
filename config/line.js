@@ -6,19 +6,35 @@ function Configuration() {
 }
 
 Configuration.prototype = {
-    lineConfiguration: lineConfiguration
+    lineConfiguration: lineConfiguration,
+    testConfig: testConfig
 };
 
 
 function lineConfiguration() {
     
+    const config = [
+        {
+            channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+            channelSecret: process.env.LINE_BOT_CHANNEL_SECRET
+        }
+    ];
+    // const config = {
+    //     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+    //     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+    // };
+    // const client = new line.Client(config);
+    
+    return config;
+}
+
+function testConfig() {
     const config = {
         channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
         channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
     };
-    const client = new line.Client(config);
     
-    return client;
+    return config;
 }
 
 module.exports = Configuration;

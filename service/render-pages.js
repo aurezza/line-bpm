@@ -1,5 +1,4 @@
 'use strict';
-var logger = require('../logger');
 var localeChecker = require('../routes/locale/locale-checker');
 
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
@@ -49,11 +48,10 @@ function successForm() {
     return successObject;
 }
 
-function errorForm() {
-    var localeText = localeChecker('jp', 'verify-content');
+function errorForm(data) {
     var errorObject =  {
-        message: localeText.errorMessageLineIdExists,
-        backButtonText: localeText.button.back,
+        message: data.message,
+        backButtonText: data.backButtonText,
         lineBotId: lineBotId
     }
 

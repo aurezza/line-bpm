@@ -32,9 +32,13 @@ function showVerifyPage (req, res) {
         .then(function(data) {
             if (data) {
                 logger.warn("The line ID:", lineID, "is already verified");
-                RenderPage().errorForm.message = localeText.errorMessageLineIdExists;
-                RenderPage().errorForm.backButtonText = localeText.button.back;
-                return res.render('verify-error', RenderPage().errorForm());
+                // RenderPage().errorForm.message = localeText.errorMessageLineIdExists;
+                // RenderPage().errorForm.backButtonText = localeText.button.back;
+                var dataForRenderingError = {
+                    message: localeText.errorMessageLineIdExists,
+                    backButtonText: localeText.button.back
+                }
+                return res.render('verify-error', RenderPage().errorForm(dataForRenderingError));
             }
 
             var retrievedAccessPass = AccessPass().retrieve(lineID, token);
@@ -100,7 +104,7 @@ function checkVerifyFormData(req, res) {
                 res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
 
-            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineBotId, token);   
+            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineConfiguration(), token);   
         })
         .catch(function(error) {
             logger.error(error.message);
@@ -147,9 +151,13 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
             req.logIn(user, function(err) {
                 if (err) {
                     logger.error("Error 404: ", err.message);
-                    RenderPage().message = err.message;
-                    RenderPage().csrfToken = req.body._csrf;
-                    return res.status(400).render('verify-error', RenderPage().errorForm());                   
+                    // RenderPage().message = err.message;
+                    // RenderPage().csrfToken = req.body._csrf;
+                    var dataForRenderingError = {
+                        message: err.message,
+                        csrfToken: req.body._csrf
+                    };
+                    return res.status(400).render('verify-error', RenderPage().errorForm(dataForRenderingError));                   
                 }
                 
                 employeeDetails = {

@@ -10,10 +10,10 @@ var corsOptions = {
             return listedUrl.includes(origin);
         });
 
-        if (whiteList) {
-            logger.info('successfully allowed by CORS');
-            return callback(null, true);
-        } 
+        // if (whiteList) {
+        logger.info('successfully allowed by CORS');
+        return callback(null, true);
+        // } 
         logger.error('cors error');
         callback(new Error('Not allowed by CORS'));
     },

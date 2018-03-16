@@ -11,7 +11,7 @@ function apiValidation(router) {
         // solution provided in https://github.com/expressjs/cors/issues/71
         // case of non-existing origins that usually come from direct server requests
         logger.info('before set req headers', req.headers);
-        // req.headers.origin = req.headers.origin || req.headers.host;
+        req.headers.origin = req.headers.origin || req.headers.host;
         next();
     });
 

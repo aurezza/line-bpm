@@ -102,7 +102,7 @@ function checkVerifyFormData(req, res) {
                         onlyFirstError: true
                     })
                 };
-                res.render('verify', RenderPage().fetchData(dataForRendering));  
+                return res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
 
             checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineBotId, token);   

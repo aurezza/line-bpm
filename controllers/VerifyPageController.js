@@ -13,7 +13,6 @@ var RenderPage = require('../service/render-pages');
 var LineConfiguration = require('../config/line');
 
 var line = require('@line/bot-sdk');
-// var client = new line.Client(LineConfiguration().lineConfiguration());
 
 function VerifyPageController() {
     if (!(this instanceof VerifyPageController)) return new VerifyPageController();
@@ -35,8 +34,6 @@ function showVerifyPage (req, res) {
         .then(function(data) {
             if (data) {
                 logger.warn("The line ID:", lineID, "is already verified");
-                // RenderPage().errorForm.message = localeText.errorMessageLineIdExists;
-                // RenderPage().errorForm.backButtonText = localeText.button.back;
                 var dataForRenderingError = {
                     message: localeText.errorMessageLineIdExists,
                     backButtonText: localeText.button.back
@@ -99,6 +96,7 @@ function checkVerifyFormData(req, res) {
                     lineID: lineID,
                     token: token,
                     csrfToken: req.body._csrf,
+                    username: validatedUserData.username,
                     verified: true,
                     error: errors.array({
                         onlyFirstError: true
@@ -154,8 +152,6 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
             req.logIn(user, function(err) {
                 if (err) {
                     logger.error("Error 404: ", err.message);
-                    // RenderPage().message = err.message;
-                    // RenderPage().csrfToken = req.body._csrf;
                     var dataForRenderingError = {
                         message: err.message,
                         csrfToken: req.body._csrf

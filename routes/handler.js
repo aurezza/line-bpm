@@ -4,7 +4,6 @@ var router = express.Router();
 var logger = require('../logger');
 var mongoose = require('mongoose');
 var connection = require('../mongo/connection');
-var passport = require('passport');
 var passportTmj = require('../passport/passport-tmj');
 var apiValidation = require('../api-validation');
 var generateToken = require('../api-validation/generate-token');
@@ -42,6 +41,6 @@ success(router, lineBotId);
 
 router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest);
 router.post('/receiveFromQuest', QuestetraController().recieveFromQuest);
-router.post('/handler', LineController().eventTrigger.bind(LineController));
+router.post('/handler', LineController().eventTrigger);
 
 module.exports = router;

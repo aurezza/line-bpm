@@ -220,7 +220,7 @@ function successVerifyLineMessage(lineID)
     };
 
     // var client = new line.Client(LineConfiguration().lineConfiguration()[0]);
-    var client = new line.Client(LineConfiguration.channel);
+    var client = new line.Client(LineConfiguration.api);
     
     client.pushMessage(lineID, message)
         .then(() => {

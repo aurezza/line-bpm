@@ -13,13 +13,13 @@ function Line () {
 }
 
 Line.prototype = {
-    checkManagerDetails: checkManagerDetails,
-    notifyUserResponded: notifyUserResponded,
-    scanQrCode: scanQrCode,
-    sender: sender,
-    sendCancelledRequest: sendCancelledRequest,
-    responded: responded,
-    userExist: userExist
+    checkManagerDetails,
+    notifyUserResponded,
+    scanQrCode,
+    sender,
+    sendCancelledRequest,
+    responded,
+    userExist
 };
 function checkManagerDetails(managerData, body, client) {
     logger.info('check manager details');

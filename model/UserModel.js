@@ -8,10 +8,10 @@ function UserModel() {
 }
 
 UserModel.prototype = {
-    save: save,
-    retrieveByLineId: retrieveByLineId,
-    retrieveByEmpId: retrieveByEmpId,
-    retriveByEmpEmail: retriveByEmpEmail
+    save,
+    retrieveByLineId,
+    retrieveByEmpId,
+    retriveByEmpEmail
 };
     
 function save(userData) {

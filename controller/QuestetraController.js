@@ -16,8 +16,8 @@ function QuestetraController() {
 }
 
 QuestetraController.prototype = {
-    recieveFromQuest: recieveFromQuest,
-    receiverCancelledRequest: receiverCancelledRequest
+    recieveFromQuest,
+    receiverCancelledRequest
 };
 
 function recieveFromQuest(req, res) {

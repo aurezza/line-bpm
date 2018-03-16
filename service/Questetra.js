@@ -9,9 +9,9 @@ function Questetra() {
 }
 
 Questetra.prototype = {
-    reply: reply,
-    incomingMessage: incomingMessage,
-    outgoingMessage: outgoingMessage
+    reply,
+    incomingMessage,
+    outgoingMessage
 };
 
 function reply(axiosParameters) {

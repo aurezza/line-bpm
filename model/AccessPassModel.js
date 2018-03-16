@@ -8,11 +8,11 @@ function AccessPassModel() {
 }
 
 AccessPassModel.prototype = {
-    save: save,
-    changeAccessPass: changeAccessPass,
-    expireAccessPass: expireAccessPass,
-    retrieveLineId: retrieveLineId,
-    retrieve: retrieve
+    save,
+    changeAccessPass,
+    expireAccessPass,
+    retrieveLineId,
+    retrieve
 };
 
 function save (token, lineId) {

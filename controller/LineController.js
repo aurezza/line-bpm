@@ -18,11 +18,11 @@ function LineController () {
 }
 
 LineController.prototype = {
-    eventTrigger: eventTrigger,
-    follow: follow,
-    unfollow: unfollow,
-    postback: postback,
-    message: message
+    eventTrigger,
+    follow,
+    unfollow,
+    postback,
+    message
 };
 
 function eventTrigger(req, res) {

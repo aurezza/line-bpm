@@ -5,8 +5,8 @@ function Message () {
 }
 
 Message.prototype = {
-    messageContent: messageContent,
-    cancelledMessageContent: cancelledMessageContent
+    messageContent,
+    cancelledMessageContent
 };
 
 function messageContent(body) 

@@ -10,10 +10,10 @@ function RequestModel() {
 }
 
 RequestModel.prototype = {
-    save: save,
-    retrieve: retrieve,
-    updateToCancel: updateToCancel,
-    updateToApproveDisapprove: updateToApproveDisapprove   
+    save,
+    retrieve,
+    updateToCancel,
+    updateToApproveDisapprove   
 };
 
 function save (requestData) {

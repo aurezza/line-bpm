@@ -42,6 +42,6 @@ success(router, lineBotId);
 
 router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest);
 router.post('/receiveFromQuest', QuestetraController().recieveFromQuest);
-router.post('/handler', LineController().eventTrigger);
+router.post('/handler', LineController().eventTrigger.bind(LineController));
 
 module.exports = router;

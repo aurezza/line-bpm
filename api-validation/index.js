@@ -17,6 +17,7 @@ function apiValidation(router) {
 
     // external validation
     router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
+        req.headers.origin = req.headers.origin || req.headers.host;
         logger.info('headers: ', JSON.stringify(req.headers));
         // check if sources are valid
         var sourceSignature = req.headers['x-line-signature'] || req.headers['x-origin'];

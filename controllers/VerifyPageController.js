@@ -130,7 +130,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                 errors: 'localDbError',
                 customError: localeText.error.lineIdAlreadyExists
             };
-            res.render('verify', RenderPage().fetchData(dataForRendering));  
+            return res.render('verify', RenderPage().fetchData(dataForRendering));  
         }
         
         passport.authenticate('tmj', function(err, user, info) {
@@ -147,7 +147,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                     customError: localeText.error.wrongCredentials
                 };
                 res.status(400); 
-                res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
+                return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
             }
             req.logIn(user, function(err) {
                 if (err) {
@@ -197,7 +197,7 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
             customError: localeText.error.employeeIdAlreadyExists
         };
          
-        res.render('verify', RenderPage().fetchData(dataForRendering));  
+        return res.render('verify', RenderPage().fetchData(dataForRendering));  
 
     })
         .catch(function(error) {

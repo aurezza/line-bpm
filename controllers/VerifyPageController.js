@@ -74,13 +74,13 @@ function showVerifyPage (req, res) {
 
 function showVerifySuccess (req, res) {
     // var client = new line.Client(LineConfiguration().lineConfiguration([0]));
-    const config = {
-        channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-        channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-    };
-    const client = new line.Client(config);
+    // const config = {
+    //     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+    //     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+    // };
+    // const client = new line.Client(config);
     // logger.info('lineconfig: ', LineConfiguration().lineConfiguration([0]));
-    // logger.info('client', client);
+    // logger.info('client:', client);
     res.render('success', RenderPage().successForm());
 }
 
@@ -228,13 +228,13 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
 
-    const config = {
-        channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-        channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-    };
-    const client = new line.Client(config);
+    // const config = {
+    //     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+    //     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+    // };
+    // const client = new line.Client(config);
 
-    // var client = new line.Client(LineConfiguration().lineConfiguration([0]));
+    var client = LineConfiguration().lineConfiguration([0]);
     
     client.pushMessage(lineID, message)
         .then(() => {

@@ -10,12 +10,10 @@ function LineEventHandler() {
 }
 
 LineEventHandler.prototype = {
-    eventHandler: {
-        follow: follow,
-        unfollow: unfollow,
-        postback: postback,
-        message: message
-    }
+    follow: follow,
+    unfollow: unfollow,
+    postback: postback,
+    message: message
 };
 
 function follow(params) {

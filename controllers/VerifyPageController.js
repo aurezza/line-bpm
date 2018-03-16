@@ -220,9 +220,9 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
 
-    var client = new line.Client(LineConfiguration().lineConfiguration());
+    var client = new line.Client(LineConfiguration().lineConfiguration([0]));
     
-    LineConfiguration().lineConfiguration().pushMessage(lineID, message)
+    client.pushMessage(lineID, message)
         .then(() => {
             logger.info("message sent to " + lineID);    
         })

@@ -29,8 +29,8 @@
 
 var config = {
     channel: {
-        accessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-        secret: process.env.LINE_BOT_CHANNEL_SECRET
+        channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+        channelSecret: process.env.LINE_BOT_CHANNEL_SECRET
     },
     lineBotId: process.env.LINE_BOT_CHANNEL_ID
 }

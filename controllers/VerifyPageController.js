@@ -105,7 +105,7 @@ function checkVerifyFormData(req, res) {
                 return res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
 
-            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineBotId, token);   
+            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
         })
         .catch(function(error) {
             logger.error(error.message);
@@ -216,7 +216,8 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
 
-    var client = new line.Client(LineConfiguration().lineConfiguration()[0]);
+    // var client = new line.Client(LineConfiguration().lineConfiguration()[0]);
+    var client = new line.Client(LineConfiguration.channel);
     
     client.pushMessage(lineID, message)
         .then(() => {

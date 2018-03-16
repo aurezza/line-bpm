@@ -12,6 +12,9 @@ var AccessPass = require('../service/access-pass');
 var RenderPage = require('../service/render-pages');
 var LineConfiguration = require('../config/line');
 
+const line = require('@line/bot-sdk');
+const client = new line.Client(LineConfiguration().lineConfiguration());
+
 function VerifyPageController() {
     if (!(this instanceof VerifyPageController)) return new VerifyPageController();
 }
@@ -104,7 +107,7 @@ function checkVerifyFormData(req, res) {
                 res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
 
-            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineConfiguration(), token);   
+            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration().lineBotId, token);   
         })
         .catch(function(error) {
             logger.error(error.message);
@@ -216,8 +219,9 @@ function successVerifyLineMessage(lineID)
         type: 'text',
         text: msgContent,
     };
+
     
-    LineConfiguration().lineConfiguration().pushMessage(lineID, message)
+    client.pushMessage(lineID, message)
         .then(() => {
             logger.info("message sent to " + lineID);    
         })

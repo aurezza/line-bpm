@@ -5,7 +5,6 @@ var UserModel = require('../model/UserModel');
 var Line = require('../service/Line');
 var Questetra = require('../service/Questetra');
 
-// var LineEventHandler = require('../service/LineEventHandler')
 const line = require('@line/bot-sdk');
 const config = {
     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,

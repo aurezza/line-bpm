@@ -28,12 +28,12 @@ LineController.prototype = {
 
 function eventTrigger(req, res) {
     var eventType = req.body.events[0].type;
-    console.log(eventType);
+    console.log("eventType", eventType);
     // this[eventType]({
     //     req: req.body, 
     //     client: client
     // });
-    // res.send(true);
+    res.send(true);
 }
 
 function follow(params) {

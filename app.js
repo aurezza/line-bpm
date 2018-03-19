@@ -51,7 +51,7 @@ app.use(passport.initialize());
 // app.use(passport.session());
 
 app.use('/', handler);
-app.use('/', api);
+app.use('/api', api);
 
 // validator
 app.use(expressValidator);

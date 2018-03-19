@@ -39,7 +39,7 @@ var ApiController = require('../controller/ApiController');
 //     next(err);
 // });
 
-router.get('/api/generate-token/:api_name', ApiController().generateToken);
+router.get('/generate-token/:api_name', ApiController().generateToken);
 
 
 module.exports = router;

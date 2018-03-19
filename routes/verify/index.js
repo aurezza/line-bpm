@@ -73,7 +73,7 @@ var VerifyPageController = require('../../controllers/VerifyPageController');
 function verify(router) {
     // needs additional validation for schema
     router.post('/verify/:token/:lineID', 
-        VerifyPageController().expressValidator,
+        VerifyPageController().expressValidator(),
         csrfProtection, 
         VerifyPageController().checkFormData
     );

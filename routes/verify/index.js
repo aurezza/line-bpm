@@ -62,7 +62,7 @@ var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
 var VerifyPageController = require('../../controllers/VerifyPageController');
-var localeChecker = require('../../routes/locale/locale-checker');
+var localeChecker = require('../../locale/locale-checker');
 var localeText = localeChecker('jp', 'verify-content');
 var notEmpty = localeText.error.mustNotBeEmpty;
 

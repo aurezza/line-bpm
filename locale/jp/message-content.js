@@ -1,4 +1,4 @@
-var japanese = {
+module.exports = {
     text: { 
         name: "名",
         overtimeDate: "残業日",
@@ -15,5 +15,4 @@ var japanese = {
     header: {
         cancelledMessage: "以下の詳細を含むこのリクエストは既にキャンセルされています."
     }
-}
-module.exports = japanese;
+};

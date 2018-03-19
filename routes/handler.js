@@ -4,8 +4,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var connection = require('../mongo/connection');
 var passportTmj = require('../passport/passport-tmj');
-// var apiValidation = require('../api-validation');
-// var generateToken = require('../api-validation/generate-token');
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
@@ -17,22 +15,15 @@ var csrfProtection = csrf({ cookie: true });
 var LineController = require('../controller/LineController');
 var QuestetraController = require('../controller/QuestetraController');
 var VerifyPageController = require('../controller/VerifyPageController');
-var ApiController = require('../controller/ApiController');
 // db connection
 connection(mongoose, connectionURL);
 
 // passport
 passportTmj();
 
-// api token
-// apiValidation(router); // ext
-// generateToken(router); // internal
-// router.get('/api/generate-token/:api_name', ApiController().generateToken);
-
 // verify page
 router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage); // internal
 router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData); // internal
-
 router.get('/success', VerifyPageController().showSuccess); //internal
 
 router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest); //ext

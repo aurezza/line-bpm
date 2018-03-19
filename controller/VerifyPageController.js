@@ -26,13 +26,7 @@ VerifyPageController.prototype = {
     checkFormData
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-function showVerifyPage (req, res) {
-=======
-=======
 function expressValidator() {
-    var localeText = localeChecker('jp', 'verify-content');
     var notEmpty = localeText.error.mustNotBeEmpty;
     var validateInputData = [
         check('username', notEmpty)
@@ -48,10 +42,9 @@ function expressValidator() {
     return validateInputData;
 }
 
->>>>>>> added express-validator as function in controller
+
 function showPage (req, res) {
-    var localeText = localeChecker('jp', 'verify-content');
->>>>>>> transferred api service to model; modified verify files
+    
     var lineID = req.params.line_id;
     var token = req.params.token;
 
@@ -99,13 +92,9 @@ function showSuccess (req, res) {
     res.render('success', RenderPage().successForm());
 }
 
-<<<<<<< HEAD
-function checkVerifyFormData(req, res) {
-=======
 function checkFormData(req, res) {
-    var localeText = localeChecker('jp', 'verify-content');
->>>>>>> transferred api service to model; modified verify files
-    var lineID = req.params.lineID;
+
+    var lineID = req.params.line_id;
     var token = req.params.token;
 
     var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
@@ -146,12 +135,7 @@ function checkFormData(req, res) {
 function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
     var employeeDetails = {};
-<<<<<<< HEAD
-    var users = Users({line_id: lineID}).retrieveByLineId(lineID); 
-=======
-    var localeText = localeChecker('jp', 'verify-content');
     var users = UserModel({line_id: lineID}).retrieveByLineId(lineID); 
->>>>>>> transferred api service to model; modified verify files
 
     if (!validatedUserData) return logger.error("User data not validated");
     users.then(function(data) {
@@ -211,12 +195,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 }
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
-<<<<<<< HEAD
-    var userWithLineId = Users(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
-=======
-    var localeText = localeChecker('jp', 'verify-content');
     var userWithLineId = UserModel(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
->>>>>>> transferred api service to model; modified verify files
     
     userWithLineId.then(function(data) {
         if (!data) {

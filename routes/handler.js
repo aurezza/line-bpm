@@ -30,8 +30,7 @@ generateToken(router);
 
 // verify page
 router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage);
-// verify(router);
-router.post('/verify/:token/:lineID', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData);
+router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData);
 
 router.get('/success', VerifyPageController().showSuccess);
 

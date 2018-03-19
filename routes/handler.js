@@ -6,7 +6,6 @@ var connection = require('../mongo/connection');
 var passportTmj = require('../passport/passport-tmj');
 var apiValidation = require('../api-validation');
 var generateToken = require('../api-validation/generate-token');
-var verify = require('./verify');
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;

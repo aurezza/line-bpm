@@ -2,7 +2,7 @@
 
 var jwt = require('jsonwebtoken');
 var logger = require('../logger');
-var Token = require('../routes/node/token-generator');
+var Token = require('../node/token-generator');
 var Api = require('../service/api');
 
 // TODO: create proper UI for generating keys

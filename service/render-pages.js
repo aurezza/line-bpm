@@ -1,5 +1,5 @@
 'use strict';
-var localeChecker = require('../routes/locale/locale-checker');
+var localeChecker = require('../locale/locale-checker');
 
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 

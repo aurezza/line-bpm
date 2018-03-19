@@ -1,28 +1,22 @@
 'use strict';
-var userModel = require('../models/user-model');
+var UserSchema = require('../schema/user-schema');
 var logger = require('../logger');
-var errorLocator = require('../routes/node/error-locator');
+var errorLocator = require('../node/error-locator');
 
-function Users(userData  = {}) {
-    if (!(this instanceof Users)) return new Users();
-    //constructor
-    this.employee_id = userData.employee_id || null;
-    this.employee_name = userData.employee_name || null;
-    this.employee_email = userData.employee_email || null;
-    this.line_id = userData.line_id || null;
-    this.locale = userData.locale || null;
+function UserModel() {
+    if (!(this instanceof UserModel)) return new UserModel();
 }
 
-Users.prototype = {
-    save: save,
-    retrieveByLineId: retrieveByLineId,
-    retrieveByEmpId: retrieveByEmpId,
-    retriveByEmpEmail: retriveByEmpEmail
+UserModel.prototype = {
+    save,
+    retrieveByLineId,
+    retrieveByEmpId,
+    retriveByEmpEmail
 };
     
 function save(userData) {
-
-    var newUser = new userModel();
+    logger.info('UserModel save');
+    var newUser = new UserSchema();
     newUser.line_id = userData.lineID;
     newUser.employee_id = userData.employee_id;
     newUser.employee_name = userData.name;
@@ -30,7 +24,7 @@ function save(userData) {
     newUser.locale = userData.locale;
         
     newUser.save()
-        .then(function(savedObject) {
+        .then(function() {
             logger.info('data saved');
         })
         .catch(function(error) {
@@ -40,8 +34,8 @@ function save(userData) {
 }
 
 function retrieveByLineId(lineID) {
-
-    var users = userModel.findOne({line_id: lineID});
+    logger.info('UserModel retrieveByLineId');
+    var users = UserSchema.findOne({line_id: lineID});
     users
         .exec(function(res, err) {
             if (err.message) { logger.error(err.message); logger.error(errorLocator());}
@@ -50,7 +44,8 @@ function retrieveByLineId(lineID) {
 }
 
 function retrieveByEmpId(receivedEmployeeID) {
-    var users = userModel.findOne({employee_id: receivedEmployeeID});
+    logger.info('UserModel retrieveByEmpId');
+    var users = UserSchema.findOne({employee_id: receivedEmployeeID});
     
     users
         .exec(function(res, err) {
@@ -61,7 +56,8 @@ function retrieveByEmpId(receivedEmployeeID) {
 }
 
 function retriveByEmpEmail (receivedEmployeeEmail) {
-    var users = userModel.findOne({employee_email: receivedEmployeeEmail});
+    logger.info('UserModel retriveByEmpEmail');
+    var users = UserSchema.findOne({employee_email: receivedEmployeeEmail});
 
     users
         .exec(function(res, err) {
@@ -71,4 +67,4 @@ function retriveByEmpEmail (receivedEmployeeEmail) {
     return users;
 }
 
-module.exports = Users;
+module.exports = UserModel;

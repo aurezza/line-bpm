@@ -4,11 +4,11 @@ const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var passport = require('passport');
 var logger = require('../logger');
-var errorLocator = require('../routes/node/error-locator');
-var localeChecker = require('../routes/locale/locale-checker');
+var errorLocator = require('../node/error-locator');
+var localeChecker = require('../locale/locale-checker');
 
-var Users = require('../service/users');
-var AccessPass = require('../service/access-pass');
+var Users = require('../model/UserModel');
+var AccessPass = require('../model/AccessPassModel');
 var RenderPage = require('../service/render-pages');
 var LineConfiguration = require('../config/line');
 

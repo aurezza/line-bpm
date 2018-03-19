@@ -1,28 +1,24 @@
 'use strict';
-var requestModel = require('../models/request-model');
+var RequestSchema = require('../schema/request-schema');
 var logger = require('../logger');
-var errorLocator = require('../routes/node/error-locator');
+var errorLocator = require('../node/error-locator');
 
 
-function Requests(requestData = {}) {
+function RequestModel() {
     //constructor
-    this.user_name = requestData.user_name || null;
-    this.overtime_date = requestData.overtime_date || null;
-    this.process_id = requestData.process_id || null;
-    this.reason = requestData.reason || null;
-    this.status = requestData.status || null;
-    this.manager_email = requestData.manager_email || null;
+    if (!(this instanceof RequestModel)) return new RequestModel();
 }
 
-Requests.prototype = {
-    save: save,
-    retrieve: retrieve,
-    updateToCancel: updateToCancel,
-    updateToApproveDisapprove: updateToApproveDisapprove   
+RequestModel.prototype = {
+    save,
+    retrieve,
+    updateToCancel,
+    updateToApproveDisapprove   
 };
 
 function save (requestData) {
-    var newRequest = new requestModel();
+    logger.info('RequestModel save');
+    var newRequest = new RequestSchema();
 
     newRequest.user_name = requestData.user_name;
     newRequest.overtime_date = requestData.overtime_date;
@@ -32,7 +28,7 @@ function save (requestData) {
     newRequest.manager_email = requestData.manager_email;
     
     newRequest.save()
-        .then(function(savedObject) {
+        .then(function() {
             logger.info('data saved');
         })
         .catch(function(error) {
@@ -42,7 +38,8 @@ function save (requestData) {
 }
 
 function retrieve (requestId) {
-    var overtimeRequest = requestModel.findOne({process_id: requestId,
+    logger.info('RequestModel retrieve');
+    var overtimeRequest = RequestSchema.findOne({process_id: requestId,
         $or: [{status: "approved"}, {status: "declined"}, {status: "cancelled"}]});
         
     overtimeRequest
@@ -53,7 +50,8 @@ function retrieve (requestId) {
 }
 
 function updateToCancel(requestData) {
-    requestModel.update({ process_id: requestData.process_id }, 
+    logger.info('RequestModel updateToCancel');
+    RequestSchema.update({ process_id: requestData.process_id }, 
         { $set: {status: "cancelled"}},
     
         function() {
@@ -62,12 +60,13 @@ function updateToCancel(requestData) {
 }
 
 function updateToApproveDisapprove(requestData) {
+    logger.info('RequestModel updateToApproveDisapprove');
     var replymessage = requestData.q_replymessage ;
     var requestStatus = {
         yes: "approved",
         no: "declined"
     };
-    requestModel
+    RequestSchema
         .findOneAndUpdate({process_id: requestData.processInstanceId, status: "pending"},
             {status: requestStatus[replymessage]},
             function() {
@@ -76,4 +75,4 @@ function updateToApproveDisapprove(requestData) {
         );        
 }
 
-module.exports = Requests;
+module.exports = RequestModel;

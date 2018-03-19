@@ -4,7 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var connection = require('../mongo/connection');
 var passportTmj = require('../passport/passport-tmj');
-var apiValidation = require('../api-validation');
+// var apiValidation = require('../api-validation');
 var generateToken = require('../api-validation/generate-token');
 var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
@@ -24,17 +24,17 @@ connection(mongoose, connectionURL);
 passportTmj();
 
 // api token
-apiValidation(router);
-generateToken(router);
+// apiValidation(router); // ext
+generateToken(router); // internal
 
 // verify page
-router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage);
-router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData);
+router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage); // internal
+router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData); // internal
 
-router.get('/success', VerifyPageController().showSuccess);
+router.get('/success', VerifyPageController().showSuccess); //internal
 
-router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest);
-router.post('/receiveFromQuest', QuestetraController().recieveFromQuest);
-router.post('/handler', LineController().eventTrigger);
+router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest); //ext
+router.post('/receiveFromQuest', QuestetraController().recieveFromQuest); // ext
+router.post('/handler', LineController().eventTrigger); // ext
 
 module.exports = router;

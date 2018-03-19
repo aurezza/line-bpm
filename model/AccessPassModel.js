@@ -16,6 +16,7 @@ AccessPassModel.prototype = {
 };
 
 function save (token, lineId) {
+    logger.info('AccessPassModel save');
     var newAccessPass = new accessPassSchema();
     newAccessPass.access_pass_token = token;
     newAccessPass.line_id = lineId;
@@ -31,6 +32,7 @@ function save (token, lineId) {
 }
 
 function changeAccessPass (lineId, token) {
+    logger.info('AccessPassModel changeAccessPass');
     accessPassSchema.updateMany({ line_id: lineId }, 
         { $set: {access_pass_token: token }},
     
@@ -40,6 +42,7 @@ function changeAccessPass (lineId, token) {
 }
 
 function expireAccessPass (lineId) {
+    logger.info('AccessPassModel expireAccessPass');
     accessPassSchema.updateMany({ 
         line_id: lineId, 
         status: "active" }, 
@@ -51,6 +54,7 @@ function expireAccessPass (lineId) {
 }
 
 function retrieveLineId (lineId) {
+    logger.info('AccessPassModel retrieveLineId');
     var accessPassOwner = accessPassSchema.findOne({
         line_id: lineId,
         status: "active"
@@ -64,6 +68,7 @@ function retrieveLineId (lineId) {
 }
 
 function retrieve (lineId, token) {
+    logger.info('AccessPassModel retrieve');
     var accessPass = accessPassSchema.findOne({
         line_id: lineId, 
         access_pass_token: token, 

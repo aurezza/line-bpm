@@ -15,6 +15,7 @@ Questetra.prototype = {
 };
 
 function reply(axiosParameters) {
+    logger.info('reply');
     var throttleCounter = 0;
     //1000 = 1sec
     var replyDelayTime = 6000;
@@ -37,7 +38,7 @@ function reply(axiosParameters) {
 }
 
 function incomingMessage(instanceId, isMessageSent) {
-
+    logger.info('incomingMessage');
     var axiosParameters = {
         url: process.env.REPLYURL_TO_QUESTETRA_REQUEST_STATUS,
         content: {
@@ -51,6 +52,7 @@ function incomingMessage(instanceId, isMessageSent) {
 }
 
 function outgoingMessage(postBack, client, line_userId) {
+    logger.info('outgoingMessage');
     let Line = require('./Line');
     let RequestModel = require('../model/RequestModel');
 

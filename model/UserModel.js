@@ -15,7 +15,7 @@ UserModel.prototype = {
 };
     
 function save(userData) {
-
+    logger.info('UserModel save');
     var newUser = new UserSchema();
     newUser.line_id = userData.lineID;
     newUser.employee_id = userData.employee_id;
@@ -34,7 +34,7 @@ function save(userData) {
 }
 
 function retrieveByLineId(lineID) {
-
+    logger.info('UserModel retrieveByLineId');
     var users = UserSchema.findOne({line_id: lineID});
     users
         .exec(function(res, err) {
@@ -44,6 +44,7 @@ function retrieveByLineId(lineID) {
 }
 
 function retrieveByEmpId(receivedEmployeeID) {
+    logger.info('UserModel retrieveByEmpId');
     var users = UserSchema.findOne({employee_id: receivedEmployeeID});
     
     users
@@ -55,6 +56,7 @@ function retrieveByEmpId(receivedEmployeeID) {
 }
 
 function retriveByEmpEmail (receivedEmployeeEmail) {
+    logger.info('UserModel retriveByEmpEmail');
     var users = UserSchema.findOne({employee_email: receivedEmployeeEmail});
 
     users

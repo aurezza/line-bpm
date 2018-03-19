@@ -21,6 +21,7 @@ QuestetraController.prototype = {
 };
 
 function recieveFromQuest(req, res) {
+    logger.info("recieveFromQuest accessed");
     var managerData = {};
     var users = UserModel().retriveByEmpEmail(req.body.manager_email);
     
@@ -36,6 +37,7 @@ function recieveFromQuest(req, res) {
 }
 
 function receiverCancelledRequest(req, res) {
+    logger.info("receiverCancelledRequest accessed");
 
     RequestModel().updateToCancel(req.body)
 

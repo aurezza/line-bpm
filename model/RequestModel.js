@@ -17,6 +17,7 @@ RequestModel.prototype = {
 };
 
 function save (requestData) {
+    logger.info('RequestModel save');
     var newRequest = new RequestSchema();
 
     newRequest.user_name = requestData.user_name;
@@ -37,6 +38,7 @@ function save (requestData) {
 }
 
 function retrieve (requestId) {
+    logger.info('RequestModel retrieve');
     var overtimeRequest = RequestSchema.findOne({process_id: requestId,
         $or: [{status: "approved"}, {status: "declined"}, {status: "cancelled"}]});
         
@@ -48,6 +50,7 @@ function retrieve (requestId) {
 }
 
 function updateToCancel(requestData) {
+    logger.info('RequestModel updateToCancel');
     RequestSchema.update({ process_id: requestData.process_id }, 
         { $set: {status: "cancelled"}},
     
@@ -57,6 +60,7 @@ function updateToCancel(requestData) {
 }
 
 function updateToApproveDisapprove(requestData) {
+    logger.info('RequestModel updateToApproveDisapprove');
     var replymessage = requestData.q_replymessage ;
     var requestStatus = {
         yes: "approved",

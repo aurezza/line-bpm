@@ -40,7 +40,7 @@ function checkManagerDetails(managerData, body, client) {
 }
 
 function notifyUserResponded(retrievedRequestData, client, line_userId, parsedData) { 
- 
+    logger.info('notifyUserResponded');
     if (retrievedRequestData != null) return responded(retrievedRequestData, client, line_userId);
     RequestModel().updateToApproveDisapprove(parsedData);
     
@@ -123,6 +123,7 @@ function sendCancelledRequest(managerData, body, client) {
 }
 
 function userExist(client, line_userId, userName) {
+    logger.info('userExist');
     var localeText = localeChecker('jp', 'scan-qr-code');
     var msgContent = localeText({userName: userName});    
     const message = {
@@ -134,7 +135,7 @@ function userExist(client, line_userId, userName) {
 }
 
 function responded(retrievedRequestData, client, line_userId) {
-    
+    logger.info('responded');
     var response = localeChecker('jp', 'responded-message');
     var messageType = {
         approved: "responded",
@@ -142,8 +143,6 @@ function responded(retrievedRequestData, client, line_userId) {
         cancelled: "cancelled"
     };
     var messageResponse = response(messageType[retrievedRequestData.status]);
-
-
     const message = {
         type: 'text',
         text: messageResponse,
@@ -153,6 +152,7 @@ function responded(retrievedRequestData, client, line_userId) {
 
 
 function clientPushMessage(client, line_userId, message, body) {
+    logger.info('clientPushMessage');
     client.pushMessage(line_userId, message)
         .then(() => {
             

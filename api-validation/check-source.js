@@ -2,7 +2,6 @@ var logger = require('../logger');
 var verifyToken = require('./verify-token');
 const crypto = require('crypto');
 const channelSecret  = process.env.LINE_BOT_CHANNEL_SECRET;
-const verify = crypto.createVerify('SHA256');
 
 function checkSource(sourceSignature, req, res, next) {
     var getToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
@@ -13,6 +12,7 @@ function checkSource(sourceSignature, req, res, next) {
         const lineBodySignature = crypto.createHmac('SHA256', channelSecret).update(lineBody).digest('base64');
     
         if (lineBodySignature != sourceSignature) {
+            logger.info('sourceSignature: ', sourceSignature);
             logger.error('source from line is not valid');
             return res.send('source from line is not valid');
         }

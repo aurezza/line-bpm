@@ -20,6 +20,7 @@ env(__dirname + '/.env');
 const port = process.env.PORT || 4000;
 
 var handler = require('./routes/handler');
+var api = require('./routes/api');
 
 app.get('/robots.txt', function (req, res) {
     res.type('text/plain');
@@ -50,6 +51,7 @@ app.use(passport.initialize());
 // app.use(passport.session());
 
 app.use('/', handler);
+app.use('/', api);
 
 // validator
 app.use(expressValidator);

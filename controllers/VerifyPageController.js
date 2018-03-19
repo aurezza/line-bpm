@@ -7,9 +7,9 @@ var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 var Translator = require('../service/Translator');
 
-var Users = require('../model/UserModel');
-var AccessPass = require('../model/AccessPassModel');
-var RenderPage = require('../service/render-pages');
+var UserModel = require('../model/UserModel');
+var AccessPassModel = require('../model/AccessPassModel');
+var RenderPage = require('../service/RenderPages');
 var LineConfiguration = require('../config/line');
 
 var line = require('@line/bot-sdk');
@@ -20,16 +20,21 @@ function VerifyPageController() {
 }
 
 VerifyPageController.prototype = {
-    showPage: showVerifyPage,
-    showSuccess: showVerifySuccess,
-    checkFormData: checkVerifyFormData 
+    showPage,
+    showSuccess,
+    checkFormData
 };
 
+<<<<<<< HEAD
 function showVerifyPage (req, res) {
+=======
+function showPage (req, res) {
+    var localeText = localeChecker('jp', 'verify-content');
+>>>>>>> transferred api service to model; modified verify files
     var lineID = req.params.line_id;
     var token = req.params.token;
 
-    var users = Users().retrieveByLineId(lineID);
+    var users = UserModel().retrieveByLineId(lineID);
     users
         .then(function(data) {
             if (data) {
@@ -41,7 +46,7 @@ function showVerifyPage (req, res) {
                 return res.render('verify-error', RenderPage().errorForm(dataForRenderingError));
             }
 
-            var retrievedAccessPass = AccessPass().retrieve(lineID, token);
+            var retrievedAccessPass = AccessPassModel().retrieve(lineID, token);
             retrievedAccessPass
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {
@@ -69,15 +74,20 @@ function showVerifyPage (req, res) {
         }); 
 }
 
-function showVerifySuccess (req, res) {
+function showSuccess (req, res) {
     res.render('success', RenderPage().successForm());
 }
 
+<<<<<<< HEAD
 function checkVerifyFormData(req, res) {
+=======
+function checkFormData(req, res) {
+    var localeText = localeChecker('jp', 'verify-content');
+>>>>>>> transferred api service to model; modified verify files
     var lineID = req.params.lineID;
     var token = req.params.token;
 
-    var retrivedAccessPass = AccessPass().retrieve(lineID, token);
+    var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
     retrivedAccessPass
         .then(function(retrivedAccessPassData) {
             if (retrivedAccessPassData == null) {
@@ -115,7 +125,12 @@ function checkVerifyFormData(req, res) {
 function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
     var employeeDetails = {};
+<<<<<<< HEAD
     var users = Users({line_id: lineID}).retrieveByLineId(lineID); 
+=======
+    var localeText = localeChecker('jp', 'verify-content');
+    var users = UserModel({line_id: lineID}).retrieveByLineId(lineID); 
+>>>>>>> transferred api service to model; modified verify files
 
     if (!validatedUserData) return logger.error("User data not validated");
     users.then(function(data) {
@@ -175,13 +190,18 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 }
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
+<<<<<<< HEAD
     var userWithLineId = Users(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
+=======
+    var localeText = localeChecker('jp', 'verify-content');
+    var userWithLineId = UserModel(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
+>>>>>>> transferred api service to model; modified verify files
     
     userWithLineId.then(function(data) {
         if (!data) {
-            Users().save(employeeDetails);
+            UserModel().save(employeeDetails);
             successVerifyLineMessage(lineID);
-            AccessPass().expireAccessPass(lineID);
+            AccessPassModel().expireAccessPass(lineID);
             return res.redirect('/success');
         }
 

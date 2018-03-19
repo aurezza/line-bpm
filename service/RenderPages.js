@@ -10,9 +10,9 @@ function RenderPage() {
 }
 
 RenderPage.prototype = {
-    successForm: successForm,
-    errorForm: errorForm,
-    fetchData: fetchData
+    fetchData,
+    successForm,
+    errorForm
 };
 
 function fetchData(data) {

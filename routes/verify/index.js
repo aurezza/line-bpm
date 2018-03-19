@@ -1,4 +1,5 @@
 'use strict';
+<<<<<<< HEAD
 var logger = require('../../logger');
 var errorLocator = require('../../node/error-locator');
 var csrf = require('csurf');
@@ -54,6 +55,33 @@ function verify(router, lineBotId) {
                 logger.error(errorLocator());          
             }); 
     });
+=======
+const { check } = require('express-validator/check');
+
+var csrf = require('csurf');
+var csrfProtection = csrf({ cookie: true });
+
+var VerifyPageController = require('../../controllers/VerifyPageController');
+var localeChecker = require('../../routes/locale/locale-checker');
+var localeText = localeChecker('jp', 'verify-content');
+var notEmpty = localeText.error.mustNotBeEmpty;
+
+function verify(router) {
+    // needs additional validation for schema
+    router.post('/verify/:token/:lineID', [
+        check('username', notEmpty)
+            .isLength({ min: 1})
+            .trim()
+            .withMessage(notEmpty),
+
+        check('password')
+            .isLength({ min: 1})
+            .trim().withMessage(notEmpty),
+    ],
+    csrfProtection, 
+    VerifyPageController().checkFormData
+    );
+>>>>>>> transferred api service to model; modified verify files
 }
 
 module.exports = verify;

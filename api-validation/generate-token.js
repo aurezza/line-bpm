@@ -3,7 +3,7 @@
 var jwt = require('jsonwebtoken');
 var logger = require('../logger');
 var Token = require('../node/token-generator');
-var Api = require('../service/api');
+var ApiModel = require('../model/ApiModel');
 
 // TODO: create proper UI for generating keys
 function generateToken(router) {
@@ -33,7 +33,7 @@ function generateToken(router) {
         logger.info('generatedkey: ', generatedSecretKey);
         var token = jwt.sign(payload, generatedSecretKey);
 
-        var checkApiName = Api().retrieveApiByName(apiName);
+        var checkApiName = ApiModel().retrieveApiByName(apiName);
         checkApiName
             .then(function(data) {
                 logger.info("checking api name");
@@ -44,7 +44,7 @@ function generateToken(router) {
                         created_at: dateNow.toUTCString(),
                         token: token
                     };
-                    Api().save(api);
+                    ApiModel().save(api);
                     return res.json({
                         success: true,
                         message: 'You haz token now',
@@ -58,7 +58,7 @@ function generateToken(router) {
                     api_key: payload.api_key,
                     token: token
                 };
-                Api().update(api);
+                ApiModel().update(api);
                 return res.json({
                     success: true,
                     message: 'Your token has been updated',

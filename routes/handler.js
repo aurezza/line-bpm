@@ -15,11 +15,9 @@ const connectionURL = mongoDbURL + mongoDbName;
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
-var VerifyPageController = require('../controllers/VerifyPageController');
-// var renderVerify = new Verify();
-
 var LineController = require('../controller/LineController');
 var QuestetraController = require('../controller/QuestetraController');
+var VerifyPageController = require('../controller/VerifyPageController');
 // db connection
 connection(mongoose, connectionURL);
 
@@ -32,7 +30,9 @@ generateToken(router);
 
 // verify page
 router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage);
-verify(router);
+// verify(router);
+router.post('/verify/:token/:lineID', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData);
+
 router.get('/success', VerifyPageController().showSuccess);
 
 router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest);

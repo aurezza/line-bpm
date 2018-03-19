@@ -1,7 +1,6 @@
 'use strict';
 
 var logger = require('../logger');
-var verifyToken = require('./verify-token');
 var kernel = require('../kernel');
 var corsOptions = require('./cors-options');
 var checkSource = require('./check-source');
@@ -18,20 +17,17 @@ function apiValidation(router) {
 
     // external validation
     router.use(kernel.externalRoutes, cors(corsOptions), function(req, res, next) {
+        logger.info('headers: ', JSON.stringify(req.headers));
         // check if sources are valid
-        var sourceSignature = req.headers['x-line-signature'] // add questetra source here;
+        var sourceSignature = req.headers['x-line-signature'] || req.headers['x-origin'];
 
-        if (sourceSignature != null) {
-            logger.info('source is identified with: ', sourceSignature);
-            checkSource(sourceSignature, req, res, next);
+        if (!sourceSignature) {
+            logger.error('No valid source header found');
+            return res.send('Invalid source');
         }
 
-        logger.info('passing through api validation...');
-        logger.info('headers: ', JSON.stringify(req.headers));
-
-        var getToken = req.params.token || req.query.token || req.body.token || req.header['x-access-token'];
-
-        verifyToken(getToken, req, res, next);
+        logger.info('source is identified with: ', sourceSignature);
+        checkSource(sourceSignature, req, res, next);
     });
 
     // TODO: additional error handling for other instances

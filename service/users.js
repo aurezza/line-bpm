@@ -4,6 +4,7 @@ var logger = require('../logger');
 var errorLocator = require('../routes/node/error-locator');
 
 function Users(userData  = {}) {
+    if (!(this instanceof Users)) return new Users();
     //constructor
     this.employee_id = userData.employee_id || null;
     this.employee_name = userData.employee_name || null;

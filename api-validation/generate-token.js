@@ -2,20 +2,22 @@
 
 var jwt = require('jsonwebtoken');
 var logger = require('../logger');
-var retrieveByApiName = require('./retrieve-by-api-name');
-var saveApi = require('./save-api');
-var updateApi = require('./update-api');
 var Token = require('../routes/node/token-generator');
+var Api = require('../service/api');
 
 // TODO: create proper UI for generating keys
 function generateToken(router) {
     router.get('/api/generate-token/:api_name', function(req, res) {
-        var successVerification = true; // TODO: add authorization handler
+        // TODO: add authorization handler
+        var successVerification = true; 
+        
         var apiName = req.params.api_name; 
+
         if ((apiName !== "line") && (apiName !== "questetra")) {
             logger.warn("Params should only be line/questetra");
             return res.send("Invalid params"); 
         }
+
         var secretKey = process.env.APP_SECRET_KEY;
         var forHashing = apiName + secretKey;
         var hashedKey = new Token(forHashing);
@@ -31,7 +33,7 @@ function generateToken(router) {
         logger.info('generatedkey: ', generatedSecretKey);
         var token = jwt.sign(payload, generatedSecretKey);
 
-        var checkApiName = retrieveByApiName(apiName);
+        var checkApiName = Api().retrieveApiByName(apiName);
         checkApiName
             .then(function(data) {
                 logger.info("checking api name");
@@ -42,7 +44,7 @@ function generateToken(router) {
                         created_at: dateNow.toUTCString(),
                         token: token
                     };
-                    saveApi(api);
+                    Api().save(api);
                     return res.json({
                         success: true,
                         message: 'You haz token now',
@@ -56,7 +58,7 @@ function generateToken(router) {
                     api_key: payload.api_key,
                     token: token
                 };
-                updateApi(api);
+                Api().update(api);
                 return res.json({
                     success: true,
                     message: 'Your token has been updated',

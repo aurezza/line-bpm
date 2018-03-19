@@ -3,11 +3,11 @@ var accessPassModel = require('../models/access-pass-model');
 var logger = require('../logger');
 
 function AccessPass(accessPassData = {}) {
+    if (!(this instanceof AccessPass)) return new AccessPass();
     //constructor
     this.access_pass_token = accessPassData.access_pass_token || null ;
     this.line_id = accessPassData.access_pass_token || null ;
     this.status = accessPassData.access_pass_token || null ;
-
 }
 
 AccessPass.prototype = {

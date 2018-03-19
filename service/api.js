@@ -1,5 +1,5 @@
 'use strict';
-var apiModel = require('../models/api-model');
+var apiModel = require('../schema/api-schema');
 var logger = require('../logger');
 
 // setting default variables

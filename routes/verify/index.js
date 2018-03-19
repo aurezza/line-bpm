@@ -1,5 +1,6 @@
 'use strict';
 <<<<<<< HEAD
+<<<<<<< HEAD
 var logger = require('../../logger');
 var errorLocator = require('../../node/error-locator');
 var csrf = require('csurf');
@@ -57,29 +58,24 @@ function verify(router, lineBotId) {
     });
 =======
 const { check } = require('express-validator/check');
+=======
+// const { check } = require('express-validator/check');
+>>>>>>> added express-validator as function in controller
 
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
 var VerifyPageController = require('../../controllers/VerifyPageController');
-var localeChecker = require('../../locale/locale-checker');
-var localeText = localeChecker('jp', 'verify-content');
-var notEmpty = localeText.error.mustNotBeEmpty;
+// var localeChecker = require('../../locale/locale-checker');
+// var localeText = localeChecker('jp', 'verify-content');
+// var notEmpty = localeText.error.mustNotBeEmpty;
 
 function verify(router) {
     // needs additional validation for schema
-    router.post('/verify/:token/:lineID', [
-        check('username', notEmpty)
-            .isLength({ min: 1})
-            .trim()
-            .withMessage(notEmpty),
-
-        check('password')
-            .isLength({ min: 1})
-            .trim().withMessage(notEmpty),
-    ],
-    csrfProtection, 
-    VerifyPageController().checkFormData
+    router.post('/verify/:token/:lineID', 
+        VerifyPageController().expressValidator,
+        csrfProtection, 
+        VerifyPageController().checkFormData
     );
 >>>>>>> transferred api service to model; modified verify files
 }

@@ -20,14 +20,35 @@ function VerifyPageController() {
 }
 
 VerifyPageController.prototype = {
+    expressValidator,
     showPage,
     showSuccess,
     checkFormData
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function showVerifyPage (req, res) {
 =======
+=======
+function expressValidator() {
+    var localeText = localeChecker('jp', 'verify-content');
+    var notEmpty = localeText.error.mustNotBeEmpty;
+    var validateInputData = [
+        check('username', notEmpty)
+            .isLength({ min: 1})
+            .trim()
+            .withMessage(notEmpty),
+
+        check('password')
+            .isLength({ min: 1})
+            .trim().withMessage(notEmpty),
+    ];
+
+    return validateInputData;
+}
+
+>>>>>>> added express-validator as function in controller
 function showPage (req, res) {
     var localeText = localeChecker('jp', 'verify-content');
 >>>>>>> transferred api service to model; modified verify files
@@ -242,5 +263,6 @@ function successVerifyLineMessage(lineID)
         });             
   
 }
+
 
 module.exports = VerifyPageController;

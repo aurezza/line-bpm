@@ -6,7 +6,8 @@ var logger = require('../logger');
 var kernel = require('../kernel');
 var ApiController = require('../controller/ApiController');
 
-
+// TODO: add separately as functions in app.js
+// refer to https://stackoverflow.com/questions/31928417/chaining-multiple-pieces-of-middleware-for-specific-route-in-expressjs
 router.use(function(req, res, next) {
     // solution provided in https://github.com/expressjs/cors/issues/71
     // case of non-existing origins that usually come from direct server requests

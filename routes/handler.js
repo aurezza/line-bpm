@@ -16,8 +16,6 @@ var kernel = require('../kernel');
 var Middleware = require('../middleware/RouterMiddleware');
 
 var ApiController = require('../controller/ApiController');
-var LineController = require('../controller/LineController');
-var QuestetraController = require('../controller/QuestetraController');
 var VerifyPageController = require('../controller/VerifyPageController');
 // db connection
 connection(mongoose, connectionURL);
@@ -33,12 +31,10 @@ router.use(kernel.externalRoutes, ApiController().corsOptions(), Middleware().ch
 passportTmj();
 
 // verify page
-router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage); // internal
-router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData); // internal
-router.get('/success', VerifyPageController().showSuccess); //internal
+router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage);
+router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData); 
+router.get('/success', VerifyPageController().showSuccess);
+router.get('/generate-token/:api_name', ApiController().generateToken); // generating API for external routes
 
-router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest); //ext
-router.post('/receiveFromQuest', QuestetraController().recieveFromQuest); // ext
-router.post('/handler', LineController().eventTrigger); // ext
 
 module.exports = router;

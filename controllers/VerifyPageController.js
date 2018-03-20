@@ -216,7 +216,6 @@ function successVerifyLineMessage(lineID)
         text: msgContent,
     };
 
-    // var client = new line.Client(LineConfiguration().lineConfiguration()[0]);
     var client = new line.Client(LineConfiguration.api);
     
     client.pushMessage(lineID, message)

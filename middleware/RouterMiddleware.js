@@ -2,20 +2,16 @@
 
 var logger = require('../logger');
 
-function InternalMiddleware() {
+function RouterMiddleware() {
     //constructor
-    if (!(this instanceof InternalMiddleware)) return new InternalMiddleware();
-    this.test = {
-        setOrigin,
-        tokenSyntaxError,
-        test
-    };
+    if (!(this instanceof RouterMiddleware)) return new RouterMiddleware();
+
 }
 
-InternalMiddleware.prototype = {
-    // setOrigin,
-    // tokenSyntaxError,
-    // test
+RouterMiddleware.prototype = {
+    setOrigin,
+    tokenSyntaxError,
+    test
 };
 
 
@@ -42,4 +38,4 @@ function tokenSyntaxError(err, req, res, next) {
     next(err);
 }
 
-module.exports = InternalMiddleware;
+module.exports = RouterMiddleware;

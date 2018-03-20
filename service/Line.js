@@ -6,11 +6,14 @@ var Token = require('../node/token-generator');
 var AccessPassModel = require('../model/AccessPassModel');
 var Translation = require('../service/Translation');
 var RequestModel = require('../model/RequestModel');
-let Questetra = require('./Questetra');
+var Questetra = require('./Questetra');
 
 function Line () {
     if (!(this instanceof Line)) return new Line();
     this.translation = Translation();
+    this.model.accesspass = AccessPassModel();
+    this.model.request = RequestModel();
+    this.service.questetra = Questetra();
 }
 
 Line.prototype = {
@@ -36,14 +39,14 @@ function checkManagerDetails(managerData, body, client) {
         }
     };
 
-    Questetra().reply(axiosParameters);
+    this.service.questetra.reply(axiosParameters);
     
 }
 
 function notifyUserResponded(retrievedRequestData, client, line_userId, parsedData) { 
     logger.info('notifyUserResponded');
     if (retrievedRequestData != null) return responded(retrievedRequestData, client, line_userId);
-    RequestModel().updateToApproveDisapprove(parsedData);
+    this.model.request.updateToApproveDisapprove(parsedData);
     
 }
 
@@ -51,13 +54,13 @@ function scanQrCode(client, line_userId) {
     logger.info('scan qr code');
     var generate = new Token(line_userId);
     var token = generate.get();
-    var owner = AccessPassModel().retrieveLineId(line_userId);
+    var owner = this.model.accesspass.retrieveLineId(line_userId);
     owner
         .then(function(owner) {
             if (owner) {
-                AccessPassModel().changeAccessPass(line_userId, token)
+                this.model.accesspass.changeAccessPass(line_userId, token)
             } else {
-                AccessPassModel().save(token, line_userId)
+                this.model.accesspass.save(token, line_userId)
             }            
             var localeText = this.translation.get('scan-qr-code');
             var url = process.env.APP_URL + 'verify/' + token + '/';
@@ -160,7 +163,7 @@ function clientPushMessage(client, line_userId, message, body) {
             logger.info("message sent to " + line_userId);
             if (!body) return;
             logger.info("serviceRequest.save");
-            RequestModel().save({
+            this.model.request.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
@@ -168,14 +171,14 @@ function clientPushMessage(client, line_userId, message, body) {
                 status: 'pending',
                 manager_email: body.manager_email,       
             })
-            Questetra().incomingMessage(body.process_id, 'yes');     
+            this.service.questetra.incomingMessage(body.process_id, 'yes');     
         })
         .catch((error) => {
             logger.error(error.message);
             logger.error(errorLocator());
             if (!body) return;
             logger.info("serviceRequest.save");
-            RequestModel().save({
+            this.model.request.save({
                 user_name: body.user_name,
                 overtime_date: body.overtime_date,
                 process_id: body.process_id,
@@ -183,7 +186,7 @@ function clientPushMessage(client, line_userId, message, body) {
                 status: 'failed',
                 manager_email: body.manager_email,       
             })
-            Questetra().incomingMessage(body.process_id, 'no'); 
+            this.service.questetra.incomingMessage(body.process_id, 'no'); 
         });
  
 }

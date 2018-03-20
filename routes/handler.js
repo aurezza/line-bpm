@@ -19,7 +19,7 @@ var ApiController = require('../controller/ApiController');
 var Api = ApiController();
 
 var VerifyPageController = require('../controller/VerifyPageController');
-var VerifyPage = VerifyPageController();
+
 // db connection
 connection(mongoose, connectionURL);
 
@@ -36,7 +36,7 @@ passportTmj();
 router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage);
 router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData); 
 router.get('/success', VerifyPageController().showSuccess);
-router.get('/generate-token/:api_name', Api.generateToken.bind(Api)); // generating API for external routes
+router.get('/generate-token/:api_name', Api.generateToken.bind(Api));
 
 
 module.exports = router;

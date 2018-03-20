@@ -125,7 +125,7 @@ function sendCancelledRequest(managerData, body, client) {
 
 function userExist(client, line_userId, userName) {
     logger.info('userExist');
-    var localeText = Translation().get('scan-qr-code');
+    var localeText = this.translation.get('scan-qr-code');
     var msgContent = localeText({userName: userName});    
     const message = {
         type: 'text',
@@ -137,7 +137,7 @@ function userExist(client, line_userId, userName) {
 
 function responded(retrievedRequestData, client, line_userId) {
     logger.info('responded');
-    var response = Translation().get('responded-message');
+    var response = this.translation.get('responded-message');
     var messageType = {
         approved: "responded",
         declined: "responded",

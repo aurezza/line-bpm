@@ -1,5 +1,3 @@
-
-
 function Translation() {
     if (!(this instanceof Translation)) return new Translation();
 }
@@ -8,17 +6,13 @@ Translation.prototype = {
     translation,
 };
 
-function translation(locale, filename) {
-    if ((typeof locale !== 'string')) {
-        return 'false';
-    }
-
+function translation(filename) {
     if (typeof filename !== 'string') {
         return 'false';
     }
 
-    if (locale != undefined && filename != undefined) {
-        return require('../locale/' + locale + '/' + filename); 
+    if (filename != undefined) {
+        return require('../locale/' + process.env.APP_LANGUAGE + '/' + filename); 
     };
 }
 

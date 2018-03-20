@@ -75,7 +75,6 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
 // listen on port
 app.listen(port, () => {
     logger.info(`listening on ${port}`);

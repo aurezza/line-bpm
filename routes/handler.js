@@ -12,11 +12,16 @@ const connectionURL = mongoDbURL + mongoDbName;
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
+var Middleware = require('../middleware/InternalMiddleware');
+
 var LineController = require('../controller/LineController');
 var QuestetraController = require('../controller/QuestetraController');
 var VerifyPageController = require('../controller/VerifyPageController');
 // db connection
 connection(mongoose, connectionURL);
+
+// middleware for all routes
+router.use(Middleware().setOrigin);
 
 // passport
 passportTmj();

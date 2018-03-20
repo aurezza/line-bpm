@@ -12,8 +12,10 @@ const connectionURL = mongoDbURL + mongoDbName;
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
+var kernel = require('../kernel');
 var Middleware = require('../middleware/RouterMiddleware');
 
+var ApiController = require('../controller/ApiController');
 var LineController = require('../controller/LineController');
 var QuestetraController = require('../controller/QuestetraController');
 var VerifyPageController = require('../controller/VerifyPageController');
@@ -21,9 +23,11 @@ var VerifyPageController = require('../controller/VerifyPageController');
 connection(mongoose, connectionURL);
 
 // middleware for all routes
-// console.log('middleware: ', Middleware());
-router.use([Middleware().setOrigin, Middleware().test, Middleware().tokenSyntaxError]);
-// router.use(Middleware().forAllRoutes());
+router.use([Middleware().setOrigin, Middleware().tokenSyntaxError]);
+
+// middleware for external routes
+router.use(kernel.externalRoutes, ApiController().corsOptions(), Middleware().checkOrigin);
+
 
 // passport
 passportTmj();

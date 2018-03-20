@@ -1,6 +1,7 @@
 'use strict';
 
 var logger = require('../logger');
+var ApiController = require
 
 function RouterMiddleware() {
     //constructor
@@ -10,8 +11,8 @@ function RouterMiddleware() {
 
 RouterMiddleware.prototype = {
     setOrigin,
-    tokenSyntaxError,
-    test
+    checkOrigin,
+    tokenSyntaxError
 };
 
 
@@ -23,11 +24,19 @@ function setOrigin(req, res, next) {
     next();
 }
 
-function test(req, res, next) {
-    logger.info("--------TEST----------");
-    next();
-}
+function checkOrigin(req, res, next) {
+    logger.info('headers: ', JSON.stringify(req.headers));
+    // check if sources are valid
+    var sourceSignature = req.headers['x-line-signature'] || req.headers['x-origin'];
 
+    if (!sourceSignature) {
+        logger.error('No valid source header found');
+        return res.send('Invalid source');
+    }
+
+    logger.info('source is identified with: ', sourceSignature);
+    ApiController().checkSource(sourceSignature, req, res, next);
+}
 
 // TODO: additional error handling for other instances
 function tokenSyntaxError(err, req, res, next) {
@@ -37,5 +46,6 @@ function tokenSyntaxError(err, req, res, next) {
     }
     next(err);
 }
+
 
 module.exports = RouterMiddleware;

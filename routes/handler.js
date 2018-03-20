@@ -21,7 +21,9 @@ var VerifyPageController = require('../controller/VerifyPageController');
 connection(mongoose, connectionURL);
 
 // middleware for all routes
-router.use(Middleware().setOrigin);
+console.log('middleware: ', Middleware());
+// router.use([Middleware().setOrigin, Middleware().test, Middleware().tokenSyntaxError]);
+router.use(Middleware());
 
 // passport
 passportTmj();

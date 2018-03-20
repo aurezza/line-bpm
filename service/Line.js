@@ -1,5 +1,4 @@
 'use strict';
-var errorLocator = require('../node/error-locator');
 var Message = require('../message');
 var logger = require('../logger');
 var Token = require('../node/token-generator');
@@ -175,7 +174,7 @@ function clientPushMessage(client, line_userId, message, body) {
         })
         .catch((error) => {
             logger.error(error.message);
-            logger.error(errorLocator());
+            logger.error(error.stack);
             if (!body) return;
             logger.info("serviceRequest.save");
             this.model.request.save({

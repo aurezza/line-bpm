@@ -1,5 +1,5 @@
 'use strict';
-var localeChecker = require('../../locale/locale-checker');
+var Translation = require('../../service/Translation');
 var logger = require('../../logger');
 var errorLocator = require('../../node/error-locator');
 var csrf = require('csurf');
@@ -8,7 +8,7 @@ var UserModel = require('../../model/UserModel');
 var AccessPassModel = require('../../model/AccessPassModel');
 function verify(router, lineBotId) {
     router.get('/verify/:token/:line_id', csrfProtection, function(req, res) {
-        var localeText = localeChecker('jp', 'verify-content');
+        var localeText = Translation().get('verify-content');
         var lineID = req.params.line_id;
         var token = req.params.token;
         var users = UserModel().retrieveByLineId(lineID);    

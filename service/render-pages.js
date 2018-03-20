@@ -1,5 +1,5 @@
 'use strict';
-var localeChecker = require('../locale/locale-checker');
+var Translation = require('../service/Translation');
 
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
@@ -16,7 +16,7 @@ RenderPage.prototype = {
 };
 
 function fetchData(data) {
-    var localeText = localeChecker('jp', 'verify-content');
+    var localeText = Translation().get('verify-content');
 
     var renderData = {
         error: data.error,
@@ -37,7 +37,7 @@ function fetchData(data) {
 }
 
 function successForm() {
-    var localeText = localeChecker('jp', 'success-message');
+    var localeText = Translation().get('success-message');
     var successObject =  {
         title: localeText.successTextTitle, 
         description: localeText.successTextMessage,

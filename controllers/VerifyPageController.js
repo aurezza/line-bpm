@@ -5,7 +5,7 @@ const { matchedData, sanitize } = require('express-validator/filter');
 var passport = require('passport');
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
-var localeChecker = require('../locale/locale-checker');
+var Translation = require('../service/Translation');
 
 var Users = require('../model/UserModel');
 var AccessPass = require('../model/AccessPassModel');
@@ -25,7 +25,7 @@ VerifyPageController.prototype = {
 };
 
 function showVerifyPage (req, res) {
-    var localeText = localeChecker('jp', 'verify-content');
+    var localeText = Translation().get('verify-content');
     var lineID = req.params.line_id;
     var token = req.params.token;
 
@@ -74,7 +74,7 @@ function showVerifySuccess (req, res) {
 }
 
 function checkVerifyFormData(req, res) {
-    var localeText = localeChecker('jp', 'verify-content');
+    var localeText = Translation().get('verify-content');
     var lineID = req.params.lineID;
     var token = req.params.token;
 
@@ -116,7 +116,7 @@ function checkVerifyFormData(req, res) {
 function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
     var employeeDetails = {};
-    var localeText = localeChecker('jp', 'verify-content');
+    var localeText = Translation().get('verify-content');
     var users = Users({line_id: lineID}).retrieveByLineId(lineID); 
 
     if (!validatedUserData) return logger.error("User data not validated");
@@ -177,7 +177,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 }
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
-    var localeText = localeChecker('jp', 'verify-content');
+    var localeText = Translation().get('verify-content');
     var userWithLineId = Users(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(data) {
@@ -207,7 +207,7 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 
 function successVerifyLineMessage(lineID)
 {
-    var localeText = localeChecker('jp', 'success-message');
+    var localeText = Translation().get('success-message');
     logger.info(lineID + " has been successfully verified");
     var msgContent = localeText.successTextMessage;
 

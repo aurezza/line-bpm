@@ -10,6 +10,7 @@ let Questetra = require('./Questetra');
 
 function Line () {
     if (!(this instanceof Line)) return new Line();
+    this.translation = Translation();
 }
 
 Line.prototype = {
@@ -58,7 +59,7 @@ function scanQrCode(client, line_userId) {
             } else {
                 AccessPassModel().save(token, line_userId)
             }            
-            var localeText = Translation().get('scan-qr-code');
+            var localeText = this.translation.get('scan-qr-code');
             var url = process.env.APP_URL + 'verify/' + token + '/';
     
             var msgContent = localeText({url: url});

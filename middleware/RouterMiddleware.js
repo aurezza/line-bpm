@@ -1,7 +1,7 @@
 'use strict';
 
 var logger = require('../logger');
-var ApiController = require
+var Api = require('../service/Api');
 
 function RouterMiddleware() {
     //constructor
@@ -35,7 +35,7 @@ function checkOrigin(req, res, next) {
     }
 
     logger.info('source is identified with: ', sourceSignature);
-    ApiController().checkSource(sourceSignature, req, res, next);
+    Api().checkSource(sourceSignature, req, res, next);
 }
 
 // TODO: additional error handling for other instances

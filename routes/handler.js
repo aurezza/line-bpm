@@ -19,6 +19,7 @@ var ApiController = require('../controller/ApiController');
 var Api = ApiController();
 
 var VerifyPageController = require('../controller/VerifyPageController');
+var VerifyPage = VerifyPageController();
 // db connection
 connection(mongoose, connectionURL);
 
@@ -26,7 +27,7 @@ connection(mongoose, connectionURL);
 router.use([Middleware().setOrigin, Middleware().tokenSyntaxError]);
 
 // middleware for external routes
-router.use(kernel.externalRoutes, Api.corsOptions.bind(Api), Middleware().checkOrigin);
+router.use(kernel.externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
 
 // passport
 passportTmj();

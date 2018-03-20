@@ -3,10 +3,10 @@ function Translation() {
 }
 
 Translation.prototype = {
-    translation,
+    get,
 };
 
-function translation(filename) {
+function get(filename) {
     if (typeof filename !== 'string') {
         return 'false';
     }

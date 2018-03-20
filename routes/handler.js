@@ -16,6 +16,8 @@ var kernel = require('../kernel');
 var Middleware = require('../middleware/RouterMiddleware');
 
 var ApiController = require('../controller/ApiController');
+var Api = ApiController();
+
 var VerifyPageController = require('../controller/VerifyPageController');
 // db connection
 connection(mongoose, connectionURL);
@@ -24,8 +26,7 @@ connection(mongoose, connectionURL);
 router.use([Middleware().setOrigin, Middleware().tokenSyntaxError]);
 
 // middleware for external routes
-router.use(kernel.externalRoutes, ApiController().corsOptions(), Middleware().checkOrigin);
-
+router.use(kernel.externalRoutes, Api.corsOptions.bind(Api), Middleware().checkOrigin);
 
 // passport
 passportTmj();
@@ -34,7 +35,7 @@ passportTmj();
 router.get('/verify/:token/:line_id', csrfProtection, VerifyPageController().showPage);
 router.post('/verify/:token/:line_id', VerifyPageController().expressValidator(), csrfProtection, VerifyPageController().checkFormData); 
 router.get('/success', VerifyPageController().showSuccess);
-router.get('/generate-token/:api_name', ApiController().generateToken); // generating API for external routes
+router.get('/generate-token/:api_name', Api.generateToken.bind(Api)); // generating API for external routes
 
 
 module.exports = router;

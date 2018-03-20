@@ -6,24 +6,27 @@ var logger = require('../logger');
 var Token = require('../node/token-generator');
 var Api = require('../service/Api');
 var ApiModel = require('../model/ApiModel');
-// const crypto = require('crypto');
-// const channelSecret  = process.env.LINE_BOT_CHANNEL_SECRET;
 
 function ApiController() {
     if (!(this instanceof ApiController)) return new ApiController();
+    this.model = ApiModel();
 }
 
 ApiController.prototype = {
     generateToken,
-    // verifyToken,
-    // checkSource,
-    corsOptions
+    corsOptions,
+    testFunc
 };
+
+function testFunc() {
+    console.log('test - - -fnc', this);
+    return this.model;
+}
 
 function generateToken (req, res) {
     // TODO: add authorization handler
+
     var successVerification = true; 
-        
     var apiName = req.params.api_name; 
 
     if ((apiName !== "line") && (apiName !== "questetra")) {
@@ -46,7 +49,8 @@ function generateToken (req, res) {
     logger.info('generatedkey: ', generatedSecretKey);
     var token = jwt.sign(payload, generatedSecretKey);
 
-    var checkApiName = ApiModel().retrieveApiByName(apiName);
+    var checkApiName = this.model.retrieveApiByName(apiName);
+    var self = this;
     checkApiName
         .then(function(data) {
             logger.info("checking api name");
@@ -57,7 +61,7 @@ function generateToken (req, res) {
                     created_at: dateNow.toUTCString(),
                     token: token
                 };
-                ApiModel().save(api);
+                self.model.save(api);
                 return res.json({
                     success: true,
                     message: 'You haz token now',
@@ -71,7 +75,8 @@ function generateToken (req, res) {
                 api_key: payload.api_key,
                 token: token
             };
-            ApiModel().update(api);
+            
+            self.model.update(api);
             return res.json({
                 success: true,
                 message: 'Your token has been updated',

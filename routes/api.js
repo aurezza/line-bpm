@@ -6,10 +6,10 @@ var router = express.Router();
 var LineController = require('../controller/LineController');
 var QuestetraController = require('../controller/QuestetraController');
 
-router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest); //ext
-router.post('/receiveFromQuest', QuestetraController().recieveFromQuest); // ext
+router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest);
+router.post('/receiveFromQuest', QuestetraController().recieveFromQuest);
 
-router.post('/handler', LineController().eventTrigger); // ext
+router.post('/handler', LineController().eventTrigger);
 
 
 module.exports = router;

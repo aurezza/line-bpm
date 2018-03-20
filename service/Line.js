@@ -10,6 +10,7 @@ let Questetra = require('./Questetra');
 
 function Line () {
     if (!(this instanceof Line)) return new Line();
+    this.translation = Translation();
 }
 
 Line.prototype = {
@@ -58,7 +59,7 @@ function scanQrCode(client, line_userId) {
             } else {
                 AccessPassModel().save(token, line_userId)
             }            
-            var localeText = Translation().get('scan-qr-code');
+            var localeText = this.translation.get('scan-qr-code');
             var url = process.env.APP_URL + 'verify/' + token + '/';
     
             var msgContent = localeText({url: url});
@@ -124,7 +125,7 @@ function sendCancelledRequest(managerData, body, client) {
 
 function userExist(client, line_userId, userName) {
     logger.info('userExist');
-    var localeText = Translation().get('scan-qr-code');
+    var localeText = this.translation.get('scan-qr-code');
     var msgContent = localeText({userName: userName});    
     const message = {
         type: 'text',
@@ -136,7 +137,7 @@ function userExist(client, line_userId, userName) {
 
 function responded(retrievedRequestData, client, line_userId) {
     logger.info('responded');
-    var response = Translation().get('responded-message');
+    var response = this.translation.get('responded-message');
     var messageType = {
         approved: "responded",
         declined: "responded",

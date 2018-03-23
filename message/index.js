@@ -1,5 +1,5 @@
 'use strict';
-var Translations = require('../service/Translation');
+var translator = require('../service/translator')
 function Message () {
     
     if (!(this instanceof Message)) return new Message();
@@ -9,21 +9,20 @@ Message.prototype = {
     messageContent,
     cancelledMessageContent
 };
-var localeText = Translations().get('message-content');
 function messageContent(body) 
 {
     var messageTemplate = {
-        text: localeText.text.name + " : " + body.user_name + "\n" +
-                localeText.text.overtimeDate + " : " + body.overtime_date + "\n" +
-                localeText.text.overtimeTime + " : " + body.overtime_time + "\n" +
-                localeText.text.overTimeReason + " : " + body.overtime_reason + "\n",
+        text: translator('line.text.name') + " : " + body.user_name + "\n" +
+              translator('line.text.overtimeDate') + " : " + body.overtime_date + "\n" +
+              translator('line.text.overtimeTime') + " : " + body.overtime_time + "\n" +
+              translator('line.text.overTimeReason') + " : " + body.overtime_reason + "\n",
         status: {
-            approved: localeText.text.status + " : " + localeText.text.approved,
-            declined: localeText.text.status + " : " + localeText.text.declined
+            approved: translator('line.text.status') + " : " + translator('line.text.approved'),
+            declined: translator('line.text.status') + " : " + translator('line.text.declined')
         },
         label: {
-            approve: localeText.label.approve,
-            decline: localeText.label.decline
+            approve: translator('line.label.approve'),
+            decline: translator('line.label.decline')
         }
     }
 

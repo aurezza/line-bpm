@@ -1,7 +1,7 @@
 module.exports = {
-    url: "こんにちは！\n追加ありがとう BPMS-Messaging Bot \n続行するにはログインしてください >url<",
+    url: "こんにちは！\n追加ありがとう BPMS-Messaging Bot \n続行するにはログインしてください :url",
 
-    user_exist: "お帰りなさい >userName< !\n良い一日を :D ",
+    user_exist: "お帰りなさい :username !\n良い一日を :D ",
 
     responded: "こんにちは！あなたはすでにこのリクエストに答えました。ありがとうございます：D",
 

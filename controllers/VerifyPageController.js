@@ -135,7 +135,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
             if (throwErr) {
                 logger.error(throwErr.message);
                 var dataForRenderingForPassport = {
-                    title: translator('verify.pageTitle.title'),
+                    title: translator('verify.title'),
                     lineID: lineID,
                     token: token,
                     csrfToken: req.body._csrf,
@@ -186,7 +186,7 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 
         logger.info("This user:", employeeDetails.employee_id, "is already verified"); 
         var dataForRendering = {
-            title: translator('verify.localeText.pageTitle.title'),
+            title: translator('verify.title'),
             lineID: lineID,
             verified: true,
             errors: 'localDbError',

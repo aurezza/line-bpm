@@ -7,9 +7,7 @@ module.exports = {
         verify: "確認",
         back: "戻る"
     },
-    pageTitle: {
-        verify: "BPMSアプリケーションの検証"
-    },
+    title: "BPMSアプリケーションの検証",
     label: {
         panelTitle: "BPMS検証"
     },

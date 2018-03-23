@@ -28,10 +28,9 @@ function verify(router, lineBotId) {
                             message: translator('verify.error.unauthorizedAccess'),
                         })
                     }
-                    logger.info("verify page     has loaded...");   
-                    console.log(translator('verify.pageTitle.title'));
+                    logger.info("verify page has loaded...");   
                     res.render('verify', {
-                        title: translator('verify.pageTitle.title'),
+                        title: translator('verify.pageTitle.verify'),
                         panelTitle: translator('verify.label.panelTitle'),
                         verifyButtonText: translator('verify.button.verify'),
                         usernamePlaceholder: translator('verify.placeHolder.username'), 

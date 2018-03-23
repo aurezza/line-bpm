@@ -1,7 +1,7 @@
 
 var Request = require('request');
-var ApiController = require('../controller/ApiController');
-var ApiModel = require('../model/ApiModel');
+// var ApiController = require('../controller/ApiController');
+// var ApiModel = require('../model/ApiModel');
 // describe("Server", function() {
 //     var Request = require("request");
 //     var server;
@@ -59,15 +59,21 @@ describe("ApiController", function() {
     // 
     var api;
     // var ApiController;
-    // var ApiController = require('../controller/ApiController');
+    var ApiController = require('../controller/ApiController');
     beforeEach(function() {
-        // ApiController = require('../controller/ApiController');
-        // api = new ApiController();
+        api = new ApiController();
     });
-    it("test", function() {
-        spyOn(ApiController(), 'corsOptions');
-        ApiController().model;
-        expect(ApiController().model).toBe(ApiModel());
+    // it("test", function() {
+    //     spyOn(ApiController(), 'corsOptions');
+    //     ApiController().generateToken;
+    //     expect(ApiController().generateToken.toHaveBeenCalled);
+    // });
+
+    it('should exist', function() {
+        // api = new ApiController();
+        spyOn(api, 'generateToken');
+        api.generateToken;
+        expect(api.generateToken).toHaveBeenCalled;
     });
 
 });

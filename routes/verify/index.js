@@ -29,7 +29,7 @@ function verify(router, lineBotId) {
                         })
                     }
                     logger.info("verify page has loaded...");   
-                    logger.info(translator('verify.pageTitle.title'));
+                    console.log(translator('verify.pageTitle.title'));
                     res.render('verify', {
                         title: translator('verify.pageTitle.title'),
                         panelTitle: translator('verify.label.panelTitle'),

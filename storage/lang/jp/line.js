@@ -4,8 +4,8 @@ module.exports = {
     user_exist: "お帰りなさい :username !\n良い一日を :D ",
 
     responded: "こんにちは！あなたはすでにこのリクエストに答えました。ありがとうございます：D",
-
     cancelled: "このリクエストは既にキャンセルされています。詳細はメール通知を参照してください. ",
+    
     text: { 
         name: "名",
         overtimeDate: "残業日",

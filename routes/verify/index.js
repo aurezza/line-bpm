@@ -28,7 +28,7 @@ function verify(router, lineBotId) {
                             message: translator('verify.error.unauthorizedAccess'),
                         })
                     }
-                    logger.info("verify page has loaded...");   
+                    logger.info("verify page     has loaded...");   
                     console.log(translator('verify.pageTitle.title'));
                     res.render('verify', {
                         title: translator('verify.pageTitle.title'),

@@ -1,61 +1,57 @@
-// 'use strict';
-// var Translation = require('../service/Translation');
+'use strict';
+var translator = require('../service/translator');
+var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
-// var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
+// setting default variables
+function RenderPage() {
+    if (!(this instanceof RenderPage)) return new RenderPage();
+    this.lineBotId = process.env.LINE_BOT_CHANNEL_ID;
+}
 
-// // setting default variables
-// function RenderPage() {
-//     if (!(this instanceof RenderPage)) return new RenderPage();
-//     this.lineBotId = process.env.LINE_BOT_CHANNEL_ID;
-// }
+RenderPage.prototype = {
+    successForm: successForm,
+    errorForm: errorForm,
+    fetchData: fetchData
+};
 
-// RenderPage.prototype = {
-//     successForm: successForm,
-//     errorForm: errorForm,
-//     fetchData: fetchData
-// };
+function fetchData(data) {
+    var renderData = {
+        error: data.error,
+        errors: data.errors,
+        token: data.token,
+        lineID: data.lineID,
+        csrfToken: data.csrfToken,
+        verified: data.verified,
+        customError: data.customError,
+        title: translator('verify.panelTitle'),
+        panelTitle: translator('verify.label.panelTitle'),
+        verifyButtonText: translator('verify.button.verify'),
+        usernamePlaceholder: translator('verify.placeHolder.username'),
+        passwordPlaceholder: translator('verify.placeHolder.password')
+    }
 
-// function fetchData(data) {
-//     var localeText = Translation().get('verify-content');
+    return renderData;
+}
 
-//     var renderData = {
-//         error: data.error,
-//         errors: data.errors,
-//         token: data.token,
-//         lineID: data.lineID,
-//         csrfToken: data.csrfToken,
-//         verified: data.verified,
-//         customError: data.customError,
-//         title: localeText.panelTitle,
-//         panelTitle: localeText.label.panelTitle,
-//         verifyButtonText: localeText.button.verify,
-//         usernamePlaceholder: localeText.placeHolder.username,
-//         passwordPlaceholder: localeText.placeHolder.password
-//     }
+function successForm() {
+    var successObject =  {
+        title: translator('verify.successTextTitle'), 
+        description: translator('verify.successTextMessage'),
+        successButtonText: translator('verify.closeWindow'),
+        lineBotId: lineBotId
+    }
 
-//     return renderData;
-// }
+    return successObject;
+}
 
-// function successForm() {
-//     var localeText = Translation().get('success-message');
-//     var successObject =  {
-//         title: localeText.successTextTitle, 
-//         description: localeText.successTextMessage,
-//         successButtonText: localeText.closeWindow,
-//         lineBotId: lineBotId
-//     }
+function errorForm(data) {
+    var errorObject =  {
+        message: data.message,
+        backButtonText: data.backButtonText,
+        lineBotId: lineBotId
+    }
 
-//     return successObject;
-// }
+    return errorObject;
+}
 
-// function errorForm(data) {
-//     var errorObject =  {
-//         message: data.message,
-//         backButtonText: data.backButtonText,
-//         lineBotId: lineBotId
-//     }
-
-//     return errorObject;
-// }
-
-// module.exports = RenderPage;
+module.exports = RenderPage;

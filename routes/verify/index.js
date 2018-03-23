@@ -30,7 +30,7 @@ function verify(router, lineBotId) {
                     }
                     logger.info("verify page has loaded...");   
                     res.render('verify', {
-                        title: translator('verify.pageTitle.verify'),
+                        title: translator('verify.error.unauthorizedAccess'),
                         panelTitle: translator('verify.label.panelTitle'),
                         verifyButtonText: translator('verify.button.verify'),
                         usernamePlaceholder: translator('verify.placeHolder.username'), 

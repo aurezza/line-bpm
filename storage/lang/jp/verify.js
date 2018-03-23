@@ -22,5 +22,6 @@ module.exports = {
         wrongCredentials: "間違った資格",
         alreadyVerified: "あなたはすでに確認済みです",
         unauthorizedAccess: "Error : 403 - 不正アクセス"
-    }
+    },
+    test: "lalalalalalalala"
 };

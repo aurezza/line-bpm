@@ -29,12 +29,12 @@ function verify(router, lineBotId) {
                         })
                     }
                     logger.info("verify page has loaded..."); 
-                    console.log(translator('line.cancelled'));  
                     res.render('verify', {
                         title: translator('verify.title'),
                         panelTitle: translator('verify.label.panelTitle'),
                         verifyButtonText: translator('verify.button.verify'),
-                        usernamePlaceholder: translator('verify.placeHolder.username'), 
+                        usernamePlaceholder: translator('verify.test'), 
+                        // usernamePlaceholder: translator('verify.placeHolder.username'), 
                         passwordPlaceholder: translator('verify.placeHolder.password'),
                         lineID: lineID,
                         token: token,

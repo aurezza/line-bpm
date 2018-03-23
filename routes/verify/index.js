@@ -1,14 +1,13 @@
 'use strict';
-// var Translation = require('../../service/Translation');
 var logger = require('../../logger');
 var errorLocator = require('../../node/error-locator');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 var UserModel = require('../../model/UserModel');
 var AccessPassModel = require('../../model/AccessPassModel');
+var translator = require('../../service/translator');
 function verify(router, lineBotId) {
     router.get('/verify/:token/:line_id', csrfProtection, function(req, res) {
-        // var localeText = Translation().get('verify-content');
         var lineID = req.params.line_id;
         var token = req.params.token;
         var users = UserModel().retrieveByLineId(lineID);    
@@ -16,8 +15,8 @@ function verify(router, lineBotId) {
             if (users) {
                 logger.warn("The line ID:", lineID, "is already verified");
                 return res.render('verify-error', {
-                    // message: localeText.errorMessageLineIdExists,
-                    // backButtonText: localeText.button.back,
+                    message: translator('verify.errorMessageLineIdExists'),
+                    backButtonText: translator('verify.button.back'),
                     lineBotId: lineBotId
                 })
             }
@@ -26,16 +25,16 @@ function verify(router, lineBotId) {
                 .then(function(retrievedAccessPass) {
                     if (retrievedAccessPass == null) {
                         return res.render('unauthorized-access', {
-                            // message: localeText.error.unauthorizedAccess,
+                            message: translator('verify.error.unauthorizedAccess'),
                         })
                     }
                     logger.info("verify page has loaded...");   
                     res.render('verify', {
-                        // title: localeText.pageTitle.title,
-                        // panelTitle: localeText.label.panelTitle,
-                        // verifyButtonText: localeText.button.verify,
-                        // usernamePlaceholder: localeText.placeHolder.username, 
-                        // passwordPlaceholder: localeText.placeHolder.password,
+                        title: translator('verify.pageTitle.title'),
+                        panelTitle: translator('verify.label.panelTitle'),
+                        verifyButtonText: translator('verify.button.verify'),
+                        usernamePlaceholder: translator('verify.placeHolder.username'), 
+                        passwordPlaceholder: translator('verify.placeHolder.password'),
                         lineID: lineID,
                         token: token,
                         csrfToken: req.csrfToken(),

@@ -122,7 +122,9 @@ function userExist(client, line_userId, userName) {
     logger.info('userExist');
     const message = {
         type: 'text',
-        text: translator('line.user_exist', {username: userName}),
+        text: translator('line.user_exist', {
+            username: userName
+        }),
     };
     clientPushMessage(client, line_userId, message, false);        
   

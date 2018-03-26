@@ -10,6 +10,7 @@ let Questetra = require('./Questetra');
 
 function Line () {
     if (!(this instanceof Line)) return new Line();
+    this.translator = Translator();
 }
 
 Line.prototype = {
@@ -122,7 +123,7 @@ function userExist(client, line_userId, userName) {
     logger.info('userExist');
     const message = {
         type: 'text',
-        text: Translator().get('line.user_exist', {
+        text: this.translator.get('line.user_exist', {
             username: userName
         }),
     };

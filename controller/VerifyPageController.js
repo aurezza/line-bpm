@@ -195,7 +195,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 }
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
-    var userWithLineId = UserModel(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
+    var userWithLineId = UserModel().retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(data) {
         if (!data) {

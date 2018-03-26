@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Mon Mar 26 2018 08:59:47 GMT+0800 (W. Australia Standard Time)
+// Generated on Mon Mar 26 2018 13:00:28 GMT+0800 (W. Australia Standard Time)
 
 module.exports = function(config) {
     config.set({
@@ -10,7 +10,7 @@ module.exports = function(config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'browserify'],
 
 
         // list of files / patterns to load in the browser
@@ -27,13 +27,14 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
+            // '.spec/*spec.js': ['browserify']
         },
 
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['spec'],
 
 
         // web server port
@@ -61,6 +62,10 @@ module.exports = function(config) {
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: false,
+
+        browserify: {
+            debug: true
+        },
 
         // Concurrency level
         // how many browser should be started simultaneous

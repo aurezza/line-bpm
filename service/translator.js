@@ -9,20 +9,36 @@ var root = require('path');
 var appPath = root.dirname(require.main.filename);
 env(appPath + '/.env');
 
-function translator(obj, key) {
+function Translator() {
+    if (!(this instanceof Translator)) return new Translator();
+}
+
+Translator.prototype = {
+    get,
+}
+
+function get(translation, key) {
+    return path(translation, key);
+}
+
+function path(translation, key) {
     var locale = process.env.APP_LANGUAGE || 'en';
     //convert obj to array 
-    var args = obj.split('.');
+    var args = translation.split('.');
     //get the set of objects based on the passed obj
     var object = require(appPath + '/storage/lang/' + locale + '/' + args[0]);
     //get the actual path of the requested translation
-    var path = args.slice(1);
+    var paths = args.slice(1);
 
-    for (var i = 0; i < path.length; i++) {
-        if (object[path[i]] === undefined) return 'No available Translation';
-        object = object[path[i]];
+    for (var i = 0; i < paths.length; i++) {
+        if (object[paths[i]] === undefined) return 'No available Translation';
+        object = object[paths[i]];
     }
-    //check if key/there is a value to be replaced exist
+
+    return conversion(object, key);
+}
+
+function conversion(object, key) {
     if (key) {
         var numberOfKeys = Object.keys(key).length;
         for (var ctr = 0; ctr < numberOfKeys; ctr++) {
@@ -37,4 +53,4 @@ function translator(obj, key) {
     return object  
 }
 
-module.exports = translator;
+module.exports = Translator;

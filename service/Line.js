@@ -4,12 +4,13 @@ var Message = require('../message');
 var logger = require('../logger');
 var Token = require('../node/token-generator');
 var AccessPassModel = require('../model/AccessPassModel');
-var translator = require('./translator');
+var Translator = require('./Translator');
 var RequestModel = require('../model/RequestModel');
 let Questetra = require('./Questetra');
 
 function Line () {
     if (!(this instanceof Line)) return new Line();
+    this.translator = Translator();
 }
 
 Line.prototype = {
@@ -61,7 +62,7 @@ function scanQrCode(client, line_userId) {
             var url = process.env.APP_URL + 'verify/' + token + '/' + line_userId;
             const message = {
                 type: 'text',
-                text: translator('line.url', {url: url})
+                text: this.translator.get('line.url', {url: url})
             };
             clientPushMessage(client, line_userId, message, null);
         })
@@ -122,7 +123,7 @@ function userExist(client, line_userId, userName) {
     logger.info('userExist');
     const message = {
         type: 'text',
-        text: translator('line.user_exist', {
+        text: this.translator.get('line.user_exist', {
             username: userName
         }),
     };
@@ -139,7 +140,7 @@ function responded(retrievedRequestData, client, line_userId) {
     };
     const message = {
         type: 'text',
-        text: translator('line.' + messageType[retrievedRequestData.status]),
+        text: this.translator.get('line.' + messageType[retrievedRequestData.status]),
     };
     clientPushMessage(client, line_userId, message, false);    
 }

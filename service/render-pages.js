@@ -1,11 +1,12 @@
 'use strict';
-var translator = require('../service/translator');
+var Translator  = require('../service/Translator');
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
 // setting default variables
 function RenderPage() {
     if (!(this instanceof RenderPage)) return new RenderPage();
     this.lineBotId = process.env.LINE_BOT_CHANNEL_ID;
+    this.translator = Translator();
 }
 
 RenderPage.prototype = {
@@ -23,11 +24,11 @@ function fetchData(data) {
         csrfToken: data.csrfToken,
         verified: data.verified,
         customError: data.customError,
-        title: translator('verify.panelTitle'),
-        panelTitle: translator('verify.label.panelTitle'),
-        verifyButtonText: translator('verify.button.verify'),
-        usernamePlaceholder: translator('verify.placeHolder.username'),
-        passwordPlaceholder: translator('verify.placeHolder.password')
+        title: this.translator.get('verify.panelTitle'),
+        panelTitle: this.translator.get('verify.label.panelTitle'),
+        verifyButtonText: this.translator.get('verify.button.verify'),
+        usernamePlaceholder: this.translator.get('verify.placeHolder.username'),
+        passwordPlaceholder: this.translator.get('verify.placeHolder.password')
     }
 
     return renderData;
@@ -35,9 +36,9 @@ function fetchData(data) {
 
 function successForm() {
     var successObject =  {
-        title: translator('verify.successTextTitle'), 
-        description: translator('verify.successTextMessage'),
-        successButtonText: translator('verify.closeWindow'),
+        title: this.translator.get('verify.successTextTitle'), 
+        description: this.translator.get('verify.successTextMessage'),
+        successButtonText: this.translator.get('verify.closeWindow'),
         lineBotId: lineBotId
     }
 

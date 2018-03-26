@@ -62,7 +62,7 @@ function scanQrCode(client, line_userId) {
             var url = process.env.APP_URL + 'verify/' + token + '/' + line_userId;
             const message = {
                 type: 'text',
-                text: Translator().get('line.url', {url: url})
+                text: this.translator.get('line.url', {url: url})
             };
             clientPushMessage(client, line_userId, message, null);
         })
@@ -140,7 +140,7 @@ function responded(retrievedRequestData, client, line_userId) {
     };
     const message = {
         type: 'text',
-        text: Translator().get('line.' + messageType[retrievedRequestData.status]),
+        text: this.translator.get('line.' + messageType[retrievedRequestData.status]),
     };
     clientPushMessage(client, line_userId, message, false);    
 }

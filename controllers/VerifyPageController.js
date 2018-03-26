@@ -16,6 +16,7 @@ var line = require('@line/bot-sdk');
 
 function VerifyPageController() {
     if (!(this instanceof VerifyPageController)) return new VerifyPageController();
+    this.translator = Translator();
 }
 
 VerifyPageController.prototype = {

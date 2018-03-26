@@ -14,11 +14,11 @@ function messageContent(body)
     var messageTemplate = {
         text: translator('line.text.name', {username: body.user_name})  + "\n" +
               translator('line.text.overtimeDate', {overtimedate: body.overtime_date}) + "\n" +
-              translator('line.text.overtimeTime') + " : " + body.overtime_time + "\n" +
-              translator('line.text.overTimeReason') + " : " + body.overtime_reason + "\n",
+              translator('line.text.overtimeTime', {overtimeTime: body.overtime_time}) + "\n" +
+              translator('line.text.overTimeReason', {overtimereason: body.overtime_reason}) + "\n",
         status: {
-            approved: translator('line.text.status') + " : " + translator('line.text.approved'),
-            declined: translator('line.text.status') + " : " + translator('line.text.declined')
+            approved: translator('line.status.approved'),
+            declined: translator('line.status.declined')
         },
         label: {
             approve: translator('line.label.approve'),

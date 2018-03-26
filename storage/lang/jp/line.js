@@ -4,8 +4,8 @@ module.exports = {
     responded: "こんにちは！あなたはすでにこのリクエストに答えました。ありがとうございます：D",
     cancelled: "このリクエストは既にキャンセルされています。詳細はメール通知を参照してください. ",
     text: { 
-        name: "名",
-        overtimeDate: "残業日",
+        name: "名 : :username",
+        overtimeDate: "残業日 : :overtimedate",
         overtimeTime: "残業の時間",
         overTimeReason: "残業理由",
         approved: "承認された",

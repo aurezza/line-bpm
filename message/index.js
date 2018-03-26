@@ -12,8 +12,8 @@ Message.prototype = {
 function messageContent(body) 
 {
     var messageTemplate = {
-        text: translator('line.text.name') + " : " + body.user_name + "\n" +
-              translator('line.text.overtimeDate') + " : " + body.overtime_date + "\n" +
+        text: translator('line.text.name', {username: body.user_name})  + "\n" +
+              translator('line.text.overtimeDate', {overtimedate: body.overtime_date}) + "\n" +
               translator('line.text.overtimeTime') + " : " + body.overtime_time + "\n" +
               translator('line.text.overTimeReason') + " : " + body.overtime_reason + "\n",
         status: {

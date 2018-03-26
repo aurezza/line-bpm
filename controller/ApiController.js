@@ -14,19 +14,13 @@ function ApiController() {
 
 ApiController.prototype = {
     generateToken,
-    corsOptions,
-    testFunc
+    corsOptions
 };
-
-function testFunc() {
-    console.log('test - - -fnc', this);
-    return this.model;
-}
 
 function generateToken (req, res) {
     // TODO: add authorization handler
-
     var successVerification = true; 
+    
     var apiName = req.params.api_name; 
 
     if ((apiName !== "line") && (apiName !== "questetra")) {
@@ -90,7 +84,7 @@ function generateToken (req, res) {
 
 function corsOptions() {  
     var customCorsOptions = cors(Api().corsOptions());
-
+    
     return customCorsOptions;
 }
 

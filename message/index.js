@@ -32,9 +32,9 @@ function messageContent(body)
 function cancelledMessageContent(body) {
     var messageTemplate = {
         header: translator('line.header.cancelledMessage') + "\n",
-        text: translator('line.text.name') + " : " + body.user_name + "\n" +
-        translator('line.text.overtimeDate') + " : " + body.overtime_date + "\n" +
-        translator('line.text.overTimeReason') + " : " + body.reason + "\n",
+        text: translator('line.text.name', {username: body.user_name})  + "\n" +
+        translator('line.text.overtimeDate', {overtimedate: body.overtime_date}) + "\n" +
+        translator('line.text.overTimeReason', {overtimereason: body.reason}) + "\n",
     }
 
     return messageTemplate;

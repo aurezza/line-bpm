@@ -58,10 +58,10 @@ function scanQrCode(client, line_userId) {
             } else {
                 AccessPassModel().save(token, line_userId)
             }            
-            var url = process.env.APP_URL + 'verify/' + token + '/';
+            var url = process.env.APP_URL + 'verify/' + token + '/' + line_userId;
             const message = {
                 type: 'text',
-                text: translator('line.url', {url: url}) + line_userId
+                text: translator('line.url', {url: url})
             };
             clientPushMessage(client, line_userId, message, null);
         })

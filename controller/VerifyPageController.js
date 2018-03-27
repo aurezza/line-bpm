@@ -27,6 +27,7 @@ VerifyPageController.prototype = {
 };
 
 function expressValidator() {
+    logger.info('expressValidator this: ', this);
     var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
     var validateInputData = [
         check('username', notEmpty)
@@ -90,7 +91,7 @@ function showPage (req, res) {
 }
 
 function showSuccess (req, res) {
-    res.render('success', RenderPage().successForm.bind(RenderPage()));
+    res.render('success', RenderPage().successForm());
 }
 
 function checkFormData(req, res) {
@@ -123,7 +124,7 @@ function checkFormData(req, res) {
                         onlyFirstError: true
                     })
                 };
-                return res.render('verify', RenderPage().fetchData(dataForRendering).bind(RenderPage()));  
+                return res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
 
             checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
@@ -169,7 +170,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                     customError: self.translator.get('verify.error.wrongCredentials')
                 };
                 res.status(400); 
-                return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport).bind(RenderPage()));               
+                return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
             }
             req.logIn(user, function(err) {
                 if (err) {

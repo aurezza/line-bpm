@@ -42,7 +42,7 @@ function follow(params) {
     users
         .then(function (users) {
             if (users) return  Line().userExist(params.client, line_userId, users.employee_name);
-            Line().scanQrCode(params.client, line_userId).bind(Line());
+            Line().scanQrCode(params.client, line_userId);
         })
         .catch(function (error) {
             logger.error(error.message);

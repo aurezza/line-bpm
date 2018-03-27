@@ -63,6 +63,7 @@ function showPage (req, res) {
             }
 
             var retrievedAccessPass = AccessPassModel().retrieve(lineID, token);
+            var self = this;
             retrievedAccessPass
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {
@@ -77,7 +78,7 @@ function showPage (req, res) {
                         csrfToken: req.csrfToken(),
                         verified: false
                     };
-                    res.render('verify', RenderPage().fetchData(dataForRendering));  
+                    res.render('verify', RenderPage().fetchData.bind(dataForRendering));  
                 })
                 .catch(function(error) {
                     logger.error(error.message);

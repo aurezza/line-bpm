@@ -123,7 +123,7 @@ function checkFormData(req, res) {
                         onlyFirstError: true
                     })
                 };
-                return res.render('verify', RenderPage().fetchData(dataForRendering));  
+                return res.render('verify', RenderPage().fetchData(dataForRendering).bind(RenderPage()));  
             }
 
             checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
@@ -169,7 +169,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                     customError: self.translator.get('verify.error.wrongCredentials')
                 };
                 res.status(400); 
-                return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
+                return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport).bind(RenderPage()));               
             }
             req.logIn(user, function(err) {
                 if (err) {

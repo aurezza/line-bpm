@@ -12,7 +12,7 @@ const connectionURL = mongoDbURL + mongoDbName;
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
-var kernel = require('../kernel');
+var kernel = require('./kernel');
 var Middleware = require('../middleware/RouterMiddleware');
 
 var ApiController = require('../controller/ApiController');

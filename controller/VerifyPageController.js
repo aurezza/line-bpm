@@ -27,7 +27,8 @@ VerifyPageController.prototype = {
 };
 
 function expressValidator() {
-    var notEmpty = this.translator('verify.error.mustNotBeEmpty')
+
+    var notEmpty = this.translator.get('verify.error.mustNotBeEmpty');
     var validateInputData = [
         check('username', notEmpty)
             .isLength({ min: 1})

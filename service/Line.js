@@ -53,6 +53,7 @@ function scanQrCode(client, line_userId) {
     var token = generate.get();
     var owner = AccessPassModel().retrieveLineId(line_userId);
     var self = this;
+
     owner
         .then(function(owner) {
             if (owner) {

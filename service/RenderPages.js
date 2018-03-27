@@ -1,4 +1,5 @@
 'use strict';
+var logger = require('../logger');
 var Translator  = require('../service/Translator');
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
@@ -16,6 +17,8 @@ RenderPage.prototype = {
 };
 
 function fetchData(data) {
+    var self = this;
+    logger.info('self in render fetchData: ', self);
     var renderData = {
         error: data.error,
         errors: data.errors,
@@ -24,21 +27,23 @@ function fetchData(data) {
         csrfToken: data.csrfToken,
         verified: data.verified,
         customError: data.customError,
-        title: this.translator.get('verify.panelTitle'),
-        panelTitle: this.translator.get('verify.label.panelTitle'),
-        verifyButtonText: this.translator.get('verify.button.verify'),
-        usernamePlaceholder: this.translator.get('verify.placeHolder.username'),
-        passwordPlaceholder: this.translator.get('verify.placeHolder.password')
+        title: self.translator.get('verify.panelTitle'),
+        panelTitle: self.translator.get('verify.label.panelTitle'),
+        verifyButtonText: self.translator.get('verify.button.verify'),
+        usernamePlaceholder: self.translator.get('verify.placeHolder.username'),
+        passwordPlaceholder: self.translator.get('verify.placeHolder.password')
     }
 
     return renderData;
 }
 
 function successForm() {
+    var self = this;
+    logger.info('self in render successForm: ', self);
     var successObject =  {
-        title: this.translator.get('verify.successTextTitle'), 
-        description: this.translator.get('verify.successTextMessage'),
-        successButtonText: this.translator.get('verify.closeWindow'),
+        title: self.translator.get('verify.successTextTitle'), 
+        description: self.translator.get('verify.successTextMessage'),
+        successButtonText: self.translator.get('verify.closeWindow'),
         lineBotId: lineBotId
     }
 

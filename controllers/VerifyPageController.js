@@ -5,7 +5,7 @@ const { matchedData, sanitize } = require('express-validator/filter');
 var passport = require('passport');
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
-var localeChecker = require('../locale/locale-checker');
+var Translator = require('../service/Translator');
 
 var Users = require('../model/UserModel');
 var AccessPass = require('../model/AccessPassModel');
@@ -16,6 +16,7 @@ var line = require('@line/bot-sdk');
 
 function VerifyPageController() {
     if (!(this instanceof VerifyPageController)) return new VerifyPageController();
+    this.translator = Translator();
 }
 
 VerifyPageController.prototype = {
@@ -25,7 +26,6 @@ VerifyPageController.prototype = {
 };
 
 function showVerifyPage (req, res) {
-    var localeText = localeChecker('jp', 'verify-content');
     var lineID = req.params.line_id;
     var token = req.params.token;
 
@@ -35,8 +35,8 @@ function showVerifyPage (req, res) {
             if (data) {
                 logger.warn("The line ID:", lineID, "is already verified");
                 var dataForRenderingError = {
-                    message: localeText.errorMessageLineIdExists,
-                    backButtonText: localeText.button.back
+                    message: this.translator('verify.errorMessageLineIdExists'),
+                    backButtonText: this.translator('verify.button.back')
                 }
                 return res.render('verify-error', RenderPage().errorForm(dataForRenderingError));
             }
@@ -46,7 +46,7 @@ function showVerifyPage (req, res) {
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {
                         return res.render('unauthorized-access', {
-                            message: localeText.error.unauthorizedAccess,
+                            message: this.translator('verify.error.unauthorizedAccess')
                         })
                     }
                     logger.info("verify page has loaded...");   
@@ -74,7 +74,6 @@ function showVerifySuccess (req, res) {
 }
 
 function checkVerifyFormData(req, res) {
-    var localeText = localeChecker('jp', 'verify-content');
     var lineID = req.params.lineID;
     var token = req.params.token;
 
@@ -92,7 +91,7 @@ function checkVerifyFormData(req, res) {
             if (!errors.isEmpty()) {  
                 logger.warn('Field must not be empty'); 
                 var dataForRendering = {
-                    title: localeText.pageTitle.title,
+                    title: this.translator('verify.pageTitle.title'),
                     lineID: lineID,
                     token: token,
                     csrfToken: req.body._csrf,
@@ -116,7 +115,6 @@ function checkVerifyFormData(req, res) {
 function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
     var employeeDetails = {};
-    var localeText = localeChecker('jp', 'verify-content');
     var users = Users({line_id: lineID}).retrieveByLineId(lineID); 
 
     if (!validatedUserData) return logger.error("User data not validated");
@@ -124,11 +122,11 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
         if (data) {
             logger.info("The line ID:", lineID, "is already verified");
             var dataForRendering = {
-                title: localeText.pageTitle.title,
+                title: this.translator('verify.pageTitle.title'),
                 lineID: lineID,
                 verified: true,
                 errors: 'localDbError',
-                customError: localeText.error.lineIdAlreadyExists
+                customError: this.translator('verify.error.lineIdAlreadyExists')
             };
             return res.render('verify', RenderPage().fetchData(dataForRendering));  
         }
@@ -138,13 +136,13 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
             if (throwErr) {
                 logger.error(throwErr.message);
                 var dataForRenderingForPassport = {
-                    title: localeText.pageTitle.title,
+                    title: this.translator('verify.title'),
                     lineID: lineID,
                     token: token,
                     csrfToken: req.body._csrf,
                     verified: true,
                     errors: 'bpmsDbError',
-                    customError: localeText.error.wrongCredentials
+                    customError: this.translator('verify.error.wrongCredentials')
                 };
                 res.status(400); 
                 return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
@@ -177,7 +175,6 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 }
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
-    var localeText = localeChecker('jp', 'verify-content');
     var userWithLineId = Users(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
     
     userWithLineId.then(function(data) {
@@ -190,11 +187,11 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 
         logger.info("This user:", employeeDetails.employee_id, "is already verified"); 
         var dataForRendering = {
-            title: localeText.pageTitle.title,
+            title: this.translator('verify.title'),
             lineID: lineID,
             verified: true,
             errors: 'localDbError',
-            customError: localeText.error.employeeIdAlreadyExists
+            customError: this.translator('verify.error.employeeIdAlreadyExists')
         };
          
         return res.render('verify', RenderPage().fetchData(dataForRendering));  
@@ -207,16 +204,12 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 
 function successVerifyLineMessage(lineID)
 {
-    var localeText = localeChecker('jp', 'success-message');
     logger.info(lineID + " has been successfully verified");
-    var msgContent = localeText.successTextMessage;
-
     const message = {
         type: 'text',
-        text: msgContent,
+        text: this.translator('verify.successTextMessage'),
     };
 
-    // var client = new line.Client(LineConfiguration().lineConfiguration()[0]);
     var client = new line.Client(LineConfiguration.api);
     
     client.pushMessage(lineID, message)

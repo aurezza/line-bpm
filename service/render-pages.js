@@ -1,12 +1,12 @@
 'use strict';
-var localeChecker = require('../locale/locale-checker');
-
+var Translator  = require('../service/Translator');
 var lineBotId = process.env.LINE_BOT_CHANNEL_ID;
 
 // setting default variables
 function RenderPage() {
     if (!(this instanceof RenderPage)) return new RenderPage();
     this.lineBotId = process.env.LINE_BOT_CHANNEL_ID;
+    this.translator = Translator();
 }
 
 RenderPage.prototype = {
@@ -16,8 +16,6 @@ RenderPage.prototype = {
 };
 
 function fetchData(data) {
-    var localeText = localeChecker('jp', 'verify-content');
-
     var renderData = {
         error: data.error,
         errors: data.errors,
@@ -26,22 +24,21 @@ function fetchData(data) {
         csrfToken: data.csrfToken,
         verified: data.verified,
         customError: data.customError,
-        title: localeText.panelTitle,
-        panelTitle: localeText.label.panelTitle,
-        verifyButtonText: localeText.button.verify,
-        usernamePlaceholder: localeText.placeHolder.username,
-        passwordPlaceholder: localeText.placeHolder.password
+        title: this.translator.get('verify.panelTitle'),
+        panelTitle: this.translator.get('verify.label.panelTitle'),
+        verifyButtonText: this.translator.get('verify.button.verify'),
+        usernamePlaceholder: this.translator.get('verify.placeHolder.username'),
+        passwordPlaceholder: this.translator.get('verify.placeHolder.password')
     }
 
     return renderData;
 }
 
 function successForm() {
-    var localeText = localeChecker('jp', 'success-message');
     var successObject =  {
-        title: localeText.successTextTitle, 
-        description: localeText.successTextMessage,
-        successButtonText: localeText.closeWindow,
+        title: this.translator.get('verify.successTextTitle'), 
+        description: this.translator.get('verify.successTextMessage'),
+        successButtonText: this.translator.get('verify.closeWindow'),
         lineBotId: lineBotId
     }
 

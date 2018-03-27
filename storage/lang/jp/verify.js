@@ -1,12 +1,13 @@
-var japanese = {
+module.exports = {
+    successTextMessage: "あなたのアカウントは確認済みです！",
+    successTextTitle: "成功!",
+    closeWindow: "戻る",
     errorMessageLineIdExists: "既に確認済みです.",
     button: {
         verify: "確認",
         back: "戻る"
     },
-    pageTitle: {
-        verify: "BPMSアプリケーションの検証"
-    },
+    title: "BPMSアプリケーションの検証",
     label: {
         panelTitle: "BPMS検証"
     },
@@ -22,5 +23,4 @@ var japanese = {
         alreadyVerified: "あなたはすでに確認済みです",
         unauthorizedAccess: "Error : 403 - 不正アクセス"
     }
-}
-module.exports = japanese;
+};

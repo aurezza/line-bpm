@@ -4,12 +4,13 @@ var Message = require('../message');
 var logger = require('../logger');
 var Token = require('../node/token-generator');
 var AccessPassModel = require('../model/AccessPassModel');
-var localeChecker = require('../locale/locale-checker');
+var Translator = require('./Translator');
 var RequestModel = require('../model/RequestModel');
 let Questetra = require('./Questetra');
 
 function Line () {
     if (!(this instanceof Line)) return new Line();
+    this.translator = Translator();
 }
 
 Line.prototype = {
@@ -58,14 +59,10 @@ function scanQrCode(client, line_userId) {
             } else {
                 AccessPassModel().save(token, line_userId)
             }            
-            var localeText = localeChecker('jp', 'scan-qr-code');
-            var url = process.env.APP_URL + 'verify/' + token + '/';
-    
-            var msgContent = localeText({url: url});
-        
+            var url = process.env.APP_URL + 'verify/' + token + '/' + line_userId;
             const message = {
                 type: 'text',
-                text: msgContent.text + line_userId,
+                text: this.translator.get('line.url', {url: url})
             };
             clientPushMessage(client, line_userId, message, null);
         })
@@ -124,11 +121,11 @@ function sendCancelledRequest(managerData, body, client) {
 
 function userExist(client, line_userId, userName) {
     logger.info('userExist');
-    var localeText = localeChecker('jp', 'scan-qr-code');
-    var msgContent = localeText({userName: userName});    
     const message = {
         type: 'text',
-        text: msgContent.userExist,
+        text: this.translator.get('line.user_exist', {
+            username: userName
+        }),
     };
     clientPushMessage(client, line_userId, message, false);        
   
@@ -136,16 +133,14 @@ function userExist(client, line_userId, userName) {
 
 function responded(retrievedRequestData, client, line_userId) {
     logger.info('responded');
-    var response = localeChecker('jp', 'responded-message');
     var messageType = {
         approved: "responded",
         declined: "responded",
         cancelled: "cancelled"
     };
-    var messageResponse = response(messageType[retrievedRequestData.status]);
     const message = {
         type: 'text',
-        text: messageResponse,
+        text: this.translator.get('line.' + messageType[retrievedRequestData.status]),
     };
     clientPushMessage(client, line_userId, message, false);    
 }

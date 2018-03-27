@@ -1,30 +1,28 @@
 'use strict';
-var localeChecker = require('../locale/locale-checker');
+var Translator = require('../service/Translator')
 function Message () {
     if (!(this instanceof Message)) return new Message();
+    this.translator = Translator();
 }
 
 Message.prototype = {
     messageContent,
     cancelledMessageContent
 };
-
 function messageContent(body) 
 {
-    var localeText = localeChecker('jp', 'message-content');
-
     var messageTemplate = {
-        text: localeText.text.name + " : " + body.user_name + "\n" +
-                localeText.text.overtimeDate + " : " + body.overtime_date + "\n" +
-                localeText.text.overtimeTime + " : " + body.overtime_time + "\n" +
-                localeText.text.overTimeReason + " : " + body.overtime_reason + "\n",
+        text: this.translator.get('line.text.name', {username: body.user_name})  + "\n" +
+              this.translator.get('line.text.overtimeDate', {overtimedate: body.overtime_date}) + "\n" +
+              this.translator.get('line.text.overtimeTime', {overtimeTime: body.overtime_time}) + "\n" +
+              this.translator.get('line.text.overTimeReason', {overtimereason: body.overtime_reason}) + "\n",
         status: {
-            approved: localeText.text.status + " : " + localeText.text.approved,
-            declined: localeText.text.status + " : " + localeText.text.declined
+            approved: this.translator.get('line.status.approved'),
+            declined: this.translator.get('line.status.declined')
         },
         label: {
-            approve: localeText.label.approve,
-            decline: localeText.label.decline
+            approve: this.translator.get('line.label.approve'),
+            decline: this.translator.get('line.label.decline')
         }
     }
 
@@ -32,12 +30,11 @@ function messageContent(body)
 }
 
 function cancelledMessageContent(body) {
-    var localeText = localeChecker('jp', 'message-content');
     var messageTemplate = {
-        header: localeText.header.cancelledMessage + "\n",
-        text: localeText.text.name + " : " + body.user_name + "\n" +
-        localeText.text.overtimeDate + " : " + body.overtime_date + "\n" +
-        localeText.text.overTimeReason + " : " + body.reason + "\n",
+        header: this.translator.get('line.header.cancelledMessage') + "\n",
+        text: this.translator.get('line.text.name', {username: body.user_name})  + "\n" +
+        this.translator.get('line.text.overtimeDate', {overtimedate: body.overtime_date}) + "\n" +
+        this.translator.get('line.text.overTimeReason', {overtimereason: body.reason}) + "\n",
     }
 
     return messageTemplate;

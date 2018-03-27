@@ -54,6 +54,7 @@ function scanQrCode(client, line_userId) {
     var owner = AccessPassModel().retrieveLineId(line_userId);
     owner
         .then(function(owner) {
+            var self = this;
             if (owner) {
                 AccessPassModel().changeAccessPass(line_userId, token)
             } else {
@@ -62,7 +63,7 @@ function scanQrCode(client, line_userId) {
             var url = process.env.APP_URL + 'verify/' + token + '/' + line_userId;
             const message = {
                 type: 'text',
-                text: this.translator.get('line.url', {url: url})
+                text: self.translator.get('line.url', {url: url})
             };
             clientPushMessage(client, line_userId, message, null);
         })

@@ -78,7 +78,7 @@ function showPage (req, res) {
                         csrfToken: req.csrfToken(),
                         verified: false
                     };
-                    res.render('verify', RenderPage().fetchData.bind(dataForRendering));  
+                    res.render('verify', RenderPage().fetchData.bind(self, dataForRendering));  
                 })
                 .catch(function(error) {
                     logger.error(error.message);

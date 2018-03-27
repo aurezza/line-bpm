@@ -35,8 +35,8 @@ passportTmj();
 
 // verify page
 router.get('/verify/:token/:line_id', csrfProtection, Verify.showPage.bind(Verify));
-router.post('/verify/:token/:line_id', Verify.expressValidator().bind(Verify), csrfProtection, Verify.checkFormData.bind(Verify)); 
-router.get('/success', VerifyPageController().showSuccess.bind(Verify));
+router.post('/verify/:token/:line_id', Verify.expressValidator.bind(Verify), csrfProtection, Verify.checkFormData.bind(Verify)); 
+router.get('/success', Verify.showSuccess.bind(Verify));
 router.get('/generate-token/:api_name', Api.generateToken.bind(Api));
 
 

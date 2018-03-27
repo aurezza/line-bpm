@@ -27,7 +27,6 @@ VerifyPageController.prototype = {
 };
 
 function expressValidator() {
-    logger.info('expressValidator this: ', this);
     var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
     var validateInputData = [
         check('username', notEmpty)
@@ -91,7 +90,7 @@ function showPage (req, res) {
 }
 
 function showSuccess (req, res) {
-    res.render('success', RenderPage().successForm());
+    res.render('success', RenderPage().successForm.bind(RenderPage()));
 }
 
 function checkFormData(req, res) {

@@ -20,7 +20,6 @@ var Api = ApiController();
 
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController();
-var test = Verify.expressValidator();
 
 // db connection
 connection(mongoose, connectionURL);
@@ -36,7 +35,7 @@ passportTmj();
 
 // verify page
 router.get('/verify/:token/:line_id', csrfProtection, Verify.showPage.bind(Verify));
-router.post('/verify/:token/:line_id', test.bind(test), csrfProtection, Verify.checkFormData.bind(Verify)); 
+router.post('/verify/:token/:line_id', Verify.expressValidator.bind(Verify), csrfProtection, Verify.checkFormData.call(this)); 
 router.get('/success', Verify.showSuccess.bind(Verify));
 router.get('/generate-token/:api_name', Api.generateToken.bind(Api));
 

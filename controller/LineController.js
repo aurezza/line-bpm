@@ -4,7 +4,7 @@ var errorLocator = require('../node/error-locator');
 var UserModel = require('../model/UserModel');
 var Line = require('../service/Line');
 var Questetra = require('../service/Questetra');
-var Translator = require('../service/translator');
+var Translator = require('../service/Translator');
 
 const line = require('@line/bot-sdk');
 const config = {

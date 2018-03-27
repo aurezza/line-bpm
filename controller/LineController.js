@@ -4,6 +4,7 @@ var errorLocator = require('../node/error-locator');
 var UserModel = require('../model/UserModel');
 var Line = require('../service/Line');
 var Questetra = require('../service/Questetra');
+var Translator = require('../service/translator');
 
 const line = require('@line/bot-sdk');
 const config = {
@@ -15,6 +16,7 @@ const client = new line.Client(config);
 
 function LineController () {
     if (!(this instanceof LineController)) return new LineController();
+    this.translator = Translator();
 }
 
 LineController.prototype = {
@@ -31,7 +33,7 @@ function eventTrigger(req, res) {
     self[eventType]({
         req: req.body, 
         client: client
-    });
+    }).bind(self);
     res.send(true);
 }
 

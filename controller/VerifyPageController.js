@@ -193,7 +193,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                     email: user.email
                 };
 
-                verifyUserWithLineId.call(self, employeeDetails, res, lineID, lineBotId);
+                verifyUserWithLineId.call(self, employeeDetails, res, lineID);
             });
         })(req, res);               
     })
@@ -206,7 +206,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
     var userWithLineId = UserModel().retrieveByEmpId(employeeDetails.employee_id);
     var self = this;
-
+    logger.info('self in verifyUserWithLineId: ', self);
     userWithLineId.then(function(data) {
         if (!data) {
             UserModel().save(employeeDetails);

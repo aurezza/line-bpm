@@ -20,7 +20,8 @@ Line.prototype = {
     sender,
     sendCancelledRequest,
     responded,
-    userExist
+    userExist,
+    clientPushMessage
 };
 function checkManagerDetails(managerData, body, client) {
     logger.info('check manager details');

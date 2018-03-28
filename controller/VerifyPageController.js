@@ -129,7 +129,7 @@ function checkFormData(req, res) {
                 };
                 return res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
-            
+
             checkValidatedUserData.call(self, req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
         })
         .catch(function(error) {
@@ -193,7 +193,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                     email: user.email
                 };
 
-                verifyUserWithLineId(employeeDetails, res, lineID, lineBotId);
+                verifyUserWithLineId.call(self, employeeDetails, res, lineID, lineBotId);
             });
         })(req, res);               
     })

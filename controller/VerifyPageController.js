@@ -129,8 +129,8 @@ function checkFormData(req, res) {
                 };
                 return res.render('verify', RenderPage().fetchData(dataForRendering));  
             }
-
-            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
+            
+            checkValidatedUserData.call(self, req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
         })
         .catch(function(error) {
             logger.error(error.message);

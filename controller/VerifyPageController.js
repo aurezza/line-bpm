@@ -101,9 +101,10 @@ function checkFormData(req, res) {
 
     var lineID = req.params.line_id;
     var token = req.params.token;
-    var self = VerifyPageController();
-    logger.info('self in checkFormData: ', this);
+    
     var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
+    var self = this;
+    console.log('self in checkFormData: ', self);
     retrivedAccessPass
         .then(function(retrivedAccessPassData) {
             if (retrivedAccessPassData == null) {
@@ -145,7 +146,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 
     if (!validatedUserData) return logger.error("User data not validated");
 
-    var self = this;
+    var self = VerifyPageController();
     logger.info('self in checkValidatedUserData: ', this);
     users.then(function(data) {
         if (data) {
@@ -205,7 +206,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
     var userWithLineId = UserModel().retrieveByEmpId(employeeDetails.employee_id);
-    var self = this;
+    var self = VerifyPageController();
 
     userWithLineId.then(function(data) {
         if (!data) {

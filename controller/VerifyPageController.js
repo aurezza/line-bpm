@@ -210,7 +210,7 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
     userWithLineId.then(function(data) {
         if (!data) {
             UserModel().save(employeeDetails);
-            successVerifyLineMessage(lineID);
+            successVerifyLineMessage.call(self, lineID);
             AccessPassModel().expireAccessPass(lineID);
             return res.redirect('/success');
         }

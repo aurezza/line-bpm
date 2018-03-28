@@ -77,7 +77,7 @@ function showPage (req, res) {
                         csrfToken: req.csrfToken(),
                         verified: false
                     };
-                    res.render('verify', RenderPage().fetchData(dataForRendering));  
+                    res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
                 })
                 .catch(function(error) {
                     logger.error(error.message);
@@ -91,7 +91,8 @@ function showPage (req, res) {
 }
 
 function showSuccess (req, res) {
-    res.render('success', RenderPage().successForm());
+    var self = this;
+    res.render('success', RenderPage().successForm.call(self));
 }
 
 function checkFormData(req, res) {
@@ -125,7 +126,7 @@ function checkFormData(req, res) {
                         onlyFirstError: true
                     })
                 };
-                return res.render('verify', RenderPage().fetchData(dataForRendering));  
+                return res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
             }
 
             checkValidatedUserData.call(self, req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
@@ -155,7 +156,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                 errors: 'localDbError',
                 customError: self.translator.get('verify.error.lineIdAlreadyExists')
             };
-            return res.render('verify', RenderPage().fetchData(dataForRendering));  
+            return res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
         }
         
         passport.authenticate('tmj', function(err, user, info) {
@@ -172,7 +173,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                     customError: self.translator.get('verify.error.wrongCredentials')
                 };
                 res.status(400); 
-                return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
+                return res.render('verify', RenderPage().fetchData.call(self, dataForRenderingForPassport));               
             }
             req.logIn(user, function(err) {
                 if (err) {
@@ -222,7 +223,7 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
             customError: self.translator.get('verify.error.employeeIdAlreadyExists')
         };
          
-        return res.render('verify', RenderPage().fetchData(dataForRendering));  
+        return res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
 
     })
         .catch(function(error) {

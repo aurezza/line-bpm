@@ -17,7 +17,7 @@ RenderPage.prototype = {
 };
 
 function fetchData(data) {
-    var self = RenderPage();
+    var self = this;
     logger.info('self in render fetchData: ', self);
     var renderData = {
         error: data.error,
@@ -38,7 +38,7 @@ function fetchData(data) {
 }
 
 function successForm() {
-    var self = RenderPage();
+    var self = this;
     logger.info('self in render successForm: ', self);
     var successObject =  {
         title: self.translator.get('verify.successTextTitle'), 

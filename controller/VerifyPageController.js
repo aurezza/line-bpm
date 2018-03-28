@@ -11,6 +11,7 @@ var UserModel = require('../model/UserModel');
 var AccessPassModel = require('../model/AccessPassModel');
 var RenderPage = require('../service/RenderPages');
 var LineConfiguration = require('../config/line');
+var LineService = require('../service/Line');
 
 var line = require('@line/bot-sdk');
 
@@ -242,15 +243,17 @@ function successVerifyLineMessage(lineID)
 
     var client = new line.Client(LineConfiguration.api);
     
-    client.pushMessage(lineID, message)
-        .then(() => {
-            logger.info("message sent to " + lineID);    
-        })
-        .catch((error) => {
-            logger.error(error.message);
-            logger.error(errorLocator());  
-        });             
-  
+    // client.pushMessage(lineID, message)
+    //     .then(() => {
+    //         logger.info("message sent to " + lineID);    
+    //     })
+    //     .catch((error) => {
+    //         logger.error(error.message);
+    //         logger.error(errorLocator());  
+    //     });         
+    
+    LineService().clientPushMessage(client, lineID, message, false);
+    
 }
 
 

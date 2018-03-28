@@ -145,7 +145,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 
     if (!validatedUserData) return logger.error("User data not validated");
 
-    var self = VerifyPageController();
+    var self = this;
     logger.info('self in checkValidatedUserData: ', this);
     users.then(function(data) {
         if (data) {
@@ -205,7 +205,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
     var userWithLineId = UserModel().retrieveByEmpId(employeeDetails.employee_id);
-    var self = VerifyPageController();
+    var self = this;
 
     userWithLineId.then(function(data) {
         if (!data) {

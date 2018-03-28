@@ -25,8 +25,8 @@ function recieveFromQuest(req, res) {
     var managerData = {};
     var users = UserModel().retriveByEmpEmail(req.body.manager_email);
     
-    users.then(function(users) {
-        managerData = users;
+    users.then(function(data) {
+        managerData = data;
         LineService().checkManagerDetails(managerData, req.body, client);  
     })
         .catch(function(error) {

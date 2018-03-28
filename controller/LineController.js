@@ -37,6 +37,7 @@ function eventTrigger(req, res) {
 
 function follow(params) {
     logger.info("follow event triggered");
+    console.log("line_userId", line_userId);
     let line_userId = params.req.events[0].source.userId;
     var users = UserModel().retrieveByLineId(line_userId);
     users

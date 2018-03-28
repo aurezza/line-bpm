@@ -66,7 +66,6 @@ function showPage (req, res) {
             }
 
             var retrievedAccessPass = AccessPassModel().retrieve(lineID, token);
-            var self = this;
             retrievedAccessPass
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {

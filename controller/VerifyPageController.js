@@ -141,7 +141,7 @@ function checkFormData(req, res) {
 function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
     // check if user is in local db
     var employeeDetails = {};
-    var users = UserModel({line_id: lineID}).retrieveByLineId(lineID); 
+    var users = UserModel().retrieveByLineId(lineID); 
 
     if (!validatedUserData) return logger.error("User data not validated");
 

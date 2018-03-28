@@ -29,6 +29,7 @@ VerifyPageController.prototype = {
 function expressValidator() {
     logger.info('expressValidator this: ', this);
     var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
+    logger.info('notEmpty: ', notEmpty);
     var validateInputData = [
         check('username', notEmpty)
             .isLength({ min: 1})
@@ -63,7 +64,6 @@ function showPage (req, res) {
             }
 
             var retrievedAccessPass = AccessPassModel().retrieve(lineID, token);
-            var self = this;
             retrievedAccessPass
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {
@@ -78,7 +78,7 @@ function showPage (req, res) {
                         csrfToken: req.csrfToken(),
                         verified: false
                     };
-                    res.render('verify', RenderPage().fetchData.bind(self, dataForRendering));  
+                    res.render('verify', RenderPage().fetchData(dataForRendering));  
                 })
                 .catch(function(error) {
                     logger.error(error.message);

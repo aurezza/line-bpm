@@ -135,6 +135,7 @@ function userExist(client, line_userId, userName) {
 }
 
 function responded(retrievedRequestData, client, line_userId) {
+    var self = this;
     logger.info('responded');
     var messageType = {
         approved: "responded",
@@ -143,7 +144,7 @@ function responded(retrievedRequestData, client, line_userId) {
     };
     const message = {
         type: 'text',
-        text: this.translator.get('line.' + messageType[retrievedRequestData.status]),
+        text: self.translator.get('line.' + messageType[retrievedRequestData.status]),
     };
     clientPushMessage(client, line_userId, message, false);    
 }

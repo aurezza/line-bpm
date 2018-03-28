@@ -147,6 +147,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
     if (!validatedUserData) return logger.error("User data not validated");
 
     var self = this;
+    logger.info('self in checkValidatedUserData: ', this);
     users.then(function(data) {
         if (data) {
             logger.info("The line ID:", lineID, "is already verified");

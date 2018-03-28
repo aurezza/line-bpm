@@ -27,8 +27,7 @@ VerifyPageController.prototype = {
 };
 
 function expressValidator() {
-    var self = this;
-    var notEmpty = self.translator.get('verify.error.mustNotBeEmpty');
+    var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
     
     logger.info('this in expressValidator: ', this);
     logger.info('notEmpty: ', notEmpty);

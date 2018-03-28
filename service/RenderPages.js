@@ -19,7 +19,6 @@ RenderPage.prototype = {
 function fetchData(data) {
     var self = RenderPage();
     logger.info('self in render fetchData: ', self);
-    console.log('self in render fetchData with console: ', self);
     var renderData = {
         error: data.error,
         errors: data.errors,
@@ -41,7 +40,6 @@ function fetchData(data) {
 function successForm() {
     var self = RenderPage();
     logger.info('self in render successForm: ', self);
-    console.log('self', self);
     var successObject =  {
         title: self.translator.get('verify.successTextTitle'), 
         description: self.translator.get('verify.successTextMessage'),

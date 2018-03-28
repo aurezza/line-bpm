@@ -29,8 +29,6 @@ VerifyPageController.prototype = {
 function expressValidator() {
     var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
     
-    logger.info('this in expressValidator: ', this);
-    logger.info('notEmpty: ', notEmpty);
     var validateInputData = [
         check('username', notEmpty)
             .isLength({ min: 1})
@@ -103,7 +101,7 @@ function checkFormData(req, res) {
     
     var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
     var self = this;
-    console.log('self in checkFormData: ', self);
+    logger.info('self in checkFormData: ', self);
     retrivedAccessPass
         .then(function(retrivedAccessPassData) {
             if (retrivedAccessPassData == null) {

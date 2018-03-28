@@ -40,8 +40,9 @@ function follow(params) {
     let line_userId = params.req.events[0].source.userId;
     var users = UserModel().retrieveByLineId(line_userId);
     users
-        .then(function (users) {
-            if (users) return  Line().userExist(params.client, line_userId, users.employee_name);
+        .then(function (data) {
+            logger.info('UserModel users: ', data);
+            if (data) return  Line().userExist(params.client, line_userId, data.employee_name);
             Line().scanQrCode(params.client, line_userId);
         })
         .catch(function (error) {

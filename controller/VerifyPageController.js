@@ -101,7 +101,7 @@ function checkFormData(req, res) {
 
     var lineID = req.params.line_id;
     var token = req.params.token;
-    var self = this;
+    var self = VerifyPageController();
     logger.info('self in checkFormData: ', this);
     var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
     retrivedAccessPass

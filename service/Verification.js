@@ -7,11 +7,12 @@ var errorLocator = require('../node/error-locator');
 
 var UserModel = require('../model/UserModel');
 var AccessPassModel = require('../model/AccessPassModel');
-var RenderPage = require('../service/RenderPages');
-var LineConfiguration = require('../config/line');
-var LineService = require('../service/Line');
+var RenderPage = require('./RenderPages');
+var LineService = require('./Line');
 
+var LineConfiguration = require('../config/line');
 var line = require('@line/bot-sdk');
+var client = new line.Client(LineConfiguration.api); 
 
 function Verification() {
     if (!(this instanceof Verification)) return new Verification();
@@ -124,8 +125,7 @@ function successVerifyLineMessage(lineID)
         type: 'text',
         text: self.translator.get('verify.successTextMessage'),
     };
-
-    var client = new line.Client(LineConfiguration.api);    
+       
     LineService().clientPushMessage(client, lineID, message, false);
     
 }

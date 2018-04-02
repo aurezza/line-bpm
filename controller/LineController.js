@@ -7,12 +7,7 @@ var Questetra = require('../service/Questetra');
 
 var LineConfiguration = require('../config/line');
 const line = require('@line/bot-sdk');
-// const config = {
-//     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-//     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-// };
 const client = new line.Client(LineConfiguration.api); 
-// const client = new line.Client(config);
 
 function LineController () {
     if (!(this instanceof LineController)) return new LineController();

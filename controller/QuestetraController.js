@@ -4,12 +4,14 @@ var errorLocator = require('../node/error-locator');
 var UserModel = require('../model/UserModel');
 var LineService = require('../service/Line');
 var RequestModel = require('../model/RequestModel');
+var LineConfiguration = require('../config/line');
 const line = require('@line/bot-sdk');
-const config = {
-    channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-    channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-};
-const client = new line.Client(config);
+// const config = {
+//     channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
+//     channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
+// };
+const client = new line.Client(LineConfiguration.api); 
+// const client = new line.Client(config);
 
 function QuestetraController() {
     if (!(this instanceof QuestetraController)) return new QuestetraController();

@@ -129,3 +129,5 @@ function successVerifyLineMessage(lineID)
     LineService().clientPushMessage(client, lineID, message, false);
     
 }
+
+module.exports = Verification;

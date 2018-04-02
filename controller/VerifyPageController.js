@@ -102,8 +102,8 @@ function checkFormData(req, res) {
     var token = req.params.token;
     
     var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
+    logger.info('checking form data...');
     var self = this;
-    logger.info('self in checkFormData: ', self);
     retrivedAccessPass
         .then(function(retrivedAccessPassData) {
             if (retrivedAccessPassData == null) {
@@ -142,11 +142,10 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
     // check if user is in local db
     var employeeDetails = {};
     var users = UserModel().retrieveByLineId(lineID); 
-
+    logger.info('checking validated user data...');
     if (!validatedUserData) return logger.error("User data not validated");
 
     var self = this;
-    logger.info('self in checkValidatedUserData: ', this);
     users.then(function(data) {
         if (data) {
             logger.info("The line ID:", lineID, "is already verified");
@@ -205,8 +204,8 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
     var userWithLineId = UserModel().retrieveByEmpId(employeeDetails.employee_id);
+    logger.info('verifying user line ID...');
     var self = this;
-    logger.info('self in verifyUserWithLineId: ', self);
     userWithLineId.then(function(data) {
         if (!data) {
             UserModel().save(employeeDetails);
@@ -241,17 +240,7 @@ function successVerifyLineMessage(lineID)
         text: self.translator.get('verify.successTextMessage'),
     };
 
-    var client = new line.Client(LineConfiguration.api);
-    
-    // client.pushMessage(lineID, message)
-    //     .then(() => {
-    //         logger.info("message sent to " + lineID);    
-    //     })
-    //     .catch((error) => {
-    //         logger.error(error.message);
-    //         logger.error(errorLocator());  
-    //     });         
-    
+    var client = new line.Client(LineConfiguration.api);    
     LineService().clientPushMessage(client, lineID, message, false);
     
 }

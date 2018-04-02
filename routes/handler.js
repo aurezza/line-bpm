@@ -28,7 +28,7 @@ connection(mongoose, connectionURL);
 router.use([Middleware().setOrigin, Middleware().tokenSyntaxError]);
 
 // middleware for external routes
-router.use(kernel.externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
+router.use(kernel.externalRoutes, Api.corsOptions, Middleware().checkOrigin);
 
 // passport
 passportTmj();

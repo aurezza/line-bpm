@@ -14,12 +14,12 @@ function Api () {
 }
 
 Api.prototype = {
-    corsOptions,
+    corsCustomOptions,
     checkSource,
     verifyToken
 };
 
-function corsOptions() {
+function corsCustomOptions() {
     var customCorsOptions = {
         origin: function(origin, callback) {
             logger.info("origin: ", origin);

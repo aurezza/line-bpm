@@ -83,9 +83,9 @@ function generateToken (req, res) {
 }
 
 function corsOptions() {  
-    var customCorsOptions = cors(Api().corsOptions());
+    var getCorsOptions = cors(Api().customCorsOptions);
     
-    return customCorsOptions;
+    return getCorsOptions;
 }
 
 module.exports = ApiController;

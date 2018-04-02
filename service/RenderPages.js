@@ -18,7 +18,7 @@ RenderPage.prototype = {
 
 function fetchData(data) {
     var self = this;
-    logger.info('self in render fetchData: ', self);
+    logger.info('fetch data for rendering in form');
     var renderData = {
         error: data.error,
         errors: data.errors,
@@ -39,7 +39,7 @@ function fetchData(data) {
 
 function successForm() {
     var self = this;
-    logger.info('self in render successForm: ', self);
+    logger.info('get data for rendering in success form');
     var successObject =  {
         title: self.translator.get('verify.successTextTitle'), 
         description: self.translator.get('verify.successTextMessage'),
@@ -51,6 +51,7 @@ function successForm() {
 }
 
 function errorForm(data) {
+    logger.info('get data for rendering in error form');
     var errorObject =  {
         message: data.message,
         backButtonText: data.backButtonText,

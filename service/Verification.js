@@ -24,7 +24,7 @@ Verification.prototype = {
     successVerifyLineMessage
 };
 
-function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
+function checkValidatedUserData(req, res, lineID, validatedUserData, token) {
     // check if user is in local db
     var employeeDetails = {};
     var users = UserModel().retrieveByLineId(lineID); 

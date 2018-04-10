@@ -12,7 +12,7 @@ const connectionURL = mongoDbURL + mongoDbName;
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
-var kernel = require('./kernel');
+// var kernel = require('./kernel');
 var Middleware = require('../middleware/RouterMiddleware');
 
 var ApiController = require('../controller/ApiController');
@@ -21,6 +21,8 @@ var Api = ApiController();
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController();
 
+const externalRoutes = ['/api/receiveFromQuest', '/api/handler'];
+
 // db connection
 connection(mongoose, connectionURL);
 
@@ -28,7 +30,7 @@ connection(mongoose, connectionURL);
 router.use([Middleware().setOrigin, Middleware().tokenSyntaxError]);
 
 // middleware for external routes
-router.use(kernel.externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
+router.use(externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
 
 // passport
 passportTmj();

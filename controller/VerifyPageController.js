@@ -11,8 +11,6 @@ var Verification = require('../service/Verification');
 var UserModel = require('../model/UserModel');
 var AccessPassModel = require('../model/AccessPassModel');
 
-var LineConfiguration = require('../config/line');
-
 function VerifyPageController() {
     if (!(this instanceof VerifyPageController)) return new VerifyPageController();
     this.translator = Translator();

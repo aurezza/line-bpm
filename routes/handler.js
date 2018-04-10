@@ -8,7 +8,6 @@ var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 
-
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 

@@ -20,7 +20,8 @@ Line.prototype = {
     sender,
     sendCancelledRequest,
     responded,
-    userExist
+    userExist,
+    clientPushMessage
 };
 function checkManagerDetails(managerData, body, client) {
     logger.info('check manager details');
@@ -52,6 +53,8 @@ function scanQrCode(client, line_userId) {
     var generate = new Token(line_userId);
     var token = generate.get();
     var owner = AccessPassModel().retrieveLineId(line_userId);
+    var self = this;
+
     owner
         .then(function(owner) {
             if (owner) {
@@ -62,7 +65,7 @@ function scanQrCode(client, line_userId) {
             var url = process.env.APP_URL + 'verify/' + token + '/' + line_userId;
             const message = {
                 type: 'text',
-                text: this.translator.get('line.url', {url: url})
+                text: self.translator.get('line.url', {url: url})
             };
             clientPushMessage(client, line_userId, message, null);
         })
@@ -132,6 +135,7 @@ function userExist(client, line_userId, userName) {
 }
 
 function responded(retrievedRequestData, client, line_userId) {
+    var self = Translator();
     logger.info('responded');
     var messageType = {
         approved: "responded",
@@ -140,7 +144,7 @@ function responded(retrievedRequestData, client, line_userId) {
     };
     const message = {
         type: 'text',
-        text: this.translator.get('line.' + messageType[retrievedRequestData.status]),
+        text: self.get('line.' + messageType[retrievedRequestData.status]),
     };
     clientPushMessage(client, line_userId, message, false);    
 }
@@ -150,7 +154,7 @@ function clientPushMessage(client, line_userId, message, body) {
     logger.info('clientPushMessage');
     client.pushMessage(line_userId, message)
         .then(() => {
-            
+           
             logger.info("message sent to " + line_userId);
             if (!body) return;
             logger.info("serviceRequest.save");

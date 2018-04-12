@@ -2,17 +2,18 @@
 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
-var passport = require('passport');
+const passport = require('passport');
+
 var logger = require('../logger');
 var errorLocator = require('../node/error-locator');
 var Translator = require('../service/Translator');
+var RenderPage = require('../service/RenderPages');
+var Verification = require('../service/Verification');
+var UserModel = require('../model/UserModel');
+var AccessPassModel = require('../model/AccessPassModel');
+var errorLocator = require('../node/error-locator');
 
-var Users = require('../model/UserModel');
-var AccessPass = require('../model/AccessPassModel');
-var RenderPage = require('../service/render-pages');
-var LineConfiguration = require('../config/line');
-
-var line = require('@line/bot-sdk');
+var UserModel = require('../model/UserModel');
 
 function VerifyPageController() {
     if (!(this instanceof VerifyPageController)) return new VerifyPageController();
@@ -20,33 +21,56 @@ function VerifyPageController() {
 }
 
 VerifyPageController.prototype = {
-    showPage: showVerifyPage,
-    showSuccess: showVerifySuccess,
-    checkFormData: checkVerifyFormData 
+    expressValidator,
+    showPage,
+    showSuccess,
+    checkFormData,
+    checkValidatedUserData,
+    verifyUserWithLineId,
 };
 
-function showVerifyPage (req, res) {
+function expressValidator() {
+    var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
+    
+    var validateInputData = [
+        check('username', notEmpty)
+            .isLength({ min: 1})
+            .trim()
+            .withMessage(notEmpty),
+
+        check('password')
+            .isLength({ min: 1})
+            .trim().withMessage(notEmpty),
+    ];
+
+    return validateInputData;
+}
+
+
+function showPage (req, res) {
+    
     var lineID = req.params.line_id;
     var token = req.params.token;
 
-    var users = Users().retrieveByLineId(lineID);
+    var users = UserModel().retrieveByLineId(lineID);
+    var self = this;
     users
         .then(function(data) {
             if (data) {
                 logger.warn("The line ID:", lineID, "is already verified");
                 var dataForRenderingError = {
-                    message: this.translator('verify.errorMessageLineIdExists'),
-                    backButtonText: this.translator('verify.button.back')
+                    message: self.translator.get('verify.errorMessageLineIdExists'),
+                    backButtonText: self.translator.get('verify.button.back')
                 }
                 return res.render('verify-error', RenderPage().errorForm(dataForRenderingError));
             }
 
-            var retrievedAccessPass = AccessPass().retrieve(lineID, token);
+            var retrievedAccessPass = AccessPassModel().retrieve(lineID, token);
             retrievedAccessPass
                 .then(function(retrievedAccessPassData) {
                     if (retrievedAccessPassData == null) {
                         return res.render('unauthorized-access', {
-                            message: this.translator('verify.error.unauthorizedAccess')
+                            message: self.translator.get('verify.error.unauthorizedAccess')
                         })
                     }
                     logger.info("verify page has loaded...");   
@@ -56,7 +80,7 @@ function showVerifyPage (req, res) {
                         csrfToken: req.csrfToken(),
                         verified: false
                     };
-                    res.render('verify', RenderPage().fetchData(dataForRendering));  
+                    res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
                 })
                 .catch(function(error) {
                     logger.error(error.message);
@@ -69,15 +93,19 @@ function showVerifyPage (req, res) {
         }); 
 }
 
-function showVerifySuccess (req, res) {
-    res.render('success', RenderPage().successForm());
+function showSuccess (req, res) {
+    var self = this;
+    res.render('success', RenderPage().successForm.call(self));
 }
 
-function checkVerifyFormData(req, res) {
-    var lineID = req.params.lineID;
-    var token = req.params.token;
+function checkFormData(req, res) {
 
-    var retrivedAccessPass = AccessPass().retrieve(lineID, token);
+    var lineID = req.params.line_id;
+    var token = req.params.token;
+    
+    var retrivedAccessPass = AccessPassModel().retrieve(lineID, token);
+    logger.info('checking form data...');
+    var self = this;
     retrivedAccessPass
         .then(function(retrivedAccessPassData) {
             if (retrivedAccessPassData == null) {
@@ -91,7 +119,7 @@ function checkVerifyFormData(req, res) {
             if (!errors.isEmpty()) {  
                 logger.warn('Field must not be empty'); 
                 var dataForRendering = {
-                    title: this.translator('verify.pageTitle.title'),
+                    title: self.translator.get('verify.pageTitle.title'),
                     lineID: lineID,
                     token: token,
                     csrfToken: req.body._csrf,
@@ -101,10 +129,10 @@ function checkVerifyFormData(req, res) {
                         onlyFirstError: true
                     })
                 };
-                return res.render('verify', RenderPage().fetchData(dataForRendering));  
+                return res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
             }
 
-            checkValidatedUserData(req, res, lineID, validatedUserData, LineConfiguration.lineBotId, token);   
+            checkValidatedUserData.call(self, req, res, lineID, validatedUserData, token);   
         })
         .catch(function(error) {
             logger.error(error.message);
@@ -112,23 +140,25 @@ function checkVerifyFormData(req, res) {
         })
 }
 
-function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, token) {
+function checkValidatedUserData(req, res, lineID, validatedUserData, token) {
     // check if user is in local db
     var employeeDetails = {};
-    var users = Users({line_id: lineID}).retrieveByLineId(lineID); 
-
+    var users = UserModel().retrieveByLineId(lineID); 
+    logger.info('checking validated user data...');
     if (!validatedUserData) return logger.error("User data not validated");
+
+    var self = this;
     users.then(function(data) {
         if (data) {
             logger.info("The line ID:", lineID, "is already verified");
             var dataForRendering = {
-                title: this.translator('verify.pageTitle.title'),
+                title: self.translator.get('verify.pageTitle.title'),
                 lineID: lineID,
                 verified: true,
                 errors: 'localDbError',
-                customError: this.translator('verify.error.lineIdAlreadyExists')
+                customError: self.translator.get('verify.error.lineIdAlreadyExists')
             };
-            return res.render('verify', RenderPage().fetchData(dataForRendering));  
+            return res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
         }
         
         passport.authenticate('tmj', function(err, user, info) {
@@ -136,16 +166,16 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
             if (throwErr) {
                 logger.error(throwErr.message);
                 var dataForRenderingForPassport = {
-                    title: this.translator('verify.title'),
+                    title: self.translator.get('verify.title'),
                     lineID: lineID,
                     token: token,
                     csrfToken: req.body._csrf,
                     verified: true,
                     errors: 'bpmsDbError',
-                    customError: this.translator('verify.error.wrongCredentials')
+                    customError: self.translator.get('verify.error.wrongCredentials')
                 };
                 res.status(400); 
-                return res.render('verify', RenderPage().fetchData(dataForRenderingForPassport));               
+                return res.render('verify', RenderPage().fetchData.call(self, dataForRenderingForPassport));               
             }
             req.logIn(user, function(err) {
                 if (err) {
@@ -164,7 +194,7 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
                     email: user.email
                 };
 
-                verifyUserWithLineId(employeeDetails, res, lineID, lineBotId);
+                verifyUserWithLineId.call(self, employeeDetails, res, lineID);
             });
         })(req, res);               
     })
@@ -175,26 +205,27 @@ function checkValidatedUserData(req, res, lineID, validatedUserData, lineBotId, 
 }
 
 function verifyUserWithLineId(employeeDetails, res, lineID) {
-    var userWithLineId = Users(employeeDetails).retrieveByEmpId(employeeDetails.employee_id);
-    
+    var userWithLineId = UserModel().retrieveByEmpId(employeeDetails.employee_id);
+    logger.info('verifying user line ID...');
+    var self = this;
     userWithLineId.then(function(data) {
         if (!data) {
-            Users().save(employeeDetails);
-            successVerifyLineMessage(lineID);
-            AccessPass().expireAccessPass(lineID);
+            UserModel().save(employeeDetails);
+            Verification().successVerifyLineMessage.call(self, lineID);
+            AccessPassModel().expireAccessPass(lineID);
             return res.redirect('/success');
         }
 
         logger.info("This user:", employeeDetails.employee_id, "is already verified"); 
         var dataForRendering = {
-            title: this.translator('verify.title'),
+            title: self.translator.get('verify.title'),
             lineID: lineID,
             verified: true,
             errors: 'localDbError',
-            customError: this.translator('verify.error.employeeIdAlreadyExists')
+            customError: self.translator.get('verify.error.employeeIdAlreadyExists')
         };
          
-        return res.render('verify', RenderPage().fetchData(dataForRendering));  
+        return res.render('verify', RenderPage().fetchData.call(self, dataForRendering));  
 
     })
         .catch(function(error) {
@@ -202,25 +233,5 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
         });                        
 }
 
-function successVerifyLineMessage(lineID)
-{
-    logger.info(lineID + " has been successfully verified");
-    const message = {
-        type: 'text',
-        text: this.translator('verify.successTextMessage'),
-    };
-
-    var client = new line.Client(LineConfiguration.api);
-    
-    client.pushMessage(lineID, message)
-        .then(() => {
-            logger.info("message sent to " + lineID);    
-        })
-        .catch((error) => {
-            logger.error(error.message);
-            logger.error(errorLocator());  
-        });             
-  
-}
 
 module.exports = VerifyPageController;

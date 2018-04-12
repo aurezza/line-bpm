@@ -5,13 +5,9 @@ var UserModel = require('../model/UserModel');
 var Line = require('../service/Line');
 var Questetra = require('../service/Questetra');
 
+var LineConfiguration = require('../config/line');
 const line = require('@line/bot-sdk');
-const config = {
-    channelAccessToken: process.env.LINE_BOT_CHANNEL_TOKEN,
-    channelSecret: process.env.LINE_BOT_CHANNEL_SECRET,
-};
-
-const client = new line.Client(config);
+const client = new line.Client(LineConfiguration.api); 
 
 function LineController () {
     if (!(this instanceof LineController)) return new LineController();
@@ -40,8 +36,9 @@ function follow(params) {
     let line_userId = params.req.events[0].source.userId;
     var users = UserModel().retrieveByLineId(line_userId);
     users
-        .then(function (users) {
-            if (users) return  Line().userExist(params.client, line_userId, users.employee_name);
+        .then(function (data) {
+            logger.info('UserModel users: ', data);
+            if (data) return  Line().userExist(params.client, line_userId, data.employee_name);
             Line().scanQrCode(params.client, line_userId);
         })
         .catch(function (error) {

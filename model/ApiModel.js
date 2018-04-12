@@ -1,22 +1,20 @@
 'use strict';
-var apiModel = require('../schema/api-schema');
+var apiSchema = require('../schema/api-schema');
 var logger = require('../logger');
 
-// setting default variables
-function Api(apiData = {}) {
-    // declare Api as a method; no need to decare as a new instance of class
-    if (!(this instanceof Api)) return new Api();
+function ApiModel() {
+    if (!(this instanceof ApiModel)) return new ApiModel();
 }
 
-Api.prototype = {
-    save: save,
-    update: update,
-    retrieveApiByKey: retrieveApiByKey,
-    retrieveApiByName: retrieveApiByName
+ApiModel.prototype = {
+    save,
+    update,
+    retrieveApiByKey,
+    retrieveApiByName
 };
 
 function save(api) {
-    var newApi = new apiModel();
+    var newApi = new apiSchema();
     logger.info('api: ', api);
     newApi.api_name = api.api_name;
     newApi.api_key = api.api_key;
@@ -36,7 +34,7 @@ function save(api) {
 
 function update(api) {
     var dateNow = new Date();
-    apiModel.updateOne({ api_name: api.api_name }, 
+    apiSchema.updateOne({ api_name: api.api_name }, 
         { 
             $set: {
                 token: api.token, 
@@ -50,7 +48,7 @@ function update(api) {
 }
 
 function retrieveApiByKey(apiKey) {
-    var api = apiModel.findOne({api_key: apiKey});
+    var api = apiSchema.findOne({api_key: apiKey});
     
     api.exec(function(err, res) {
         if (err) return logger.error("retrieve API error: ", err);
@@ -60,7 +58,7 @@ function retrieveApiByKey(apiKey) {
 }
 
 function retrieveApiByName(apiName) {
-    var api = apiModel.findOne({api_name: apiName});
+    var api = apiSchema.findOne({api_name: apiName});
     
     api.exec(function(err, res) {
         if (err) return logger.error("retrieve API name error: ", err);
@@ -69,4 +67,4 @@ function retrieveApiByName(apiName) {
     return api;
 }
 
-module.exports = Api;
+module.exports = ApiModel;

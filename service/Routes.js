@@ -34,8 +34,8 @@ Routes.prototype = {
 
 // be able to use own Router.get instead of using express routers
 function get(uri, controller, middleware) {
-    console.log('controller:', controller);
-    console.log('middleware:', middleware);
+    logger.info('controller:', controller);
+    logger.info('middleware:', middleware);
     
     var url = '';
     var controllerName = '';
@@ -57,21 +57,21 @@ function get(uri, controller, middleware) {
             }
         });
     }
-    console.log('middlewares:', middlewares);
+    logger.info('middlewares:', middlewares);
     var methodName = controller.split("@").pop();
-    console.log('after converting: ', methodName);
+    logger.info('after converting: ', methodName);
     if (methodName == 'showSuccess') {
-        console.log('method name: ', methodName);
-        console.log('this is a test ------ show success func');
-        console.log('method uri: ', uri);
+        logger.info('method name: ', methodName);
+        logger.info('this is a test ------ show success func');
+        logger.info('method uri: ', uri);
         var controllerName = Verify.showSuccess.bind(Verify);
         url = uri;
     }
 
     if (methodName == 'showPage') {
-        console.log('method name: ', methodName);
-        console.log('method uri: ', uri);
-        console.log('this is a test ------ show page func');
+        logger.info('method name: ', methodName);
+        logger.info('method uri: ', uri);
+        logger.info('this is a test ------ show page func');
         var controllerName = Verify.showPage.bind(Verify);
         url = uri;
     }

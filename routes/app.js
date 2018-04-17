@@ -46,5 +46,4 @@ var routeService = Routes(router);
 // TODO: insert middlewares into an array
 routeService.get('/verify/:token/:line_id', 'verify@showPage', ['csrfProtection']);
 routeService.get('/success', 'verify@showSuccess');
-
 module.exports = router;

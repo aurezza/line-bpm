@@ -1,6 +1,7 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
+var Routes = require('../service/Routes');
 var mongoose = require('mongoose');
 var connection = require('../mongo/connection');
 var passportTmj = require('../passport/passport-tmj');
@@ -34,11 +35,16 @@ router.use(externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
 // passport
 passportTmj();
 
-// verify page
-router.get('/verify/:token/:line_id', csrfProtection, Verify.showPage.bind(Verify));
+// internal page
+// router.get('/verify/:token/:line_id', csrfProtection, Verify.showPage.bind(Verify));
 router.post('/verify/:token/:line_id', Verify.expressValidator(), csrfProtection, Verify.checkFormData.bind(Verify)); 
-router.get('/success', Verify.showSuccess.bind(Verify));
 router.get('/generate-token/:api_name', Api.generateToken.bind(Api));
+// router.get('/success', Verify.showSuccess.bind(Verify));
 
+// testing for Routes service
+var routeService = Routes(router);
+// TODO: insert middlewares into an array
+routeService.get('/verify/:token/:line_id', 'verify@showPage', ['csrfProtection']);
+routeService.get('/success', 'verify@showSuccess');
 
 module.exports = router;

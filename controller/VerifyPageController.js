@@ -95,6 +95,7 @@ function showPage (req, res) {
 
 function showSuccess (req, res) {
     var self = this;
+    console.log('show success----');
     res.render('success', RenderPage().successForm.call(self));
 }
 

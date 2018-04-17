@@ -6,6 +6,9 @@ var Middleware = require('../middleware/RouterMiddleware');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
+var ApiController = require('../controller/ApiController');
+var Api = ApiController();
+
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController();
 
@@ -32,6 +35,13 @@ Routes.prototype = {
 //     return true;
 // }   
 
+    
+// TODO: create separate functions for these in middleware module
+var currentMiddleware = {
+    expressValidator: Verify.expressValidator(),
+    csrfProtection: csrfProtection
+};
+    
 // be able to use own Router.get instead of using express routers
 function get(uri, controller, middleware) {
     logger.info('controller:', controller);
@@ -40,13 +50,7 @@ function get(uri, controller, middleware) {
     var url = '';
     var controllerName = '';
     var middlewares = [];
-    // list of known middlewares
-    // TODO: create separate functions for these in middleware module
-    var currentMiddleware = {
-        expressValidator: Verify.expressValidator(),
-        csrfProtection: csrfProtection
-    };
-   
+
     if (middleware) {
         middleware.forEach(function(element) {
             if (element in currentMiddleware) {
@@ -57,7 +61,7 @@ function get(uri, controller, middleware) {
             }
         });
     }
-    logger.info('middlewares:', middlewares);
+
     var methodName = controller.split("@").pop();
     logger.info('after converting: ', methodName);
     if (methodName == 'showSuccess') {
@@ -76,13 +80,50 @@ function get(uri, controller, middleware) {
         url = uri;
     }
 
+    if (methodName == 'generateToken') {
+        logger.info('method name: ', methodName);
+        logger.info('method uri: ', uri);
+        logger.info('this is a test ------ generate token func');
+        var controllerName = Api.generateToken.bind(Api);
+        url = uri;
+    }
+
     return this.router.get(url, middlewares, controllerName);
     
     // TODO: use routes function
     // this.route(uri, middleware, controller, 'get');
 }
 
-function post(uri, middleware, controller) {
+function post(uri, controller, middleware) {
+    logger.info('controller:', controller);
+    logger.info('middleware:', middleware);
+    
+    var url = '';
+    var controllerName = '';
+    var middlewares = [];
+   
+    if (middleware) {
+        middleware.forEach(function(element) {
+            if (element in currentMiddleware) {
+                logger.info('middleware found');
+                middlewares.push(currentMiddleware[element]);
+            } else {
+                logger.warn('middleware not found');
+            }
+        });
+    }
+
+    var methodName = controller.split("@").pop();
+    logger.info('after converting: ', methodName);
+    if (methodName == 'checkFormData') {
+        logger.info('method name: ', methodName);
+        logger.info('method uri: ', uri);
+        logger.info('this is a test ------ generate token func');
+        var controllerName = Verify.checkFormData.bind(Verify);
+        url = uri;
+    }
+
+    return this.router.post(url, middlewares, controllerName);
     // TODO: use routes function
     // this.route(uri, middleware, controller, 'post');
 }

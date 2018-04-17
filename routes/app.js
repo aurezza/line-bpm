@@ -37,13 +37,15 @@ passportTmj();
 
 // internal page
 // router.get('/verify/:token/:line_id', csrfProtection, Verify.showPage.bind(Verify));
-router.post('/verify/:token/:line_id', Verify.expressValidator(), csrfProtection, Verify.checkFormData.bind(Verify)); 
-router.get('/generate-token/:api_name', Api.generateToken.bind(Api));
+// router.post('/verify/:token/:line_id', Verify.expressValidator(), csrfProtection, Verify.checkFormData.bind(Verify)); 
+// router.get('/generate-token/:api_name', Api.generateToken.bind(Api));
 // router.get('/success', Verify.showSuccess.bind(Verify));
 
 // testing for Routes service
 var routeService = Routes(router);
-// TODO: insert middlewares into an array
+// insert middlewares into an array
 routeService.get('/verify/:token/:line_id', 'verify@showPage', ['csrfProtection']);
+routeService.post('/verify/:token/:line_id', 'verify@checkFormData', ['expressValidator', 'csrfProtection']); 
 routeService.get('/success', 'verify@showSuccess');
+routeService.get('/generate-token/:api_name', 'api@generateToken');
 module.exports = router;

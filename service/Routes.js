@@ -41,10 +41,10 @@ function get(uri, controller, middleware) {
     var middlewares = [];
     var url = '';
     var middlewareArgs = middleware;
-    var getMiddleware = [].slice(middlewareArgs);
-    if (middlewares.length < 0) {
-        middlewares.push(getMiddleware);
-    }
+    // var getMiddleware = [].slice(middlewareArgs);
+    // if (middlewares.length < 0) {
+    //     middlewares.push(getMiddleware);
+    // }
     console.log('middlewares:', middlewares);
     var methodName = controller.split("@").pop();
     console.log('after converting: ', methodName);
@@ -58,6 +58,7 @@ function get(uri, controller, middleware) {
     else if (methodName == 'showPage') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
+        middlewares.push(csrfProtection);
         var controllerName = Verify.showPage.bind(Verify);
         url = uri;
         return this.router.get(url, middlewares, controllerName);

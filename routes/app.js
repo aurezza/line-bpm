@@ -44,7 +44,7 @@ router.get('/generate-token/:api_name', Api.generateToken.bind(Api));
 // testing for Routes service
 var routeService = Routes(router);
 // TODO: insert middlewares into an array
-routeService.get('/verify/:token/:line_id', 'verify@showPage', [csrfProtection]);
+routeService.get('/verify/:token/:line_id', 'verify@showPage');
 routeService.get('/success', 'verify@showSuccess');
 
 module.exports = router;

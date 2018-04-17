@@ -36,15 +36,27 @@ Routes.prototype = {
 function get(uri, controller, middleware) {
     console.log('controller:', controller);
     console.log('middleware:', middleware);
-    var controllerName = '';
     
-    var middlewares = [];
     var url = '';
-    var middlewareArgs = middleware;
-    // var getMiddleware = [].slice(middlewareArgs);
-    // if (middlewares.length < 0) {
-    //     middlewares.push(getMiddleware);
-    // }
+    var controllerName = '';
+    var middlewares = [];
+    // list of known middlewares
+    // TODO: create separate functions for these in middleware module
+    var currentMiddleware = {
+        expressValidator: Verify.expressValidator(),
+        csrfProtection: csrfProtection
+    };
+   
+    if (middleware) {
+        middleware.forEach(function(element) {
+            if (element in currentMiddleware) {
+                logger.info('middleware found');
+                middlewares.push(currentMiddleware[element]);
+            } else {
+                logger.warn('middleware does not found');
+            }
+        });
+    }
     console.log('middlewares:', middlewares);
     var methodName = controller.split("@").pop();
     console.log('after converting: ', methodName);
@@ -60,11 +72,9 @@ function get(uri, controller, middleware) {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
         console.log('this is a test ------ show page func');
-        middlewares.push(csrfProtection);
         var controllerName = Verify.showPage.bind(Verify);
         url = uri;
     }
-    
 
     return this.router.get(url, middlewares, controllerName);
     

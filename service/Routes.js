@@ -50,6 +50,7 @@ function get(uri, controller, middleware) {
     console.log('after converting: ', methodName);
     if (methodName == 'showSuccess') {
         console.log('method name: ', methodName);
+        console.log('this is a test ------ show success func');
         console.log('method uri: ', uri);
         var controllerName = Verify.showSuccess.bind(Verify);
         url = uri;
@@ -58,6 +59,7 @@ function get(uri, controller, middleware) {
     if (methodName == 'showPage') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
+        console.log('this is a test ------ show page func');
         middlewares.push(csrfProtection);
         var controllerName = Verify.showPage.bind(Verify);
         url = uri;

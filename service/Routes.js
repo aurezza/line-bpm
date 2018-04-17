@@ -47,17 +47,18 @@ function get(uri, controller, middleware) {
     }
     console.log('middlewares:', middlewares);
     var methodName = controller.split("@").pop();
-    if (methodName = 'verify') {
+    console.log('after converting: ', methodName);
+    if (methodName == 'showSuccess') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
-        controllerName = Verify.showSuccess.bind(Verify);
+        var controllerName = Verify.showSuccess.bind(Verify);
         url = uri;
         return this.router.get(url, middlewares, controllerName);
     }
-    else if (methodName = 'showPage') {
+    else if (methodName == 'showPage') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
-        controllerName = Verify.showPage.bind(Verify);
+        var controllerName = Verify.showPage.bind(Verify);
         url = uri;
         return this.router.get(url, middlewares, controllerName);
     }

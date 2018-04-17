@@ -45,25 +45,26 @@ function get(uri, controller, middleware) {
     if (middlewares.length < 0) {
         middlewares.push(getMiddleware);
     }
-
+    console.log('middlewares:', middlewares);
     var methodName = controller.split("@").pop();
     if (methodName = 'verify') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
         controllerName = Verify.showSuccess.bind(Verify);
         url = uri;
+        return this.router.get(url, middlewares, controllerName);
     }
     else if (methodName = 'showPage') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
         controllerName = Verify.showPage.bind(Verify);
         url = uri;
+        return this.router.get(url, middlewares, controllerName);
     }
     else {
         console.log('nothing');
     }
-    console.log('middlewares:', middlewares);
-    return this.router.get(url, middlewares, controllerName);
+    
     // TODO: use routes function
     // this.route(uri, middleware, controller, 'get');
 }

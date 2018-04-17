@@ -48,22 +48,21 @@ function get(uri, controller, middleware) {
     console.log('middlewares:', middlewares);
     var methodName = controller.split("@").pop();
     console.log('after converting: ', methodName);
-    if (methodName = 'showSuccess') {
+    if (methodName == 'showSuccess') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
         var controllerName = Verify.showSuccess.bind(Verify);
         url = uri;
     }
-    else if (methodName = 'showPage') {
+
+    if (methodName == 'showPage') {
         console.log('method name: ', methodName);
         console.log('method uri: ', uri);
         middlewares.push(csrfProtection);
         var controllerName = Verify.showPage.bind(Verify);
         url = uri;
     }
-    else {
-        console.log('nothing');
-    }
+    
 
     return this.router.get(url, middlewares, controllerName);
     

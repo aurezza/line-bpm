@@ -37,27 +37,33 @@ function get(uri, controller, middleware) {
     console.log('controller:', controller);
     console.log('middleware:', middleware);
     var controllerName = '';
+    
     var middlewares = [];
+    var url = '';
     var middlewareArgs = middleware;
     var getMiddleware = [].slice(middlewareArgs);
     if (middlewares.length < 0) {
         middlewares.push(getMiddleware);
     }
-    
+
     var methodName = controller.split("@").pop();
     if (methodName = 'verify') {
         console.log('method name: ', methodName);
+        console.log('method uri: ', uri);
         controllerName = Verify.showSuccess.bind(Verify);
+        url = uri;
     }
     else if (methodName = 'showPage') {
         console.log('method name: ', methodName);
+        console.log('method uri: ', uri);
         controllerName = Verify.showPage.bind(Verify);
+        url = uri;
     }
     else {
         console.log('nothing');
     }
     console.log('middlewares:', middlewares);
-    return this.router.get(uri, middlewares, controllerName);
+    return this.router.get(url, middlewares, controllerName);
     // TODO: use routes function
     // this.route(uri, middleware, controller, 'get');
 }

@@ -94,8 +94,8 @@ function showPage (req, res) {
 }
 
 function showSuccess (req, res) {
+    logger.info('loading success page...')
     var self = this;
-    console.log('show success----');
     res.render('success', RenderPage().successForm.call(self));
 }
 

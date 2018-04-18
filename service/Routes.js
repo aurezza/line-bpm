@@ -1,7 +1,7 @@
 'use strict';
 
 var logger = require('../logger');
-var Middleware = require('../middleware/RouterMiddleware');
+// var Middleware = require('../middleware/RouterMiddleware');
 
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
@@ -52,23 +52,19 @@ function checkMethodName(controller) {
         generateToken: Api.generateToken.bind(Api)
     };
 
+    // check if key exists then assign property
     for (var key in listOfMethods) {
-        console.log(key, key == methodName);
+        // logger.info(key, key == methodName);
         methodProp = listOfMethods[methodName];
     }
     return methodProp;
 }
 
 function route(uri, controller, middleware, method) {
-    logger.info('controller:', controller);
-    logger.info('middleware:', middleware);
-    logger.info('uri: ', uri);
-    logger.info('method: ', method);
+    logger.info('initializing routes...')
 
     var controllerName;
     var middlewares = [];
-
-    // eliminate if method by either: this.router[method](); or by object
 
     if (middleware) {
         checkMiddleware(middleware);
@@ -77,24 +73,6 @@ function route(uri, controller, middleware, method) {
 
     return this.router[method](uri, middlewares, controllerName);
 
-    // if (method == 'post') {
-    //     if (middleware) {
-    //         checkMiddleware(middleware);
-    //     }
-    //     controllerName = checkMethodName(controller);
-
-    //     return this.router.post(uri, middlewares, controllerName);
-    // }
-
-    // if (method == 'get') {
-    //     if (middleware) {
-    //         checkMiddleware(middleware);
-    //     }
-        
-    //     controllerName = checkMethodName(controller);
-        
-    //     return this.router.get(uri, middlewares, controllerName);
-    // }
 }   
     
 function get(uri, controller, middleware) {

@@ -18,8 +18,8 @@ var Middleware = require('../middleware/RouterMiddleware');
 var ApiController = require('../controller/ApiController');
 var Api = ApiController();
 
-var VerifyPageController = require('../controller/VerifyPageController');
-var Verify = VerifyPageController();
+// var VerifyPageController = require('../controller/VerifyPageController');
+// var Verify = VerifyPageController();
 
 const externalRoutes = ['/api/receiveFromQuest', '/api/handler'];
 

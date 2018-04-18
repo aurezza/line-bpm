@@ -42,7 +42,7 @@ function checkMiddleware(middleware) {
 function checkMethodName(controller) {
 
     var methodName = controller.split("@").pop();
-    logger.info('after converting: ', methodName);
+    logger.info('method converted: ', methodName);
 
     var methodProp = null;
     var listOfMethods = {

@@ -1,7 +1,8 @@
 'use strict';
 
+var express = require('express');
 var logger = require('../logger');
-// var Middleware = require('../middleware/RouterMiddleware');
+var Middleware = require('../middleware/RouterMiddleware');
 
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
@@ -15,22 +16,26 @@ var Verify = VerifyPageController();
 var LineController = require('../controller/LineController');
 var QuestetraController = require('../controller/QuestetraController');
 
-function Routes (router) {
-    if (!(this instanceof Routes)) return new Routes(router);
-    this.router = router;
+// TODO: create separate functions for these in middleware module
+var currentMiddleware = {
+    expressValidator: Verify.expressValidator(),
+    csrfProtection: csrfProtection,
+    setOrigin: Middleware().setOrigin,
+    checkOrigin: Middleware().checkOrigin,
+    tokenSyntaxError: Middleware().tokenSyntaxError,
+};
+
+function Routes () {
+    if (!(this instanceof Routes)) return new Routes();
+    this.router = express.Router();
 }
 Routes.prototype = {
     route,
     checkMiddleware,
     checkMethodName,
     get,
-    post
-};
-
-// TODO: create separate functions for these in middleware module
-var currentMiddleware = {
-    expressValidator: Verify.expressValidator(),
-    csrfProtection: csrfProtection
+    post,
+    use
 };
 
 function checkMiddleware(middleware) {
@@ -57,7 +62,11 @@ function checkMethodName(controller) {
         generateToken: Api.generateToken.bind(Api), 
         receiverCancelledRequest: QuestetraController().receiverCancelledRequest,
         recieveFromQuest: QuestetraController().recieveFromQuest,
-        eventTrigger: LineController().eventTrigger
+        eventTrigger: LineController().eventTrigger,
+        corsOptions: Api.corsOptions(),
+        default: function (req, res, next) {
+            next()
+        }
     };
 
     // check if key exists then assign property
@@ -68,16 +77,15 @@ function checkMethodName(controller) {
     return methodProp;
 }
 
-function route(uri, controller, middleware, method) {
+function route(uri, controller = 'default', middleware = [], method) {
     logger.info('initializing route...');
-    var controllerName = '';
-    var middlewares = [];
+    logger.info('controller: ', controller);
+    logger.info('uri: ', uri);
+    var controllerName = checkMethodName(controller);
+    var middlewares = checkMiddleware(middleware);
+    var url = uri || '/';
 
-    if (middleware) {
-        middlewares = checkMiddleware(middleware);
-    }
-    controllerName = checkMethodName(controller);
-    return this.router[method](uri, middlewares, controllerName);
+    return this.router[method](url, middlewares, controllerName);
 
 }   
     
@@ -91,4 +99,8 @@ function post(uri, controller, middleware) {
     this.route(uri, controller, middleware, 'post');
 }
 
-module.exports = Routes;
+function use(uri, controller, middleware) {
+    this.route(uri, controller, middleware, 'use');
+}
+
+module.exports = Routes();

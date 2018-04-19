@@ -20,20 +20,21 @@ const externalRoutes = ['/api/receiveFromQuest', '/api/handler'];
 connection(mongoose, connectionURL);
 
 // middleware for all routes
-router.use([Middleware().setOrigin, Middleware().tokenSyntaxError]);
+// router.use([Middleware().setOrigin, Middleware().tokenSyntaxError]);
+Routes.use(['setOrigin', 'tokenSyntaxError']);
 
-// middleware for external routes
-router.use(externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
+// // middleware for external routes
+// router.use(externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
+Routes.use(externalRoutes, 'api@corsOptions', ['setOrigin', 'tokenSyntaxError']);
 
 // passport
 passportTmj();
 
 // internal page
-var routeService = Routes(router);
-// insert middlewares into an array
-routeService.get('/verify/:token/:line_id', 'verify@showPage', ['csrfProtection']);
-routeService.post('/verify/:token/:line_id', 'verify@checkFormData', ['expressValidator', 'csrfProtection']); 
-routeService.get('/success', 'verify@showSuccess');
-routeService.get('/generate-token/:api_name', 'api@generateToken');
+// format: '/<path name>', '<controllerName>@<method>', ['middleware']
+Routes.get('/verify/:token/:line_id', 'verify@showPage', ['csrfProtection']);
+Routes.post('/verify/:token/:line_id', 'verify@checkFormData', ['expressValidator', 'csrfProtection']); 
+Routes.get('/success', 'verify@showSuccess');
+Routes.get('/generate-token/:api_name', 'api@generateToken');
 
-module.exports = router;
+module.exports = Routes.router;

@@ -32,8 +32,10 @@ var currentMiddleware = {
 
 function checkMiddleware(middleware) {
     var middlewares = [];
+
     middleware.forEach(function(element) {
         if (!(element in currentMiddleware)) return logger.warn('middleware not found');
+        console.log('middlewares current: ', currentMiddleware[element]);
         middlewares.push(currentMiddleware[element]);
     });
     return middlewares;
@@ -61,16 +63,14 @@ function checkMethodName(controller) {
 }
 
 function route(uri, controller, middleware, method) {
-    logger.info('initializing routes...')
-
-    var controllerName;
+    logger.info('initializing routes...');
+    var controllerName = '';
     var middlewares = [];
 
     if (middleware) {
         checkMiddleware(middleware);
     }
     controllerName = checkMethodName(controller);
-
     return this.router[method](uri, middlewares, controllerName);
 
 }   

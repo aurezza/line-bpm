@@ -68,7 +68,6 @@ function route(uri, controller, middleware, method) {
 
     if (middleware) {
         middlewares = checkMiddleware(middleware);
-        console.log('this has middleware: ', middlewares);
     }
     controllerName = checkMethodName(controller);
     return this.router[method](uri, middlewares, controllerName);

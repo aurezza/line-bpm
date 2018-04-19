@@ -12,6 +12,9 @@ var Api = ApiController();
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController();
 
+var LineController = require('../controller/LineController');
+var QuestetraController = require('../controller/QuestetraController');
+
 function Routes (router) {
     if (!(this instanceof Routes)) return new Routes(router);
     this.router = router;
@@ -47,10 +50,14 @@ function checkMethodName(controller) {
 
     var methodProp = null;
     var listOfMethods = {
+        // TODO: use the controller name before '@'on routes to group the following methods
         checkFormData: Verify.checkFormData.bind(Verify),
         showSuccess: Verify.showSuccess.bind(Verify),
         showPage: Verify.showPage.bind(Verify),
-        generateToken: Api.generateToken.bind(Api)
+        generateToken: Api.generateToken.bind(Api), 
+        receiverCancelledRequest: QuestetraController().receiverCancelledRequest,
+        recieveFromQuest: QuestetraController().recieveFromQuest,
+        eventTrigger: LineController().eventTrigger
     };
 
     // check if key exists then assign property

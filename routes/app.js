@@ -35,4 +35,5 @@ routeService.get('/verify/:token/:line_id', 'verify@showPage', ['csrfProtection'
 routeService.post('/verify/:token/:line_id', 'verify@checkFormData', ['expressValidator', 'csrfProtection']); 
 routeService.get('/success', 'verify@showSuccess');
 routeService.get('/generate-token/:api_name', 'api@generateToken');
+
 module.exports = router;

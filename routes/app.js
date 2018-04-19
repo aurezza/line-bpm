@@ -25,7 +25,7 @@ Routes.use(['setOrigin', 'tokenSyntaxError']);
 
 // // middleware for external routes
 // router.use(externalRoutes, Api.corsOptions(), Middleware().checkOrigin);
-Routes.use(externalRoutes, 'api@corsOptions', ['checkOrigin', 'tokenSyntaxError']);
+Routes.use(['checkOrigin', 'tokenSyntaxError'], 'api@corsOptions', externalRoutes);
 
 // passport
 passportTmj();

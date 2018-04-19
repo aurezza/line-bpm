@@ -80,11 +80,11 @@ function checkMethodName(controller) {
 function route(uri, controller = 'default', middleware = [], method) {
     logger.info('initializing route...');
     logger.info('controller: ', controller);
-    logger.info('uri: ', uri);
+   
     var controllerName = checkMethodName(controller);
     var middlewares = checkMiddleware(middleware);
-    var url = uri; // defaults to '/'
-
+    var url = uri || '/'; // defaults to '/'
+    logger.info('url: ', url);
     return this.router[method](url, middlewares, controllerName);
 
 }   
@@ -99,7 +99,7 @@ function post(uri, controller, middleware) {
     this.route(uri, controller, middleware, 'post');
 }
 
-function use(uri, controller, middleware) {
+function use(middleware, controller, uri) {
     this.route(uri, controller, middleware, 'use');
 }
 

@@ -65,7 +65,7 @@ function checkMethodName(controller) {
         eventTrigger: LineController().eventTrigger,
         corsOptions: Api.corsOptions(),
         default: function (req, res, next) {
-            next()
+            next();
         }
     };
 

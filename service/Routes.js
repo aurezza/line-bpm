@@ -83,7 +83,7 @@ function route(uri, controller = 'default', middleware = [], method) {
     logger.info('uri: ', uri);
     var controllerName = checkMethodName(controller);
     var middlewares = checkMiddleware(middleware);
-    var url = uri || '/';
+    var url = uri; // defaults to '/'
 
     return this.router[method](url, middlewares, controllerName);
 

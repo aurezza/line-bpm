@@ -7,6 +7,10 @@ var Middleware = require('../middleware/RouterMiddleware');
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
+var fs = require('fs');
+var rootPath = require('path');
+var basePath = rootPath.dirname(require.main.filename);
+
 var ApiController = require('../controller/ApiController');
 var Api = ApiController();
 
@@ -31,12 +35,18 @@ function Routes () {
 }
 Routes.prototype = {
     route,
+    getController,
     checkMiddleware,
     checkMethodName,
     get,
     post,
     use
 };
+
+function getController(controllerPath, method) {
+    var controller = require(controllerPath);
+    return controller[method];
+}
 
 function checkMiddleware(middleware) {
     var middlewares = [];
@@ -50,10 +60,18 @@ function checkMiddleware(middleware) {
 
 function checkMethodName(controller) {
 
-    var methodName = controller.split("@").pop();
-    logger.info('method converted: ', methodName);
-
+    var controllerArray = controller.split("@");
+    var methodName = controllerArray[1];
     var methodProp = null;
+    
+    var controllerBaseName = controllerArray[0];
+    var controllerPath = require(basePath + '/' + controllerBaseName);
+
+    if (typeof controller == 'string') {
+        var test = getController(controllerPath, methodName);
+        console.log('getcontroller: ', test);
+    }
+
     var listOfMethods = {
         // TODO: use the controller name before '@'on routes to group the following methods
         checkFormData: Verify.checkFormData.bind(Verify),
@@ -68,7 +86,7 @@ function checkMethodName(controller) {
             next();
         }
     };
-
+    if (controller == 'default') return listOfMethods.default;
     // check if key exists then assign property
     for (var key in listOfMethods) {
         // logger.info(key, key == methodName);
@@ -79,11 +97,10 @@ function checkMethodName(controller) {
 
 function route(uri, controller = 'default', middleware = [], method) {
     logger.info('initializing route...');
-    logger.info('controller: ', controller);
    
     var controllerName = checkMethodName(controller);
     var middlewares = checkMiddleware(middleware);
-    var url = uri || '/'; // defaults to '/'
+    var url = uri || '/'; 
     logger.info('url: ', url);
     return this.router[method](url, middlewares, controllerName);
 

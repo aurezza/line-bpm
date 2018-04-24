@@ -11,14 +11,14 @@ var fs = require('fs');
 var rootPath = require('path');
 var basePath = rootPath.dirname(require.main.filename);
 
-var ApiController = require('../controller/ApiController');
-var Api = ApiController;
+// var ApiController = require('../controller/ApiController');
+// var Api = ApiController;
 
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController;
 
-var LineController = require('../controller/LineController');
-var QuestetraController = require('../controller/QuestetraController');
+// var LineController = require('../controller/LineController');
+// var QuestetraController = require('../controller/QuestetraController');
 
 // TODO: create separate functions for these in middleware module
 var currentMiddleware = {
@@ -43,16 +43,14 @@ Routes.prototype = {
     use
 };
 
-function getController(controllerPath, methodName) {
-    console.log('method in getController: ', methodName);
+function getController(controllerPath, methodPassed) {
+    console.log('method in getController: ', methodPassed);
     var baseController = require(controllerPath);
     var controller = null;
     for (var key in baseController) {
-        controller = baseController[methodName].bind(baseController);
-        key == methodName
+        controller = baseController[methodPassed].bind(baseController);
+        // key == methodPassed;
     }
-    console.log('test: ', baseController[methodName].bind(baseController));
-    // console.log('test: ', controller.method.bind(controller);
     return controller;
 }
 
@@ -75,7 +73,7 @@ function checkMethodName(controller) {
 
     var controllerArray = controller.split("@");
     var methodName = controllerArray[1];
-    var methodProp = null;
+    // var methodProp = null;
 
     // get controller
     var controllerDir = basePath + '/' + 'controller';
@@ -101,27 +99,24 @@ function checkMethodName(controller) {
     // if ((typeof controller == 'string')) {
     console.log('methodName inside if: ', methodName);
     var returnedMethod = getController(controllerBasePath, methodName);
-    
-    // console.log('getcontroller: ', controllerPath);
-    // console.log('getcontrollerTest: ', returnedController);
     // }
 
-    var listOfMethods = {
-        checkFormData: Verify.checkFormData.bind(Verify),
-        showSuccess: Verify.showSuccess.bind(Verify),
-        showPage: Verify.showPage.bind(Verify),
-        generateToken: Api.generateToken.bind(Api), 
-        receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
-        recieveFromQuest: QuestetraController.recieveFromQuest,
-        eventTrigger: LineController.eventTrigger,
-        corsOptions: Api.corsOptions
-    };
+    // var listOfMethods = {
+    //     checkFormData: Verify.checkFormData.bind(Verify),
+    //     showSuccess: Verify.showSuccess.bind(Verify),
+    //     showPage: Verify.showPage.bind(Verify),
+    //     generateToken: Api.generateToken.bind(Api), 
+    //     receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
+    //     recieveFromQuest: QuestetraController.recieveFromQuest,
+    //     eventTrigger: LineController.eventTrigger,
+    //     corsOptions: Api.corsOptions
+    // };
     
-    // check if key exists then assign property
-    for (var key in listOfMethods) {
-        // logger.info(key, key == methodName);
-        methodProp = listOfMethods[methodName];
-    }
+    // // check if key exists then assign property
+    // for (var key in listOfMethods) {
+    //     // logger.info(key, key == methodName);
+    //     methodProp = listOfMethods[methodName];
+    // }
     return returnedMethod;
 }
 

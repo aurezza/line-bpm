@@ -43,15 +43,15 @@ Routes.prototype = {
     use
 };
 
-function getController(controllerPath, method) {
-    console.log('method in getController: ', method);
+function getController(controllerPath, methodName) {
+    console.log('method in getController: ', methodName);
     var baseController = require(controllerPath);
-    var controller;
+    var controller = null;
     for (var key in baseController) {
-        controller = baseController[method];
-        key == method
+        controller = baseController[methodName].bind(baseController);
+        key == methodName
     }
-    // console.log('test: ', controller);
+    console.log('test: ', baseController[methodName].bind(baseController));
     // console.log('test: ', controller.method.bind(controller);
     return controller;
 }
@@ -101,6 +101,7 @@ function checkMethodName(controller) {
     // if ((typeof controller == 'string')) {
     console.log('methodName inside if: ', methodName);
     var returnedMethod = getController(controllerBasePath, methodName);
+    
     // console.log('getcontroller: ', controllerPath);
     // console.log('getcontrollerTest: ', returnedController);
     // }

@@ -48,11 +48,6 @@ function getController(controllerPath, methodPassed) {
     var baseController = require(controllerPath);
     // var controller = null;
     var controller = baseController[methodPassed].bind(baseController);
-    // for (var key in baseController) {
-    //     var controller = baseController[methodPassed].bind(baseController);
-    //     // key == methodPassed;
-    // }
-    console.log('test: ', controller);
     return controller;
 }
 

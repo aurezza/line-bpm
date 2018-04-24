@@ -113,7 +113,7 @@ function checkMethodName(controller) {
         receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
         recieveFromQuest: QuestetraController.recieveFromQuest,
         eventTrigger: LineController.eventTrigger,
-        corsOptions: Api.corsOptions()
+        corsOptions: Api.corsOptions
     };
     
     // check if key exists then assign property
@@ -121,7 +121,7 @@ function checkMethodName(controller) {
         // logger.info(key, key == methodName);
         methodProp = listOfMethods[methodName];
     }
-    return methodProp;
+    return returnedMethod;
 }
 
 function route(uri, controller = 'default', middleware = [], method) {

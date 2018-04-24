@@ -72,7 +72,7 @@ function checkMethodName(controller) {
     // if ((typeof controller == 'string')) {
     var controllerArray = controller.split("@");
     // }
-    var methodProp = null;
+    // var methodProp = null;
     var methodName = controllerArray[1];
 
     // get controller
@@ -98,23 +98,22 @@ function checkMethodName(controller) {
 
     var returnedMethod = getController(controllerBasePath, methodName);
 
-    var listOfMethods = {
-        checkFormData: Verify.checkFormData.bind(Verify),
-        showSuccess: Verify.showSuccess.bind(Verify),
-        showPage: Verify.showPage.bind(Verify),
-        generateToken: Api.generateToken.bind(Api), 
-        receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
-        recieveFromQuest: QuestetraController.recieveFromQuest,
-        eventTrigger: LineController.eventTrigger,
-        corsOptions: Api.corsOptions()
-    };
+    // var listOfMethods = {
+    //     checkFormData: Verify.checkFormData.bind(Verify),
+    //     showSuccess: Verify.showSuccess.bind(Verify),
+    //     showPage: Verify.showPage.bind(Verify),
+    //     generateToken: Api.generateToken.bind(Api), 
+    //     receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
+    //     recieveFromQuest: QuestetraController.recieveFromQuest,
+    //     eventTrigger: LineController.eventTrigger
+    // };
     
     // check if key exists then assign property
-    for (var key in listOfMethods) {
-        // logger.info(key, key == methodName);
-        methodProp = listOfMethods[methodName];
-    }
-    return methodProp;
+    // for (var key in listOfMethods) {
+    //     // logger.info(key, key == methodName);
+    //     methodProp = listOfMethods[methodName];
+    // }
+    return returnedMethod;
 }
 
 function route(uri, controller = 'default', middleware = [], method) {

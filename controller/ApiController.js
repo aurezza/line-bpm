@@ -14,7 +14,7 @@ function ApiController() {
 
 ApiController.prototype = {
     generateToken,
-    corsOptions
+    corsOptions: corsOptions()
 };
 
 function generateToken (req, res) {

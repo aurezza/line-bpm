@@ -12,7 +12,7 @@ var rootPath = require('path');
 var basePath = rootPath.dirname(require.main.filename);
 
 var ApiController = require('../controller/ApiController');
-var Api = ApiController();
+var Api = ApiController;
 
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController;
@@ -102,9 +102,9 @@ function checkMethodName(controller) {
 
     // if ((typeof controller == 'string')) {
     console.log('methodName inside if: ', methodName);
-    var returnedController = getController(controllerBasePath, methodName);
+    var returnedMethod = getController(controllerBasePath, methodName);
     // console.log('getcontroller: ', controllerPath);
-    console.log('getcontrollerTest: ', returnedController);
+    // console.log('getcontrollerTest: ', returnedController);
     // }
 
     var listOfMethods = {

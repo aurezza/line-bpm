@@ -88,4 +88,4 @@ function corsOptions() {
     return getCorsOptions;
 }
 
-module.exports = ApiController;
+module.exports = new ApiController;

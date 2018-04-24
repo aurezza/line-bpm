@@ -54,4 +54,4 @@ function receiverCancelledRequest(req, res) {
 
 }
 
-module.exports = QuestetraController;
+module.exports = new QuestetraController;

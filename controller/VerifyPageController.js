@@ -235,4 +235,4 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 }
 
 
-module.exports = VerifyPageController;
+module.exports = new VerifyPageController;

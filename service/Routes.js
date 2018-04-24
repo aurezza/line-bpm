@@ -15,7 +15,7 @@ var ApiController = require('../controller/ApiController');
 var Api = ApiController();
 
 var VerifyPageController = require('../controller/VerifyPageController');
-var Verify = VerifyPageController();
+var Verify = VerifyPageController;
 
 var LineController = require('../controller/LineController');
 var QuestetraController = require('../controller/QuestetraController');
@@ -44,8 +44,16 @@ Routes.prototype = {
 };
 
 function getController(controllerPath, method) {
+    console.log('path in getController: ', controllerPath);
     var controller = require(controllerPath);
-    return controller[method];
+    var test;
+    for (var key in controller) {
+        test = controller[method];
+        key == method
+    }
+    console.log('controller in getController: ', controller.method);
+    console.log('test: ', test);
+    return test;
 }
 
 function checkMiddleware(middleware) {
@@ -59,18 +67,45 @@ function checkMiddleware(middleware) {
 }
 
 function checkMethodName(controller) {
+    if (controller == 'default') { 
+        return function (req, res, next) {
+            next();
+        }
+    }
 
     var controllerArray = controller.split("@");
     var methodName = controllerArray[1];
     var methodProp = null;
-    
-    var controllerBaseName = controllerArray[0];
-    var controllerPath = require(basePath + '/' + controllerBaseName);
 
-    if (typeof controller == 'string') {
-        var test = getController(controllerPath, methodName);
-        console.log('getcontroller: ', test);
-    }
+    // get controller
+    var controllerBaseName = controllerArray[0];
+
+    // get list of files from controller dir
+    var fileList = [];
+    var controllerDir = basePath + '/' + 'controller';
+    fs.readdirSync(controllerDir).forEach(function(file) {
+        var fileNameArray = file.split(".");
+        fileList.push(fileNameArray[0]);
+    });
+    console.log(fileList);
+
+    var lowerCaseNames = fileList.map(function(value) {
+        return value.toLowerCase();
+    });
+
+    for (var i = 0; i < lowerCaseNames.length; i++) {
+        if (lowerCaseNames[i].match(controllerBaseName)) {
+            console.log("the controller file name: ", fileList[i]);
+            var controllerBasePath = controllerDir + '/' + fileList[i];
+        }
+    } 
+
+    // if ((typeof controller == 'string')) {
+    console.log('methodName inside if: ', methodName);
+    var returnedController = getController(controllerBasePath, methodName);
+    // console.log('getcontroller: ', controllerPath);
+    console.log('getcontrollerTest: ', returnedController);
+    // }
 
     var listOfMethods = {
         // TODO: use the controller name before '@'on routes to group the following methods
@@ -86,7 +121,7 @@ function checkMethodName(controller) {
             next();
         }
     };
-    if (controller == 'default') return listOfMethods.default;
+    
     // check if key exists then assign property
     for (var key in listOfMethods) {
         // logger.info(key, key == methodName);

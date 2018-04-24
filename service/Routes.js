@@ -11,14 +11,14 @@ var fs = require('fs');
 var rootPath = require('path');
 var basePath = rootPath.dirname(require.main.filename);
 
-// var ApiController = require('../controller/ApiController');
-// var Api = ApiController;
+var ApiController = require('../controller/ApiController');
+var Api = ApiController;
 
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController;
 
-// var LineController = require('../controller/LineController');
-// var QuestetraController = require('../controller/QuestetraController');
+var LineController = require('../controller/LineController');
+var QuestetraController = require('../controller/QuestetraController');
 
 // TODO: create separate functions for these in middleware module
 var currentMiddleware = {
@@ -63,7 +63,7 @@ function checkMethodName(controller) {
     // if ((typeof controller == 'string')) {
     var controllerArray = controller.split("@");
     // }
-    // var methodProp = null;
+    var methodProp = null;
     var methodName = controllerArray[1];
 
     // get controller
@@ -89,23 +89,23 @@ function checkMethodName(controller) {
 
     var returnedMethod = getController(controllerBasePath, methodName);
 
-    // var listOfMethods = {
-    //     checkFormData: Verify.checkFormData.bind(Verify),
-    //     showSuccess: Verify.showSuccess.bind(Verify),
-    //     showPage: Verify.showPage.bind(Verify),
-    //     generateToken: Api.generateToken.bind(Api), 
-    //     receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
-    //     recieveFromQuest: QuestetraController.recieveFromQuest,
-    //     eventTrigger: LineController.eventTrigger,
-    //     corsOptions: Api.corsOptions
-    // };
+    var listOfMethods = {
+        checkFormData: Verify.checkFormData.bind(Verify),
+        showSuccess: Verify.showSuccess.bind(Verify),
+        showPage: Verify.showPage.bind(Verify),
+        generateToken: Api.generateToken.bind(Api), 
+        receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
+        recieveFromQuest: QuestetraController.recieveFromQuest,
+        eventTrigger: LineController.eventTrigger,
+        corsOptions: Api.corsOptions
+    };
     
-    // // check if key exists then assign property
-    // for (var key in listOfMethods) {
-    //     // logger.info(key, key == methodName);
-    //     methodProp = listOfMethods[methodName];
-    // }
-    return returnedMethod;
+    // check if key exists then assign property
+    for (var key in listOfMethods) {
+        // logger.info(key, key == methodName);
+        methodProp = listOfMethods[methodName];
+    }
+    return methodProp;
 }
 
 function getController(controllerPath, methodPassed) {

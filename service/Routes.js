@@ -35,9 +35,9 @@ function Routes () {
 }
 Routes.prototype = {
     route,
-    getController,
     checkMiddleware,
     checkMethodName,
+    getController,
     get,
     post,
     use

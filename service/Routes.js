@@ -46,11 +46,13 @@ Routes.prototype = {
 function getController(controllerPath, methodPassed) {
     console.log('method in getController: ', methodPassed);
     var baseController = require(controllerPath);
-    var controller = null;
-    for (var key in baseController) {
-        controller = baseController[methodPassed].bind(baseController);
-        // key == methodPassed;
-    }
+    // var controller = null;
+    var controller = baseController[methodPassed].bind(baseController);
+    // for (var key in baseController) {
+    //     var controller = baseController[methodPassed].bind(baseController);
+    //     // key == methodPassed;
+    // }
+    console.log('test: ', controller);
     return controller;
 }
 

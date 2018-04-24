@@ -44,16 +44,16 @@ Routes.prototype = {
 };
 
 function getController(controllerPath, method) {
-    console.log('path in getController: ', controllerPath);
-    var controller = require(controllerPath);
-    var test;
-    for (var key in controller) {
-        test = controller[method];
+    console.log('method in getController: ', method);
+    var baseController = require(controllerPath);
+    var controller;
+    for (var key in baseController) {
+        controller = baseController[method];
         key == method
     }
-    console.log('controller in getController: ', controller.method);
-    console.log('test: ', test);
-    return test;
+    console.log('test: ', controller);
+    // console.log('test: ', controller.method.bind(controller);
+    return controller;
 }
 
 function checkMiddleware(middleware) {
@@ -78,25 +78,24 @@ function checkMethodName(controller) {
     var methodProp = null;
 
     // get controller
-    var controllerBaseName = controllerArray[0];
-
-    // get list of files from controller dir
-    var fileList = [];
     var controllerDir = basePath + '/' + 'controller';
+    var controllerBaseName = controllerArray[0];
+    var controllerFileList = [];
+    
     fs.readdirSync(controllerDir).forEach(function(file) {
         var fileNameArray = file.split(".");
-        fileList.push(fileNameArray[0]);
+        controllerFileList.push(fileNameArray[0]);
     });
-    console.log(fileList);
+    console.log(controllerFileList);
 
-    var lowerCaseNames = fileList.map(function(value) {
+    var lowerCaseNames = controllerFileList.map(function(value) {
         return value.toLowerCase();
     });
 
     for (var i = 0; i < lowerCaseNames.length; i++) {
         if (lowerCaseNames[i].match(controllerBaseName)) {
-            console.log("the controller file name: ", fileList[i]);
-            var controllerBasePath = controllerDir + '/' + fileList[i];
+            console.log("the controller file name: ", controllerFileList[i]);
+            var controllerBasePath = controllerDir + '/' + controllerFileList[i];
         }
     } 
 
@@ -108,18 +107,14 @@ function checkMethodName(controller) {
     // }
 
     var listOfMethods = {
-        // TODO: use the controller name before '@'on routes to group the following methods
         checkFormData: Verify.checkFormData.bind(Verify),
         showSuccess: Verify.showSuccess.bind(Verify),
         showPage: Verify.showPage.bind(Verify),
         generateToken: Api.generateToken.bind(Api), 
-        receiverCancelledRequest: QuestetraController().receiverCancelledRequest,
-        recieveFromQuest: QuestetraController().recieveFromQuest,
-        eventTrigger: LineController().eventTrigger,
-        corsOptions: Api.corsOptions(),
-        default: function (req, res, next) {
-            next();
-        }
+        receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
+        recieveFromQuest: QuestetraController.recieveFromQuest,
+        eventTrigger: LineController.eventTrigger,
+        corsOptions: Api.corsOptions()
     };
     
     // check if key exists then assign property
@@ -127,7 +122,7 @@ function checkMethodName(controller) {
         // logger.info(key, key == methodName);
         methodProp = listOfMethods[methodName];
     }
-    return methodProp;
+    return returnedMethod;
 }
 
 function route(uri, controller = 'default', middleware = [], method) {

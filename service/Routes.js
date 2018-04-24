@@ -51,7 +51,7 @@ function getController(controllerPath, method) {
         controller = baseController[method];
         key == method
     }
-    console.log('test: ', controller);
+    // console.log('test: ', controller);
     // console.log('test: ', controller.method.bind(controller);
     return controller;
 }
@@ -86,7 +86,6 @@ function checkMethodName(controller) {
         var fileNameArray = file.split(".");
         controllerFileList.push(fileNameArray[0]);
     });
-    console.log(controllerFileList);
 
     var lowerCaseNames = controllerFileList.map(function(value) {
         return value.toLowerCase();
@@ -122,7 +121,7 @@ function checkMethodName(controller) {
         // logger.info(key, key == methodName);
         methodProp = listOfMethods[methodName];
     }
-    return returnedMethod;
+    return methodProp;
 }
 
 function route(uri, controller = 'default', middleware = [], method) {

@@ -35,9 +35,9 @@ function Routes () {
 }
 Routes.prototype = {
     route,
+    getController,
     checkMiddleware,
     checkMethodName,
-    getController,
     get,
     post,
     use
@@ -51,6 +51,15 @@ function checkMiddleware(middleware) {
         middlewares.push(currentMiddleware[element]);
     });
     return middlewares;
+}
+
+function getController(controllerPath, methodPassed) {
+    console.log('controllerPath in getController', controllerPath);
+    console.log('method in getController: ', methodPassed);
+    var baseController = require(controllerPath);
+
+    var controller = baseController[methodPassed].bind(baseController);
+    return controller;
 }
 
 function checkMethodName(controller) {
@@ -97,7 +106,7 @@ function checkMethodName(controller) {
         receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
         recieveFromQuest: QuestetraController.recieveFromQuest,
         eventTrigger: LineController.eventTrigger,
-        corsOptions: Api.corsOptions
+        corsOptions: Api.corsOptions()
     };
     
     // check if key exists then assign property
@@ -106,15 +115,6 @@ function checkMethodName(controller) {
         methodProp = listOfMethods[methodName];
     }
     return methodProp;
-}
-
-function getController(controllerPath, methodPassed) {
-    console.log('controllerPath in getController', controllerPath);
-    console.log('method in getController: ', methodPassed);
-    var baseController = require(controllerPath);
-
-    var controller = baseController[methodPassed].bind(baseController);
-    return controller;
 }
 
 function route(uri, controller = 'default', middleware = [], method) {

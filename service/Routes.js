@@ -43,14 +43,6 @@ Routes.prototype = {
     use
 };
 
-function getController(controllerPath, methodPassed) {
-    console.log('method in getController: ', methodPassed);
-    var baseController = require(controllerPath);
-    // var controller = null;
-    var controller = baseController[methodPassed].bind(baseController);
-    return controller;
-}
-
 function checkMiddleware(middleware) {
     var middlewares = [];
 
@@ -68,9 +60,11 @@ function checkMethodName(controller) {
         }
     }
 
+    // if ((typeof controller == 'string')) {
     var controllerArray = controller.split("@");
-    var methodName = controllerArray[1];
+    // }
     // var methodProp = null;
+    var methodName = controllerArray[1];
 
     // get controller
     var controllerDir = basePath + '/' + 'controller';
@@ -93,10 +87,7 @@ function checkMethodName(controller) {
         }
     } 
 
-    // if ((typeof controller == 'string')) {
-    console.log('methodName inside if: ', methodName);
     var returnedMethod = getController(controllerBasePath, methodName);
-    // }
 
     // var listOfMethods = {
     //     checkFormData: Verify.checkFormData.bind(Verify),
@@ -117,13 +108,21 @@ function checkMethodName(controller) {
     return returnedMethod;
 }
 
+function getController(controllerPath, methodPassed) {
+    console.log('controllerPath in getController', controllerPath);
+    console.log('method in getController: ', methodPassed);
+    var baseController = require(controllerPath);
+
+    var controller = baseController[methodPassed].bind(baseController);
+    return controller;
+}
+
 function route(uri, controller = 'default', middleware = [], method) {
     logger.info('initializing route...');
    
     var controllerName = checkMethodName(controller);
     var middlewares = checkMiddleware(middleware);
     var url = uri || '/'; 
-    logger.info('url: ', url);
     return this.router[method](url, middlewares, controllerName);
 
 }   

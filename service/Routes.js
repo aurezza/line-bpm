@@ -26,7 +26,7 @@ var currentMiddleware = {
     csrfProtection: csrfProtection,
     setOrigin: Middleware().setOrigin,
     checkOrigin: Middleware().checkOrigin,
-    tokenSyntaxError: Middleware().tokenSyntaxError,
+    tokenSyntaxError: Middleware().tokenSyntaxError
 };
 
 function Routes () {
@@ -67,6 +67,9 @@ function checkMethodName(controller) {
         return function (req, res, next) {
             next();
         }
+    }
+    if (controller == 'corsOptions') {
+        return Api.corsOptions();
     }
 
     // if ((typeof controller == 'string')) {

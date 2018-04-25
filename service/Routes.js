@@ -17,12 +17,12 @@ function Routes () {
 }
 Routes.prototype = {
     route,
-    getController,
-    checkMiddleware,
-    checkMethodName,
     get,
     post,
-    use
+    use,
+    getController,
+    checkMiddleware,
+    checkMethodName
 };
 
 function checkMiddleware(middleware) {

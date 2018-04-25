@@ -17,7 +17,6 @@ var csrfProtection = csrf({ cookie: true });
 
 function RouterMiddleware() {
     if (!(this instanceof RouterMiddleware)) return new RouterMiddleware();
-
 }
 
 RouterMiddleware.prototype = {

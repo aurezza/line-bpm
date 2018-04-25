@@ -2,9 +2,9 @@
 
 var Routes = require('../service/Routes');
 
-Routes.post('/receiverCancelledRequest', 'questetra@receiverCancelledRequest');
-Routes.post('/receiveFromQuest', 'questetra@recieveFromQuest');
+Routes.post('/receiverCancelledRequest', 'QuestetraController@receiverCancelledRequest');
+Routes.post('/receiveFromQuest', 'QuestetraController@recieveFromQuest');
 
-Routes.post('/handler', 'line@eventTrigger');
+Routes.post('/handler', 'LineController@eventTrigger');
 
 module.exports = Routes.router;

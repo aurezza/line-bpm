@@ -21,9 +21,9 @@ passportTmj();
 
 // internal pages
 // format: '/<path name>', '<controllerName>@<method>', ['middleware']
-Routes.get('/verify/:token/:line_id', 'verify@showPage', ['csrfProtection']);
-Routes.post('/verify/:token/:line_id', 'verify@checkFormData', ['expressValidator', 'csrfProtection']); 
-Routes.get('/success', 'verify@showSuccess');
-Routes.get('/generate-token/:api_name', 'api@generateToken');
+Routes.get('/verify/:token/:line_id', 'VerifyPageController@showPage', ['csrfProtection']);
+Routes.post('/verify/:token/:line_id', 'VerifyPageController@checkFormData', ['expressValidator', 'csrfProtection']); 
+Routes.get('/success', 'VerifyPageController@showSuccess');
+Routes.get('/generate-token/:api_name', 'ApiController@generateToken');
 
 module.exports = Routes.router;

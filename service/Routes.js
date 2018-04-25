@@ -44,7 +44,7 @@ function checkMethodName(controller) {
     // if ((typeof controller == 'string')) {
     var controllerArray = controller.split("@");
     // }
-    // var methodProp = null;
+
     var methodName = controllerArray[1];
     if (controllerArray == 'default') { 
         return function (req, res, next) {
@@ -52,7 +52,6 @@ function checkMethodName(controller) {
         }
     }
 
-    // get controller
     var controllerDir = basePath + '/' + 'controller';
     var controllerBaseName = controllerArray[0];
     var controllerFileList = [];
@@ -62,15 +61,11 @@ function checkMethodName(controller) {
         controllerFileList.push(fileNameArray[0]);
     });
 
-    var lowerCaseNames = controllerFileList.map(function(value) {
-        return value.toLowerCase();
-    });
+    var indexOfController = controllerFileList.indexOf(controllerBaseName);
 
-    for (var i = 0; i < lowerCaseNames.length; i++) {
-        if (lowerCaseNames[i].match(controllerBaseName)) {
-            var controllerBasePath = controllerDir + '/' + controllerFileList[i];
-        }
-    } 
+    if (indexOfController  === -1) return 'Controller does not exist';
+
+    var controllerBasePath = controllerDir + '/' + controllerFileList[indexOfController];
 
     var returnedMethod = getController(controllerBasePath, methodName);
 
@@ -78,7 +73,7 @@ function checkMethodName(controller) {
 }
 
 function route(uri, controller = 'default', middleware = [], method) {
-    logger.info('loading route', method, ' at path: ', uri);
+    logger.info('loading route', method, 'at path:', uri);
     var controllerName = checkMethodName(controller);
     var middlewares = checkMiddleware(middleware);
     var url = uri || '/'; 

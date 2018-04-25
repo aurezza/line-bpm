@@ -11,7 +11,7 @@ const externalRoutes = ['/api/receiveFromQuest', '/api/handler'];
 
 connection(mongoose, connectionURL);
 
-// format for use method only: ['middleware'], '<controllerName>@<method>', '/<path name>'  
+// format for use method: ['middleware'], '/<path name>'  
 Routes.use(['setOrigin', 'tokenSyntaxError']);
 
 Routes.use(['checkOrigin', 'tokenSyntaxError', 'corsOptions'], externalRoutes);

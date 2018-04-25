@@ -4,30 +4,12 @@ var express = require('express');
 var logger = require('../logger');
 var Middleware = require('../middleware/RouterMiddleware');
 
-var csrf = require('csurf');
-var csrfProtection = csrf({ cookie: true });
-
 var fs = require('fs');
 var rootPath = require('path');
 var basePath = rootPath.dirname(require.main.filename);
 
 var ApiController = require('../controller/ApiController');
 var Api = ApiController;
-
-var VerifyPageController = require('../controller/VerifyPageController');
-var Verify = VerifyPageController;
-
-// var LineController = require('../controller/LineController');
-// var QuestetraController = require('../controller/QuestetraController');
-
-// TODO: create separate functions for these in middleware module
-var currentMiddleware = {
-    expressValidator: Verify.expressValidator(),
-    csrfProtection: csrfProtection,
-    setOrigin: Middleware.setOrigin,
-    checkOrigin: Middleware.checkOrigin,
-    tokenSyntaxError: Middleware.tokenSyntaxError
-};
 
 function Routes () {
     if (!(this instanceof Routes)) return new Routes();
@@ -99,22 +81,7 @@ function checkMethodName(controller) {
     } 
 
     var returnedMethod = getController(controllerBasePath, methodName);
-
-    // var listOfMethods = {
-    //     checkFormData: Verify.checkFormData.bind(Verify),
-    //     showSuccess: Verify.showSuccess.bind(Verify),
-    //     showPage: Verify.showPage.bind(Verify),
-    //     generateToken: Api.generateToken.bind(Api), 
-    //     receiverCancelledRequest: QuestetraController.receiverCancelledRequest,
-    //     recieveFromQuest: QuestetraController.recieveFromQuest,
-    //     eventTrigger: LineController.eventTrigger
-    // };
     
-    // check if key exists then assign property
-    // for (var key in listOfMethods) {
-    //     // logger.info(key, key == methodName);
-    //     methodProp = listOfMethods[methodName];
-    // }
     return returnedMethod;
 }
 

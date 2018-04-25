@@ -1,7 +1,14 @@
 'use strict';
 
+var cors = require('cors');
 var logger = require('../logger');
 var Api = require('../service/Api');
+
+var csrf = require('csurf');
+var csrfProtection = csrf({ cookie: true });
+
+
+var VerifyPageController = require('../controller/VerifyPageController');
 
 function RouterMiddleware() {
     //constructor
@@ -12,7 +19,10 @@ function RouterMiddleware() {
 RouterMiddleware.prototype = {
     setOrigin,
     checkOrigin,
-    tokenSyntaxError
+    tokenSyntaxError,
+    csrfProtection,
+    expressValidator: expressValidator(),
+    corsOptions: corsOptions()
 };
 
 
@@ -36,6 +46,19 @@ function checkOrigin(req, res, next) {
 
     logger.info('source is identified with: ', sourceSignature);
     Api().checkSource(sourceSignature, req, res, next);
+}
+
+// Validator
+function expressValidator() {
+    var validator = VerifyPageController.expressValidator();
+    return validator;
+}
+
+// CORS
+function corsOptions() {  
+    var getCorsOptions = cors(Api().customCorsOptions);
+    
+    return getCorsOptions;
 }
 
 // TODO: additional error handling for other instances

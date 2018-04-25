@@ -47,14 +47,13 @@ function checkMiddleware(middleware) {
     var middlewares = [];
 
     middleware.forEach(function(element) {
-        if (!(element in currentMiddleware)) return logger.warn('middleware not found');
-        middlewares.push(currentMiddleware[element]);
+        if (!(element in Middleware)) return logger.warn('middleware not found');
+        middlewares.push(Middleware[element]);
     });
     return middlewares;
 }
 
 function getController(controllerPath, methodPassed) {
-    console.log('controllerPath in getController', controllerPath);
     console.log('method in getController: ', methodPassed);
     var baseController = require(controllerPath);
 

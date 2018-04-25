@@ -7,7 +7,7 @@ var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 
-const externalRoutes = ['/api/receiveFromQuest', '/api/handler'];
+const externalRoutes = ['/api/receiveFromQuest', '/api/handler', '/success'];
 
 connection(mongoose, connectionURL);
 
@@ -15,7 +15,7 @@ connection(mongoose, connectionURL);
 Routes.use(['setOrigin', 'tokenSyntaxError']);
 
 // TODO; move corsOptions to middleware - modify use function
-Routes.use(['corsOptions', 'checkOrigin', 'tokenSyntaxError'], externalRoutes);
+Routes.use(['checkOrigin', 'tokenSyntaxError', 'corsOptions'], externalRoutes);
 
 // passport initialize
 passportTmj();

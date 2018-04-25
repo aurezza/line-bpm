@@ -21,31 +21,12 @@ function VerifyPageController() {
 }
 
 VerifyPageController.prototype = {
-    expressValidator,
     showPage,
     showSuccess,
     checkFormData,
     checkValidatedUserData,
     verifyUserWithLineId,
 };
-
-function expressValidator() {
-    var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
-    
-    var validateInputData = [
-        check('username', notEmpty)
-            .isLength({ min: 1})
-            .trim()
-            .withMessage(notEmpty),
-
-        check('password')
-            .isLength({ min: 1})
-            .trim().withMessage(notEmpty),
-    ];
-
-    return validateInputData;
-}
-
 
 function showPage (req, res) {
     

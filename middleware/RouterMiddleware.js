@@ -1,17 +1,15 @@
 'use strict';
 
+const { check } = require('express-validator/check');
 var cors = require('cors');
 var logger = require('../logger');
 var Api = require('../service/Api');
+var Translator = require('../service/Translator');
 
 var csrf = require('csurf');
 var csrfProtection = csrf({ cookie: true });
 
-
-var VerifyPageController = require('../controller/VerifyPageController');
-
 function RouterMiddleware() {
-    //constructor
     if (!(this instanceof RouterMiddleware)) return new RouterMiddleware();
 
 }
@@ -50,8 +48,20 @@ function checkOrigin(req, res, next) {
 
 // Validator
 function expressValidator() {
-    var validator = VerifyPageController.expressValidator();
-    return validator;
+    var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
+    
+    var validateInputData = [
+        check('username', notEmpty)
+            .isLength({ min: 1})
+            .trim()
+            .withMessage(notEmpty),
+
+        check('password')
+            .isLength({ min: 1})
+            .trim().withMessage(notEmpty),
+    ];
+
+    return validateInputData;
 }
 
 // CORS

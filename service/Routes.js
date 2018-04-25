@@ -36,7 +36,6 @@ function checkMiddleware(middleware) {
 }
 
 function getController(controllerPath, methodPassed) {
-    console.log('method in getController: ', methodPassed);
     var baseController = require(controllerPath);
 
     var controller = baseController[methodPassed].bind(baseController);
@@ -75,18 +74,17 @@ function checkMethodName(controller) {
 
     for (var i = 0; i < lowerCaseNames.length; i++) {
         if (lowerCaseNames[i].match(controllerBaseName)) {
-            console.log("the controller file name: ", controllerFileList[i]);
             var controllerBasePath = controllerDir + '/' + controllerFileList[i];
         }
     } 
 
     var returnedMethod = getController(controllerBasePath, methodName);
-    
+
     return returnedMethod;
 }
 
 function route(uri, controller = 'default', middleware = [], method) {
-    logger.info('initializing route...');
+    logger.info('loading route', method);
    
     var controllerName = checkMethodName(controller);
     var middlewares = checkMiddleware(middleware);

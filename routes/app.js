@@ -7,15 +7,14 @@ var mongoDbURL = "mongodb://" + process.env.MONGODB_URL;
 var mongoDbName = process.env.MONGODB_NAME;
 const connectionURL = mongoDbURL + mongoDbName;
 
-const externalRoutes = ['/api/receiveFromQuest', '/api/handler', '/success'];
+const externalRoutes = ['/api/receiveFromQuest', '/api/handler'];
 
 connection(mongoose, connectionURL);
 
 // format for use method only: ['middleware'], '<controllerName>@<method>', '/<path name>'  
 Routes.use(['setOrigin', 'tokenSyntaxError']);
 
-// TODO: move 'corsOptions' to sort issue with external routes not going through
-Routes.use(['checkOrigin', 'tokenSyntaxError'], externalRoutes);
+Routes.use(['checkOrigin', 'tokenSyntaxError', 'corsOptions'], externalRoutes);
 
 // passport initialize
 passportTmj();

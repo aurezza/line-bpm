@@ -9,7 +9,6 @@ const crypto = require('crypto');
 const channelSecret  = process.env.LINE_BOT_CHANNEL_SECRET;
 
 var logger = require('../logger');
-// var Api = require('../service/Api');
 var ApiModel = require('../model/ApiModel');
 var Translator = require('../service/Translator');
 
@@ -28,7 +27,6 @@ RouterMiddleware.prototype = {
     csrfProtection,
     expressValidator: expressValidator(),
     corsOptions: corsOptions(),
-    corsCustomOptions,
     checkSource,
     verifyToken
 };
@@ -140,13 +138,6 @@ function expressValidator() {
     return validateInputData;
 }
 
-// CORS
-function corsOptions() {  
-    var getCorsOptions = cors(corsCustomOptions);
-    
-    return getCorsOptions;
-}
-
 function corsCustomOptions() {
     var customCorsOptions = {
         origin: function(origin, callback) {
@@ -169,6 +160,14 @@ function corsCustomOptions() {
 
     return customCorsOptions;
 }
+
+// CORS
+function corsOptions() {  
+    var getCorsOptions = cors(corsCustomOptions());
+    
+    return getCorsOptions;
+}
+
 
 // TODO: additional error handling for other instances
 function tokenSyntaxError(err, req, res, next) {

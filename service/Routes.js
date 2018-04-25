@@ -84,8 +84,7 @@ function checkMethodName(controller) {
 }
 
 function route(uri, controller = 'default', middleware = [], method) {
-    logger.info('loading route', method);
-   
+    logger.info('loading route', method, ' at path: ', uri);
     var controllerName = checkMethodName(controller);
     var middlewares = checkMiddleware(middleware);
     var url = uri || '/'; 

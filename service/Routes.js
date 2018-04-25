@@ -17,16 +17,16 @@ var Api = ApiController;
 var VerifyPageController = require('../controller/VerifyPageController');
 var Verify = VerifyPageController;
 
-var LineController = require('../controller/LineController');
-var QuestetraController = require('../controller/QuestetraController');
+// var LineController = require('../controller/LineController');
+// var QuestetraController = require('../controller/QuestetraController');
 
 // TODO: create separate functions for these in middleware module
 var currentMiddleware = {
     expressValidator: Verify.expressValidator(),
     csrfProtection: csrfProtection,
-    setOrigin: Middleware().setOrigin,
-    checkOrigin: Middleware().checkOrigin,
-    tokenSyntaxError: Middleware().tokenSyntaxError
+    setOrigin: Middleware.setOrigin,
+    checkOrigin: Middleware.checkOrigin,
+    tokenSyntaxError: Middleware.tokenSyntaxError
 };
 
 function Routes () {

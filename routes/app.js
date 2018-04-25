@@ -15,7 +15,7 @@ connection(mongoose, connectionURL);
 Routes.use(['setOrigin', 'tokenSyntaxError']);
 
 // TODO; move corsOptions to middleware - modify use function
-Routes.use(['checkOrigin', 'tokenSyntaxError'], 'api@corsOptions', externalRoutes);
+Routes.use(['corsOptions', 'checkOrigin', 'tokenSyntaxError'], externalRoutes);
 
 // passport initialize
 passportTmj();

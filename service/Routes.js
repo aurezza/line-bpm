@@ -43,20 +43,20 @@ function getController(controllerPath, methodPassed) {
 }
 
 function checkMethodName(controller) {
-    if (controller == 'default') { 
-        return function (req, res, next) {
-            next();
-        }
-    }
-    if (controller == 'corsOptions') {
-        return Api.corsOptions();
-    }
-
     // if ((typeof controller == 'string')) {
     var controllerArray = controller.split("@");
     // }
     // var methodProp = null;
     var methodName = controllerArray[1];
+    if (controllerArray == 'default') { 
+        return function (req, res, next) {
+            next();
+        }
+    }
+    // if (controller == 'corsOptions') {
+    //     return Middleware.corsOptions;
+    // }
+
 
     // get controller
     var controllerDir = basePath + '/' + 'controller';
@@ -103,8 +103,8 @@ function post(uri, controller, middleware) {
     this.route(uri, controller, middleware, 'post');
 }
 
-function use(middleware, controller, uri) {
-    this.route(uri, controller, middleware, 'use');
+function use(middleware, uri) {
+    this.route(uri, 'default', middleware, 'use');
 }
 
 module.exports = Routes();

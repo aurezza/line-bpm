@@ -8,13 +8,11 @@ var fs = require('fs');
 var rootPath = require('path');
 var basePath = rootPath.dirname(require.main.filename);
 
-var ApiController = require('../controller/ApiController');
-var Api = ApiController;
-
 function Routes () {
     if (!(this instanceof Routes)) return new Routes();
     this.router = express.Router();
 }
+
 Routes.prototype = {
     route,
     get,
@@ -53,10 +51,6 @@ function checkMethodName(controller) {
             next();
         }
     }
-    // if (controller == 'corsOptions') {
-    //     return Middleware.corsOptions;
-    // }
-
 
     // get controller
     var controllerDir = basePath + '/' + 'controller';

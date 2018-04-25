@@ -48,4 +48,4 @@ function tokenSyntaxError(err, req, res, next) {
 }
 
 
-module.exports = RouterMiddleware;
+module.exports = new RouterMiddleware;

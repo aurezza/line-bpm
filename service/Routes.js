@@ -4,7 +4,6 @@ var express = require('express');
 var logger = require('../logger');
 var Middleware = require('../middleware/RouterMiddleware');
 
-var fs = require('fs');
 var rootPath = require('path');
 var basePath = rootPath.dirname(require.main.filename);
 
@@ -47,21 +46,12 @@ function checkMethodName(controller) {
     // }
 
     var methodName = controllerArray[1];
- 
     var controllerDir = basePath + '/' + 'controller';
     var controllerBaseName = controllerArray[0];
-    var controllerFileList = [];
-    
-    fs.readdirSync(controllerDir).forEach(function(file) {
-        var fileNameArray = file.split(".");
-        controllerFileList.push(fileNameArray[0]);
-    });
 
-    var indexOfController = controllerFileList.indexOf(controllerBaseName);
+    if (!controllerBaseName) return logger.warn(controllerBaseName, ' controller does not exist');
 
-    if (indexOfController  === -1) return logger.warn(controllerBaseName, ' controller does not exist');
-
-    var controllerBasePath = controllerDir + '/' + controllerFileList[indexOfController];
+    var controllerBasePath = controllerDir + '/' + controllerBaseName;
 
     var returnedMethod = getController(controllerBasePath, methodName);
 
@@ -71,6 +61,7 @@ function checkMethodName(controller) {
 function route(uri, controller, middleware = [], method, res) {
     if (!controller) {
         logger.warn('no controller found');
+        // TODO: add uri for error handling
         return res.status(422).send('No controller found - refer to admin');
     }  
     logger.info('loading route', method, 'at path:', uri);

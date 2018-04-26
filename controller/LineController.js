@@ -58,4 +58,4 @@ function postback(params) {
 function unfollow(params) {logger.info("unfollow event triggered");};
 function message(params) {logger.info("message event triggered");};
 
-module.exports = LineController;
+module.exports = new LineController;

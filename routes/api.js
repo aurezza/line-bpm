@@ -1,15 +1,10 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
+var Routes = require('../service/Routes');
 
-var LineController = require('../controller/LineController');
-var QuestetraController = require('../controller/QuestetraController');
+Routes.post('/receiverCancelledRequest', 'QuestetraController@receiverCancelledRequest');
+Routes.post('/receiveFromQuest', 'QuestetraController@recieveFromQuest');
 
-router.post('/receiverCancelledRequest', QuestetraController().receiverCancelledRequest);
-router.post('/receiveFromQuest', QuestetraController().recieveFromQuest);
+Routes.post('/handler', 'LineController@eventTrigger');
 
-router.post('/handler', LineController().eventTrigger);
-
-
-module.exports = router;
+module.exports = Routes.router;

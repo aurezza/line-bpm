@@ -21,31 +21,12 @@ function VerifyPageController() {
 }
 
 VerifyPageController.prototype = {
-    expressValidator,
     showPage,
     showSuccess,
     checkFormData,
     checkValidatedUserData,
     verifyUserWithLineId,
 };
-
-function expressValidator() {
-    var notEmpty = Translator().get('verify.error.mustNotBeEmpty');
-    
-    var validateInputData = [
-        check('username', notEmpty)
-            .isLength({ min: 1})
-            .trim()
-            .withMessage(notEmpty),
-
-        check('password')
-            .isLength({ min: 1})
-            .trim().withMessage(notEmpty),
-    ];
-
-    return validateInputData;
-}
-
 
 function showPage (req, res) {
     
@@ -94,6 +75,7 @@ function showPage (req, res) {
 }
 
 function showSuccess (req, res) {
+    logger.info('loading success page...')
     var self = this;
     res.render('success', RenderPage().successForm.call(self));
 }
@@ -234,4 +216,4 @@ function verifyUserWithLineId(employeeDetails, res, lineID) {
 }
 
 
-module.exports = VerifyPageController;
+module.exports = new VerifyPageController;
